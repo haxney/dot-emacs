@@ -42,6 +42,7 @@
 (require 'pabbrev)
 (global-pabbrev-mode)
 ; do we need to disable it in term mode?
+; make change for psvn test
 
 ; don't clutter directories!
 (setq backup-directory-alist `(("." . ,(expand-file-name "~/.emacs.d/baks"))))
