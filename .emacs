@@ -3,8 +3,21 @@
 ; Set good font!
 (set-frame-font "-Adobe-Courier-Medium-R-Normal--17-120-100-100-M-100-ISO8859-1")
 
-; Don't wrap lines, truncate them instead
+; Line numbers
+(line-number-mode 1)
+(column-number-mode 1)
+
+; tramp -- for remote access of files, ssh preferred access method
+(require 'tramp)
+(setq tramp-default-method "ssh")
+
+; psvn -- Emacs interface for subversion
+(require 'psvn)
+
+; Don't wrap lines, truncate them instead, but not for term mode
 (setq-default truncate-lines t)
+(add-hook 'term-mode-hook
+	  '(lambda () (setq truncate-lines nil)))
 
 ; syntax highlighting by default (needs to be done before ruby-electric)
 (load "font-lock")
@@ -28,6 +41,7 @@
 ;; Load Pabbrev
 (require 'pabbrev)
 (global-pabbrev-mode)
+; do we need to disable it in term mode?
 
 ; don't clutter directories!
 (setq backup-directory-alist `(("." . ,(expand-file-name "~/.emacs.d/baks"))))
