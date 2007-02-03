@@ -8,8 +8,9 @@
 (column-number-mode 1)
 
 ; tramp -- for remote access of files, ssh preferred access method
-(require 'tramp)
-(setq tramp-default-method "ssh")
+; since the cslab computers don't have it, let's not use tramp for now
+; (require 'tramp)
+; (setq tramp-default-method "ssh")
 
 ; psvn -- Emacs interface for subversion
 (require 'psvn)
@@ -27,7 +28,7 @@
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 
 ; load mmm-mode rails support
-(load "~/.emacs.d/mmm-mode_init")
+;(load "~/.emacs.d/mmm-mode_init")
 
 ; Ruby help
 (require 'ruby-electric)
