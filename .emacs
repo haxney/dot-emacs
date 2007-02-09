@@ -8,6 +8,9 @@
 (line-number-mode 1)
 (column-number-mode 1)
 
+; Fill column width
+(setq-default fill-column 80)
+
 ; tramp -- for remote access of files, ssh preferred access method
 ; since the cslab computers don't have it, let's not use tramp for now
 ; (require 'tramp)
