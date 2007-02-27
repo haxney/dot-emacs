@@ -1,4 +1,4 @@
-
+(require 'planner)
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
 ; Set good font!
@@ -27,6 +27,9 @@
 ; syntax highlighting by default (needs to be done before ruby-electric)
 (load "font-lock")
 (global-font-lock-mode)
+
+; Turn on auto-fill
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ; .rhtml loads html
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
@@ -72,20 +75,35 @@
 ;                               (local-set-key 'f4 'ri-ruby-show-args)
                                ))
 
-
-
 ; CSS mode
 (require 'css-mode)
-(custom-set-variables
-  ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
-  ;; Your init file should contain only one such instance.
- '(case-fold-search t)
- '(current-language-environment "UTF-8")
- '(default-input-method "rfc1345")
- '(global-font-lock-mode t nil (font-lock))
- '(show-paren-mode t nil (paren))
- '(transient-mark-mode t))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
-  ;; Your init file should contain only one such instance.
- )
+
+;; Planner
+(setq planner-project "Journal of Hax")
+
+(setq muse-project-alist
+      '(("Journal of Hax"
+	 ("~/Journal"           ;; where your Planner pages are located
+	  :default "Index"      ;; use value of `planner-default-page'
+	  :major-mode planner-mode
+	  :visit-link planner-visit-link)
+
+	 ;; This next part is for specifying where Planner pages
+	 ;; should be published and what Muse publishing style to
+	 ;; use.  In this example, we will use the XHTML publishing
+	 ;; style.
+
+	 (:base "planner-xhtml"
+		;; where files are published to
+		;; (the value of `planner-publishing-directory', if
+		;;  you have a configuration for an older version
+		;;  of Planner)
+		:path "~/Journal/html"))))
+
+(require 'planner-publish)
+
+(setq planner-day-page-template "#title Journal Entry for
+\nWake: Up: \n\n** Events\n\n** Thoughts")
+
+; Run planner on startup
+(plan)
