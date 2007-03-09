@@ -11,6 +11,23 @@
 ; Fill column width
 (setq-default fill-column 80)
 
+(custom-set-variables
+  ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
+  ;; Your init file should contain only one such instance.
+ '(case-fold-search t)
+ '(current-language-environment "UTF-8")
+ '(default-input-method "rfc1345")
+ '(global-font-lock-mode t nil (font-lock))
+ '(show-paren-mode t nil (paren))
+ '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
+ '(transient-mark-mode t)
+ '(truncate-lines t))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
+  ;; Your init file should contain only one such instance.
+ )
+
+
 ; tramp -- for remote access of files, ssh preferred access method
 ; since the cslab computers don't have it, let's not use tramp for now
 ; (require 'tramp)
@@ -23,6 +40,8 @@
 (setq-default truncate-lines t)
 (add-hook 'term-mode-hook
 	  '(lambda () (setq truncate-lines nil)))
+
+
 
 ; syntax highlighting by default (needs to be done before ruby-electric)
 (load "font-lock")
@@ -103,7 +122,7 @@
 (require 'planner-publish)
 
 (setq planner-day-page-template "#title Journal Entry for
-\nWake: Up: \n\n** Events\n\n** Thoughts")
+\n* Tasks\n\n\nWake: Up: \n\n* Events\n\n* Thoughts")
 
 ; Run planner on startup
 (plan)
