@@ -17,7 +17,6 @@
  '(case-fold-search t)
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
- '(global-font-lock-mode t nil (font-lock))
  '(show-paren-mode t nil (paren))
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
  '(transient-mark-mode t)
@@ -121,8 +120,20 @@
 
 (require 'planner-publish)
 
+;; Include remember
+(require 'remember-planner)
+(setq remember-handler-functions '(remember-planner-append))
+(setq remember-annotation-functions planner-annotation-functions)
+
+;; Bind remember to C-c C-r
+(global-unset-key (kbd "C-c C-n"))
+(global-set-key (kbd "C-c C-n") 'remember)
+
 (setq planner-day-page-template "#title Journal Entry for
 \n* Tasks\n\n\nWake: Up: \n\n* Events\n\n* Thoughts")
 
 ; Run planner on startup
 (plan)
+
+; Require xcscope
+(require 'xcscope)
