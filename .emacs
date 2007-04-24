@@ -2,7 +2,7 @@
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
 ; Set good font!
-(set-frame-font "-Adobe-Courier-Medium-R-Normal--17-120-100-100-M-100-ISO8859-1")
+(set-frame-font "-*-Courier-Medium-R-Normal--14-*-*-*-M-*-*")
 
 ; Line numbers
 (line-number-mode 1)
@@ -20,6 +20,7 @@
  '(show-paren-mode t nil (paren))
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
  '(transient-mark-mode t)
+ '(load-home-init-file t t)
  '(truncate-lines t))
 (custom-set-faces
   ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
