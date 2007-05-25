@@ -133,7 +133,7 @@
 (add-hook 'planner-mode-hook 'flyspell-mode)
 
 (setq planner-day-page-template "#title Journal Entry for
-\n* Tasks\n\n\nWake: Up: \n\n* Events\n\n* Thoughts")
+\n* Tasks\n\n\nWake: Up: \n\n* Events\n")
 
 ; Run planner on startup
 (plan)
