@@ -18,6 +18,7 @@
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
  '(show-paren-mode t nil (paren))
+ '(planner-reverse-chronological-notes nil)
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
  '(transient-mark-mode t)
  '(load-home-init-file t t)
