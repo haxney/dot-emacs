@@ -17,6 +17,8 @@
  '(case-fold-search t)
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
+ '(jde-jdk-registry (quote (("1.6.0" . "/usr/lib/jvm/java-6-sun/jre/bin/java"))))
+ '(load-home-init-file t t)
  '(show-paren-mode t nil (paren))
  '(planner-reverse-chronological-notes nil)
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
@@ -26,7 +28,8 @@
 (custom-set-faces
   ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
   ;; Your init file should contain only one such instance.
- )
+ '(flyspell-duplicate-face ((((class color)) (:foreground "Gold3" :underline t :weight bold))))
+ '(flyspell-incorrect-face ((((class color)) (:foreground "magenta" :underline t :weight bold)))))
 
 
 ; tramp -- for remote access of files, ssh preferred access method
@@ -141,3 +144,6 @@
 
 ; Cscope maintains information about C programs.
 (require 'xcscope)
+
+; Fix jde overlay
+(require 'overlay-fix)
