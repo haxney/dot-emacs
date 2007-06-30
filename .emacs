@@ -17,16 +17,18 @@
  '(case-fold-search t)
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
+ '(jde-ant-enable-find t)
+ '(jde-ant-read-target t)
+ '(jde-build-function (quote (jde-ant-build)))
  '(jde-complete-function (quote jde-complete-minibuf))
  '(jde-complete-unique-method-names nil)
  '(jde-jdk (quote ("1.5")))
  '(jde-jdk-registry (quote (("1.5" . "/usr/lib/jvm/java-6-sun/"))))
  '(load-home-init-file t t)
- '(show-paren-mode t nil (paren))
  '(planner-reverse-chronological-notes nil)
+ '(show-paren-mode t nil (paren))
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
  '(transient-mark-mode t)
- '(load-home-init-file t t)
  '(truncate-lines t))
 (custom-set-faces
   ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
@@ -41,7 +43,7 @@
 ; (setq tramp-default-method "ssh")
 
 ; psvn -- Emacs interface for subversion
-;(require 'psvn)
+(require 'psvn)
 
 ; Don't wrap lines, truncate them instead, but not for term mode
 (setq-default truncate-lines t)
