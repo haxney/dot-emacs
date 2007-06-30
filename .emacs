@@ -41,7 +41,7 @@
 ; (setq tramp-default-method "ssh")
 
 ; psvn -- Emacs interface for subversion
-(require 'psvn)
+;(require 'psvn)
 
 ; Don't wrap lines, truncate them instead, but not for term mode
 (setq-default truncate-lines t)
