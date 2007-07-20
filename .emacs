@@ -25,6 +25,7 @@
  '(jde-jdk (quote ("1.5")))
  '(jde-jdk-registry (quote (("1.5" . "/usr/lib/jvm/java-6-sun/"))))
  '(load-home-init-file t t)
+ '(nxml-slash-auto-complete-flag t)
  '(planner-reverse-chronological-notes nil)
  '(show-paren-mode t nil (paren))
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
@@ -152,3 +153,13 @@
 
 ; Fix jde overlay
 (require 'overlay-fix)
+
+;; ----- nXML
+
+; Add new schemas to nXML
+(push "~/.emacs.d/schemas/schemas.xml" rng-schema-locating-files-default)
+
+; Spelling in nXML
+(add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
+
+;; ---- Dot-Mode
