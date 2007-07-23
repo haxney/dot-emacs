@@ -81,8 +81,12 @@
 ; do we need to disable it in term mode?
 
 ; don't clutter directories!
-(setq backup-directory-alist `(("." . ,(expand-file-name "~/.emacs.d/baks"))))
-(setq auto-save-directory (expand-file-name "~/.emacs.d/baks"))
+;(setq backup-directory-alist `(("." . ,(expand-file-name "~/.emacs.d/baks"))))
+(setq auto-save-directory (expand-file-name "~/.emacs.d/autosave"))
+
+; create a backup file directory
+(defun make-backup-file-name (file)
+(concat "~/.emacs.d/baks/" (file-name-nondirectory file) "~"))
 
 ;; for the  Ruby interpreter:
 (autoload 'run-ruby "inf-ruby"
@@ -162,4 +166,20 @@
 ; Spelling in nXML
 (add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
 
-;; ---- Dot-Mode
+;; ---- Remove bad Gui settings.
+
+;; Remove menu and toolbar
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
+; Set F5 to replay last macro
+(global-set-key [f5] 'call-last-kbd-macro)
+
+;; ---- key rebindings
+
+; Rebind M-x to C-x C-m
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+
+; Set C-w to backward kill word and remap existing C-w to C-x C-k
+(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
