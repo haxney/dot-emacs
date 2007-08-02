@@ -183,3 +183,5 @@
 ; Set C-w to backward kill word and remap existing C-w to C-x C-k
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
+
+(global-set-key "\C-c\C-v\C-c" 'compile)
