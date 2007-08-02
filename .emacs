@@ -1,4 +1,3 @@
-(require 'planner)
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
 ; Set good font!
@@ -37,7 +36,6 @@
   ;; Your init file should contain only one such instance.
  '(flyspell-duplicate-face ((((class color)) (:foreground "Gold3" :underline t :weight bold))))
  '(flyspell-incorrect-face ((((class color)) (:foreground "magenta" :underline t :weight bold)))))
-
 
 ; tramp -- for remote access of files, ssh preferred access method
 ; since the cslab computers don't have it, let's not use tramp for now
@@ -112,60 +110,11 @@
 ; CSS mode
 (require 'css-mode)
 
-;; Planner
-(setq planner-project "Journal of Hax")
-
-(setq muse-project-alist
-      '(("Journal of Hax"
-	 ("~/Journal"           ;; where your Planner pages are located
-	  :default "Index"      ;; use value of `planner-default-page'
-	  :major-mode planner-mode
-	  :visit-link planner-visit-link)
-
-	 ;; This next part is for specifying where Planner pages
-	 ;; should be published and what Muse publishing style to
-	 ;; use.  In this example, we will use the XHTML publishing
-	 ;; style.
-
-	 (:base "planner-xhtml"
-		;; where files are published to
-		;; (the value of `planner-publishing-directory', if
-		;;  you have a configuration for an older version
-		;;  of Planner)
-		:path "~/Journal/html"))))
-
-(require 'planner-publish)
-
-;; Include remember
-(require 'remember-planner)
-(setq remember-handler-functions '(remember-planner-append))
-(setq remember-annotation-functions planner-annotation-functions)
-
-;; Bind remember to C-c C-r
-(global-unset-key (kbd "C-c C-n"))
-(global-set-key (kbd "C-c C-n") 'remember)
-
-(add-hook 'planner-mode-hook 'flyspell-mode)
-
-(setq planner-day-page-template "#title Journal Entry for
-\n* Tasks\n\n\nWake: Up: \n\n* Events\n")
-
-; Run planner on startup
-(plan)
-
 ; Cscope maintains information about C programs.
 (require 'xcscope)
 
 ; Fix jde overlay
 (require 'overlay-fix)
-
-;; ----- nXML
-
-; Add new schemas to nXML
-(push "~/.emacs.d/schemas/schemas.xml" rng-schema-locating-files-default)
-
-; Spelling in nXML
-(add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
 
 ;; ---- Remove bad Gui settings.
 
