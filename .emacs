@@ -15,6 +15,7 @@
   ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
   ;; Your init file should contain only one such instance.
  '(case-fold-search t)
+ '(confirm-kill-emacs (quote yes-or-no-p))
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
  '(jde-ant-enable-find t)
