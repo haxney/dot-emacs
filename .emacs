@@ -186,3 +186,9 @@
 (global-set-key "\C-x\C-k" 'kill-region)
 
 (global-set-key "\C-c\C-v\C-c" 'compile)
+
+;; Place semantic.cache files somewhere central
+(setq semanticdb-default-save-directory "~/.emacs.d/semantic-cache")
+
+;; Speedbar settings
+(global-set-key "\C-co" 'speedbar-get-focus)
