@@ -2,7 +2,7 @@
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
 ; Set good font!
-(set-frame-font "-*-Courier-Medium-R-Normal--14-*-*-*-M-*-*")
+;(set-frame-font "-*-Courier-Medium-R-Normal--14-*-*-*-M-*-*")
 
 ; Line numbers
 (line-number-mode 1)
