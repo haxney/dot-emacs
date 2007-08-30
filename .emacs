@@ -1,7 +1,7 @@
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
 ; Set good font!
-(set-frame-font "-*-Courier-Medium-R-Normal--14-*-*-*-M-*-*")
+;(set-frame-font "-*-Courier-Medium-R-Normal--14-*-*-*-M-*-*")
 
 ; Line numbers
 (line-number-mode 1)
@@ -135,3 +135,9 @@
 (global-set-key "\C-x\C-k" 'kill-region)
 
 (global-set-key "\C-c\C-v\C-c" 'compile)
+
+;; Place semantic.cache files somewhere central
+(setq semanticdb-default-save-directory "~/.emacs.d/semantic-cache")
+
+;; Speedbar settings
+(global-set-key "\C-co" 'speedbar-get-focus)
