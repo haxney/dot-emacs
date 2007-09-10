@@ -202,3 +202,6 @@
 
 ;; Quack - for Scheme mode
 (require 'quack)
+
+;; ---- Tab settings
+(setq-default tab-width 4 indent-tabs-mode nil)
