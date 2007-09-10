@@ -28,6 +28,9 @@
  '(load-home-init-file t t)
  '(nxml-slash-auto-complete-flag t)
  '(planner-reverse-chronological-notes nil)
+ '(quack-pretty-lambda-p nil)
+ '(quack-run-scheme-always-prompts-p nil)
+ '(quack-smart-open-paren-p nil)
  '(show-paren-mode t nil (paren))
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
  '(transient-mark-mode t)
@@ -51,8 +54,6 @@
 (setq-default truncate-lines t)
 (add-hook 'term-mode-hook
 	  '(lambda () (setq truncate-lines nil)))
-
-
 
 ; syntax highlighting by default (needs to be done before ruby-electric)
 (load "font-lock")
@@ -147,8 +148,14 @@
 
 (add-hook 'planner-mode-hook 'flyspell-mode)
 
-(setq planner-day-page-template "#title Journal Entry for
-\n* Tasks\n\n\nWake: Up: \n\n* Events\n")
+; Set up planner template
+(defun dhackney/planner-daily-template ()
+  "Build a new daily planner page."
+  (insert (concat "#title Journal Entry for "
+	  (format-time-string "%A, %B %e, %Y")
+	  "\n* Tasks\n\n\nWake: Up: \n\n* Events\n")))
+
+(setq planner-day-page-template 'dhackney/planner-daily-template)
 
 ; Run planner on startup
 (plan)
@@ -192,3 +199,6 @@
 
 ;; Speedbar settings
 (global-set-key "\C-co" 'speedbar-get-focus)
+
+;; Quack - for Scheme mode
+(require 'quack)
