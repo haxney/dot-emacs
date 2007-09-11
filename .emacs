@@ -18,11 +18,13 @@
  '(confirm-kill-emacs (quote yes-or-no-p))
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
+ '(git-append-signed-off-by t)
  '(jde-ant-enable-find t)
  '(jde-ant-read-target t)
  '(jde-build-function (quote (jde-ant-build)))
  '(jde-complete-function (quote jde-complete-minibuf))
  '(jde-complete-unique-method-names nil)
+ '(jde-enable-abbrev-mode t)
  '(jde-jdk (quote ("1.5")))
  '(jde-jdk-registry (quote (("1.5" . "/usr/lib/jvm/java-6-sun/"))))
  '(load-home-init-file t t)
@@ -205,3 +207,6 @@
 
 ;; ---- Tab settings
 (setq-default tab-width 4 indent-tabs-mode nil)
+
+;; ---- Git mode
+(require 'git)
