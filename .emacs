@@ -212,3 +212,6 @@
 
 ;; ---- Git mode
 (require 'git)
+
+;; ---- Dot mode
+(load "graphviz-dot-mode.el")
