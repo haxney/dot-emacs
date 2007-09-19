@@ -33,6 +33,8 @@
  '(quack-pretty-lambda-p nil)
  '(quack-run-scheme-always-prompts-p nil)
  '(quack-smart-open-paren-p nil)
+ '(quack-default-program "mzscheme -g")
+ '(quack-global-menu-p nil)
  '(show-paren-mode t nil (paren))
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
  '(transient-mark-mode t)
