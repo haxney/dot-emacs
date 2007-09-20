@@ -159,7 +159,7 @@
   "Build a new daily planner page."
   (insert (concat "#title Journal Entry for "
 	  (format-time-string "%A, %B %e, %Y")
-	  "\n* Tasks\n\n\nWake: Up: \n\n* Events\n")))
+	  "\n\n* Tasks\n\n\nWake: Up: \n\n* Events\n")))
 
 (setq planner-day-page-template 'dhackney/planner-daily-template)
 
