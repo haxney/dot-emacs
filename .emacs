@@ -50,8 +50,8 @@
 
 ; tramp -- for remote access of files, ssh preferred access method
 ; since the cslab computers don't have it, let's not use tramp for now
-; (require 'tramp)
-; (setq tramp-default-method "ssh")
+(require 'tramp)
+(setq tramp-default-method "ssh")
 
 ; psvn -- Emacs interface for subversion
 (require 'psvn)
