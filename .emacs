@@ -29,12 +29,14 @@
  '(jde-jdk-registry (quote (("1.5" . "/usr/lib/jvm/java-6-sun/"))))
  '(load-home-init-file t t)
  '(nxml-slash-auto-complete-flag t)
+ '(pgg-cache-passphrase nil)
+ '(pgg-default-user-id "A016D1D6")
  '(planner-reverse-chronological-notes nil)
+ '(quack-default-program "mzscheme -g")
+ '(quack-global-menu-p nil)
  '(quack-pretty-lambda-p nil)
  '(quack-run-scheme-always-prompts-p nil)
  '(quack-smart-open-paren-p nil)
- '(quack-default-program "mzscheme -g")
- '(quack-global-menu-p nil)
  '(show-paren-mode t nil (paren))
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
  '(transient-mark-mode t)
@@ -215,3 +217,19 @@
 
 ;; ---- Dot mode
 (load "graphviz-dot-mode.el")
+
+;; ---- PGG (encryption) keys
+
+(require 'pgg)
+
+(defun dhackney/pgg-encrypt-sign (rcpts &optional sign start end passphrase)
+  "Sign and encrypt the buffer."
+  (interactive (list (split-string (read-string "Recipients: ") "[ \t,]+") t))
+  (let* ((start (or start (point-min)))
+	 (end (or end (point-max)))
+	 (status (pgg-encrypt-region start end rcpts sign passphrase)))
+    (when (interactive-p)
+      (pgg-display-output-buffer start end status))
+    status))
+
+(global-set-key (kbd "C-c / e") 'dhackney/pgg-encrypt-sign)
