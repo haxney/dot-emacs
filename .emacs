@@ -1,19 +1,25 @@
 (require 'planner)
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
-; Set good font!
-;(set-frame-font "-*-Courier-Medium-R-Normal--14-*-*-*-M-*-*")
+;; ---- Remove bad Gui settings.
 
-; Line numbers
+;; Remove menu and toolbar
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
+;; Set good font!
+;;(set-frame-font "-*-Courier-Medium-R-Normal--14-*-*-*-M-*-*")
+
+;; Line numbers
 (line-number-mode 1)
 (column-number-mode 1)
 
-; Fill column width
+;; Fill column width
 (setq-default fill-column 80)
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
-  ;; Your init file should contain only one such instance.
+ ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
+ ;; Your init file should contain only one such instance.
  '(LaTeX-command "latex -shell-escape")
  '(case-fold-search t)
  '(confirm-kill-emacs (quote yes-or-no-p))
@@ -43,40 +49,40 @@
  '(transient-mark-mode t)
  '(truncate-lines t))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
-  ;; Your init file should contain only one such instance.
+ ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
+ ;; Your init file should contain only one such instance.
  '(diff-added-face ((t (:inherit diff-changed-face :background "Green"))))
  '(diff-removed-face ((t (:inherit diff-changed-face :background "red"))))
  '(flyspell-duplicate-face ((((class color)) (:foreground "Gold3" :underline t :weight bold))))
  '(flyspell-incorrect-face ((((class color)) (:foreground "magenta" :underline t :weight bold)))))
 
 
-; tramp -- for remote access of files, ssh preferred access method
+;; tramp -- for remote access of files, ssh preferred access method
 (require 'tramp)
 (setq tramp-default-method "ssh")
 
-; psvn -- Emacs interface for subversion
+;; psvn -- Emacs interface for subversion
 (autoload 'svn-status "psvn" "svn-status mode" t)
 
-; Don't wrap lines, truncate them instead, but not for term mode
+;; Don't wrap lines, truncate them instead, but not for term mode
 (setq-default truncate-lines t)
 (add-hook 'term-mode-hook
-	  '(lambda () (setq truncate-lines nil)))
+          '(lambda () (setq truncate-lines nil)))
 
-; syntax highlighting by default (needs to be done before ruby-electric)
+;; syntax highlighting by default (needs to be done before ruby-electric)
 (load "font-lock")
 (global-font-lock-mode)
 
-; Turn on auto-fill
+;; Turn on auto-fill
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-; .rhtml loads html
+;; .rhtml loads html
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 
-; load mmm-mode rails support
-;(load "~/.emacs.d/mmm-mode_init")
+;; load mmm-mode rails support
+;;(load "~/.emacs.d/mmm-mode_init")
 
-; Ruby help
+;; Ruby help
 (autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 
@@ -85,37 +91,39 @@
 ;; Load Pabbrev
 (require 'pabbrev)
 (global-pabbrev-mode)
-; do we need to disable it in term mode?
+;; do we need to disable it in term mode?
 
-; don't clutter directories!
-;(setq backup-directory-alist `(("." . ,(expand-file-name "~/.emacs.d/baks"))))
+;; don't clutter directories!
+;;(setq backup-directory-alist `(("." . ,(expand-file-name "~/.emacs.d/baks"))))
 (setq auto-save-directory (expand-file-name "~/.emacs.d/autosave"))
 
-; create a backup file directory
+;; create a backup file directory
 (defun make-backup-file-name (file)
-(concat "~/.emacs.d/baks/" (file-name-nondirectory file) "~"))
+  (concat "~/.emacs.d/baks/" (file-name-nondirectory file) "~"))
 
 ;; for the  Ruby interpreter:
 (autoload 'run-ruby "inf-ruby"
   "Run an inferior Ruby process")
+
 (autoload 'inf-ruby-keys "inf-ruby"
   "Set local key defs for inf-ruby in ruby-mode")
-(add-hook 'ruby-mode-hook
-      '(lambda ()
-         (inf-ruby-keys)
-))
 
-; Ri-Emacs support
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             (inf-ruby-keys)
+             ))
+
+;; Ri-Emacs support
 (setq ri-ruby-script "~/.elisp/ri-emacs.rb")
 (autoload 'ri "~/.elisp/ri-ruby.el" nil t)
 
 (add-hook 'ruby-mode-hook (lambda ()
-;                               (local-set-key 'f3 'ri)
-                               (local-set-key "\M-\C-i" 'ri-ruby-complete-symbol)
-;                               (local-set-key 'f4 'ri-ruby-show-args)
-                               ))
+                            ;; (local-set-key 'f3 'ri)
+                            (local-set-key "\M-\C-i" 'ri-ruby-complete-symbol)
+                            ;; (local-set-key 'f4 'ri-ruby-show-args)
+                            ))
 
-; CSS mode
+;; CSS mode
 (autoload 'css-mode "css-mode" "Enter CSS-mode." t)
 (setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
 
@@ -124,27 +132,27 @@
 
 (setq muse-project-alist
       '(("Journal of Hax"
-	 ("~/Journal"           ;; where your Planner pages are located
-	  :default "Index"      ;; use value of `planner-default-page'
-	  :major-mode planner-mode
-	  :visit-link planner-visit-link)
+         ("~/Journal" ;; where your Planner pages are located
+          :default "Index" ;; use value of `planner-default-page'
+          :major-mode planner-mode
+          :visit-link planner-visit-link)
 
-	 ;; This next part is for specifying where Planner pages
-	 ;; should be published and what Muse publishing style to
-	 ;; use.  In this example, we will use the XHTML publishing
-	 ;; style.
+         ;; This next part is for specifying where Planner pages
+         ;; should be published and what Muse publishing style to
+         ;; use.  In this example, we will use the XHTML publishing
+         ;; style.
 
-	 (:base "planner-xhtml"
-		;; where files are published to
-		;; (the value of `planner-publishing-directory', if
-		;;  you have a configuration for an older version
-		;;  of Planner)
-		:path "~/Journal/html"))))
+         (:base "planner-xhtml"
+                ;; where files are published to
+                ;; (the value of `planner-publishing-directory', if
+                ;;  you have a configuration for an older version
+                ;;  of Planner)
+                :path "~/Journal/html"))))
 
-(require 'planner-publish)
+(autoload 'muse-project-publish "planner-publish" "Publish planner project" t)
 
 ;; Include remember
-(require 'remember-planner)
+(autoload 'remeber "remember-planner" "Remember mode" t)
 (setq remember-handler-functions '(remember-planner-append))
 (setq remember-annotation-functions planner-annotation-functions)
 
@@ -154,50 +162,45 @@
 
 (add-hook 'planner-mode-hook 'flyspell-mode)
 
-; Set up planner template
+;; Set up planner template
 (defun dhackney/planner-daily-template ()
   "Build a new daily planner page."
   (insert (concat "#title Journal Entry for "
-	  (format-time-string "%A, %B %e, %Y")
-	  "\n\n* Tasks\n\n\nWake: Up: \n\n* Events\n")))
+                  (format-time-string "%A, %B %e, %Y")
+                  "\n\n* Tasks\n\n\nWake: Up: \n\n* Events\n")))
 
 (setq planner-day-page-template 'dhackney/planner-daily-template)
 
-; Run planner on startup
+;; Run planner on startup
 (plan)
 
-; Cscope maintains information about C programs.
-(require 'xcscope)
+;; Cscope maintains information about C programs.
+(autoload 'c-mode "xcscope" "Cscope for C" t)
 
-; Fix jde overlay
+;; Fix jde overlay
 (require 'overlay-fix)
 
 ;; ----- nXML
 
-; Add new schemas to nXML
+;; Add new schemas to nXML
 (push "~/.emacs.d/schemas/schemas.xml" rng-schema-locating-files-default)
 
-; Spelling in nXML
+;; Spelling in nXML
 (add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
 
-;; ---- Remove bad Gui settings.
-
-;; Remove menu and toolbar
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-
-; Set F5 to replay last macro
+;; Set F5 to replay last macro
 (global-set-key [f5] 'call-last-kbd-macro)
 
 ;; ---- key rebindings
 
-; Rebind M-x to C-x C-m
+;; Rebind M-x to C-x C-m
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 
-; Set C-w to backward kill word and remap existing C-w to C-x C-k
+;; Set C-w to backward kill word and remap existing C-w to C-x C-k
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
 
+;; Globally set C-c C-v C-c to compile.
 (global-set-key "\C-c\C-v\C-c" 'compile)
 
 ;; Place semantic.cache files somewhere central
@@ -229,8 +232,8 @@
   "Sign and encrypt the buffer."
   (interactive (list (split-string (read-string "Recipients: ") "[ \t,]+") t))
   (let* ((start (or start (point-min)))
-	 (end (or end (point-max)))
-	 (status (pgg-encrypt-region start end rcpts sign passphrase)))
+         (end (or end (point-max)))
+         (status (pgg-encrypt-region start end rcpts sign passphrase)))
     (when (interactive-p)
       (pgg-display-output-buffer start end status))
     status))
@@ -238,6 +241,6 @@
 (global-set-key (kbd "C-c / e") 'dhackney/pgg-encrypt-sign)
 
 ;; ---- Gri-mode
-; Load on demand rather than at initialization.
+;; Load on demand rather than at initialization.
 (autoload 'gri-mode "gri-mode" "Enter Gri-mode." t)
 (setq auto-mode-alist (cons '("\\.gri$" . gri-mode) auto-mode-alist))
