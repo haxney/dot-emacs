@@ -80,11 +80,7 @@
 (autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 
-(defun my-ruby-mode-hook ()
-  (ruby-electric-mode)
-  (font-lock-mode)
-  (pabbrev-mode))
-(add-hook 'ruby-mode-hook 'my-ruby-mode-hook)
+(add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 ;; Load Pabbrev
 (require 'pabbrev)
