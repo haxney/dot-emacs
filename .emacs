@@ -245,3 +245,8 @@
 ;; Load on demand rather than at initialization.
 (autoload 'gri-mode "gri-mode" "Enter Gri-mode." t)
 (setq auto-mode-alist (cons '("\\.gri$" . gri-mode) auto-mode-alist))
+
+;; ---- redo
+
+(require 'redo)
+(global-set-key (kbd "M-/") 'redo)
