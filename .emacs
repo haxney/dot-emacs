@@ -14,6 +14,7 @@
 (custom-set-variables
   ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
   ;; Your init file should contain only one such instance.
+ '(LaTeX-command "latex -shell-escape")
  '(case-fold-search t)
  '(confirm-kill-emacs (quote yes-or-no-p))
  '(current-language-environment "UTF-8")
@@ -44,6 +45,8 @@
 (custom-set-faces
   ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
   ;; Your init file should contain only one such instance.
+ '(diff-added-face ((t (:inherit diff-changed-face :background "Green"))))
+ '(diff-removed-face ((t (:inherit diff-changed-face :background "red"))))
  '(flyspell-duplicate-face ((((class color)) (:foreground "Gold3" :underline t :weight bold))))
  '(flyspell-incorrect-face ((((class color)) (:foreground "magenta" :underline t :weight bold)))))
 
@@ -213,13 +216,13 @@
 (setq-default tab-width 4 indent-tabs-mode nil)
 
 ;; ---- Git mode
+
 (require 'git)
 
 ;; ---- Dot mode
 (load "graphviz-dot-mode.el")
 
 ;; ---- PGG (encryption) keys
-
 (require 'pgg)
 
 (defun dhackney/pgg-encrypt-sign (rcpts &optional sign start end passphrase)
@@ -233,3 +236,8 @@
     status))
 
 (global-set-key (kbd "C-c / e") 'dhackney/pgg-encrypt-sign)
+
+;; ---- Gri-mode
+; Load on demand rather than at initialization.
+(autoload 'gri-mode "gri-mode" "Enter Gri-mode." t)
+(setq auto-mode-alist (cons '("\\.gri$" . gri-mode) auto-mode-alist))
