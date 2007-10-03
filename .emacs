@@ -52,12 +52,11 @@
 
 
 ; tramp -- for remote access of files, ssh preferred access method
-; since the cslab computers don't have it, let's not use tramp for now
 (require 'tramp)
 (setq tramp-default-method "ssh")
 
 ; psvn -- Emacs interface for subversion
-(require 'psvn)
+(autoload 'svn-status "psvn" "svn-status mode" t)
 
 ; Don't wrap lines, truncate them instead, but not for term mode
 (setq-default truncate-lines t)
@@ -78,8 +77,9 @@
 ;(load "~/.emacs.d/mmm-mode_init")
 
 ; Ruby help
-(require 'ruby-electric)
+(autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+
 (defun my-ruby-mode-hook ()
   (ruby-electric-mode)
   (font-lock-mode)
@@ -120,7 +120,8 @@
                                ))
 
 ; CSS mode
-(require 'css-mode)
+(autoload 'css-mode "css-mode" "Enter CSS-mode." t)
+(setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
 
 ;; Planner
 (setq planner-project "Journal of Hax")
@@ -210,20 +211,23 @@
 (global-set-key "\C-co" 'speedbar-get-focus)
 
 ;; Quack - for Scheme mode
-(require 'quack)
+(autoload 'scheme-mode "quack" "Enter scheme-mode." t)
+(setq auto-mode-alist (append '(("\\.ss$" . scheme-mode)
+                                ("\\.scm$" . scheme-mode))
+                              auto-mode-alist))
 
 ;; ---- Tab settings
 (setq-default tab-width 4 indent-tabs-mode nil)
 
 ;; ---- Git mode
-
-(require 'git)
+(autoload 'git-status "git" "Enter git-status mode" t)
 
 ;; ---- Dot mode
-(load "graphviz-dot-mode.el")
+(autoload 'graphviz-dot-mode "graphviz-dot-mode" "Enter graphviz-dot-mode." t)
+(setq auto-mode-alist (cons '("\\.dot$" . graphviz-dot-mode) auto-mode-alist))
 
 ;; ---- PGG (encryption) keys
-(require 'pgg)
+(autoload 'pgg-invoke "pgg" "Use a PGG command")
 
 (defun dhackney/pgg-encrypt-sign (rcpts &optional sign start end passphrase)
   "Sign and encrypt the buffer."
