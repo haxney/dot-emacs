@@ -1,4 +1,3 @@
-(require 'planner)
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
 ;; ---- Remove bad Gui settings.
@@ -70,7 +69,7 @@
           '(lambda () (setq truncate-lines nil)))
 
 ;; syntax highlighting by default (needs to be done before ruby-electric)
-(load "font-lock")
+(require 'font-lock)
 (global-font-lock-mode)
 
 ;; Turn on auto-fill
@@ -83,6 +82,7 @@
 ;;(load "~/.emacs.d/mmm-mode_init")
 
 ;; Ruby help
+(autoload 'ruby-mode "ruby-mode" "Ruby edit mode" t)
 (autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 
@@ -128,6 +128,7 @@
 (setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
 
 ;; Planner
+(require 'planner)
 (setq planner-project "Journal of Hax")
 
 (setq muse-project-alist
