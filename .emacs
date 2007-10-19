@@ -52,11 +52,6 @@
  '(flyspell-duplicate-face ((((class color)) (:foreground "Gold3" :underline t :weight bold))))
  '(flyspell-incorrect-face ((((class color)) (:foreground "magenta" :underline t :weight bold)))))
 
-
-;; tramp -- for remote access of files, ssh preferred access method
-(require 'tramp)
-(setq tramp-default-method "ssh")
-
 ;; psvn -- Emacs interface for subversion
 (autoload 'svn-status "psvn" "svn-status mode" t)
 
@@ -66,7 +61,8 @@
           '(lambda () (setq truncate-lines nil)))
 
 ;; Turn on auto-fill
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
+;; Probably redundant, since we have it in customize
+;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; .rhtml loads html
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
@@ -244,5 +240,8 @@
 (require 'redo)
 (global-set-key (kbd "M-/") 'redo)
 
-;; Emacsclient
+;; ---- Emacsclient
 (server-start)
+
+;; ---- AUCTeX
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
