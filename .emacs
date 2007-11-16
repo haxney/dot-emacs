@@ -14,9 +14,12 @@
 (setq-default fill-column 80)
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
- ;; Your init file should contain only one such instance.
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(LaTeX-command "latex -shell-escape")
+ '(bongo-enabled-backends (quote (mplayer)))
  '(case-fold-search t)
  '(confirm-kill-emacs (quote yes-or-no-p))
  '(current-language-environment "UTF-8")
@@ -42,11 +45,14 @@
  '(quack-smart-open-paren-p nil)
  '(show-paren-mode t nil (paren))
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
+ '(tramp-default-method "ssh")
  '(transient-mark-mode t)
  '(truncate-lines t))
 (custom-set-faces
- ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
- ;; Your init file should contain only one such instance.
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(diff-added-face ((t (:inherit diff-changed-face :background "Green"))))
  '(diff-removed-face ((t (:inherit diff-changed-face :background "red"))))
  '(flyspell-duplicate-face ((((class color)) (:foreground "Gold3" :underline t :weight bold))))
