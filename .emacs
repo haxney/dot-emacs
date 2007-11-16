@@ -6,9 +6,6 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
-;; Set good font!
-;;(set-frame-font "-*-Courier-Medium-R-Normal--14-*-*-*-M-*-*")
-
 ;; Line numbers
 (line-number-mode 1)
 (column-number-mode 1)
@@ -62,12 +59,9 @@
 (add-hook 'term-mode-hook
           '(lambda () (setq truncate-lines nil)))
 
-;; syntax highlighting by default (needs to be done before ruby-electric)
-(require 'font-lock)
-(global-font-lock-mode)
-
 ;; Turn on auto-fill
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
+;; Probably redundant, since we have it in customize
+;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; .rhtml loads html
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
@@ -188,3 +182,9 @@
 
 (require 'redo)
 (global-set-key (kbd "M-/") 'redo)
+
+;; ---- Emacsclient
+(server-start)
+
+;; ---- AUCTeX
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
