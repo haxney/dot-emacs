@@ -3,19 +3,6 @@
 (add-to-list 'load-path "~/.emacs.d/elisp")
 (add-to-list 'load-path "~/.emacs.d/startup")
 
-;; ---- Remove bad Gui settings.
-
-;; Remove menu and toolbar
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-
-;; Line numbers
-(line-number-mode 1)
-(column-number-mode 1)
-
-;; Fill column width
-(setq-default fill-column 80)
-
 ;; psvn -- Emacs interface for subversion
 (autoload 'svn-status "psvn" "svn-status mode" t)
 
@@ -23,10 +10,6 @@
 (setq-default truncate-lines t)
 (add-hook 'term-mode-hook
           '(lambda () (setq truncate-lines nil)))
-
-;; Turn on auto-fill
-;; Probably redundant, since we have it in customize
-;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; .rhtml loads html
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
@@ -127,9 +110,6 @@
                                 ("\\.scm$" . scheme-mode))
                               auto-mode-alist))
 
-;; ---- Tab settings
-(setq-default tab-width 4 indent-tabs-mode nil)
-
 ;; ---- Git mode
 (autoload 'git-status "git" "Enter git-status mode" t)
 
@@ -153,12 +133,10 @@
 (global-set-key (kbd "C-c / e") 'dhackney/pgg-encrypt-sign)
 
 ;; ---- Gri-mode
-;; Load on demand rather than at initialization.
 (autoload 'gri-mode "gri-mode" "Enter Gri-mode." t)
 (setq auto-mode-alist (cons '("\\.gri$" . gri-mode) auto-mode-alist))
 
 ;; ---- redo
-
 (autoload 'redo "redo" "Redo things!" t)
 (global-set-key (kbd "M-/") 'redo)
 
