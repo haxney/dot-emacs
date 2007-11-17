@@ -133,13 +133,17 @@
 ;; Fix jde overlay
 (require 'overlay-fix)
 
+(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+
 ;; ----- nXML
 
 ;; Add new schemas to nXML
 (push "~/.emacs.d/schemas/schemas.xml" rng-schema-locating-files-default)
 
 ;; Spelling in nXML
-(add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
+(eval-after-load "nxml"
+  '(progn
+     (add-to-list 'flyspell-prog-text-faces 'nxml-text-face)))
 
 ;; Set F5 to replay last macro
 (global-set-key [f5] 'call-last-kbd-macro)
@@ -200,7 +204,7 @@
 
 ;; ---- redo
 
-(require 'redo)
+(autoload 'redo "redo" "Redo things!" t)
 (global-set-key (kbd "M-/") 'redo)
 
 ;; ---- Emacsclient
