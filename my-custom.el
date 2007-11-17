@@ -4,6 +4,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(LaTeX-command "latex -shell-escape")
+ '(bm-repository-file "/home/dhackney/.emacs.d/bm-repository")
  '(bongo-enabled-backends (quote (mplayer)))
  '(case-fold-search t)
  '(column-number-mode t)
