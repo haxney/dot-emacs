@@ -161,6 +161,10 @@
 (setq custom-file "~/.emacs.d/my-custom.el")
 (load custom-file 'noerror)
 
+;; Cool buffer switcher.
+(when (string-match "^22\\." emacs-version)
+  (ido-mode t))
+
 ;; Time how long it took to start up.
 (let ((the-time (current-time)))
   (message "My .emacs loaded in %dms"
