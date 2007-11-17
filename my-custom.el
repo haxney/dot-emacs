@@ -39,7 +39,8 @@
  '(tool-bar-mode nil)
  '(tramp-default-method "ssh")
  '(transient-mark-mode t)
- '(truncate-lines t))
+ '(truncate-lines t)
+ '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
