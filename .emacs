@@ -1,3 +1,5 @@
+(defvar *emacs-load-start* (current-time))
+
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
 ;; ---- Remove bad Gui settings.
@@ -263,3 +265,17 @@
     (load
      (expand-file-name "~/.emacs.d/elpa/package.el"))
   (package-initialize))
+
+;; Time how long it took to start up.
+(let ((the-time (current-time)))
+  (message "My .emacs loaded in %dms"
+           (/ (-
+               (+
+                (third the-time)
+                (* 1000000
+                   (second the-time)))
+               (+
+                (third *emacs-load-start*)
+                (* 1000000
+                   (second *emacs-load-start*)))
+               ) 1000)))
