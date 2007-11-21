@@ -1,55 +1,6 @@
+(defvar *emacs-load-start* (current-time))
+
 (add-to-list 'load-path "~/.emacs.d/elisp")
-
-;; ---- Remove bad Gui settings.
-
-;; Remove menu and toolbar
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-
-;; Line numbers
-(line-number-mode 1)
-(column-number-mode 1)
-
-;; Fill column width
-(setq-default fill-column 80)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
- ;; Your init file should contain only one such instance.
- '(LaTeX-command "latex -shell-escape")
- '(case-fold-search t)
- '(confirm-kill-emacs (quote yes-or-no-p))
- '(current-language-environment "UTF-8")
- '(default-input-method "rfc1345")
- '(git-append-signed-off-by t)
- '(jde-ant-enable-find t)
- '(jde-ant-read-target t)
- '(jde-build-function (quote (jde-ant-build)))
- '(jde-complete-function (quote jde-complete-minibuf))
- '(jde-complete-unique-method-names nil)
- '(jde-enable-abbrev-mode t)
- '(jde-jdk (quote ("1.5")))
- '(jde-jdk-registry (quote (("1.5" . "/usr/lib/jvm/java-6-sun/"))))
- '(load-home-init-file t t)
- '(nxml-slash-auto-complete-flag t)
- '(pgg-cache-passphrase nil)
- '(pgg-default-user-id "A016D1D6")
- '(quack-default-program "mzscheme -g")
- '(quack-global-menu-p nil)
- '(quack-pretty-lambda-p nil)
- '(quack-run-scheme-always-prompts-p nil)
- '(quack-smart-open-paren-p nil)
- '(show-paren-mode t nil (paren))
- '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
- '(transient-mark-mode t)
- '(truncate-lines t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
- ;; Your init file should contain only one such instance.
- '(diff-added-face ((t (:inherit diff-changed-face :background "Green"))))
- '(diff-removed-face ((t (:inherit diff-changed-face :background "red"))))
- '(flyspell-duplicate-face ((((class color)) (:foreground "Gold3" :underline t :weight bold))))
- '(flyspell-incorrect-face ((((class color)) (:foreground "magenta" :underline t :weight bold)))))
 
 ;; psvn -- Emacs interface for subversion
 (autoload 'svn-status "psvn" "svn-status mode" t)
@@ -58,10 +9,6 @@
 (setq-default truncate-lines t)
 (add-hook 'term-mode-hook
           '(lambda () (setq truncate-lines nil)))
-
-;; Turn on auto-fill
-;; Probably redundant, since we have it in customize
-;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; .rhtml loads html
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
@@ -115,11 +62,25 @@
 (autoload 'css-mode "css-mode" "Enter CSS-mode." t)
 (setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
 
+(autoload 'plan "my-planner-init.el" "Load Planner configuartion" t)
+
 ;; Cscope maintains information about C programs.
 (autoload 'c-mode "xcscope" "Cscope for C" t)
 
 ;; Fix jde overlay
 (require 'overlay-fix)
+
+(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+
+;; ----- nXML
+
+(eval-after-load "nxml"
+  '(progn
+     ;; Spelling in nXML
+     (add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
+
+     ;; Add new schemas to nXML
+     (push "~/.emacs.d/schemas/schemas.xml" rng-schema-locating-files-default)))
 
 ;; Set F5 to replay last macro
 (global-set-key [f5] 'call-last-kbd-macro)
@@ -148,9 +109,6 @@
                                 ("\\.scm$" . scheme-mode))
                               auto-mode-alist))
 
-;; ---- Tab settings
-(setq-default tab-width 4 indent-tabs-mode nil)
-
 ;; ---- Git mode
 (autoload 'git-status "git" "Enter git-status mode" t)
 
@@ -174,13 +132,11 @@
 (global-set-key (kbd "C-c / e") 'dhackney/pgg-encrypt-sign)
 
 ;; ---- Gri-mode
-;; Load on demand rather than at initialization.
 (autoload 'gri-mode "gri-mode" "Enter Gri-mode." t)
 (setq auto-mode-alist (cons '("\\.gri$" . gri-mode) auto-mode-alist))
 
 ;; ---- redo
-
-(require 'redo)
+(autoload 'redo "redo" "Redo things!" t)
 (global-set-key (kbd "M-/") 'redo)
 
 ;; ---- Emacsclient
@@ -188,3 +144,36 @@
 
 ;; ---- AUCTeX
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
+
+;; Store custom settings in a different file.
+(setq custom-file "~/.emacs.d/my-custom.el")
+(load custom-file 'noerror)
+
+;; Cool buffer switcher.
+(when (string-match "^22\\." emacs-version)
+  (ido-mode t))
+
+;; Time how long it took to start up.
+(let ((the-time (current-time)))
+  (message "My .emacs loaded in %dms"
+           (/ (-
+               (+
+                (third the-time)
+                (* 1000000
+                   (second the-time)))
+               (+
+                (third *emacs-load-start*)
+                (* 1000000
+                   (second *emacs-load-start*)))
+               ) 1000)))
