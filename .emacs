@@ -128,17 +128,6 @@
 ;; ---- AUCTeX
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
-
-
 ;; Store custom settings in a different file.
 (setq custom-file
 	  (concat conf-home "my-custom.el"))
