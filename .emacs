@@ -3,7 +3,7 @@
 (setq conf-home (concat (file-name-as-directory (expand-file-name "~"))
 						(file-name-as-directory ".emacs.d")))
 
-(add-to-list 'load-path "~/.emacs.d/elisp")
+(add-to-list 'load-path (concat conf-home "elisp"))
 
 ;; Load all files in ~/.emacs.d/startup"
 (let ((startup-files (directory-files
@@ -24,19 +24,20 @@
 ;; load mmm-mode rails support
 ;;(load "~/.emacs.d/mmm-mode_init")
 
-
 ;; Load Pabbrev
 (require 'pabbrev)
 (global-pabbrev-mode)
 ;; do we need to disable it in term mode?
 
 ;; don't clutter directories!
-;;(setq backup-directory-alist `(("." . ,(expand-file-name "~/.emacs.d/baks"))))
-(setq auto-save-directory (expand-file-name "~/.emacs.d/autosave"))
+(setq auto-save-directory (concat conf-home "autosave"))
 
 ;; create a backup file directory
 (defun make-backup-file-name (file)
-  (concat "~/.emacs.d/baks/" (file-name-nondirectory file) "~"))
+  (concat conf-home
+		  (file-name-as-directory "baks")
+		  (file-name-nondirectory file)
+		  "~"))
 
 ;; CSS mode
 (autoload 'css-mode "css-mode" "Enter CSS-mode." t)
@@ -79,7 +80,8 @@
 (global-set-key "\C-c\C-v\C-c" 'compile)
 
 ;; Place semantic.cache files somewhere central
-(setq semanticdb-default-save-directory "~/.emacs.d/semantic-cache")
+(setq semanticdb-default-save-directory
+	  (concat conf-home "semantic-cache"))
 
 ;; Speedbar settings
 (global-set-key "\C-co" 'speedbar-get-focus)
@@ -138,7 +140,8 @@
 
 
 ;; Store custom settings in a different file.
-(setq custom-file "~/.emacs.d/my-custom.el")
+(setq custom-file
+	  (concat conf-home "my-custom.el"))
 (load custom-file 'noerror)
 
 ;; Cool buffer switcher.
