@@ -1,43 +1,46 @@
 ;; Planner
-(require 'planner)
-(setq planner-project "Journal of Hax")
-(setq muse-project-alist
-      '(("Journal of Hax"
-         ("~/Journal" ;; where your Planner pages are located
-          :default "Index" ;; use value of `planner-default-page'
-          :major-mode planner-mode
-          :visit-link planner-visit-link)
+(autoload 'plan "planner" "Planner mode" t)
 
-         ;; This next part is for specifying where Planner pages
-         ;; should be published and what Muse publishing style to
-         ;; use.  In this example, we will use the XHTML publishing
-         ;; style.
+(eval-after-load 'planner
+  '(progn
+	 (setq planner-project "Journal of Hax")
+	 (setq muse-project-alist
+		   '(("Journal of Hax"
+			  ("~/Journal" ;; where your Planner pages are located
+			   :default "Index" ;; use value of `planner-default-page'
+			   :major-mode planner-mode
+			   :visit-link planner-visit-link)
 
-         (:base "planner-xhtml"
-                ;; where files are published to
-                ;; (the value of `planner-publishing-directory', if
-                ;;  you have a configuration for an older version
-                ;;  of Planner)
-                :path "~/Journal/html"))))
+			  ;; This next part is for specifying where Planner pages
+			  ;; should be published and what Muse publishing style to
+			  ;; use.  In this example, we will use the XHTML publishing
+			  ;; style.
 
-(autoload 'muse-project-publish "planner-publish" "Publish planner project" t)
+			  (:base "planner-xhtml"
+					 ;; where files are published to
+					 ;; (the value of `planner-publishing-directory', if
+					 ;;  you have a configuration for an older version
+					 ;;  of Planner)
+			   :path "~/Journal/html"))))
 
-;; Include remember
-(autoload 'remeber "remember-planner" "Remember mode" t)
-(setq remember-handler-functions '(remember-planner-append))
-(setq remember-annotation-functions planner-annotation-functions)
+	 (autoload 'muse-project-publish "planner-publish" "Publish planner project" t)
 
-;; Bind remember to C-c C-r
-(global-unset-key (kbd "C-c C-n"))
-(global-set-key (kbd "C-c C-n") 'remember)
+	 ;; Include remember
+	 (autoload 'remeber "remember-planner" "Remember mode" t)
+	 (setq remember-handler-functions '(remember-planner-append))
+	 (setq remember-annotation-functions planner-annotation-functions)
 
-(add-hook 'planner-mode-hook 'flyspell-mode)
+	 ;; Bind remember to C-c C-r
+	 (global-unset-key (kbd "C-c C-n"))
+	 (global-set-key (kbd "C-c C-n") 'remember)
 
-;; Set up planner template
-(defun dhackney/planner-daily-template ()
-  "Build a new daily planner page."
-  (insert (concat "#title Journal Entry for "
-                  (format-time-string "%A, %B %e, %Y")
-                  "\n\n* Tasks\n\n\nWake: Up: \n\n* Events\n")))
+	 (add-hook 'planner-mode-hook 'flyspell-mode)
 
-(setq planner-day-page-template 'dhackney/planner-daily-template)
+	 ;; Set up planner template
+	 (defun dhackney/planner-daily-template ()
+	   "Build a new daily planner page."
+	   (insert (concat "#title Journal Entry for "
+					   (format-time-string "%A, %B %e, %Y")
+					   "\n\n* Tasks\n\n\nWake: Up: \n\n* Events\n")))
+
+	 (setq planner-day-page-template 'dhackney/planner-daily-template)))

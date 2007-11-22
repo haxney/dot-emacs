@@ -1,7 +1,17 @@
 (defvar *emacs-load-start* (current-time))
 
+(setq conf-home (concat (file-name-as-directory (expand-file-name "~"))
+						(file-name-as-directory ".emacs.d")))
+
 (add-to-list 'load-path "~/.emacs.d/elisp")
-(add-to-list 'load-path "~/.emacs.d/startup")
+
+;; Load all files in ~/.emacs.d/startup"
+(let ((startup-files (directory-files
+					  (concat conf-home
+							  (file-name-as-directory "startup")) t "^[^.]")))
+    (mapc (lambda (file)
+		  (load file))
+		  startup-files))
 
 ;; psvn -- Emacs interface for subversion
 (autoload 'svn-status "psvn" "svn-status mode" t)
@@ -11,18 +21,9 @@
 (add-hook 'term-mode-hook
           '(lambda () (setq truncate-lines nil)))
 
-;; .rhtml loads html
-(add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
-
 ;; load mmm-mode rails support
 ;;(load "~/.emacs.d/mmm-mode_init")
 
-;; Ruby help
-(autoload 'ruby-mode "ruby-mode" "Ruby edit mode" t)
-(autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode" t)
-(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-
-(add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 ;; Load Pabbrev
 (require 'pabbrev)
@@ -37,33 +38,9 @@
 (defun make-backup-file-name (file)
   (concat "~/.emacs.d/baks/" (file-name-nondirectory file) "~"))
 
-;; for the  Ruby interpreter:
-(autoload 'run-ruby "inf-ruby"
-  "Run an inferior Ruby process")
-
-(autoload 'inf-ruby-keys "inf-ruby"
-  "Set local key defs for inf-ruby in ruby-mode")
-
-(add-hook 'ruby-mode-hook
-          '(lambda ()
-             (inf-ruby-keys)
-             ))
-
-;; Ri-Emacs support
-(setq ri-ruby-script "~/.elisp/ri-emacs.rb")
-(autoload 'ri "~/.elisp/ri-ruby.el" nil t)
-
-(add-hook 'ruby-mode-hook (lambda ()
-                            ;; (local-set-key 'f3 'ri)
-                            (local-set-key "\M-\C-i" 'ri-ruby-complete-symbol)
-                            ;; (local-set-key 'f4 'ri-ruby-show-args)
-                            ))
-
 ;; CSS mode
 (autoload 'css-mode "css-mode" "Enter CSS-mode." t)
 (setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
-
-(autoload 'plan "my-planner-init.el" "Load Planner configuartion" t)
 
 ;; Cscope maintains information about C programs.
 (autoload 'c-mode "xcscope" "Cscope for C" t)
@@ -81,7 +58,10 @@
      (add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
 
      ;; Add new schemas to nXML
-     (push "~/.emacs.d/schemas/schemas.xml" rng-schema-locating-files-default)))
+     (push (concat conf-home
+				   (file-name-as-directory "schemas")
+				   "schemas.xml")
+		   rng-schema-locating-files-default)))
 
 ;; Set F5 to replay last macro
 (global-set-key [f5] 'call-last-kbd-macro)
