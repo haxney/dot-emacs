@@ -1,6 +1,8 @@
 (custom-set-variables
-  ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(LaTeX-command "latex -shell-escape")
  '(bm-repository-file "/home/dhackney/.emacs.d/bm-repository")
  '(bongo-enabled-backends (quote (mplayer)))
@@ -11,11 +13,12 @@
  '(default-input-method "rfc1345")
  '(ecb-layout-window-sizes (quote (("left8" (0.22137404580152673 . 0.28125) (0.22137404580152673 . 0.25) (0.22137404580152673 . 0.265625) (0.22137404580152673 . 0.1875)))))
  '(ecb-options-version "2.32")
+ '(ecb-tip-of-the-day nil)
  '(fill-column 80)
  '(git-append-signed-off-by t)
  '(ido-minibuffer-setup-hook (quote ((lambda nil (local-set-key "" (quote ido-prev-match))) (lambda nil (local-set-key "" (quote ido-next-match))))))
+ '(ido-save-directory-list-file "~/.emacs.d/.ido.last")
  '(inhibit-splash-screen t)
- '(global-font-lock-mode t nil (font-lock))
  '(jde-ant-enable-find t)
  '(jde-ant-read-target t)
  '(jde-build-function (quote (jde-ant-build)))
@@ -39,14 +42,16 @@
  '(show-paren-mode t nil (paren))
  '(tab-width 4)
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
- '(tool-bar-mode nil nil (tool-bar))
+ '(tool-bar-mode nil)
  '(tramp-default-method "ssh")
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(diff-added ((t (:inherit diff-changed-face :background "Green"))))
  '(diff-added-face ((t (:inherit diff-changed-face :background "Green"))) t)
  '(diff-removed ((t (:inherit diff-changed-face :background "red"))))
