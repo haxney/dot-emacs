@@ -85,21 +85,6 @@
 (autoload 'graphviz-dot-mode "graphviz-dot-mode" "Enter graphviz-dot-mode." t)
 (setq auto-mode-alist (cons '("\\.dot$" . graphviz-dot-mode) auto-mode-alist))
 
-;; ---- PGG (encryption) keys
-(autoload 'pgg-invoke "pgg" "Use a PGG command")
-
-(defun dhackney/pgg-encrypt-sign (rcpts &optional sign start end passphrase)
-  "Sign and encrypt the buffer."
-  (interactive (list (split-string (read-string "Recipients: ") "[ \t,]+") t))
-  (let* ((start (or start (point-min)))
-         (end (or end (point-max)))
-         (status (pgg-encrypt-region start end rcpts sign passphrase)))
-    (when (interactive-p)
-      (pgg-display-output-buffer start end status))
-    status))
-
-(global-set-key (kbd "C-c / e") 'dhackney/pgg-encrypt-sign)
-
 ;; ---- Gri-mode
 (autoload 'gri-mode "gri-mode" "Enter Gri-mode." t)
 (setq auto-mode-alist (cons '("\\.gri$" . gri-mode) auto-mode-alist))
