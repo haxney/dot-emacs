@@ -5,6 +5,10 @@
 
 (add-to-list 'load-path (concat conf-home "elisp"))
 
+;; Initialize package, since it is needed to load libraries managed by it.
+(require 'package)
+(package-initialize)
+
 ;; Load all files in ~/.emacs.d/startup"
 (let ((startup-files (directory-files
 					  (concat conf-home
