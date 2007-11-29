@@ -5,10 +5,6 @@
 
 (add-to-list 'load-path (concat conf-home "elisp"))
 
-;; Initialize package, since it is needed to load libraries managed by it.
-(require 'package)
-(package-initialize)
-
 ;; Load all files in ~/.emacs.d/startup"
 (let ((startup-files (directory-files
 					  (concat conf-home
@@ -17,16 +13,10 @@
 		  (load file))
 		  startup-files))
 
-;; psvn -- Emacs interface for subversion
-(autoload 'svn-status "psvn" "svn-status mode" t)
-
 ;; Don't wrap lines, truncate them instead, but not for term mode
 (setq-default truncate-lines t)
 (add-hook 'term-mode-hook
           '(lambda () (setq truncate-lines nil)))
-
-;; load mmm-mode rails support
-;;(load "~/.emacs.d/mmm-mode_init")
 
 ;; Load Pabbrev
 (require 'pabbrev)
@@ -43,20 +33,12 @@
 		  (file-name-nondirectory file)
 		  "~"))
 
-;; CSS mode
-(autoload 'css-mode "css-mode" "Enter CSS-mode." t)
-(setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
-
-;; Cscope maintains information about C programs.
-(autoload 'c-mode "xcscope" "Cscope for C" t)
-
 ;; Fix jde overlay
 (require 'overlay-fix)
 
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
 
 ;; ----- nXML
-
 (eval-after-load "nxml"
   '(progn
      ;; Spelling in nXML
