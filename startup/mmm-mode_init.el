@@ -47,4 +47,4 @@
 	 (add-to-list 'mmm-mode-ext-classes-alist
 				  '(html-mode nil embedded-javascript-attribute))
 
-	 (global-set-key [f8] 'mmm-parse-buffer))
+	 (global-set-key [f8] 'mmm-parse-buffer)))
