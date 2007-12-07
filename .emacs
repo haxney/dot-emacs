@@ -50,21 +50,6 @@
 				   "schemas.xml")
 		   rng-schema-locating-files-default)))
 
-;; Set F5 to replay last macro
-(global-set-key [f5] 'call-last-kbd-macro)
-
-;; ---- key rebindings
-
-;; Rebind M-x to C-x C-m
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-
-;; Set C-w to backward kill word and remap existing C-w to C-x C-k
-(global-set-key "\C-w" 'backward-kill-word)
-(global-set-key "\C-x\C-k" 'kill-region)
-
-;; Globally set C-c C-v C-c to compile.
-(global-set-key "\C-c\C-v\C-c" 'compile)
-
 ;; Place semantic.cache files somewhere central
 (setq semanticdb-default-save-directory
 	  (concat conf-home "semantic-cache"))
@@ -103,10 +88,6 @@
 (setq custom-file
 	  (concat conf-home "my-custom.el"))
 (load custom-file 'noerror)
-
-;; Cool buffer switcher.
-(when (string-match "^22\\." emacs-version)
-  (ido-mode t))
 
 ;; Time how long it took to start up.
 (let ((the-time (current-time)))
