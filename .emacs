@@ -38,24 +38,9 @@
 
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
 
-;; ----- nXML
-(eval-after-load "nxml"
-  '(progn
-     ;; Spelling in nXML
-     (add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
-
-     ;; Add new schemas to nXML
-     (push (concat conf-home
-				   (file-name-as-directory "schemas")
-				   "schemas.xml")
-		   rng-schema-locating-files-default)))
-
 ;; Place semantic.cache files somewhere central
 (setq semanticdb-default-save-directory
 	  (concat conf-home "semantic-cache"))
-
-;; Speedbar settings
-(global-set-key "\C-co" 'speedbar-get-focus)
 
 ;; Quack - for Scheme mode
 (autoload 'scheme-mode "quack" "Enter scheme-mode." t)
