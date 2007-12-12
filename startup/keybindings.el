@@ -13,6 +13,3 @@
 
 ;; Switching to speedbar.
 (global-set-key "\C-co" 'speedbar-get-focus)
-
-;; For multi-tty, make C-x C-c kill only the current frame.
-(global-set-key "\C-x\C-c" 'delete-frame)
