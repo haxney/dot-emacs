@@ -8,9 +8,10 @@
 ;; Load all files in ~/.emacs.d/startup"
 (let ((startup-files (directory-files
 					  (concat conf-home
-							  (file-name-as-directory "startup")) t "^[^.]")))
+							  (file-name-as-directory "startup")) t "\.el$")))
     (mapc (lambda (file)
-		  (load file))
+			(message "Loading startup file %s" file)
+			(load file))
 		  startup-files))
 
 ;; Don't wrap lines, truncate them instead, but not for term mode
