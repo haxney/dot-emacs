@@ -6,6 +6,7 @@
  '(LaTeX-command "latex -shell-escape")
  '(bm-repository-file "/home/dhackney/.emacs.d/bm-repository")
  '(bongo-enabled-backends (quote (mplayer)))
+ '(bongo-mode-line-indicator-format (quote ((bongo-mode-line-pad-string) (when (bongo-hyphen-padded-mode-line-p) "[") (bongo-mode-line-previous-button) (bongo-mode-line-pause/resume-button) (bongo-mode-line-start/stop-button) (bongo-mode-line-next-button) (when (bongo-playing-p) " ") (when (bongo-playing-p) (cond ((and (bongo-elapsed-time) (bongo-total-time)) (format "%d%%" (/ (* 100.0 (bongo-elapsed-time)) (bongo-total-time)))) ((bongo-elapsed-time) (bongo-format-seconds (bongo-elapsed-time))))) " " (bongo-format-infoset (bongo-player-infoset (with-bongo-playlist-buffer bongo-player))) (when (bongo-hyphen-padded-mode-line-p) "]") (when (bongo-hyphen-padded-mode-line-p) (bongo-mode-line-pad-string)))))
  '(case-fold-search t)
  '(column-number-mode t)
  '(confirm-kill-emacs (quote yes-or-no-p))
@@ -19,7 +20,7 @@
  '(git-append-signed-off-by t)
  '(ido-ignore-files (quote ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "_whizzy_.*" ".*\\.raux" ".*\\.wdvi" "\\.git")))
  '(ido-minibuffer-setup-hook (quote ((lambda nil (local-set-key "" (quote ido-prev-match))) (lambda nil (local-set-key "" (quote ido-next-match))))))
- '(ido-save-directory-list-file "~/.emacs.d/.ido.last")
+ '(ido-save-directory-list-file "~/.emacs.d/.ido.last" t)
  '(inhibit-splash-screen t)
  '(jde-ant-enable-find t)
  '(jde-ant-read-target t)
@@ -49,7 +50,9 @@
  '(tramp-default-method "ssh")
  '(transient-mark-mode t)
  '(truncate-lines t)
- '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
+ '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify))
+ '(woman-use-own-frame nil)
+ '(xgit-use-index (quote always)))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
