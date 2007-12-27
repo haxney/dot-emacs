@@ -65,7 +65,7 @@
 (global-set-key (kbd "M-/") 'redo)
 
 ;; ---- Emacsclient
-;;(server-start)
+(server-start)
 
 ;; ---- AUCTeX
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
