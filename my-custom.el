@@ -21,7 +21,8 @@
  '(ido-ignore-files (quote ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "_whizzy_.*" ".*\\.raux" ".*\\.wdvi" "\\.git")))
  '(ido-minibuffer-setup-hook (quote ((lambda nil (local-set-key "" (quote ido-prev-match))) (lambda nil (local-set-key "" (quote ido-next-match))))))
  '(ido-save-directory-list-file "~/.emacs.d/.ido.last" t)
- '(inhibit-splash-screen t)
+ '(indent-tabs-mode nil)
+ '(inhibit-startup-screen t)
  '(jde-ant-enable-find t)
  '(jde-ant-read-target t)
  '(jde-build-function (quote (jde-ant-build)))
@@ -34,6 +35,13 @@
  '(load-home-init-file t t)
  '(menu-bar-mode nil)
  '(nxml-slash-auto-complete-flag t)
+ '(org-default-notes-file "~/org/root.org")
+ '(org-remember-templates (quote (("" 116 "** TODO %?
+  %i
+ %a" "~/org/root.org" "") ("" 97 "** Appointment: %?
+%^T
+%i
+  %a" "~/org/root.org" ""))))
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
  '(planner-reverse-chronological-notes nil)
@@ -42,6 +50,10 @@
  '(quack-pretty-lambda-p nil)
  '(quack-run-scheme-always-prompts-p nil)
  '(quack-smart-open-paren-p nil)
+ '(remember-annotation-functions (quote (org-remember-annotation)))
+ '(remember-data-file "~/org/root.org")
+ '(remember-handler-functions (quote (org-remember-handler)))
+ '(remember-mode-hook (quote (flyspell-mode turn-on-auto-fill org-remember-apply-template)))
  '(require-final-newline t)
  '(show-paren-mode t nil (paren))
  '(tab-width 4)
@@ -62,5 +74,5 @@
  '(diff-added-face ((t (:inherit diff-changed-face :background "Green"))) t)
  '(diff-removed ((t (:inherit diff-changed-face :background "red"))))
  '(diff-removed-face ((t (:inherit diff-changed-face :background "red"))) t)
- '(flyspell-duplicate-face ((((class color)) (:foreground "Gold3" :underline t :weight bold))))
- '(flyspell-incorrect-face ((((class color)) (:foreground "magenta" :underline t :weight bold)))))
+ '(flyspell-duplicate-face ((((class color)) (:foreground "Gold3" :underline t :weight bold))) t)
+ '(flyspell-incorrect-face ((((class color)) (:foreground "magenta" :underline t :weight bold))) t))
