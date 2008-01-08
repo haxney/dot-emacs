@@ -7,6 +7,7 @@
      ;; Allow indentation without having to go to the arrow keys
      (define-key org-mode-map "\C-c\C-x\C-f" 'org-shiftmetaright)
      (define-key org-mode-map "\C-c\C-x\C-b" 'org-shiftmetaleft)
+     (define-key org-mode-map "\C-\M-m" 'org-insert-heading-after-current)
 
      ;; Custom agenda commands
      (setq org-agenda-custom-commands
