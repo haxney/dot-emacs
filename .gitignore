@@ -1,3 +1,6 @@
 auto-save-list
 baks
 semantic-cache
+.ido.last
+session*
+tramp
