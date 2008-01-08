@@ -8,6 +8,8 @@
      (define-key org-mode-map "\C-c\C-x\C-f" 'org-shiftmetaright)
      (define-key org-mode-map "\C-c\C-x\C-b" 'org-shiftmetaleft)
      (define-key org-mode-map "\C-\M-m" 'org-insert-heading-after-current)
+     (define-key org-mode-map "\C-c\C-x\C-o" 'my/org-todo-waiting)
+     (define-key org-mode-map "\C-c\C-x\C-i" 'my/org-todo-starting)
 
      ;; Custom agenda commands
      (setq org-agenda-custom-commands
@@ -15,18 +17,31 @@
              ("m" tags "PROJECT&MAYBE" nil)
              ))
 
-     ;; Add Sacha Chua's 'clock-in(out)-if-starting' functions
+     (defun my/org-todo-waiting ()
+       (interactive)
+       "Mark the current task WAITING."
+       (org-clock-goto)
+       (org-todo "WAITING")
+       ;; This is necessary because org-clock-goto inists on opening in another window.
+       (switch-to-buffer nil)
+       (other-window -1))
 
+     (defun my/org-todo-starting ()
+       (interactive)
+       "Mark the current task WAITING."
+       (org-todo "STARTED"))
+
+     ;; Add Sacha Chua's 'clock-in(out)-if-starting' functions
      (defun wicked/org-clock-in-if-starting ()
        "Clock in when the task is marked STARTED."
        (when (and (string= state "STARTED")
                   (not (string= last-state state)))
          (org-clock-in)))
-     (add-hook 'org-after-todo-state-change-hook
-               'wicked/org-clock-in-if-starting)
-     (defadvice org-clock-in (after wicked activate)
-       "Set this task's status to 'STARTED'."
-       (org-todo "STARTED"))
+      (add-hook 'org-after-todo-state-change-hook
+                'wicked/org-clock-in-if-starting)
+;;      (defadvice org-clock-in (after wicked activate)
+;;        "Set this task's status to 'STARTED'."
+;;        (org-todo "STARTED"))
      (defun wicked/org-clock-out-if-waiting ()
        "Clock out when the task is marked WAITING."
        (when (and (string= state "WAITING")
