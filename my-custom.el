@@ -35,6 +35,8 @@
  '(load-home-init-file t t)
  '(menu-bar-mode nil)
  '(nxml-slash-auto-complete-flag t)
+ '(org-agenda-files (quote ("~/org/root.org")))
+ '(org-archive-location "%s_archive::* Archived Tasks")
  '(org-default-notes-file "~/org/root.org")
  '(org-remember-templates (quote (("" 116 "** TODO %?
   %i
@@ -42,6 +44,7 @@
 %^T
 %i
   %a" "~/org/root.org" ""))))
+ '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "WAITING" "DONE"))))
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
  '(planner-reverse-chronological-notes nil)
