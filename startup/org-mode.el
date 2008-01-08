@@ -3,18 +3,19 @@
 (define-key global-map "\C-ca" 'org-agenda)
 
 (eval-after-load 'org
-  ;; Allow indentation without having to go to the arrow keys
-  (define-key org-mode-map "\C-c\C-x\C-f" 'org-shiftmetaright)
-  (define-key org-mode-map "\C-c\C-x\C-b" 'org-shiftmetaleft)
-
-  ;; Custom agenda commands
-  (setq org-agenda-custom-commands
-        '(("p" tags "PROJECT-MAYBE-DONE" nil)
-          ("m" tags "PROJECT&MAYBE" nil)
-          ))
-
-  ;; Add Sacha Chua's 'clock-in(out)-if-starting' functions
   '(progn
+     ;; Allow indentation without having to go to the arrow keys
+     (define-key org-mode-map "\C-c\C-x\C-f" 'org-shiftmetaright)
+     (define-key org-mode-map "\C-c\C-x\C-b" 'org-shiftmetaleft)
+
+     ;; Custom agenda commands
+     (setq org-agenda-custom-commands
+           '(("p" tags "PROJECT-MAYBE-DONE" nil)
+             ("m" tags "PROJECT&MAYBE" nil)
+             ))
+
+     ;; Add Sacha Chua's 'clock-in(out)-if-starting' functions
+
      (defun wicked/org-clock-in-if-starting ()
        "Clock in when the task is marked STARTED."
        (when (and (string= state "STARTED")
