@@ -3,6 +3,9 @@
 (setq conf-home (concat (file-name-as-directory (expand-file-name "~"))
 						(file-name-as-directory ".emacs.d")))
 
+(setq conf-tmp (concat conf-home
+						(file-name-as-directory "tmp")))
+
 (add-to-list 'load-path (concat conf-home "elisp"))
 
 ;; Load all files in ~/.emacs.d/startup"
@@ -25,11 +28,11 @@
 ;; do we need to disable it in term mode?
 
 ;; don't clutter directories!
-(setq auto-save-directory (concat conf-home "autosave"))
+(setq auto-save-directory (concat conf-tmp "autosave"))
 
 ;; create a backup file directory
 (defun make-backup-file-name (file)
-  (concat conf-home
+  (concat conf-tmp
 		  (file-name-as-directory "baks")
 		  (file-name-nondirectory file)
 		  "~"))
@@ -41,7 +44,7 @@
 
 ;; Place semantic.cache files somewhere central
 (setq semanticdb-default-save-directory
-	  (concat conf-home "semantic-cache"))
+	  (concat conf-tmp "semantic-cache"))
 
 ;; Quack - for Scheme mode
 (autoload 'scheme-mode "quack" "Enter scheme-mode." t)
