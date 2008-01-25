@@ -37,6 +37,7 @@
  '(line-number-mode t)
  '(load-home-init-file t t)
  '(menu-bar-mode nil)
+ '(nxml-mode-hook (quote (nxml-enable-unicode-char-name-sets rng-nxml-mode-init flyspell-mode)))
  '(nxml-slash-auto-complete-flag t)
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "%s_archive::* Archived Tasks")
