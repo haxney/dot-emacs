@@ -2,4 +2,5 @@
 <locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
     <documentElement localName="project" typeId="Ant"/>
     <typeId id="Ant" uri="build.rnc"/>
+    <typeId id="XSLT" uri="xslt-either.rnc"/>
 </locatingRules>
