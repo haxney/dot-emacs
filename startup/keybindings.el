@@ -13,3 +13,6 @@
 
 ;; Switching to speedbar.
 (global-set-key "\C-co" 'speedbar-get-focus)
+
+;; Commenting
+(global-set-key (kbd "C-;") 'comment-region)
