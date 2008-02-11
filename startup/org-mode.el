@@ -11,6 +11,9 @@
      (define-key org-mode-map "\C-c\C-x\C-o" 'my/org-todo-waiting)
      (define-key org-mode-map "\C-c\C-x\C-i" 'my/org-todo-starting)
 
+     ;; Turn on Flyspell when loading org-mode
+     (add-hook 'org-mode-hook 'flyspell-mode)
+
      ;; Custom agenda commands
      (setq org-agenda-custom-commands
            '(("p" tags "PROJECT-MAYBE-DONE" nil)
