@@ -19,7 +19,6 @@
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
  '(fill-column 80)
  '(git-append-signed-off-by t)
- '(global-linum-mode t)
  '(gnus-init-file "~/.emacs.d/gnus/init.el")
  '(gnus-startup-file "~/.emacs.d/gnus/newsrc")
  '(ido-ignore-files (quote ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "_whizzy_.*" ".*\\.raux" ".*\\.wdvi" "\\.git")))
@@ -38,7 +37,7 @@
  '(line-number-mode t)
  '(load-home-init-file t t)
  '(menu-bar-mode nil)
- '(nxml-mode-hook (quote (nxml-enable-unicode-char-name-sets rng-nxml-mode-init flyspell-mode)))
+ '(nxml-mode-hook (quote (nxml-enable-unicode-char-name-sets rng-nxml-mode-init flyspell-mode)) t)
  '(nxml-slash-auto-complete-flag t)
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "%s_archive::* Archived Tasks")
@@ -49,6 +48,7 @@
 %^T
 %i
   %a" "~/org/root.org" ""))))
+ '(org-return-follows-link t)
  '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "WAITING" "DONE"))))
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
