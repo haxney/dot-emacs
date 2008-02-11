@@ -1,0 +1,2 @@
+(require 'highline)
+(highline-mode)

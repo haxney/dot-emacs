@@ -8,6 +8,14 @@
 
 (add-to-list 'load-path (concat conf-home "elisp"))
 
+
+;; Package -- Packaging system for Emacs.
+
+;; Load package before loading startup files, since some of them may depend on
+;; package being loaded
+(require 'package)
+(package-initialize)
+
 ;; Load all files in ~/.emacs.d/startup"
 (let ((startup-files (directory-files
 					  (concat conf-home
