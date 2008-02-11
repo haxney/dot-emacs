@@ -4,6 +4,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(LaTeX-command "latex -shell-escape")
+ '(auto-save-list-file-prefix "~/.emacs.d/tmp/auto-save-list/.saves-")
  '(bm-repository-file "/home/dhackney/.emacs.d/bm-repository")
  '(bongo-enabled-backends (quote (mplayer)))
  '(bongo-mode-line-indicator-format (quote ((bongo-mode-line-pad-string) (when (bongo-hyphen-padded-mode-line-p) "[") (bongo-mode-line-previous-button) (bongo-mode-line-pause/resume-button) (bongo-mode-line-start/stop-button) (bongo-mode-line-next-button) (when (bongo-playing-p) " ") (when (bongo-playing-p) (cond ((and (bongo-elapsed-time) (bongo-total-time)) (format "%d%%" (/ (* 100.0 (bongo-elapsed-time)) (bongo-total-time)))) ((bongo-elapsed-time) (bongo-format-seconds (bongo-elapsed-time))))) " " (bongo-format-infoset (bongo-player-infoset (with-bongo-playlist-buffer bongo-player))) (when (bongo-hyphen-padded-mode-line-p) "]") (when (bongo-hyphen-padded-mode-line-p) (bongo-mode-line-pad-string)))))
