@@ -40,6 +40,7 @@
  '(menu-bar-mode nil)
  '(nxml-mode-hook (quote (nxml-enable-unicode-char-name-sets rng-nxml-mode-init flyspell-mode)) t)
  '(nxml-slash-auto-complete-flag t)
+ '(org-agenda-custom-commands (quote (("p" tags "PROJECT-MAYBE-DONE" nil) ("m" tags "PROJECT&MAYBE-DONE" nil))))
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "%s_archive::* Archived Tasks")
  '(org-default-notes-file "~/org/root.org")
