@@ -89,4 +89,5 @@
  '(diff-removed ((t (:inherit diff-changed-face :background "red"))))
  '(diff-removed-face ((t (:inherit diff-changed-face :background "red"))) t)
  '(flyspell-duplicate-face ((((class color)) (:foreground "Gold3" :underline t :weight bold))) t)
- '(flyspell-incorrect-face ((((class color)) (:foreground "magenta" :underline t :weight bold))) t))
+ '(flyspell-incorrect-face ((((class color)) (:foreground "magenta" :underline t :weight bold))) t)
+ '(whizzy-point-face ((((class color)) nil))))
