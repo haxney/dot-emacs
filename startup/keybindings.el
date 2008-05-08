@@ -15,4 +15,4 @@
 (global-set-key "\C-co" 'speedbar-get-focus)
 
 ;; Commenting
-(global-set-key (kbd "C-;") 'comment-region)
+(global-set-key (kbd "C-M-;") 'comment-region)
