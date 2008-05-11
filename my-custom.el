@@ -22,8 +22,6 @@
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
  '(fill-column 80)
  '(git-append-signed-off-by t)
- '(gnus-init-file "~/.emacs.d/gnus/init.el")
- '(gnus-startup-file "~/.emacs.d/gnus/newsrc")
  '(ido-ignore-files (quote ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "_whizzy_.*" ".*\\.raux" ".*\\.wdvi" "\\.git")))
  '(ido-minibuffer-setup-hook (quote ((lambda nil (local-set-key "" (quote ido-prev-match))) (lambda nil (local-set-key "" (quote ido-next-match))))))
  '(ido-save-directory-list-file "~/.emacs.d/.ido.last" t)
