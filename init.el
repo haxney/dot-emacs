@@ -48,9 +48,6 @@
 (setq semanticdb-default-save-directory
 	  (concat conf-tmp "semantic-cache"))
 
-;; ---- Emacsclient
-(server-start)
-
 ;; ---- AUCTeX
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 
