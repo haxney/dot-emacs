@@ -20,6 +20,12 @@
              ("m" tags "PROJECT&MAYBE" nil)
              ))
 
+     ;; Org-registry
+     ;; Remember inbound links in org files.
+     (require 'org-registry)
+     (org-registry-initialize)
+     (org-registry-insinuate)
+
      (defun my/org-todo-waiting ()
        (interactive)
        "Mark the current task WAITING."
