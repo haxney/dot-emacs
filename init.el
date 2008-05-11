@@ -44,9 +44,6 @@
 		  (file-name-nondirectory file)
 		  "~"))
 
-;; Fix jde overlay
-(require 'overlay-fix)
-
 ;; Place semantic.cache files somewhere central
 (setq semanticdb-default-save-directory
 	  (concat conf-tmp "semantic-cache"))
