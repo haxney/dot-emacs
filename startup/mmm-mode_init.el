@@ -1,6 +1,3 @@
-;; mmm-mode
-(autoload 'mmm-mode "mmm-mode" "Mulitple Minor Mode" t)
-
 (eval-after-load "mmm-mode"
   '(progn
 	 (setq mmm-global-mode 'maybe)

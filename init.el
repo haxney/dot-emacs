@@ -4,10 +4,9 @@
 						(file-name-as-directory ".emacs.d")))
 
 (setq conf-tmp (concat conf-home
-						(file-name-as-directory "tmp")))
+                       (file-name-as-directory "tmp")))
 
 (add-to-list 'load-path (concat conf-home "elisp"))
-
 
 ;; Package -- Packaging system for Emacs.
 
@@ -20,10 +19,10 @@
 (let ((startup-files (directory-files
 					  (concat conf-home
 							  (file-name-as-directory "startup")) t "\.el$")))
-    (mapc (lambda (file)
-			(message "Loading startup file %s" file)
-			(load file))
-		  startup-files))
+  (mapc (lambda (file)
+          (message "Loading startup file %s" file)
+          (load file))
+        startup-files))
 
 ;; Don't wrap lines, truncate them instead, but not for term mode
 (setq-default truncate-lines t)
@@ -48,32 +47,9 @@
 ;; Fix jde overlay
 (require 'overlay-fix)
 
-(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
-
 ;; Place semantic.cache files somewhere central
 (setq semanticdb-default-save-directory
 	  (concat conf-tmp "semantic-cache"))
-
-;; Quack - for Scheme mode
-(autoload 'scheme-mode "quack" "Enter scheme-mode." t)
-(setq auto-mode-alist (append '(("\\.ss$" . scheme-mode)
-                                ("\\.scm$" . scheme-mode))
-                              auto-mode-alist))
-
-;; ---- Git mode
-(autoload 'git-status "git" "Enter git-status mode" t)
-
-;; ---- Dot mode
-(autoload 'graphviz-dot-mode "graphviz-dot-mode" "Enter graphviz-dot-mode." t)
-(setq auto-mode-alist (cons '("\\.dot$" . graphviz-dot-mode) auto-mode-alist))
-
-;; ---- Gri-mode
-(autoload 'gri-mode "gri-mode" "Enter Gri-mode." t)
-(setq auto-mode-alist (cons '("\\.gri$" . gri-mode) auto-mode-alist))
-
-;; ---- redo
-(autoload 'redo "redo" "Redo things!" t)
-(global-set-key (kbd "M-/") 'redo)
 
 ;; ---- Emacsclient
 (server-start)

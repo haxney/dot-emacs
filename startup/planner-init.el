@@ -1,6 +1,3 @@
-;; Planner
-(autoload 'plan "planner" "Planner mode" t)
-
 (eval-after-load 'planner
   '(progn
 	 (setq planner-project "Journal of Hax")

@@ -1,6 +1,3 @@
-;; ---- PGG (encryption) keys
-(autoload 'pgg-invoke "pgg" "Use a PGG command")
-
 (defun dhackney/pgg-encrypt-sign (rcpts &optional sign start end passphrase)
   "Sign and encrypt the buffer."
   (interactive (list (split-string (read-string "Recipients: ") "[ \t,]+") t))

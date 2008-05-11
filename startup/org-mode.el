@@ -40,11 +40,10 @@
        (when (and (string= state "STARTED")
                   (not (string= last-state state)))
          (org-clock-in)))
-      (add-hook 'org-after-todo-state-change-hook
-                'wicked/org-clock-in-if-starting)
-;;      (defadvice org-clock-in (after wicked activate)
-;;        "Set this task's status to 'STARTED'."
-;;        (org-todo "STARTED"))
+
+     (add-hook 'org-after-todo-state-change-hook
+               'wicked/org-clock-in-if-starting)
+
      (defun wicked/org-clock-out-if-waiting ()
        "Clock out when the task is marked WAITING."
        (when (and (string= state "WAITING")
@@ -54,5 +53,6 @@
                      org-clock-marker)
                   (not (string= last-state state)))
          (org-clock-out)))
+
      (add-hook 'org-after-todo-state-change-hook
                'wicked/org-clock-out-if-waiting)))
