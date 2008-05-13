@@ -16,3 +16,6 @@
 
 ;; Commenting
 (global-set-key (kbd "C-M-;") 'comment-region)
+
+;; Use meta with arrow keys for windmove.
+(windmove-default-keybindings 'meta)
