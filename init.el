@@ -1,5 +1,8 @@
 (defvar *emacs-load-start* (current-time))
 
+;; This gives us `third'
+(require 'cl)
+
 (setq conf-home (concat (file-name-as-directory (expand-file-name "~"))
 						(file-name-as-directory ".emacs.d")))
 
@@ -8,8 +11,16 @@
 
 (add-to-list 'load-path (concat conf-home "elisp"))
 
-;; Package -- Packaging system for Emacs.
+;; Store custom settings in a different file.
+(setq custom-file
+	  (concat conf-home "my-custom.el"))
+(load custom-file 'noerror)
 
+;; Automagically byte-compile loaded files. Apparently it needs to be done after
+;; loading custom.
+(require 'byte-code-cache)
+
+;; ---- Package
 ;; Load package before loading startup files, since some of them may depend on
 ;; package being loaded
 (require 'package)
@@ -50,11 +61,6 @@
 
 ;; ---- AUCTeX
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-
-;; Store custom settings in a different file.
-(setq custom-file
-	  (concat conf-home "my-custom.el"))
-(load custom-file 'noerror)
 
 ;; Time how long it took to start up.
 (let ((the-time (current-time)))

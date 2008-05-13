@@ -6,6 +6,7 @@
  '(LaTeX-command "latex -shell-escape")
  '(TeX-master nil)
  '(auto-save-list-file-prefix "~/.emacs.d/tmp/auto-save-list/.saves-")
+ '(bcc-cache-directory "~/.emacs.d/tmp/byte-cache")
  '(blink-cursor-mode nil)
  '(bm-repository-file "/home/dhackney/.emacs.d/bm-repository")
  '(bongo-enabled-backends (quote (mplayer)))
