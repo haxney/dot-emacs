@@ -9,7 +9,8 @@
 (setq conf-tmp (concat conf-home
                        (file-name-as-directory "tmp")))
 
-(add-to-list 'load-path (concat conf-home "elisp"))
+;; Add to the end of the list
+(add-to-list 'load-path (concat conf-home "elisp") t)
 
 ;; Store custom settings in a different file.
 (setq custom-file
@@ -61,6 +62,10 @@
 
 ;; ---- AUCTeX
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+
+
+;; Really turn off tool bar.
+(tool-bar-mode -1)
 
 ;; Time how long it took to start up.
 (let ((the-time (current-time)))
