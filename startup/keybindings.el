@@ -1,6 +1,3 @@
-;; Rebind M-x to C-x C-m
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-
 ;; Set C-w to backward kill word and remap existing C-w to C-x C-k
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
