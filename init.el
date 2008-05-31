@@ -64,9 +64,6 @@
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 
 
-;; Really turn off tool bar.
-(tool-bar-mode -1)
-
 ;; Time how long it took to start up.
 (let ((the-time (current-time)))
   (message "My .emacs loaded in %dms"
