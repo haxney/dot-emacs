@@ -51,3 +51,14 @@
 
 ;; ---- Flyspell
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+
+;; ---- Flymake
+(autoload 'flymake-find-file-hook "flymake" "On-the-fly syntax checker." t)
+(autoload 'flymake-mode "flymake" "On-the-fly syntax checker." t)
+
+;; ---- YAML mode
+(autoload 'yaml-mode "yaml-mode" "Major mode for editing YAML files." t)
+(add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
+
+;; ---- Ditz mode
+(autoload 'ditz-todo "ditz" "Ditz bug tracking system." t)
