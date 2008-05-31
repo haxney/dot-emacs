@@ -61,4 +61,19 @@
          (org-clock-out)))
 
      (add-hook 'org-after-todo-state-change-hook
-               'wicked/org-clock-out-if-waiting)))
+               'wicked/org-clock-out-if-waiting)
+
+     ;; Make linking between org files easier
+     (defun dhackney/org-link-to-project ()
+       "Prompt for a link between org files."
+       (interactive)
+       (let ((link (ido-completing-read
+                    "Org File: "
+                    (directory-files (file-name-directory (buffer-file-name))
+                                     nil
+                                     "^[^\.#].*\.org")))
+             (desc (read-from-minibuffer "Desc: ")))
+         (insert (org-make-link-string link desc))))
+
+     (define-key org-mode-map "\C-c\M-l" 'dhackney/org-link-to-project)
+     ))
