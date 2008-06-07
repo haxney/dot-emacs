@@ -16,3 +16,6 @@
 
 ;; Use meta with arrow keys for windmove.
 (windmove-default-keybindings 'meta)
+
+;; Use C-c C-k for kmacro keys
+(global-set-key "\C-c\C-k" 'kmacro-keymap)

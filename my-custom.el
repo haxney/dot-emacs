@@ -27,6 +27,7 @@
  '(ecb-tip-of-the-day nil)
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
  '(fill-column 80)
+ '(flyspell-use-meta-tab nil)
  '(git-append-signed-off-by t)
  '(ido-everywhere t)
  '(ido-ignore-files (quote ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "_whizzy_.*" ".*\\.raux" ".*\\.wdvi" "\\.git")))
