@@ -46,16 +46,6 @@
 (global-pabbrev-mode)
 ;; do we need to disable it in term mode?
 
-;; don't clutter directories!
-(setq auto-save-directory (concat conf-tmp "autosave"))
-
-;; create a backup file directory
-(defun make-backup-file-name (file)
-  (concat conf-tmp
-		  (file-name-as-directory "baks")
-		  (file-name-nondirectory file)
-		  "~"))
-
 ;; Place semantic.cache files somewhere central
 (setq semanticdb-default-save-directory
 	  (concat conf-tmp "semantic-cache"))

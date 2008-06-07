@@ -7,6 +7,7 @@
  '(TeX-master nil)
  '(after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))
  '(auto-save-list-file-prefix "~/.emacs.d/tmp/auto-save-list/.saves-")
+ '(backup-directory-alist (quote (("." . "~/.emacs.d/tmp/baks/"))))
  '(bcc-blacklist (quote ("/\\.recentf$" "/history$" "auctex")))
  '(bcc-cache-directory "~/.emacs.d/tmp/byte-cache")
  '(blink-cursor-mode nil)
