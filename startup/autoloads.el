@@ -62,3 +62,7 @@
 
 ;; ---- Ditz mode
 (autoload 'ditz-todo "ditz" "Ditz bug tracking system." t)
+
+;; ---- MSF-Abbrev
+(autoload 'msf-abbrev-load "msf-abbrev"
+  "Load all abbrevs under `msf-abbrev-root'.")
