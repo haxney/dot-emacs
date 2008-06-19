@@ -37,6 +37,10 @@ perspective.")
   '((t (:weight bold :foreground "Blue")))
   "The face used to highlight the current perspective on the modeline.")
 
+(defcustom persp-completing-func 'completing-read
+  "The completion function used to read the choice of
+buffer. Must be compatible with `completing-read'.")
+
 (defun persp-save ()
   "Save the current perspective in `perspectives-hash'."
   (if persp-curr-name
@@ -57,11 +61,10 @@ perspective.")
 DEFAULT is a default value for the prompt.
 
 REQUIRE-MATCH can take the same values as in `completing-read'."
-  (completing-read (concat "Perspective name"
-                           (if default (concat " (default " default ")") "")
-                           ": ")
-                   (persp-names)
-                   nil require-match nil nil default))
+  (funcall persp-completing-func
+           "Perspective name: "
+           (persp-names)
+           nil require-match nil 'persp-history default))
 
 (defmacro with-perspective (name &rest body)
   "Evaluate BODY with the perspective given by NAME as the current perspective."
