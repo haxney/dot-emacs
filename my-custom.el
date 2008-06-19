@@ -58,6 +58,7 @@
   %a" "~/org/root.org" ""))))
  '(org-return-follows-link t)
  '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "WAITING" "DONE"))))
+ '(persp-completing-func (quote ido-completing-read))
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
  '(planner-reverse-chronological-notes nil)
