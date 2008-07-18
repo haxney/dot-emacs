@@ -17,7 +17,7 @@
  '(column-number-mode t)
  '(confirm-kill-emacs (quote yes-or-no-p))
  '(current-language-environment "UTF-8")
- '(default-frame-alist (quote ((cursor-type bar . 2) (tool-bar-lines . 0) (font . "Bitstream Vera Sans Mono-8"))))
+ '(default-frame-alist (quote ((cursor-type bar . 2) (tool-bar-lines . 0) (font . "Bitstream Vera Sans Mono-10"))))
  '(default-input-method "rfc1345")
  '(ecb-layout-name "left8")
  '(ecb-layout-window-sizes (quote (("left8" (0.22137404580152673 . 0.28125) (0.22137404580152673 . 0.25) (0.22137404580152673 . 0.265625) (0.22137404580152673 . 0.1875)))))
