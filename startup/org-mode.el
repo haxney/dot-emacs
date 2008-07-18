@@ -67,11 +67,13 @@
      (defun dhackney/org-link-to-project ()
        "Prompt for a link between org files."
        (interactive)
-       (let ((link (ido-completing-read
-                    "Org File: "
-                    (directory-files (file-name-directory (buffer-file-name))
-                                     nil
-                                     "^[^\.#].*\.org")))
+       (let ((link (concat
+                    "file:"
+                    (ido-completing-read
+                     "Org File: "
+                     (directory-files (file-name-directory (buffer-file-name))
+                                      nil
+                                      "^[^\.#].*\.org"))))
              (desc (read-from-minibuffer "Desc: ")))
          (insert (org-make-link-string link desc))))
 
