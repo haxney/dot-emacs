@@ -17,10 +17,6 @@
 	  (concat conf-home "my-custom.el"))
 (load custom-file 'noerror)
 
-;; Automagically byte-compile loaded files. Apparently it needs to be done after
-;; loading custom.
-(require 'byte-code-cache)
-
 ;; ---- Package
 ;; Load package before loading startup files, since some of them may depend on
 ;; package being loaded
