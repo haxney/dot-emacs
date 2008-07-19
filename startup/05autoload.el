@@ -1,4 +1,19 @@
-;; For libraries which are autoloaded without any additional configuration.
+;;; 10autoload.el --- Set up autoloads for libaries.
+
+;; Copyright (C) 2008, Daniel Hackney
+
+;; Description: Set up autoloads for libaries.
+;; Author: Daniel Hackney
+;; Maintainer: Daniel Hackney
+;; Keywords: autoload lisp local
+
+;; This file is NOT part of GNU Emacs.
+
+;;; Commentary:
+;;
+;;  For libraries which are autoloaded without any additional configuration.
+
+;;; Code:
 
 ;; ---- Quack
 ;; Provides Scheme mode
@@ -31,10 +46,6 @@
 (autoload 'inf-ruby-keys "inf-ruby"
   "Set local key defs for inf-ruby in ruby-mode")
 
-;; ---- psvn
-;; Emacs interface for subversion.
-(autoload 'svn-status "psvn" "svn-status mode" t)
-
 ;; ---- PGG
 ;; Encryption functions.
 (autoload 'pgg-invoke "pgg" "Use a PGG command")
@@ -66,3 +77,15 @@
 ;; ---- MSF-Abbrev
 (autoload 'msf-abbrev-load "msf-abbrev"
   "Load all abbrevs under `msf-abbrev-root'.")
+
+;; ---- AUCTeX
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+
+;; ---- Highline
+(autoload 'highline-mode "highline"
+  "Highline line highlighting mode.")
+
+(autoload 'global-linum-mode "linum"
+  "Set linum mode globally.")
+
+;;; 10autoload.el ends here

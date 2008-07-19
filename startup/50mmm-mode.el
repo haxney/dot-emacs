@@ -1,3 +1,16 @@
+;;; 50mmm-mode.el --- Set up config for `mmm-mode'.
+
+;; Copyright (C) 2008, Daniel Hackney
+
+;; Description: Set up config for `mmm-mode'.
+;; Author: Daniel Hackney
+;; Maintainer: Daniel Hackney
+;; Keywords: mmm-mode local
+
+;; This file is NOT part of GNU Emacs.
+
+;;; Code:
+
 (eval-after-load "mmm-mode"
   '(progn
 	 (setq mmm-global-mode 'maybe)
@@ -45,3 +58,5 @@
 				  '(html-mode nil embedded-javascript-attribute))
 
 	 (global-set-key [f8] 'mmm-parse-buffer)))
+
+;;; 50mmm-mode.el ends here

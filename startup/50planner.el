@@ -1,3 +1,16 @@
+;;; 50planner.el --- Set up planner project.
+
+;; Copyright (C) 2008, Daniel Hackney
+
+;; Description: Set up planner project.
+;; Author: Daniel Hackney
+;; Maintainer: Daniel Hackney
+;; Keywords: planner project local
+
+;; This file is NOT part of GNU Emacs.
+
+;;; Code:
+
 (eval-after-load 'planner
   '(progn
 	 (setq planner-project "Journal of Hax")
@@ -27,7 +40,7 @@
 	 (setq remember-handler-functions '(remember-planner-append))
 	 (setq remember-annotation-functions planner-annotation-functions)
 
-	 ;; Bind remember to C-c C-r
+	 ;; Bind remember to C-c C-n
 	 (global-unset-key (kbd "C-c C-n"))
 	 (global-set-key (kbd "C-c C-n") 'remember)
 
@@ -41,3 +54,5 @@
 					   "\n\n* Tasks\n\n\nWake: Up: \n\n* Events\n")))
 
 	 (setq planner-day-page-template 'dhackney/planner-daily-template)))
+
+;;; 50planner.el ends here

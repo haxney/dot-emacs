@@ -1,3 +1,21 @@
+;;; 50server.el --- Settings for Emacs server.
+
+;; Copyright (C) 2008, Daniel Hackney
+
+;; Description: Settings for Emacs server.
+;; Author: Daniel Hackney
+;; Maintainer: Daniel Hackney
+;; Keywords: emacs-server local
+
+;; This file is NOT part of GNU Emacs.
+
+;;; Commentary:
+;;
+;;  Set up a special perspective for server files and switch to it when
+;;  emacsclient opens. Also set up options for particular sites.
+
+;;; Code:
+
 ;; Only start when the server is not already started.
 (when (or (not (boundp 'server-process))
           (not (eq (process-status server-process)
@@ -31,3 +49,4 @@ This is intended to be a server hook."
 
 (add-hook 'server-visit-hook 'server-edit-presets)
 
+;;; 50server.el ends here

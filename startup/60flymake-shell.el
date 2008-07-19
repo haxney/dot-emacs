@@ -1,4 +1,16 @@
-;;; Flymake Shell mode
+;;; 60flymake-shell.el --- Flymake settings for `shell-mode'.
+
+;; Copyright (C) 2008, Daniel Hackney
+
+;; Description: Flymake settings for `shell-mode'.
+;; Author: Daniel Hackney
+;; Maintainer: Daniel Hackney
+;; Keywords: shell flymake convenience settings
+
+;; This file is NOT part of GNU Emacs.
+
+;;; Code:
+
 (eval-after-load "flymake"
   '(progn
      (defcustom flymake-shell-of-choice
@@ -32,3 +44,5 @@
        (local-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line))
 
      (add-hook 'sh-mode-hook 'flymake-shell-load)))
+
+;;; 60flymake-shell.el ends here

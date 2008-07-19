@@ -1,3 +1,22 @@
+;;; 50persp.el --- Set up `perspective'.
+
+;; Copyright (C) 2008, Daniel Hackney
+
+;; Description: Set up `perspective'.
+;; Author: Daniel Hackney
+;; Maintainer: Daniel Hackney
+;; Keywords: perspective local
+
+;; This file is NOT part of GNU Emacs.
+
+;;; Commentary:
+;;
+;;  Restrict `switch-buffer' to other buffers within this perspective. Allow
+;;  switching to buffers outside of this perspective by using
+;;  `ido-show-all-buffers'.
+
+;;; Code:
+
 (require 'perspective)
 
 ;; Emacs doesn't have a `filter' function. That is whack.
@@ -23,3 +42,5 @@ This is useful when trying to add existing buffers to a perspective."
   (exit-minibuffer))
 
 (define-key ido-buffer-completion-map "\C-r" 'ido-show-all-buffers)
+
+;;; 50persp.el ends here

@@ -1,7 +1,23 @@
-;; Place autosave files in
+;;; 10auto-save.el --- Set up auto-save directory.
+
+;; Copyright (C) 2008, Daniel Hackney
+
+;; Description: Set up auto-save directory.
+;; Author: Daniel Hackney
+;; Maintainer: Daniel Hackney
+;; Keywords: lisp files convenience local
+
+;; This file is NOT part of GNU Emacs.
+
+;;; Commentary:
+;;
+;;  Place autosave files in a global directory.
+
+;;; Code:
 
 (defvar autosave-dir
-  "~/.emacs.d/tmp/autosave/"
+  (concat conf-tmp
+          (file-name-as-directory "autosave"))
   "The directory in which to place auto-save (i.e. #foo#) files.")
 
 (defun auto-save-file-name-p (filename)
@@ -15,3 +31,5 @@ filename should lack slashes."
               (concat "#" (file-name-nondirectory buffer-file-name) "#")
             (expand-file-name
              (concat "#%" (buffer-name) "#")))))
+
+;;; 10auto-save.el ends here

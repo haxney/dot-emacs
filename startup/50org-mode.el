@@ -1,3 +1,20 @@
+;;; 50org-mode.el --- Set up `org-mode'.
+
+;; Copyright (C) 2008, Daniel Hackney
+
+;; Description: Set up `org-mode'.
+;; Author: Daniel Hackney
+;; Maintainer: Daniel Hackney
+;; Keywords: org local
+
+;; This file is NOT part of GNU Emacs.
+
+;;; Commentary:
+;;
+;;  Set up clock in/out functionality, as well as convenience keybindings.
+
+;;; Code:
+
 ;; Org mode keys
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -79,3 +96,5 @@
 
      (define-key org-mode-map "\C-c\M-l" 'dhackney/org-link-to-project)
      ))
+
+;;; 50org-mode.el ends here

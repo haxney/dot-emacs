@@ -1,3 +1,20 @@
+;;; 60flymake-ruby.el --- Ruby settings for flymake.
+
+;; Copyright (C) 2008, Daniel Hackney
+
+;; Description: Ruby settings for flymake.
+;; Author: Daniel Hackney
+;; Maintainer: Daniel Hackney
+;; Keywords: ruby flymake local
+
+;; This file is NOT part of GNU Emacs.
+
+;;; Commentary:
+;;
+;;  Set colors and filenames for Ruby Flymake.
+
+;;; Code:
+
 (eval-after-load 'flymake
   '(progn
      ;; I don't like the default colors :)
@@ -25,3 +42,5 @@
                   (if (and (not (null buffer-file-name)) (file-writable-p buffer-file-name))
                       (flymake-mode))
                   ))))
+
+;;; 60flymake-ruby.el ends here
