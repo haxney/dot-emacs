@@ -37,13 +37,15 @@ This is intended to be a server hook."
       (persp-remove-buffer new-buf))
     (persp-switch "server")))
 
-
 (defun server-edit-presets ()
-  ;; When editing mail, set the goal-column to 72.
-  (cond ((string-match "mail\.google\.com\.[0-9a-z]+\.txt" (buffer-name))
-         (set-fill-column 72))
-        ((string-match "www\.facebook\.com\.[0-9a-z]+\.txt" (buffer-name))
-         (long-lines-mode))))
+  (cond
+   ;; When editing mail, set the goal-column to 72.
+   ((string-match "mail\\.google\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
+    (set-fill-column 72))
+
+   ;; Facebook textareas should not have hard newlines.
+   ((string-match "www\\.\\(new\\.\\)?facebook\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
+    (longlines-mode))))
 
 (add-hook 'server-switch-hook 'server-perspective-switch)
 
