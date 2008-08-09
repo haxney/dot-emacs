@@ -11,9 +11,11 @@
 
 ;;; Code:
 
-(defun linum-on ()
-  "Ugly hack to turn off linum-mode for org-mode"
-  (unless (or (minibufferp) (eq major-mode 'org-mode))
-    (linum-mode 1)))
+(defadvice linum-on (around linum-not-for-org)
+  "Do not turn on `linum-mode' if we are in `org-mode'."
+  (unless (eq major-mode 'org-mode)
+    ad-do-it))
+
+(ad-activate 'linum-on)
 
 ;;; 40linum.el ends here
