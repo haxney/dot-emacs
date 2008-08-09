@@ -19,6 +19,7 @@
  '(current-language-environment "UTF-8")
  '(default-frame-alist (quote ((cursor-type bar . 2) (tool-bar-lines . 0) (font . "Bitstream Vera Sans Mono-10"))))
  '(default-input-method "rfc1345")
+ '(default-major-mode (quote text-mode))
  '(ecb-layout-name "left8")
  '(ecb-layout-window-sizes (quote (("left8" (0.22137404580152673 . 0.28125) (0.22137404580152673 . 0.25) (0.22137404580152673 . 0.265625) (0.22137404580152673 . 0.1875)))))
  '(ecb-options-version "2.32")
@@ -47,16 +48,18 @@
  '(menu-bar-mode nil)
  '(nxml-mode-hook (quote (nxml-enable-unicode-char-name-sets rng-nxml-mode-init flyspell-mode)))
  '(nxml-slash-auto-complete-flag t)
+ '(org-agenda-custom-commands (quote (("p" tags "PROJECT-MAYBE-DONE" nil))))
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "%s_archive::* Archived Tasks")
  '(org-default-notes-file "~/org/root.org")
  '(org-registry-file "~/.emacs.d/tmp/org-registry.el")
- '(org-remember-templates (quote (("" 116 "** TODO %?
+ '(org-remember-templates (quote (("Todo" 116 "** TODO %?
   %i
- %a" "~/org/root.org" "") ("" 97 "** Appointment: %?
+ %a" "~/org/root.org" "") ("Appointment" 97 "** Appointment: %?
 %^T
 %i
-  %a" "~/org/root.org" ""))))
+  %a" "~/org/root.org" "") ("Blog Idea" 98 "*** %^{Title}
+    %i%?" "~/org/root.org" "Blog Ideas") ("Music" 109 "*** %^{Song title} - %^{Artist}%!" "~/org/root.org" "Music"))))
  '(org-return-follows-link t)
  '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "WAITING" "DONE"))))
  '(persp-completing-func (quote ido-completing-read))
@@ -76,7 +79,7 @@
  '(server-switch-hook (quote (flyspell-mode)))
  '(show-paren-mode t nil (paren))
  '(tab-width 4)
- '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
+ '(text-mode-hook (quote (turn-on-flyspell turn-on-auto-fill text-mode-hook-identify orgstruct-mode)))
  '(tool-bar-mode -1)
  '(tramp-completion-reread-directory-timeout 5)
  '(tramp-default-method "ssh")
