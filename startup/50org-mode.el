@@ -25,8 +25,8 @@
      (define-key org-mode-map "\C-c\C-x\C-f" 'org-shiftmetaright)
      (define-key org-mode-map "\C-c\C-x\C-b" 'org-shiftmetaleft)
      (define-key org-mode-map "\C-\M-m" 'org-insert-heading-after-current)
-     (define-key org-mode-map "\C-c\C-x\C-o" 'my/org-todo-waiting)
-     (define-key org-mode-map "\C-c\C-x\C-i" 'my/org-todo-starting)
+     (define-key org-mode-map "\C-c\C-x\C-o" 'my/org-clock-out)
+     (define-key global-map "\C-c\C-x\C-i" 'my/org-todo-starting)
 
      ;; Turn on Flyspell when loading org-mode
      (add-hook 'org-mode-hook 'flyspell-mode)
@@ -43,14 +43,13 @@
      (org-registry-initialize)
      (org-registry-insinuate)
 
-     (defun my/org-todo-waiting ()
+     (defun my/org-clock-out ()
        (interactive)
-       "Mark the current task WAITING."
-       (org-clock-goto)
-       (org-todo "WAITING")
-       ;; This is necessary because org-clock-goto inists on opening in another window.
-       (switch-to-buffer nil)
-       (other-window -1))
+       "Clock out of whatever task is currently STARTED."
+       (save-excursion
+         (set-buffer (marker-buffer org-clock-marker))
+         (goto-char org-clock-marker)
+         (org-todo "WAITING")))
 
      (defun my/org-todo-starting ()
        (interactive)
