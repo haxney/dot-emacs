@@ -16,7 +16,7 @@
 (global-set-key "\C-x\C-k" 'kill-region)
 
 ;; Use C-c C-k for kmacro keys
-(global-set-key "\C-c\C-k" 'kmacro-keymap)
+(global-set-key "\C-ck" 'kmacro-keymap)
 
 ;; Globally set C-c C-v C-c to compile.
 (global-set-key "\C-c\C-v\C-c" 'compile)
