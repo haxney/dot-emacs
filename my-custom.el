@@ -4,6 +4,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(LaTeX-command "latex -shell-escape")
+ '(LaTeX-mode-hook (quote (flymake-mode-off flyspell-mode)))
  '(TeX-master nil)
  '(after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))
  '(auto-save-list-file-prefix "~/.emacs.d/tmp/auto-save-list/.saves-")
@@ -17,7 +18,7 @@
  '(column-number-mode t)
  '(confirm-kill-emacs (quote yes-or-no-p))
  '(current-language-environment "UTF-8")
- '(default-frame-alist (quote ((cursor-type bar . 2) (tool-bar-lines . 0) (font . "Bitstream Vera Sans Mono-10"))))
+ '(default-frame-alist (quote ((cursor-type bar . 2) (tool-bar-lines . 0) (font . "Monospace-10"))))
  '(default-input-method "rfc1345")
  '(default-major-mode (quote text-mode))
  '(ecb-layout-name "left8")
@@ -59,7 +60,7 @@
 %^T
 %i
   %a" "~/org/root.org" "") ("Blog Idea" 98 "*** %^{Title}
-    %i%?" "~/org/root.org" "Blog Ideas") ("Music" 109 "*** %^{Song title} - %^{Artist}%!" "~/org/root.org" "Music"))))
+    %i%?" "~/org/root.org" "Blog Ideas") ("Music" 109 "*** %^{Song title} - %^{Artist}%!" "~/org/music.org" "To buy"))))
  '(org-return-follows-link t)
  '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "WAITING" "DONE"))))
  '(persp-completing-func (quote ido-completing-read))
@@ -79,7 +80,7 @@
  '(server-switch-hook (quote (flyspell-mode)))
  '(show-paren-mode t nil (paren))
  '(tab-width 4)
- '(text-mode-hook (quote (turn-on-flyspell turn-on-auto-fill text-mode-hook-identify orgstruct-mode)))
+ '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
  '(tool-bar-mode -1)
  '(tramp-completion-reread-directory-timeout 5)
  '(tramp-default-method "ssh")
