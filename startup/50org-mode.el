@@ -19,6 +19,8 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
+(autoload 'org-read-date "org")
+
 (eval-after-load 'org
   '(progn
      ;; Allow indentation without having to go to the arrow keys
@@ -94,6 +96,16 @@
          (insert (org-make-link-string link desc))))
 
      (define-key org-mode-map "\C-c\M-l" 'dhackney/org-link-to-project)
+
+     (defun dhackney/org-open-day-page ()
+       "Use `org-read-date' to prompt for a date, and open the
+day-page file matching that name."
+       (interactive)
+       (find-file (expand-file-name
+                   (concat "~/org/"
+                           (replace-regexp-in-string "-" "." (org-read-date nil))
+                           ".org"))))
+     (define-key global-map "\C-c\C-d" 'dhackney/org-open-day-page)
      ))
 
 ;;; 50org-mode.el ends here
