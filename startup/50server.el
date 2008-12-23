@@ -41,7 +41,12 @@ This is intended to be a server hook."
   (cond
    ;; When editing mail, set the goal-column to 72.
    ((string-match "mail\\.google\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
-    (set-fill-column 72))
+    (save-excursion
+      (set-fill-column 72)
+      (goto-char (point-min))
+      ;; Replace strange space characters
+      (while (search-forward " " nil t)
+        (replace-match " "))))
 
    ;; Facebook textareas should not have hard newlines.
    ((string-match "www\\.\\(new\\.\\)?facebook\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
