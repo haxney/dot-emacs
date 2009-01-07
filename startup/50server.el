@@ -50,6 +50,10 @@ This is intended to be a server hook."
 
    ;; Facebook textareas should not have hard newlines.
    ((string-match "www\\.\\(new\\.\\)?facebook\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
+    (longlines-mode))
+
+   ;; Blogger wants longlines-mode as well.
+   ((string-match "www\\.blogger\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
     (longlines-mode))))
 
 (add-hook 'server-switch-hook 'server-perspective-switch)
