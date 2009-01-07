@@ -105,7 +105,7 @@ day-page file matching that name."
                    (concat "~/org/"
                            (replace-regexp-in-string "-" "." (org-read-date nil))
                            ".org"))))
-     (define-key global-map "\C-c\C-d" 'dhackney/org-open-day-page)
+     (define-key global-map "\C-c\M-d" 'dhackney/org-open-day-page)
      ))
 
 ;;; 50org-mode.el ends here
