@@ -18,7 +18,7 @@
  '(column-number-mode t)
  '(confirm-kill-emacs (quote yes-or-no-p))
  '(current-language-environment "UTF-8")
- '(default-frame-alist (quote ((cursor-type bar . 2) (tool-bar-lines . 0) (font . "Monospace-10"))))
+ '(default-frame-alist (quote ((cursor-type bar . 2) (tool-bar-lines . 0) (font . "Monospace-8"))))
  '(default-input-method "rfc1345")
  '(default-major-mode (quote text-mode))
  '(ecb-layout-name "left8")
