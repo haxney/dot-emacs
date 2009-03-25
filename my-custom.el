@@ -4,7 +4,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(LaTeX-command "latex -shell-escape")
- '(LaTeX-mode-hook (quote (flymake-mode-off flyspell-mode)))
+ '(LaTeX-mode-hook (quote (flymake-mode-off flyspell-mode)) t)
  '(TeX-master nil)
  '(after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))
  '(auto-save-list-file-prefix "~/.emacs.d/tmp/auto-save-list/.saves-")
@@ -46,6 +46,7 @@
  '(jde-jdk-registry (quote (("1.5" . "/usr/lib/jvm/java-6-sun/"))))
  '(line-number-mode t)
  '(load-home-init-file t t)
+ '(magit-commit-signoff t)
  '(menu-bar-mode nil)
  '(nxml-mode-hook (quote (nxml-enable-unicode-char-name-sets rng-nxml-mode-init flyspell-mode)))
  '(nxml-slash-auto-complete-flag t)
