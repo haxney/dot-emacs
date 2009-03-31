@@ -42,6 +42,7 @@ This is intended to be a server hook."
    ;; When editing mail, set the goal-column to 72.
    ((string-match "mail\\.google\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
     (save-excursion
+      (set-buffer (buffer-name))
       (set-fill-column 72)
       (goto-char (point-min))
       ;; Replace strange space characters
