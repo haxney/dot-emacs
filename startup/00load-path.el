@@ -18,9 +18,12 @@
 (setq startup-dir (concat conf-home
 							  (file-name-as-directory "startup")))
 
+;; The local elisp directory
+(setq elisp-dir (concat conf-home
+                                (file-name-as-directory "elisp")))
+
 ;; Add local libraries to `load-path'.
-(add-to-list 'load-path (concat conf-home
-                                (file-name-as-directory "elisp")) t)
+(add-to-list 'load-path elisp-dir t)
 
 ;; The storage location of temporary emacs files.
 (setq conf-tmp (concat conf-home
