@@ -21,6 +21,16 @@
 
 (autoload 'org-read-date "org")
 
+;; Load local version of org-mode
+(add-to-list 'load-path (concat elisp-dir
+                                (file-name-as-directory "org-mode")
+                                (file-name-as-directory "lisp")))
+(add-to-list 'load-path (concat elisp-dir
+                                (file-name-as-directory "org-mode")
+                                (file-name-as-directory "contrib")
+                                (file-name-as-directory "lisp")))
+(require 'org-install)
+
 (eval-after-load 'org
   '(progn
      ;; Allow indentation without having to go to the arrow keys
