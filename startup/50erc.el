@@ -33,7 +33,7 @@
      (require 'erc-join)
      (erc-autojoin-mode 1)
      (setq erc-autojoin-channels-alist
-           '(("freenode.net" "#emacs" "#gsoc" "#drupal")
+           '(("freenode.net" "#emacs" "#gsoc" "#drupal" "#git")
              ("oftc.net" "#debian")))))
 
 (defun irc-maybe ()
