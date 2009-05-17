@@ -33,7 +33,7 @@
      (require 'erc-join)
      (erc-autojoin-mode 1)
      (setq erc-autojoin-channels-alist
-           '(("freenode.net" "#emacs" "#gsoc" "#drupal" "#git")))
+           '(("freenode.net" "#drupal-vcs" "#drupal")))
 
      (require 'notify)
      (defun dhackney-notify-erc (match-type nickuserhost message)
@@ -51,7 +51,5 @@
   (interactive)
   (when (y-or-n-p "IRC? ")
     (erc :server "irc.freenode.net" :port 6667
-         :nick "chrono325" :full-name "Daniel Hackney")
-    (erc :server "irc.oftc.net" :port 6667
          :nick "chrono325" :full-name "Daniel Hackney")))
 ;;; 50erc.el ends here
