@@ -33,8 +33,18 @@
      (require 'erc-join)
      (erc-autojoin-mode 1)
      (setq erc-autojoin-channels-alist
-           '(("freenode.net" "#emacs" "#gsoc" "#drupal" "#git")
-             ("oftc.net" "#debian")))))
+           '(("freenode.net" "#emacs" "#gsoc" "#drupal" "#git")))
+
+     (require 'notify)
+     (defun dhackney-notify-erc (match-type nickuserhost message)
+       "Notify when a message is received"
+       (notify (progn
+                 (string-match "\\([^!]+\\)!" nickuserhost)
+                 (match-string 1 nickuserhost))
+               message
+               :icon "emacs-snapshot"))
+
+     (add-hook 'erc-text-matched-hook 'dhackney-notify-erc)))
 
 (defun irc-maybe ()
   "Connect to IRC."
