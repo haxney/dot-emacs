@@ -44,7 +44,11 @@
                message
                :icon "emacs-snapshot"))
 
-     (add-hook 'erc-text-matched-hook 'dhackney-notify-erc)))
+     (add-hook 'erc-text-matched-hook 'dhackney-notify-erc)
+
+     ;; Load the passwords.
+     (if (file-readable-p "~/.private/private.el")
+         (load-file "~/.private/private.el"))))
 
 (defun irc-maybe ()
   "Connect to IRC."
