@@ -32,10 +32,6 @@
 (autoload 'gri-mode "gri-mode" "Enter Gri-mode." t)
 (add-to-list 'auto-mode-alist '("\\.gri$" . gri-mode))
 
-;; ---- redo
-(autoload 'redo "redo" "Redo things!" t)
-(global-set-key (kbd "M-/") 'redo)
-
 ;; ---- ruby
 (autoload 'ruby-mode "ruby-mode" "Ruby edit mode" t)
 (autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode" t)

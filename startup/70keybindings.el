@@ -35,4 +35,6 @@
 
 (define-key global-map "\C-cr" 'remember)
 
+(global-set-key (kbd "M-/") 'hippie-expand)
+
 ;;; 70keybindings.el ends here
