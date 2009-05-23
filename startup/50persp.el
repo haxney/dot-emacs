@@ -19,6 +19,17 @@
 
 (require 'perspective)
 
+;; Emacs doesn't have a `filter' function. That is whack.
+(defun filter (condp lst)
+  (delq nil
+        (mapcar (lambda (x) (and (funcall condp x) x)) lst)))
+
+(defun filter-persp-buffers ()
+  (setq ido-temp-list
+        (filter (lambda (x) (member (get-buffer x) persp-curr-buffers)) ido-temp-list)))
+
+(add-hook 'ido-make-buffer-list-hook 'filter-persp-buffers)
+
 (defun ido-show-all-buffers ()
   "Show all buffers, not just the ones in this perspective.
 
