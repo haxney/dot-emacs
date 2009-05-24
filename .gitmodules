@@ -1,3 +1,6 @@
 [submodule "elisp/org-mode"]
 	path = elisp/org-mode
 	url = git://repo.or.cz/org-mode.git
+[submodule "elisp/smex"]
+	path = elisp/smex
+	url = git://github.com/nonsequitur/smex.git
