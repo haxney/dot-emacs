@@ -58,6 +58,29 @@
                :timeout -1))
      (add-hook 'erc-text-matched-hook 'dhackney-notify-erc)
 
+     ;; Respond once if mentioned while away
+     (defvar erc-responded-once nil)
+     (defvar erc-away-reason nil)
+     (defun erc-respond-once-if-away (match-type nickuserhost msg)
+       (if (erc-away-time)
+           (if (eq match-type 'current-nick)
+               (unless erc-responded-once
+                 (erc-send-action (erc-default-target) (concat "is away: " erc-away-reason))
+                 (setq erc-responded-once t)))))
+     (add-hook 'erc-text-matched-hook 'erc-respond-once-if-away)
+
+     (defadvice erc-process-away (after erc-away-reason-clear (proc away-p) activate)
+       "Clear things"
+       (unless away-p
+         (setq erc-responded-once nil
+               erc-away-reason nil)))
+
+     (defadvice erc-cmd-AWAY (after erc-store-reason (line) activate)
+       "store line"
+       (when (string-match "^\\s-*\\(.*\\)$" line)
+         (let ((reason (match-string 1 line)))
+           (setq erc-away-reason reason))))
+
      ;; Load the passwords.
      (if (file-readable-p "~/.private/private.el")
          (load-file "~/.private/private.el"))))
