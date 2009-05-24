@@ -35,23 +35,27 @@
      (setq erc-autojoin-channels-alist
            '(("freenode.net" "#drupal-vcs" "#drupal")))
 
+     ;; Set the prompt to the channel name
+     (setq erc-prompt
+           (lambda ()
+             (if (and (boundp 'erc-default-recipients) (erc-default-target))
+                 (erc-propertize (concat (erc-default-target) ">")
+                                 'read-only t 'rear-nonsticky t 'front-nonsticky t)
+               (erc-propertize "ERC>"
+                               'read-only t 'rear-nonsticky t 'front-nonsticky t))))
+
      (require 'notify)
      (defun dhackney-notify-erc (match-type nickuserhost message)
        "Notify when a message is received."
        (notify (format "%s in %s"
                        ;; Username of sender
-                       (progn
-                         (string-match "\\([^!]+\\)!" nickuserhost)
-                         (match-string-no-properties 1 nickuserhost))
+                       (car (split-string nickuserhost "!"))
                        ;; Channel
                        (or (erc-default-target) "#unknown"))
                ;; Remove duplicate spaces
-               (replace-regexp-in-string " +"
-                                         " "
-                                         message)
+               (replace-regexp-in-string " +" " " message)
                :icon "emacs-snapshot"
                :timeout -1))
-
      (add-hook 'erc-text-matched-hook 'dhackney-notify-erc)
 
      ;; Load the passwords.
