@@ -25,13 +25,18 @@
 ;; Add local libraries to `load-path'.
 (add-to-list 'load-path elisp-dir t)
 
-
 ;; Set up load paths for subdirectories of the 'elisp' directory.
 (load-file (concat elisp-dir "elisp-paths.el"))
 
 ;; The storage location of temporary emacs files.
 (setq conf-tmp (concat conf-home
                        (file-name-as-directory "tmp")))
+
+;; The directory to store all of the byte-compiled files.
+(setq byte-comp-dir (concat conf-tmp
+                            (file-name-as-directory "byte-cache")))
+
+(add-to-list 'load-path byte-comp-dir)
 
 ;; Place semantic.cache files somewhere central
 (setq semanticdb-default-save-directory
