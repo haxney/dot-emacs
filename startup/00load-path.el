@@ -25,6 +25,10 @@
 ;; Add local libraries to `load-path'.
 (add-to-list 'load-path elisp-dir t)
 
+
+;; Set up load paths for subdirectories of the 'elisp' directory.
+(load-file (concat elisp-dir "elisp-paths.el"))
+
 ;; The storage location of temporary emacs files.
 (setq conf-tmp (concat conf-home
                        (file-name-as-directory "tmp")))
