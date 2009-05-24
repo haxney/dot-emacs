@@ -2,16 +2,36 @@
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
 ;; Created: Sat Apr 21 2007
-(defconst nxhtml-menu:version "1.76") ;;Version:
-;; Last-Updated: 2009-12-31 Wed
+(defconst nxhtml-menu:version "1.77") ;;Version:
+;; Last-Updated: 2009-04-30 Thu
 ;; URL:
 ;; Keywords:
 ;; Compatibility:
 ;;
 ;; Features that might be required by this library:
 ;;
-  ;; `compile', `flymake', `flymake-js', `flymake-php', `css-color',
-  ;; `tool-bar', `xhtml-help'.
+  ;; `appmenu', `appmenu-fold', `apropos', `backquote', `button',
+  ;; `bytecomp', `cl', `comint', `compile', `css-color', `cus-edit',
+  ;; `cus-face', `cus-load', `cus-start', `dired', `easymenu',
+  ;; `ediff', `ediff-diff', `ediff-help', `ediff-init', `ediff-merg',
+  ;; `ediff-mult', `ediff-util', `ediff-wind', `ffip', `flymake',
+  ;; `flymake-js', `flymake-php', `flyspell', `fold-dwim', `gimp',
+  ;; `grep', `help-mode', `hideshow', `html-imenu', `html-quote',
+  ;; `html-site', `html-upl', `ido', `ietf-drums', `imenu', `ispell',
+  ;; `loadhist', `mail-parse', `mail-prsvr', `mailcap', `mlinks',
+  ;; `mm-util', `mumamo', `nxhtml-mode', `nxml-enc', `nxml-glyph',
+  ;; `nxml-mode', `nxml-ns', `nxml-outln', `nxml-parse', `nxml-rap',
+  ;; `nxml-util', `ourcomments-util', `outline', `popcmp', `qp',
+  ;; `recentf', `rfc2045', `rfc2047', `rfc2231', `ring', `rng-dt',
+  ;; `rng-loc', `rng-match', `rng-nxml', `rng-parse', `rng-pttrn',
+  ;; `rng-uri', `rng-util', `rng-valid', `rngalt', `rx',
+  ;; `setup-helper', `sgml-mode', `tidy-xhtml', `time-date', `timer',
+  ;; `timezone', `tls', `tool-bar', `tree-widget', `typesetter',
+  ;; `udev', `udev-cedet', `udev-ecb', `udev-rinari', `url',
+  ;; `url-auth', `url-c', `url-cookie', `url-expand', `url-gw',
+  ;; `url-history', `url-http', `url-methods', `url-parse',
+  ;; `url-privacy', `url-proxy', `url-util', `url-vars', `view',
+  ;; `w32-reg-iface', `w32-regdat', `wid-edit', `xmltok'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -473,6 +493,11 @@
                 :enable '(and (fboundp 'nxml-where-mode)
                               (or (derived-mode-p 'nxml-mode)
                                   (nxhtml-nxhtml-in-buffer)))))
+        (define-key where-map [nxhtml-nxml-where-cust]
+          (list 'menu-item "Customize display of XML Path"
+                (lambda () (interactive)
+                  (customize-group-other-window 'nxml-where))))
+        (define-key where-map [where-separator-2] (list 'menu-item "--"))
         (define-key where-map [nxml-where-id]
           (list 'menu-item "Show tag ids in path" 'nxml-where-tag+id-toggle
                 :enable '(boundp 'nxml-where-tag+id)

@@ -278,6 +278,7 @@
           <a href="#v1.74">v1.74</a>
           <a href="#v1.75">v1.75</a>
           <a href="#v1.76">v1.76</a>
+          <a href="#v1.77">v1.77</a>
         </div>
 
         <dl>
@@ -2565,6 +2566,79 @@
               </li>
               <li>
                 freemind.el: bug fixes.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.77">1.77</dt>
+          <dd id="v1.77-dd">
+            <ul>
+              <li>Fixed bug <a href="https://bugs.launchpad.net/nxhtml/+bug/300946">300946</a>.</li>
+              <li>Fixed bug <a href="https://bugs.launchpad.net/nxhtml/+bug/363714">363714</a>.</li>
+              <li>Fixed bug <a href="https://bugs.launchpad.net/nxhtml/+bug/347349">347349</a>.</li>
+              <li>Fixed bug <a href="https://bugs.launchpad.net/nxhtml/+bug/349233">349233</a>.</li>
+              <li>Fixed bug <a href="https://bugs.launchpad.net/nxhtml/+bug/329688">329688</a>.</li>
+              <li>
+                Added a test that the <i>nxml-mode libraries included
+                in Emacs</i> are used and not the old ones.  (If I
+                understand it correctly this might have been a problem
+                for Debian/Ubuntu Emacs 23 snap-shots users where the
+                old nxml-mode has been a left over from earlier
+                snap-shots where it was needed.)
+              </li>
+              <li>
+                MuMaMo:
+                <ul>
+                  <li>
+                    Chunks are now always created from top to bottom.
+                    This should make chunk creation more stable.
+                    It also opens up for chunks in chunks in the future.
+                    (The code still need work...)
+                  </li>
+                </ul>
+              </li>
+              <li>
+                majmodpri.el:
+                <ul>
+                  <li>
+                    To restore multi major modes in files loaded by
+                    desktop-save-mode the new
+                    function <i>majmodpri-apply</i> can be added
+                    to <i>desktop-after-read-hook</i>.
+                  </li>
+                  <li>
+                    New default for <i>majmodpri-sort-after-load</i>:
+                    Sort after loading certain features/libraries that
+                    are known to change <i>auto-mode-alist</i> and
+                    apply to current buffer.  This new default should
+                    hopefully make major mode selection less
+                    confusing.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                winsav.el:
+                <ul>
+                  <li>
+                    Added save and restore between Emacs sessions for frame configuration.
+                    I am not sure how this works with special frames yet, but I have tested this with oneonone.el and it seems to work.
+                    Dedicated windows should also work.
+                  </li>
+                  <li>
+                    Added saving and resting of named frame configurations.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                javascript.el:
+                <ul>
+                  <li>
+                    Updated to Karl's newest version (and added my additions).
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Added library usb-setup.el that might help a bit with
+                using Emacs from an USB stick.
               </li>
             </ul>
           </dd>

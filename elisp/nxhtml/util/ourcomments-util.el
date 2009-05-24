@@ -479,7 +479,8 @@ line."
   (interactive "p")
   (or arg (setq arg 1))
   (let ((pos (point))
-        vis-pos)
+        vis-pos
+        eol-pos)
     (when line-move-visual
       (let (last-command) (line-move-visual 1 t))
       (end-of-line)
@@ -488,9 +489,12 @@ line."
     (call-interactively 'end-of-line arg)
     (when (and vis-pos
                (= vis-pos (point)))
+      (setq eol-pos (point))
       (beginning-of-line)
       (let (last-command) (line-move-visual 1 t))
-      (backward-char))
+      ;; move backwards if we moved to a new line
+      (unless (= (point) eol-pos)
+        (backward-char)))
     (when (= pos (point))
       (if (= (line-end-position) (point))
           (skip-chars-backward " \t")
@@ -1546,6 +1550,7 @@ function."
   (call-interactively 'ido-exit-minibuffer))
 
 (defun ourcomments-ido-mode-advice()
+  (message "ourcomments-ido-mode-advice running")
   (when (memq ido-mode '(both buffer))
     (let ((the-ido-minor-map (cdr ido-minor-mode-map-entry)))
       (define-key the-ido-minor-map [(control tab)] 'ido-switch-buffer))
@@ -1562,7 +1567,9 @@ function."
 (defvar ourcomments-ido-adviced nil)
 (unless ourcomments-ido-adviced
 (defadvice ido-mode (after
-                     ourcomments-ido-add-ctrl-tab
+                     ourcomments-advice-ido-mode
+                     ;;activate
+                     ;;compile
                      disable)
   "Add C-tab to ido buffer completion."
   (ourcomments-ido-mode-advice)
@@ -1572,7 +1579,9 @@ function."
 ;; (ad-deactivate 'ido-mode)
 
 (defadvice ido-visit-buffer (before
-                             ourcomments-ido-visit-buffer-other
+                             ourcomments-advice-ido-visit-buffer
+                             ;;activate
+                             ;;compile
                              disable)
   "Advice to show buffers in other window, frame etc."
   (when ourcomments-ido-visit-method
@@ -1582,20 +1591,24 @@ function."
 (setq ourcomments-ido-adviced t)
 )
 
+(message "after advising ido")
 ;;(ad-deactivate 'ido-visit-buffer)
 ;;(ad-activate 'ido-visit-buffer)
 
 (defvar ourcomments-ido-old-state ido-mode)
 
 (defun ourcomments-ido-ctrl-tab-activate ()
+  (message "ourcomments-ido-ctrl-tab-activate running")
   ;;(ad-update 'ido-visit-buffer)
-  (ad-enable-advice 'ido-visit-buffer 'before
-                    'ourcomments-ido-visit-buffer-other)
-  (ad-activate 'ido-visit-buffer)
+  ;;(unless (ad-get-advice-info 'ido-visit-buffer)
+  ;; Fix-me: The advice must be enabled before activation. Send bug report.
+  (ad-enable-advice 'ido-visit-buffer 'before 'ourcomments-advice-ido-visit-buffer)
+  (unless (cdr (assoc 'active (ad-get-advice-info 'ido-visit-buffer)))
+    (ad-activate 'ido-visit-buffer))
   ;;(ad-update 'ido-mode)
-  (ad-enable-advice 'ido-mode 'after
-                    'ourcomments-ido-add-ctrl-tab)
-  (ad-activate 'ido-mode)
+  (ad-enable-advice 'ido-mode 'after 'ourcomments-advice-ido-mode)
+  (unless (cdr (assoc 'active (ad-get-advice-info 'ido-mode)))
+    (ad-activate 'ido-mode))
   (setq ourcomments-ido-old-state ido-mode)
   (ido-mode (or ido-mode 'buffer)))
 
@@ -1622,9 +1635,9 @@ of those in for example common web browsers."
          (if val
              (ourcomments-ido-ctrl-tab-activate)
            (ad-disable-advice 'ido-visit-buffer 'before
-                              'ourcomments-ido-visit-buffer-other)
+                              'ourcomments-advice-ido-visit-buffer)
            (ad-disable-advice 'ido-mode 'after
-                              'ourcomments-ido-add-ctrl-tab)
+                              'ourcomments-advice-ido-mode)
            ;; For some reason this little complicated construct is
            ;; needed. If they are not there the defadvice
            ;; disappears. Huh.

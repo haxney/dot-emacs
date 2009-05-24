@@ -97,7 +97,7 @@
 (defun pause-one-minute ()
   "Give you another minute ..."
   (pause-start-timer 60)
-  (message (propertize " OK, I will come back in a minute! -- greatings from pause "
+  (message (propertize " OK, I will come back in a minute! -- greatings from pause"
                        'face (list :background pause-message-color))))
 
 (defun pause-save-me ()

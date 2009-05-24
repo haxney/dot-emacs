@@ -1,10 +1,10 @@
-(setq debug-on-error t)
+(setq message-log-max t)
 ;;; autostart.el --- Load nxhtml
 ;;
 ;; Author: By: Lennart Borgman
-;; Created: Fri Dec 15 10:22:41 2006
+;; Created: Fri Dec 15 2006
 ;; Version:
-;; Last-Updated: 2009-01-06 Tue
+;; Last-Updated: 2009-04-30 Thu
 ;; Keywords:
 ;; Compatibility:
 ;;
@@ -42,15 +42,15 @@
 
 (message "Nxml/Nxhtml Autostart.el loading ...")
 
-(defvar nxhtml-install-dir
+(defconst nxhtml-install-dir
   (file-name-directory (or load-file-name
                            (when (boundp 'bytecomp-filename) bytecomp-filename)
                            buffer-file-name))
   "Installation directory for nXhtml.")
-(setq nxhtml-install-dir (file-name-directory
-                          (or load-file-name
-                              (when (boundp 'bytecomp-filename) bytecomp-filename)
-                              buffer-file-name)))
+;; (setq nxhtml-install-dir (file-name-directory
+;;                           (or load-file-name
+;;                               (when (boundp 'bytecomp-filename) bytecomp-filename)
+;;                               buffer-file-name)))
 
 ;; (defun nxhtml-custom-load-and-get-value (symbol)
 ;;   (custom-load-symbol symbol)
@@ -126,6 +126,16 @@
   ;; Provide the feature here to avoid loading looping on error.
   (provide 'nxhtml-autostart)
 
+  (if (< emacs-major-version 23)
+      (load (expand-file-name "autostart22" nxhtml-install-dir))
+    ;; Check that the nxml-mode included with Emacs is used. There
+    ;; has been some problems on Debian with this.
+    (let ((nxml-mode-file (locate-library "nxml-mode"))
+          (help-file      (locate-library "help")))
+      (unless (string= (expand-file-name ".." help-file)
+                       (expand-file-name "../.." nxml-mode-file))
+        (error "Wrong nxml-mode=%s used, please use the one that comes with Emacs" nxml-mode-file))))
+
   (let* ((util-dir (file-name-as-directory (expand-file-name "util" nxhtml-install-dir)))
          (related-dir (file-name-as-directory (expand-file-name "related" nxhtml-install-dir)))
          (nxhtml-dir (file-name-as-directory (expand-file-name "nxhtml" nxhtml-install-dir))))
@@ -143,9 +153,6 @@
 
     ;; Turn on `nxhtml-global-minor-mode' unconditionally
     (nxhtml-global-minor-mode 1)
-
-    (when (< emacs-major-version 23)
-      (load (expand-file-name "autostart22" nxhtml-install-dir)))
 
     ;; Patch the rnc include paths
     (when (fboundp 'nxml-mode)

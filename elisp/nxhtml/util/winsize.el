@@ -1080,7 +1080,7 @@ should be one of 'left, 'up, 'right and 'down."
     (setq winsize-selected-window-overlay nil))
   (when active
     (with-current-buffer (window-buffer (selected-window))
-      (let ((ovl (make-overlay (point-min) (point-max))))
+      (let ((ovl (make-overlay (point-min) (point-max) nil t)))
         (setq winsize-selected-window-overlay ovl)
         (overlay-put ovl 'window (selected-window))
         (overlay-put ovl 'pointer 'arrow)

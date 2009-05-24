@@ -1,9 +1,9 @@
 ;;; mlinks.el --- Minor mode making major mode dependent links
 ;;
 ;; Author: Lennar Borgman
-;; Created: Tue Jan 16 22:17:34 2007
+;; Created: Tue Jan 16 2007
 (defconst mlinks:version "0.28") ;;Version:
-;; Lxast-Updated: Mon Apr 09 14:31:03 2007 (7200 +0200)
+;; Last-Updated: 2009-05-01 Fri
 ;; Keywords:
 ;; Compatibility:
 ;;
@@ -1131,7 +1131,7 @@ Any command cancels this state."
                        (stralts (mapcar (lambda (elt)
                                           (car elt))
                                         alts))
-                       (case-fold-search t)
+                       (completion-ignore-case t)
                        (stralt (completing-read "Type: " stralts nil t))
                        (alt (assoc stralt alts)))
                   (setq def (cdr alt))))))
@@ -1144,14 +1144,38 @@ Any command cancels this state."
                      ;;(file (find-source-lisp-file (with-current-buffer buf buffer-file-name)) )
                      (file (with-current-buffer buf buffer-file-name))
                      (orig-buf (find-file-noselect file)))
-                (mlinks-switch-to-buffer orig-buf))
+                (mlinks-switch-to-buffer orig-buf)
               (let ((p (cdr (cdr def))))
+                  ;; Fix-me: Move this test to a more general place.
+                  (if (or (< p (point-min))
+                          (> p (point-max)))
+                      ;; Check for cloned indirect buffers.
+                      (progn
+                        (setq orig-buf
+                              (catch 'view-in-buf
+                                (dolist (indirect-buf (buffer-list))
+                                  ;;(message "base-buffer=%s, orig-buf=%s, eq => %s" (buffer-base-buffer indirect-buf) orig-buf (eq (buffer-base-buffer indirect-buf) orig-buf))
+                                  (when (eq (buffer-base-buffer indirect-buf) orig-buf)
+                                    (with-current-buffer indirect-buf
+                                      ;;(message "indirect-buf=%s" indirect-buf)
+                                      (unless (or (< p (point-min))
+                                                  (> p (point-max)))
+                                        ;;(message "switching")
+                                        ;;(mlinks-switch-to-buffer indirect-buf)
+                                        (message "mlinks: Switching to indirect buffer because of narrowing")
+                                        (throw 'view-in-buf indirect-buf)
+                                        ))
+                                    ))))
+                        (when orig-buf
+                          (mlinks-switch-to-buffer orig-buf))
+                        ;;(message "cb=%s" (current-buffer))
                 (if (or (< p (point-min))
                         (> p (point-max)))
                     (when (y-or-n-p (format "%s is invisible because of narrowing. Widen? " symbol--))
                       (widen)
                       (goto-char p))
-                  (goto-char p))))
+                          (goto-char p)))
+                    (goto-char p)))))
              ((eq goto-- 'custom)
               (mlinks-custom symbol--))
              (t

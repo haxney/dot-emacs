@@ -980,3 +980,5 @@ The :value of the widget shuld be the button to be browsed."
            )
          )
         (print-help-return-message)))))
+
+(provide 'whelp)
