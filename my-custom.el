@@ -27,6 +27,7 @@
  '(ecb-tip-of-the-day nil)
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
  '(fill-column 80)
+ '(flymake-allowed-file-name-masks (quote (("\\.c\\'" flymake-simple-make-init) ("\\.cpp\\'" flymake-simple-make-init) ("\\.xml\\'" flymake-xml-init) ("\\.html?\\'" flymake-xml-init) ("\\.cs\\'" flymake-simple-make-init) ("\\.p[ml]\\'" flymake-perl-init) ("\\.php[345]?\\'" flymake-php-init) ("\\.module\\'" flymake-php-init) ("\\.inc\\'" flymake-php-init) ("\\.h\\'" flymake-master-make-header-init flymake-master-cleanup) ("\\.java\\'" flymake-simple-make-java-init flymake-simple-java-cleanup) ("[0-9]+\\.tex\\'" flymake-master-tex-init flymake-master-cleanup) ("\\.tex\\'" flymake-simple-tex-init) ("\\.idl\\'" flymake-simple-make-init))))
  '(flyspell-use-meta-tab nil)
  '(git-append-signed-off-by t)
  '(global-linum-mode t)
@@ -55,6 +56,7 @@
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "%s_archive::* Archived Tasks")
  '(org-default-notes-file "~/org/root.org")
+ '(org-id-locations-file "~/.emacs.d/tmp/.org-id-locations")
  '(org-registry-file "~/.emacs.d/tmp/org-registry.el")
  '(org-remember-templates (quote (("Todo" 116 "** TODO %?
   %i
@@ -68,7 +70,6 @@
  '(persp-completing-func (quote ido-completing-read))
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
- '(php-file-patterns (quote ("\\.php[s34]?\\'" "\\.phtml\\'" "\\.inc\\'" "\\.module\\'")))
  '(planner-reverse-chronological-notes nil)
  '(quack-default-program "mzscheme -g")
  '(quack-global-menu-p nil)
@@ -82,6 +83,7 @@
  '(require-final-newline t)
  '(server-switch-hook (quote (flyspell-mode)))
  '(show-paren-mode t nil (paren))
+ '(smex-save-file "~/.emacs.d/tmp/smex.save")
  '(tab-width 4)
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
  '(tool-bar-mode nil)
@@ -91,6 +93,7 @@
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify))
+ '(windmove-wrap-around t)
  '(woman-use-own-frame nil))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
