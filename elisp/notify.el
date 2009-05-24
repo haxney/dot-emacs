@@ -27,6 +27,8 @@
 
 ;;; Code:
 
+(require 'dbus)
+
 (defvar notify-last '(0 0 0))
 
 (defvar notify-defaults
