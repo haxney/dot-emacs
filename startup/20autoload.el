@@ -32,34 +32,12 @@
 (autoload 'gri-mode "gri-mode" "Enter Gri-mode." t)
 (add-to-list 'auto-mode-alist '("\\.gri$" . gri-mode))
 
-;; ---- ruby
-(autoload 'ruby-mode "ruby-mode" "Ruby edit mode" t)
-(autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode" t)
-(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
-(add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
-(add-hook 'ruby-mode-hook 'ruby-electric-mode)
-(add-hook 'ruby-mode-hook 'inf-ruby-keys)
-
-
-;; for the  Ruby interpreter:
-(autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
-(autoload 'inf-ruby-keys "inf-ruby"
-  "Set local key defs for inf-ruby in ruby-mode")
-
 ;; ---- PGG
 ;; Encryption functions.
 (autoload 'pgg-invoke "pgg" "Use a PGG command")
 
 ;; ---- Planner
 (autoload 'plan "planner" "Planner mode" t)
-
-;; ---- mmm-mode
-(autoload 'mmm-mode "mmm-mode" "Mulitple Minor Mode" t)
-
-;; ---- CSS mode
-(autoload 'css-mode "css-mode" "Enter CSS-mode." t)
-(add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
 
 ;; ---- Flyspell
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
@@ -92,5 +70,9 @@
 ;; ---- Whitespace
 (add-hook 'mail-send-hook 'delete-trailing-whitespace)
 (add-hook 'write-file-hooks 'delete-trailing-whitespace)
+
+;; ---- PHP MuMaMo mode
+(add-to-list 'auto-mode-alist '("\\.module$" . nxhtml-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.inc$" . nxhtml-mumamo-mode))
 
 ;;; 10autoload.el ends here
