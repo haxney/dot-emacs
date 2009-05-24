@@ -16,20 +16,19 @@
 
 (ido-mode t)
 
+;; Set up Smex
+(require 'smex)
+(eval-after-load "init.el" '(smex-initialize))
+
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "C-x C-m") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c M-x") 'smex-update-and-run)
+
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
 ;; Fuzzy matching
 (setq ido-enable-flex-matching t)
-
-;; Use Ido for M-x
-(defun ido-execute ()
-  (interactive)
-  (call-interactively
-   (intern
-    (ido-completing-read
-     "M-x "
-     (let (cmd-list)
-       (mapatoms (lambda (S) (when (commandp S) (setq cmd-list (cons (format "%S" S) cmd-list)))))
-       cmd-list)))))
-
-(global-set-key "\C-x\C-m" 'ido-execute)
 
 ;;; 50ido.el ends here

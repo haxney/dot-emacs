@@ -16,7 +16,8 @@
 ;;; Code:
 
 (defvar elisp-paths '("org-mode/lisp"
-                      "org-mode/contrib/lisp")
+                      "org-mode/contrib/lisp"
+                      "smex")
   "A list of additional subdirectories in 'elisp' to add to the load path.")
 
 ;; Add `elisp-paths' to `load-path'
