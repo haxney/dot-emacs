@@ -37,12 +37,20 @@
 
      (require 'notify)
      (defun dhackney-notify-erc (match-type nickuserhost message)
-       "Notify when a message is received"
-       (notify (progn
-                 (string-match "\\([^!]+\\)!" nickuserhost)
-                 (match-string 1 nickuserhost))
-               message
-               :icon "emacs-snapshot"))
+       "Notify when a message is received."
+       (notify (format "%s in %s"
+                       ;; Username of sender
+                       (progn
+                         (string-match "\\([^!]+\\)!" nickuserhost)
+                         (match-string-no-properties 1 nickuserhost))
+                       ;; Channel
+                       (or (erc-default-target) "#unknown"))
+               ;; Remove duplicate spaces
+               (replace-regexp-in-string " +"
+                                         " "
+                                         message)
+               :icon "emacs-snapshot"
+               :timeout -1))
 
      (add-hook 'erc-text-matched-hook 'dhackney-notify-erc)
 
