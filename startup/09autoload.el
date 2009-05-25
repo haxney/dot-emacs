@@ -1,4 +1,4 @@
-;;; 20autoload.el --- Set up autoloads for libaries.
+;;; 09autoload.el --- Set up autoloads for libaries.
 
 ;; Copyright (C) 2009 Daniel Hackney
 
@@ -20,7 +20,6 @@
 (autoload 'git-status "git" "Enter git-status mode" t)
 
 (autoload 'graphviz-dot-mode "graphviz-dot-mode" "Enter graphviz-dot-mode." t)
-(add-to-list 'auto-mode-alist '("\\.dot$" . graphviz-dot-mode))
 
 (autoload 'gri-mode "gri-mode" "Enter Gri-mode." t)
 
@@ -44,6 +43,8 @@
 (autoload 'global-linum-mode "linum"
   "Set linum mode globally.")
 
+(autoload 'global-smart-tab-mode "smart-tab"
+  "load smart-tab" t)
 (require 'smart-tab)
 
-;;; 20autoload.el ends here
+;;; 09autoload.el ends here

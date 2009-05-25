@@ -17,6 +17,7 @@
 ;;; Code:
 
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'log-edit-hook 'flyspell-mode)
 
 (add-hook 'mail-send-hook 'delete-trailing-whitespace)
 (add-hook 'write-file-hooks 'delete-trailing-whitespace)
@@ -30,5 +31,7 @@
 (add-to-list 'auto-mode-alist '("\\.gri$" . gri-mode))
 
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
+
+(add-to-list 'auto-mode-alist '("\\.dot$" . graphviz-dot-mode))
 
 ;;; 50editor-misc.el ends here
