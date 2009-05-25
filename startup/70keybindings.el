@@ -15,7 +15,7 @@
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
 
-;; Use C-c C-k for kmacro keys
+;; Use C-c k for kmacro keys
 (global-set-key "\C-ck" 'kmacro-keymap)
 
 ;; Globally set C-c C-v C-c to compile.
@@ -23,9 +23,6 @@
 
 ;; Set F5 to replay last macro
 (global-set-key [f5] 'call-last-kbd-macro)
-
-;; Switching to speedbar.
-(global-set-key "\C-co" 'speedbar-get-focus)
 
 ;; Commenting
 (global-set-key (kbd "C-M-;") 'comment-region)
@@ -35,6 +32,10 @@
 
 (define-key global-map "\C-cr" 'remember)
 
-(global-set-key (kbd "M-/") 'hippie-expand)
+(require 'smart-tab)
+;; Strangely enough, this seems necessary to keep `indent-for-tab-command' from
+;; getting the binding.
+(eval-after-load "init.el" '(progn
+                              (global-set-key [(tab)] 'smart-tab)))
 
 ;;; 70keybindings.el ends here
