@@ -1324,7 +1324,7 @@ See `anything-iswitchb-setup-keys'.")
     (define-key map (kbd "<RET>") 'anything-isearch-default-action)
     (define-key map (kbd "C-i") 'anything-isearch-select-action)
     (define-key map (kbd "C-g") 'anything-isearch-cancel)
-    (define-key map "\M-s" 'anything-isearch-again)
+    (define-key map (kbd "M-s") 'anything-isearch-again)
     (define-key map (kbd "<backspace>") 'anything-isearch-delete)
     ;; add printing chars
     (let ((i 32))
