@@ -32,10 +32,4 @@
 
 (define-key global-map "\C-cr" 'remember)
 
-(require 'smart-tab)
-;; Strangely enough, this seems necessary to keep `indent-for-tab-command' from
-;; getting the binding.
-(eval-after-load "init.el" '(progn
-                              (global-set-key [(tab)] 'smart-tab)))
-
 ;;; 70keybindings.el ends here

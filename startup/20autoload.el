@@ -74,5 +74,6 @@
 ;; ---- PHP MuMaMo mode
 (add-to-list 'auto-mode-alist '("\\.module$" . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . nxhtml-mumamo-mode))
+(require 'smart-tab)
 
 ;;; 10autoload.el ends here
