@@ -7231,7 +7231,7 @@ to the position of point in the selected window."
       (expect "class AdminController extends Zend_Controller_ActionAdminController 22,556
   public function init()init 35,1051
 "
-        (phpcmp-with-php-buffer 
+        (phpcmp-with-php-buffer
          "`!!'class AdminController extends Zend_Controller_ActionAdminController 22,556
   public function init()init 35,1051
 function"
@@ -7282,7 +7282,7 @@ function"
         (phpcmp-db-update '__test-los '("a" "c"))
         (equal (phpcmp-db-get '__test-los)
                '("c" "a" "b")))
-        
+
 
       (desc "phpcmp-smart-sort")
       (expect "Class"
@@ -7302,7 +7302,7 @@ function"
         (let ((tags (phpcmp-with-php-buffer
                      "class OS_GuessOS_Guess 100,3447
     function OS_Guess($uname = null)OS_Guess 108,3550
- 
+
 class SimpleCRUDSimpleCRUD 64,1683
      * $gdClient - Client class used to communicate with the Blogger serviceused 74,1824
     public function __construct($email, $password)__construct 89,2249

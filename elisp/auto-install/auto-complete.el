@@ -269,7 +269,7 @@
 
 ;;; Code:
 
-
+
 
 (defgroup auto-complete nil
   "Auto completion with popup menu"
@@ -417,7 +417,7 @@ using the `TARGET' that is given as a first argument.")
 (defvar ac-saved-local-map nil
   "Old keymap before `auto-complete' activated.")
 
-
+
 
 ;;;; Auto completion
 
@@ -751,7 +751,7 @@ using the `TARGET' that is given as a first argument.")
   auto-complete-mode auto-complete-mode-maybe
   :group 'auto-complete)
 
-
+
 
 ;;;; Sources implementation
 
@@ -860,7 +860,7 @@ use SOURCES as `ac-sources'.")
     (delete-dups candidates)))
 
 
-
+
 
 ;;;; Standard sources
 
@@ -969,7 +969,7 @@ This is useful if you just want to define a dictionary/keywords source."
   `(defvar ,name
      '((candidates . (lambda () (all-completions ac-prefix ,list))))))
 
-
+
 
 ;;;; Popup menu
 
