@@ -1,11 +1,22 @@
 ;;; 50planner.el --- Set up planner project.
 
-;; Copyright (C) 2008, Daniel Hackney
+;; Copyright (C) 2009 Daniel Hackney
 
-;; Description: Set up planner project.
 ;; Author: Daniel Hackney
-;; Maintainer: Daniel Hackney
 ;; Keywords: planner project local
+
+;; This file is free software; you can redistribute it and/or modify it under
+;; the terms of the GNU General Public License as published by the Free Software
+;; Foundation; either version 3, or (at your option) any later version.
+
+;; This file is distributed in the hope that it will be useful, but WITHOUT ANY
+;; WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+;; A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License along with
+;; GNU Emacs; see the file COPYING.  If not, write to the Free Software
+;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+;; USA.
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -31,7 +42,7 @@
 					 ;; (the value of `planner-publishing-directory', if
 					 ;;  you have a configuration for an older version
 					 ;;  of Planner)
-			   :path "~/Journal/html"))))
+                     :path "~/Journal/html"))))
 
 	 (autoload 'muse-project-publish "planner-publish" "Publish planner project" t)
 
@@ -39,10 +50,6 @@
 	 (autoload 'remeber "remember-planner" "Remember mode" t)
 	 (setq remember-handler-functions '(remember-planner-append))
 	 (setq remember-annotation-functions planner-annotation-functions)
-
-	 ;; Bind remember to C-c C-n
-	 (global-unset-key (kbd "C-c C-n"))
-	 (global-set-key (kbd "C-c C-n") 'remember)
 
 	 (add-hook 'planner-mode-hook 'flyspell-mode)
 

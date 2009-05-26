@@ -1,11 +1,22 @@
 ;;; 50org-mode.el --- Set up `org-mode'.
 
-;; Copyright (C) 2008, Daniel Hackney
+;; Copyright (C) 2009 Daniel Hackney
 
-;; Description: Set up `org-mode'.
 ;; Author: Daniel Hackney
-;; Maintainer: Daniel Hackney
 ;; Keywords: org local
+
+;; This file is free software; you can redistribute it and/or modify it under
+;; the terms of the GNU General Public License as published by the Free Software
+;; Foundation; either version 3, or (at your option) any later version.
+
+;; This file is distributed in the hope that it will be useful, but WITHOUT ANY
+;; WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+;; A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License along with
+;; GNU Emacs; see the file COPYING.  If not, write to the Free Software
+;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+;; USA.
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -49,8 +60,7 @@ day-page file matching that name."
      ;; Custom agenda commands
      (setq org-agenda-custom-commands
            '(("p" tags "PROJECT-MAYBE-DONE" nil)
-             ("m" tags "PROJECT&MAYBE" nil)
-             ))
+             ("m" tags "PROJECT&MAYBE" nil)))
 
      ;; Org-registry
      ;; Remember inbound links in org files.
@@ -108,7 +118,6 @@ day-page file matching that name."
              (desc (read-from-minibuffer "Desc: ")))
          (insert (org-make-link-string link desc))))
 
-     (define-key org-mode-map "\C-c\M-l" 'dhackney/org-link-to-project)
-     ))
+     (define-key org-mode-map "\C-c\M-l" 'dhackney/org-link-to-project)))
 
 ;;; 50org-mode.el ends here

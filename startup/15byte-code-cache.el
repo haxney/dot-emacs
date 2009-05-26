@@ -1,4 +1,4 @@
-;;; 01byte-code-cache.el --- Start up byte-code-cache.
+;;; 15byte-code-cache.el --- Start up byte-code-cache.
 
 ;; Copyright (C) 2008, Daniel Hackney
 
@@ -15,6 +15,8 @@
 
 ;;; Code:
 
-(require 'byte-code-cache)
+;(require 'byte-code-cache)
+;(setq byte-compile-warnings)
+;(setq byte-compile-verbose)
 
-;;; 01byte-code-cache.el ends here
+;;; 15byte-code-cache.el ends here

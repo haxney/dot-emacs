@@ -2,10 +2,21 @@
 
 ;; Copyright (C) 2009 Daniel Hackney
 
-;; Description: Various editing settings which have no home.
 ;; Author: Daniel Hackney
-;; Maintainer: Daniel Hackney
 ;; Keywords: convenience files local
+
+;; This file is free software; you can redistribute it and/or modify it under
+;; the terms of the GNU General Public License as published by the Free Software
+;; Foundation; either version 3, or (at your option) any later version.
+
+;; This file is distributed in the hope that it will be useful, but WITHOUT ANY
+;; WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+;; A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License along with
+;; GNU Emacs; see the file COPYING.  If not, write to the Free Software
+;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+;; USA.
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -20,7 +31,7 @@
 (add-hook 'log-edit-hook 'flyspell-mode)
 
 (add-hook 'mail-send-hook 'delete-trailing-whitespace)
-(add-hook 'write-file-hooks 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (add-to-list 'auto-mode-alist '("\\.module$" . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . nxhtml-mumamo-mode))

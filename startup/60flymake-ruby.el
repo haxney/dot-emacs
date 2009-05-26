@@ -1,11 +1,22 @@
 ;;; 60flymake-ruby.el --- Ruby settings for flymake.
 
-;; Copyright (C) 2008, Daniel Hackney
+;; Copyright (C) 2009 Daniel Hackney
 
-;; Description: Ruby settings for flymake.
 ;; Author: Daniel Hackney
-;; Maintainer: Daniel Hackney
 ;; Keywords: ruby flymake local
+
+;; This file is free software; you can redistribute it and/or modify it under
+;; the terms of the GNU General Public License as published by the Free Software
+;; Foundation; either version 3, or (at your option) any later version.
+
+;; This file is distributed in the hope that it will be useful, but WITHOUT ANY
+;; WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+;; A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License along with
+;; GNU Emacs; see the file COPYING.  If not, write to the Free Software
+;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+;; USA.
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -33,14 +44,16 @@
      (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
      (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
 
-     (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
+     (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)
+           flymake-err-line-patterns)
 
      (add-hook 'ruby-mode-hook
                '(lambda ()
 
-                  ;; Don't want flymake mode for ruby regions in rhtml files and also on read only files
-                  (if (and (not (null buffer-file-name)) (file-writable-p buffer-file-name))
-                      (flymake-mode))
-                  ))))
+                  ;; Don't want flymake mode for ruby regions in rhtml files and
+                  ;; also on read only files
+                  (if (and (not (null buffer-file-name))
+                           (file-writable-p buffer-file-name))
+                      (flymake-mode))))))
 
 ;;; 60flymake-ruby.el ends here
