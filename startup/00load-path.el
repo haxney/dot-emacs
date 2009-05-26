@@ -36,8 +36,12 @@
 (setq byte-comp-dir (concat conf-tmp
                             (file-name-as-directory "byte-cache")))
 
-(add-to-list 'load-path byte-comp-dir)
+;;(add-to-list 'load-path byte-comp-dir)
+
+(add-to-list 'load-path (concat elisp-dir
+                                "auto-install"))
 
 ;; Place semantic.cache files somewhere central
 (setq semanticdb-default-save-directory
 	  (concat conf-tmp "semantic-cache"))
+
