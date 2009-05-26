@@ -9,7 +9,7 @@
  '(ac-override-local-map t)
  '(after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))
  '(anything-c-adaptive-history-file "~/.emacs.d/tmp/anything-c-adaptive-history")
- '(anything-etags-cache-tag-file-dir ~/\.emacs\.d/tmp/etags)
+ '(anything-etags-cache-tag-file-dir "~/.emacs.d/tmp/etags")
  '(anything-etags-enable-tag-file-dir-cache t)
  '(anything-su-or-sudo "sudo")
  '(auto-install-directory "~/.emacs.d/elisp/auto-install/")

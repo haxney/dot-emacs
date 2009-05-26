@@ -43,8 +43,9 @@
 (autoload 'global-linum-mode "linum"
   "Set linum mode globally.")
 
-(autoload 'global-smart-tab-mode "smart-tab"
-  "load smart-tab" t)
+;; These two just do now want to autoload properly. The only option left is to
+;; `require' them.
 (require 'smart-tab)
+(require 'auto-complete)
 
 ;;; 09autoload.el ends here
