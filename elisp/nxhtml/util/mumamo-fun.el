@@ -108,9 +108,11 @@ See `mumamo-chunk-style=' for an example of use."
               exc-end-prev
               exc-start-next
               exc-end-next
+              (while-n1 0)
               )
           ;; make sure if we have find prev-attr= or not
-          (while (and prev-attr=
+          (while (and (> 100 (setq while-n1 (1+ while-n1)))
+                      prev-attr=
                       (not prev-attr-sure))
             (if (not (search-backward "<" min t))
                 (setq prev-attr= nil)

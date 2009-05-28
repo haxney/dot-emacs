@@ -234,12 +234,19 @@ Do you want to add a fictive XHTML validation header? ")
 
 (defun rngalt-validate ()
   (unless (= (buffer-size) 0)
-    (condition-case err
-        (while (rng-do-some-validation) nil)
-      (error
-       ;; FIX-ME: for debugging:
-       ;;(lwarn 'rngalt-validate :error "%s" (error-message-string err))
-       nil))
+    (let ((while-n1 0)
+          (maxn1 20))
+      (condition-case err
+          (while (and (> maxn1 (setq while-n1 (1+ while-n1)))
+                      (rng-do-some-validation))
+            nil)
+        (error
+         ;; FIX-ME: for debugging:
+         ;;(lwarn 'rngalt-validate :error "%s" (error-message-string err))
+         (message "rngalt-validate: %s" (error-message-string err))
+         nil))
+      (when (>= while-n1 maxn1)
+        (error "rngalt-validate: Could not validate")))
     (rng-validate-done)))
 
 (defvar rngalt-region-ovl nil)

@@ -1,4 +1,5 @@
 (setq message-log-max t)
+(setq debug-on-error t)
 ;;; autostart.el --- Load nxhtml
 ;;
 ;; Author: By: Lennart Borgman
@@ -41,6 +42,7 @@
 ;;; Code:
 
 (message "Nxml/Nxhtml Autostart.el loading ...")
+(defconst nxhtml-load-time-start (float-time))
 
 (defconst nxhtml-install-dir
   (file-name-directory (or load-file-name
@@ -144,28 +146,36 @@
     (add-to-list 'load-path util-dir)
     (add-to-list 'load-path nxhtml-install-dir)
 
+    (message "... nXhtml loading %.1f seconds elapsed ..." (- (float-time) nxhtml-load-time-start))
+
     ;; Autoloading etc
 
     ;; Fix-me: Why must as-external be loaded? Why doesn't it work in batch?
     ;;(unless noninteractive (require 'as-external))
 
     (load (expand-file-name "nxhtml-loaddefs" nxhtml-install-dir))
+    (message "... nXhtml loading %.1f seconds elapsed ..." (- (float-time) nxhtml-load-time-start))
 
     ;; Turn on `nxhtml-global-minor-mode' unconditionally
     (nxhtml-global-minor-mode 1)
+    (message "... nXhtml loading %.1f seconds elapsed ..." (- (float-time) nxhtml-load-time-start))
 
     ;; Patch the rnc include paths
     (when (fboundp 'nxml-mode)
       (load (expand-file-name "etc/schema/schema-path-patch"
                               nxhtml-install-dir))
       (rncpp-patch-xhtml-loader))
+    (message "... nXhtml loading %.1f seconds elapsed ..." (- (float-time) nxhtml-load-time-start))
 
     ;; Load nXhtml
-    (load (expand-file-name "nxhtml/nxhtml-autoload"
-                            nxhtml-install-dir)))
+    (load (expand-file-name "nxhtml/nxhtml-autoload" nxhtml-install-dir)))
+    (message "... nXhtml loading %.1f seconds elapsed ..." (- (float-time) nxhtml-load-time-start))
 
   ;; Tell what have been loaded of nXhtml:
   (nxhtml-list-loaded-features)
+
+  ;; How long time did it all take?
+  (message "Nxml/Nxhtml Autostart.el loaded in %.1f seconds" (- (float-time) nxhtml-load-time-start))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -637,7 +637,8 @@ See option `winsav-save-mode' for more information."
 
 (defcustom winsav-base-file-name
   (convert-standard-filename ".emacs.winsav")
-  "Name of file for Emacs winsav, excluding the directory part."
+  "Base name of file for Emacs winsav, excluding directory part.
+The actual file name will have a system identifier added too."
   :type 'file
   :group 'winsav)
 
@@ -650,9 +651,18 @@ See option `winsav-save-mode' for more information."
 
 (defun winsav-full-file-name (&optional dirname)
   "Return the full name of the winsav session file in DIRNAME.
-DIRNAME omitted or nil means use `~'."
-  (expand-file-name winsav-base-file-name (or dirname
-                                              (winsav-current-default-dir))))
+DIRNAME omitted or nil means use `~'.
+
+The file name consist of `winsav-base-file-name' with a system
+identifier added.  This will be '-nw' for a terminal and '-' +
+the value of `window-system' otherwise."
+  ;; Fix-me: Different frames in different files? Can multi-tty be handled??
+  (let* ((sys-id (if (not window-system)
+                     "nw"
+                   (format "%s" window-system)))
+         (base-file (concat winsav-base-file-name "-" sys-id)))
+    (expand-file-name base-file (or dirname
+                                    (winsav-current-default-dir)))))
 
 
 
@@ -996,6 +1006,8 @@ minibuffers will come later."
   "Return t we can read config file version CONFIG-VERSION."
   (when (<= config-version 1)
     t))
+
+(defvar winsav-file-modtime nil)
 
 ;; Like desktop-save, fix-me
 (defun winsav-save-configuration (&optional dirname release)
@@ -1342,7 +1354,7 @@ See also option `winsav-save-mode' and command
       (if (file-exists-p conf-file)
           (setq config-exists t)
         (unless (y-or-n-p (format "%s was not found.  Create it? " conf-file))
-          (throw 'stop)))
+          (throw 'stop nil)))
       (if (string= winsav-dirname dirname)
           (if (y-or-n-p "You are already using this configuration, restore it from saved values? ")
               (winsav-restore-full-config winsav-dirname)

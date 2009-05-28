@@ -106,6 +106,7 @@ multi major modes by default since there are some problems.
 
 This gives those multi major mode lower priority, but it does not
 prevent use of them."
+  :type 'boolean
   :group 'majmodpri)
 
 ;; (majmodpri-priority 'html-mumamo-mode)
@@ -115,7 +116,7 @@ prevent use of them."
   (if (and majmodpri-no-nxml
            (symbolp mode)
            (save-match-data
-             (string-match "nxhtml-" (symbol-name mode))))
+             (string-match "nxhtml-mumamo" (symbol-name mode))))
       0
     (length (memq mode majmodpri-mode-priorities))))
 

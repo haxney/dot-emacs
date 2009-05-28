@@ -570,7 +570,8 @@
     (let ((upl-map (make-sparse-keymap "html-upl")))
       (define-key map [nxhtml-upl-map]
         (list 'menu-item "File Transfer" upl-map
-              :enable '(featurep 'html-upl)))
+              ;;:enable '(featurep 'html-upl)))
+              :enable '(fboundp 'html-upl-upload-file)))
       (define-key upl-map [nxhtml-upl-remote-dired]
         (list 'menu-item "Remote Dired" 'html-upl-remote-dired))
       (define-key upl-map [nxhtml-upl-dired-sep] (list 'menu-item "--"))
