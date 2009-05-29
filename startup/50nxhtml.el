@@ -30,4 +30,13 @@
               (file-name-as-directory "nxhtml")
               "autostart.el"))
 
+(c-add-style "drupal"
+  '((c-basic-offset . 2)
+    (c-offsets-alist . ((arglist-close . c-lineup-close-paren)
+                        (case-label . +)
+                        (arglist-intro . +)
+                        (arglist-cont-nonempty . c-lineup-math)))))
+
+(add-hook 'php-mode-hook '(lambda () (c-set-style "drupal")))
+
 ;;; 50nxhtml.el ends here
