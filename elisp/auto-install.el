@@ -886,7 +886,7 @@ default is `auto-install-handle-download-content'."
   (unless (file-exists-p auto-install-directory)
     (make-directory auto-install-directory)
     (when auto-install-add-load-path-flag
-      (add-to-list 'load-path auto-install-directory)) 
+      (add-to-list 'load-path auto-install-directory))
     (message "Create directory %s for install elisp file." auto-install-directory))
   ;; Download.
   (let* ((url-request-method "GET")

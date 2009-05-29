@@ -65,7 +65,7 @@
 ;; (add-to-list 'load-path (expand-file-name "~/elisp"))
 ;;
 ;; Then install dependencies.
-;; 
+;;
 ;; Install anything-match-plugin.el (must).
 ;; M-x install-elisp http://www.emacswiki.org/cgi-bin/wiki/download/anything-match-plugin.el
 ;;
@@ -742,7 +742,7 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
   (defalias 'anything-old-read-variable (symbol-function 'read-variable))
   (defalias 'anything-old-read-command (symbol-function 'read-command))
   (put 'anything-read-string-mode 'orig-read-buffer-function read-buffer-function))
-  
+
 ;; (anything-read-string-mode -1)
 ;; (anything-read-string-mode 1)
 ;; (anything-read-string-mode 0)
@@ -871,7 +871,7 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
 
 (add-hook 'after-init-hook 'alcs-make-candidates)
 
-      
+
 ;;;; unit test
 ;; (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/el-expectations.el")
 ;; (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/el-mock.el")

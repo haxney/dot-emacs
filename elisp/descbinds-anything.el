@@ -42,17 +42,17 @@
 
 ;;; History:
 ;; 2009-03-29 UTC  Taiki SUGAWARA  <buzz.taiki@gmail.com>
-;; 
+;;
 ;;   * descbinds-anything.el: Version 1.03
 ;;   fix typo.
-;; 
+;;
 ;; 2008-11-16 UTC  Taiki SUGAWARA  <buzz.taiki@gmail.com>
-;; 
+;;
 ;;   * descbinds-anything.el: Version 1.02
 ;;   bound `indent-tabs-mode` to t for nil environment.
-;; 
+;;
 ;; 2008-11-16 UTC  Taiki SUGAWARA  <buzz.taiki@gmail.com>
-;; 
+;;
 ;;   * descbinds-anything.el: fix infinitive-loop when binding-line
 ;;   has not tab.
 
@@ -63,7 +63,7 @@
 (defgroup descbinds-anything nil
   "Yet Another `describe-bindings' with `anything'."
   :group 'anything)
-  
+
 (defcustom descbinds-anything-actions
   '(("Execute" . descbinds-anything-action:execute)
     ("Describe Function" . descbinds-anything-action:describe)
@@ -81,7 +81,7 @@
   "Candidate formatter function.
 This function called two argument KEY and BINDING."
   :type '(function :tag "Formatter"))
-  
+
 (defcustom descbinds-anything-window-style 'one-window
   "Window splitting style."
   :type '(choice
