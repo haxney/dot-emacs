@@ -46,6 +46,6 @@
 ;; Use meta with arrow keys for windmove.
 (windmove-default-keybindings 'super)
 
-(define-key global-map (kbd "C-cr") 'remember)
+(define-key global-map (kbd "C-c r") 'remember)
 
 ;;; 70keybindings.el ends here
