@@ -29,5 +29,6 @@
 
 (define-key ac-complete-mode-map "\C-n" 'ac-next)
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
+(define-key ac-complete-mode-map "\M-/" 'ac-stop)
 
 ;;; 50auto-complete.el ends here
