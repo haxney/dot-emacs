@@ -55,7 +55,7 @@ day-page file matching that name."
      (define-key global-map "\C-c\C-x\C-i" 'my/org-todo-starting)
 
      ;; Turn on Flyspell when loading org-mode
-     (add-hook 'org-mode-hook 'flyspell-mode)
+     (add-hook 'org-mode-hook 'turn-on-flyspell)
 
      ;; Custom agenda commands
      (setq org-agenda-custom-commands
