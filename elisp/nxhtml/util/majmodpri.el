@@ -292,7 +292,7 @@ before applying."
 ;;;###autoload
 (defgroup majmodpri nil
   "Customization group for majmodpri.el"
-  :group 'xhtml
+  :group 'nxhtml
   )
 
 (defcustom majmodpri-mode-priorities

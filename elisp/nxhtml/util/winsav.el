@@ -3,7 +3,7 @@
 ;; Author: Lennart Borgman
 ;; Created: Sun Jan 14 2007
 ;; Version: 0.76
-;; Last-Updated: 2009-05-06 Wed
+;; Last-Updated: 2009-05-28 Thu
 ;; Keywords:
 ;; Compatibility:
 ;;
@@ -1220,6 +1220,8 @@ DIRNAME has the same meaning."
   "Restore frames and windows.
 Run this once after Emacs startup, after desktop in the
 `after-init-hook'."
+  ;; Turn off with --no-deskttop:
+  (unless desktop-save-mode (winsav-save-mode -1))
   (when winsav-save-mode
     ;;(run-with-idle-timer 0.1 nil 'winsav-restore-configuration-protected)
     ;;(message "winsav-after-init")

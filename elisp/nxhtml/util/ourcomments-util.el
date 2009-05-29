@@ -1739,7 +1739,7 @@ If there is no buffer file start with `dired'."
     ;;(unless file (error "No buffer file name"))
     (if file
         (progn
-          (call-process (ourcomments-find-emacs) nil 0 nil file)
+          (call-process (ourcomments-find-emacs) nil 0 nil "--no-desktop" file)
           (message "Started 'emacs buffer-file-name' - it will be ready soon ..."))
       (call-process (ourcomments-find-emacs) nil 0 nil "--eval"
                     (format "(dired \"%s\")" default-directory)))))

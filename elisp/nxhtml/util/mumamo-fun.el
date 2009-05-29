@@ -219,6 +219,7 @@ See `mumamo-chunk-style=' for an example of use."
       (save-match-data
         (let ((here (point))
               (next-attr= (progn
+                            ;; fix-me:
                             (if (not attr=is-regex)
                                 (goto-char (+ pos (length attr=)))
                               (goto-char pos)
@@ -238,6 +239,7 @@ See `mumamo-chunk-style=' for an example of use."
               exc-start-next
               exc-end-next
               (tries 0)
+              (min (1- pos))
               )
           ;; make sure if we have find prev-attr= or not
           (while (and next-attr=
@@ -2073,7 +2075,9 @@ See `mumamo-find-possible-chunk' for POS, MIN and MAX."
         ret)
     (let* ((here (point))
            (len-marker (length marker))
-           (pattern (rx bol (0+ blank) (eval marker) blank))
+           ;;(pattern (rx bol (0+ blank) (eval marker) blank))
+           ;;(pattern (rx-to-string (list 'and 'bol (list '0+ 'blank) marker 'blank) t))
+           (pattern (rx-to-string `(and bol (0+ blank) ,marker blank) t))
            (whole-line-chunk-borders-fun
             `(lambda (start-border end-border dummy)
                (let ((start-border (+ (point) ,len-marker)))

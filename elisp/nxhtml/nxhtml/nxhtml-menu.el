@@ -2,8 +2,8 @@
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
 ;; Created: Sat Apr 21 2007
-(defconst nxhtml-menu:version "1.77") ;;Version:
-;; Last-Updated: 2009-04-30 Thu
+(defconst nxhtml-menu:version "1.78") ;;Version:
+;; Last-Updated: 2009-05-29 Fri
 ;; URL:
 ;; Keywords:
 ;; Compatibility:
@@ -211,12 +211,14 @@
                                 (assoc key nxhtml-validation-headers)))
                          (header (cdr rec)))
                     header)
-                (goto-char (point-min))
-                (save-match-data
-                  (let ((body (re-search-forward "<body[^>]*>")))
-                    (if body
-                        (buffer-substring-no-properties (point-min) (match-end 0))
-                      "")))))
+                (if (and doit-anyway (not start))
+                    ""
+                  (goto-char (point-min))
+                  (save-match-data
+                    (let ((body (re-search-forward "<body[^>]*>")))
+                      (if body
+                          (buffer-substring-no-properties (point-min) (match-end 0))
+                        ""))))))
         (setq content
               (if start
                   (buffer-substring-no-properties start end)
@@ -282,6 +284,10 @@
         (list 'menu-item "Tools" tools-map
               :visible `(not (derived-mode-p 'dired-mode))
               ))
+      (define-key tools-map [nxhtml-last-resort]
+        (list 'menu-item "Last Resort" 'n-back-game))
+      (define-key tools-map [nxhtml-last-resort-separator]
+        (list 'menu-item "--" nil))
       (let ((fill-map (make-sparse-keymap)))
         (define-key tools-map [nxhtml-filling]
           (list 'menu-item "Writing Text" fill-map))
@@ -419,9 +425,11 @@
         (list 'menu-item "--" nil))
       (define-key tools-map [nxhtml-tidy-map]
         (list 'menu-item "Tidy XHTML" 'tidy-menu-symbol
+              :filter 'nxhtml-insert-menu-dynamically
               :visible '(and (fboundp 'tidy-build-menu)
                              (tidy-build-menu))
               :enable '(and (fboundp 'tidy-build-menu)
+                            (tidy-build-menu)
                             (or (derived-mode-p 'html-mode)
                                 (nxhtml-nxhtml-in-buffer)))))
       (define-key tools-map [nxhtml-flymake]
@@ -542,8 +550,9 @@
                   :filter 'nxhtml-insert-menu-dynamically)))
         (define-key sometoc-map [nxhtml-html-pagetoc]
           (list 'menu-item "For Page" 'html-pagetoc-menu-map
+                :enable (boundp 'html-pagetoc-menu-map)
                 :filter 'nxhtml-insert-menu-dynamically
-                :enable '(featurep 'html-pagetoc)))
+                ))
         (define-key quick-map [nxhtml-sometoc-map]
           (list 'menu-item "Table of Contents" sometoc-map
                 :visible '(or (derived-mode-p 'html-mode)
