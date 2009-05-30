@@ -38,15 +38,16 @@
 
 This is intended to be a server hook."
   (let ((new-buf (switch-to-buffer (buffer-name)))
-        (old-persp persp-curr-name))
+        (old-persp (persp-name persp-curr)))
     (persp-switch "server")
     (switch-to-buffer new-buf)
-    (persp-switch old-persp)
 
-    ;; Don't kill the buffer if we are already in the "server" perspective.
+    ;; Don't remove the buffer from the current perspective if we are already in
+    ;; the "server" perspective.
     (when (not (string-equal old-persp "server"))
-      (persp-remove-buffer new-buf))
-    (persp-switch "server")))
+      (persp-switch old-persp)
+      (persp-remove-buffer new-buf)
+      (persp-switch "server"))))
 
 (defun server-edit-presets ()
   (cond
