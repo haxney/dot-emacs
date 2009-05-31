@@ -80,6 +80,7 @@
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
  '(planner-reverse-chronological-notes nil)
+ '(pop-up-windows nil)
  '(quack-default-program "mzscheme -g")
  '(quack-global-menu-p nil)
  '(quack-pretty-lambda-p nil)
