@@ -30,8 +30,75 @@
 (require 'anything-etags)
 (require 'anything-complete)
 
+(defun anything-c-define-dummy-source (name func &rest other-attrib)
+  `((name . ,name)
+    (candidates "dummy")
+    ,@other-attrib
+    (filtered-candidate-transformer
+     . (lambda (candidates source)
+         (funcall ',func)))
+    (requires-pattern . 1)
+    (volatile)
+    (category create)))
+
+(defun anything-c-dummy-candidate ()
+  ;; `source' is defined in filtered-candidate-transformer
+  (list (cons (concat (assoc-default 'name source)
+                      " '" anything-input "'")
+              anything-input)))
+
 ;; Use anything for C-h b
 (require 'descbinds-anything)
 (descbinds-anything-install)
+
+;; Prevent flickering
+(setq anything-save-configuration-functions
+    '(set-window-configuration . current-window-configuration))
+
+;; Bind different groups of `anything' sources to various keys of a map. To
+;; reduce redundancy, items can be added to the let-binded list `bindings' and
+;; then are substituted into the command when it is evaled. Yay macros!
+(defvar anything-activate-map
+  (let ((bindings '(
+                    ("o" anything-c-source-occur)
+                    ))
+        (map (make-sparse-keymap)))
+    (mapcar (lambda (item)
+              (define-key map (read-kbd-macro (car item))
+                `(lambda ()
+                   (interactive)
+                   (anything (list ,@(cdr item))))))
+            bindings)
+    map)
+  "Keybindings for various anything commands.")
+
+;; The binding for starting all of my anything commands.
+(global-set-key (kbd "C-c j") anything-activate-map)
+
+;; Candidates
+(defun anything-project-root-find-files (pattern)
+  (when anything-project-root
+    (start-process-shell-command "project-root-find"
+                                 nil
+                                 "find"
+                                 anything-project-root
+                                 (find-to-string
+                                  `(and (prune (name "*.svn" "*.git"))
+                                        (name ,(concat "*" pattern "*"))
+                                        (type "f"))))))
+
+
+(defvar anything-c-source-project-files
+  '((name . "Project Files")
+    (init . (lambda ()
+              (unless project-details (project-root-fetch))
+              (setq anything-project-root (cdr project-details))))
+    (candidates . (lambda ()
+                    (anything-project-root-find-files anything-pattern)))
+    (type . file)
+    (requires-pattern . 2)
+    (volatile)
+    (delayed)))
+
 
 ;;; 50anything.el ends here
