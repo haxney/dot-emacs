@@ -29,7 +29,9 @@
 (require 'anything-config)
 (require 'anything-etags)
 (require 'anything-complete)
+(require 'descbinds-anything)
 
+;; For some reason this is not already created.
 (defun anything-c-define-dummy-source (name func &rest other-attrib)
   `((name . ,name)
     (candidates "dummy")
@@ -47,58 +49,113 @@
                       " '" anything-input "'")
               anything-input)))
 
-;; Use anything for C-h b
-(require 'descbinds-anything)
-(descbinds-anything-install)
+(remove-hook 'kill-emacs-hook 'anything-c-adaptive-save-history)
 
 ;; Prevent flickering
 (setq anything-save-configuration-functions
-    '(set-window-configuration . current-window-configuration))
+      '(set-window-configuration . current-window-configuration))
+
+(defvar anything-c-source-eproject-files
+  '((name . "Files in eProject")
+    (init . anything-c-source-eproject-files-init)
+    (candidates-in-buffer)
+    (type . file)
+    (real-to-display . (lambda (real)
+                         (cadr (split-string real
+                                             (concat
+                                              (expand-file-name (cadr prj-current)) "/"))))))
+  "Search for files in the current eProject.")
+
+(defun anything-c-source-eproject-files-init ()
+  "Build `anything-candidate-buffer' of eproject files."
+  (with-current-buffer (anything-candidate-buffer 'local)
+    (mapcar
+     (lambda (item)
+       (insert (format "%s/%s\n" (cadr prj-current) (car item))))
+     prj-files)))
+
+(defvar anything-c-source-eproject-projects
+  '((name . "Projects")
+    (candidates . (lambda ()
+                    (mapcar (lambda (item)
+                              (car item))
+                            prj-list)))
+    (action ("Open Project" . (lambda (cand)
+                                (eproject-open cand)))
+            ("Close projcet" . (lambda (cand)
+                                 (eproject-close)))))
+  "Open or close eProject projects.")
 
 ;; Bind different groups of `anything' sources to various keys of a map. To
 ;; reduce redundancy, items can be added to the let-binded list `bindings' and
 ;; then are substituted into the command when it is evaled. Yay macros!
-(defvar anything-activate-map
-  (let ((bindings '(
-                    ("o" anything-c-source-occur)
-                    ))
-        (map (make-sparse-keymap)))
-    (mapcar (lambda (item)
-              (define-key map (read-kbd-macro (car item))
-                `(lambda ()
-                   (interactive)
-                   (anything (list ,@(cdr item))))))
-            bindings)
-    map)
-  "Keybindings for various anything commands.")
+(defvar anything-activate-map (make-sparse-keymap) "Keybindings for various anything commands.")
 
-;; The binding for starting all of my anything commands.
-(global-set-key (kbd "C-c j") anything-activate-map)
+(defun anything-set-map (bindings)
+  "Set `anything-activate-map' according to the list of BINDINGS passed in.
+Must be in the form:
 
-;; Candidates
-(defun anything-project-root-find-files (pattern)
-  (when anything-project-root
-    (start-process-shell-command "project-root-find"
-                                 nil
-                                 "find"
-                                 anything-project-root
-                                 (find-to-string
-                                  `(and (prune (name "*.svn" "*.git"))
-                                        (name ,(concat "*" pattern "*"))
-                                        (type "f"))))))
+  '((\"o\" anything-c-source-occur))"
+  (mapcar (lambda (item)
+            (define-key anything-activate-map
+              (read-kbd-macro (symbol-name (car item)))
+              `(lambda ()
+                 (interactive)
+                 (anything (list ,@(cdr item))))))
+          bindings)
+  (global-set-key (kbd "C-c j") anything-activate-map))
 
+(anything-set-map
+ '(
+   (o anything-c-source-occur)
+   (b anything-c-source-buffers
+      anything-c-source-buffer-not-found
+      anything-c-source-buffers+)
+   (h ;anything-c-source-man-pages
+    anything-c-source-info-pages
+    anything-c-source-info-elisp
+    anything-c-source-info-cl)
+   (f anything-c-source-ffap-line
+      anything-c-source-ffap-guesser
+      anything-c-source-recentf
+      anything-c-source-buffers+
+      anything-c-source-bookmarks
+      anything-c-source-file-cache
+      anything-c-source-files-in-current-dir+)
+   (p anything-c-source-eproject-files
+      anything-c-source-eproject-projects)
+   ))
 
-(defvar anything-c-source-project-files
-  '((name . "Project Files")
-    (init . (lambda ()
-              (unless project-details (project-root-fetch))
-              (setq anything-project-root (cdr project-details))))
-    (candidates . (lambda ()
-                    (anything-project-root-find-files anything-pattern)))
-    (type . file)
-    (requires-pattern . 2)
-    (volatile)
-    (delayed)))
+;; More useful descbinds-anything
+(setq descbinds-anything-actions
+      '(("Execute" . descbinds-anything-action:execute)
+        ("Find Function" . descbinds-anything-action:find-func)
+        ("Describe Function" . descbinds-anything-action:describe)))
 
+;; Redefined
+(defun descbinds-anything-sources (buffer &optional prefix menus)
+  (mapcar
+   (lambda (section)
+     (list
+      (cons 'name (car section))
+      (cons 'candidates (cdr section))
+      (cons 'candidate-transformer
+            (lambda (candidates)
+              (mapcar
+               (lambda (pair)
+                 (cons (funcall descbinds-anything-candidate-formatter
+                                (car pair) (cdr pair))
+                       (cons (car pair)
+                             (intern-soft (cdr pair)))))
+               candidates)))
+      (cons 'action descbinds-anything-actions)
+      (cons 'action-transformer
+            (lambda (actions candidate)
+              (and (commandp (cdr candidate))
+                   actions)))
+      (cons 'persistent-action
+            'descbinds-anything-action:describe)))
+   (descbinds-anything-all-sections buffer prefix menus)))
+(descbinds-anything-install)
 
 ;;; 50anything.el ends here
