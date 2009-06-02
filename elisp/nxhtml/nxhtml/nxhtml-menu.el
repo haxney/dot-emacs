@@ -2,7 +2,7 @@
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
 ;; Created: Sat Apr 21 2007
-(defconst nxhtml-menu:version "1.78") ;;Version:
+(defconst nxhtml-menu:version "1.80") ;;Version:
 ;; Last-Updated: 2009-05-29 Fri
 ;; URL:
 ;; Keywords:
@@ -754,10 +754,22 @@
             ))
     (let ((chunk-map (make-sparse-keymap)))
       (define-key map [nxhtml-chunk-map]
-        (list 'menu-item "Chunk" chunk-map
+        (list 'menu-item "Chunks" chunk-map
               :visible `(not (derived-mode-p 'dired-mode))
               :enable '(and (boundp 'mumamo-multi-major-mode)
                             mumamo-multi-major-mode)))
+      (let ((region-map (make-sparse-keymap)))
+        (define-key chunk-map [nxhtml-region-map]
+          (list 'menu-item "Region Chunks" region-map))
+        (define-key region-map [mumamo-clear-all-regions]
+          (list 'menu-item "Clear Region Chunks"
+                'mumamo-clear-all-regions
+                :enable '(fboundp 'mumamo-clear-all-regions)))
+        (define-key region-map [mumamo-add-region]
+          (list 'menu-item "Add Region Chunk"
+                'mumamo-add-region)))
+      (define-key chunk-map [nxhtml-region-separator]
+        (list 'menu-item "--" nil))
       (define-key chunk-map [mumamo-mark-chunk]
         (list 'menu-item "Mark Chunk"
               'mumamo-mark-chunk))
@@ -986,6 +998,7 @@ See `nxhtml-minor-mode-modes'."
 (defun nxhtml-docfile-url ()
   (concat "file://" (nxhtml-docfile)))
 
+;;;###autoload
 (defun nxhtml-overview ()
   "Show a HTML page with an overview of nXhtml."
   (interactive)

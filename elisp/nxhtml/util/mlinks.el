@@ -289,7 +289,8 @@
   (if (or (not (bufferp buffer))
           (not (buffer-live-p buffer)))
       ;;(mlinks-stop-hilighter)
-      (cancel-timer timer-event-last)
+      ;;(cancel-timer timer-event-last)
+      (cancel-timer mlinks-mark-links-timer)
     (with-current-buffer buffer
       (when mlinks-mode ;t ;mlinks-hilight-this-buffer
         (let* ((funs-- (mlinks-get-action 'hili))
@@ -1182,7 +1183,18 @@ Any command cancels this state."
               (error "Back goto-- value again: %s" goto--)))))))))
 
 (defun mlinks-elisp-mode-require (module)
-  (find-library module))
+  (let ((mlinks-temp-buffer-where where))
+    (cond
+     ((null where)
+      (find-library module))
+     ((eq where 'other-window)
+      (other-window 1)
+      (find-library module))
+     ((eq where 'other-frame)
+      (make-frame-command)
+      (find-library module))
+     (t
+      (error "Invalid argument, where=%s" where)))))
 
 
 

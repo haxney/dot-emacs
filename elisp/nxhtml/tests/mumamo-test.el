@@ -98,7 +98,8 @@ When this mode is on the following keys are defined:
            chunk
            chunk2)
       (mumamo-save-buffer-state nil
-        (setq chunk (mumamo-create-chunk-at here)))
+        ;;(setq chunk (mumamo-create-chunk-at here)))
+        (setq chunk (mumamo-find-chunks here "test1")))
       ;;(setq chunk2 (mumamo-get-chunk-at here))
       (setq chunk2 (mumamo-find-chunks here "set chunk2"))
       ;;(message "mumamo-test-create-chunk-at-point.chunk 1=%s" chunk)
@@ -130,7 +131,8 @@ When this mode is on the following keys are defined:
   (let (last-ovl
         this-ovl)
     (while (< (point) (point-max))
-      (setq this-ovl (mumamo-test-create-chunk-at-point))
+      ;;(setq this-ovl (mumamo-test-create-chunk-at-point))
+      (setq this-ovl (mumamo-find-chunks (point) "test loop"))
       ;;(message "this-ovl=%s" this-ovl)
       (sit-for 0.01)
       ;;(sit-for 0)

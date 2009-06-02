@@ -140,7 +140,7 @@
   (condition-case err
       (if pause-idle-delay
           (setq pause-idle-timer (run-with-idle-timer pause-idle-delay nil 'pause-break-in-timer))
-        (setq pause-idle-timer (run-with-timer 0 nil 'pause-break-in-timer)))
+        (setq pause-idle-timer (run-with-idle-timer 5 nil 'pause-break-in-timer)))
     (error
      (lwarn 'pause-pre-break
             :error "%s" (error-message-string err)))))

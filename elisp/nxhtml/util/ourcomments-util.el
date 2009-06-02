@@ -371,12 +371,6 @@ To create a menu item something similar to this can be used:
       (major-modep value)))
 
 ;;;###autoload
-(defun multi-major-modep (value)
-  "Return t if VALUE is a multi major mode function."
-  (and (fboundp value)
-       (rassq value mumamo-defined-turn-on-functions)))
-
-;;;###autoload
 (defun major-modep (value)
   "Return t if VALUE is a major mode function."
   (let ((sym-name (symbol-name value)))
@@ -889,6 +883,10 @@ the left margin."
   :group 'convenience)
 
 (defun wrap-to-fill-set-prefix (min max)
+  ;;(wrap-to-fill-set-prefix-1 min max)
+  )
+
+(defun wrap-to-fill-set-prefix-1 (min max)
   "Set `wrap-prefix' text property from point MIN to MAX."
   ;; Fix-me: If first word gets wrapped we have a problem.
   ;;(message "wrap-to-fill-set-prefix here")
@@ -931,6 +929,8 @@ the left margin."
        (forward-line)))
     (goto-char here)))
 
+(defvar wrap-to-fill-after-change-range nil)
+
 (defun wrap-to-fill-after-change (min max old-len)
   "For `after-change-functions'.
 See the hook for MIN, MAX and OLD-LEN."
@@ -940,6 +940,21 @@ See the hook for MIN, MAX and OLD-LEN."
     (setq min (line-beginning-position))
     (goto-char max)
     (setq max (line-end-position))
+    ;;(wrap-to-fill-set-prefix min max)
+    (wrap-to-fill-save-min-max min max)
+    ))
+
+(defun wrap-to-fill-save-min-max (min max)
+  (let* ((old-min (car wrap-to-fill-after-change-range))
+         (old-max (cdr wrap-to-fill-after-change-range))
+         (new-min (if old-min (min old-min min) min))
+         (new-max (if old-max (max old-max max) max)))
+    (setq wrap-to-fill-after-change-range (cons new-min new-max))))
+
+(defun wrap-to-fill-post-command ()
+  (let* ((min (car wrap-to-fill-after-change-range))
+         (max (cdr wrap-to-fill-after-change-range)))
+    (setq wrap-to-fill-after-change-range nil)
     (wrap-to-fill-set-prefix min max)))
 
 (defun wrap-to-fill-scroll-fun (window start-pos)
@@ -947,7 +962,8 @@ See the hook for MIN, MAX and OLD-LEN."
 See the hook for WINDOW and START-POS."
   (let ((min (or start-pos (window-start window)))
         (max (window-end window t)))
-    (wrap-to-fill-set-prefix min max)))
+    (wrap-to-fill-save-min-max min max)))
+    ;;(wrap-to-fill-set-prefix min max)))
 
 (defun wrap-to-fill-wider ()
   "Increase `fill-column' with 10."
@@ -997,6 +1013,8 @@ Key bindings added by this minor mode:
         (add-hook 'window-configuration-change-hook 'wrap-to-fill-set-values nil t)
         (add-hook 'after-change-functions 'wrap-to-fill-after-change nil t)
         (add-hook 'window-scroll-functions 'wrap-to-fill-scroll-fun nil t)
+        (add-hook 'post-command-hook 'wrap-to-fill-post-command nil t)
+        ;;(add-hook 'post-command-hook window-scroll-functions 'wrap-to-fill-scroll-fun nil t)
         (if (fboundp 'visual-line-mode)
             (visual-line-mode 1)
           (longlines-mode 1))
@@ -1741,7 +1759,7 @@ If there is no buffer file start with `dired'."
         (progn
           (call-process (ourcomments-find-emacs) nil 0 nil "--no-desktop" file)
           (message "Started 'emacs buffer-file-name' - it will be ready soon ..."))
-      (call-process (ourcomments-find-emacs) nil 0 nil "--eval"
+      (call-process (ourcomments-find-emacs) nil 0 nil "--no-desktop" "--eval"
                     (format "(dired \"%s\")" default-directory)))))
 
 ;;;###autoload
