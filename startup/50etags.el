@@ -26,11 +26,13 @@
 
 (setq etags-table-alist
       (list
-       '("/home/dhackney/Projects/gsoc-2009/.*\\.\\(php[34s]?\\|module\\|install\\|inc\\)$"
-         "/home/dhackney/Projects/gsoc-2009/TAGS")
+       `(,(concat (expand-file-name "~") "/Projects/gsoc-2009/.*\\.\\(php[34s]?\\|module\\|install\\|inc\\)$")
+         ,(concat (expand-file-name "~") "/Projects/gsoc-2009/TAGS"))
+       `(,(concat (expand-file-name "~") "/\.emacs\.d/.*\.el")
+         ,(concat (expand-file-name "~") "/\.emacs\.d/TAGS"))
        ))
 
-(global-set-key "\M-?" 'etags-select-find-tag-at-point)
-(global-set-key "\M-." 'etags-select-find-tag)
+(global-set-key (kbd "M-.") 'anything-etags-select)
+(global-set-key (kbd "M-?") 'anything-etags-select-from-here)
 
 ;;; 50etags.el.el ends here
