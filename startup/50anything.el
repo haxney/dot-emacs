@@ -61,9 +61,10 @@
     (candidates-in-buffer)
     (type . file)
     (real-to-display . (lambda (real)
-                         (cadr (split-string real
-                                             (concat
-                                              (expand-file-name (cadr prj-current)) "/"))))))
+                         (if real
+                             (cadr (split-string real
+                                                 (concat
+                                                  (expand-file-name (cadr prj-current)) "/")))))))
   "Search for files in the current eProject.")
 
 (defun anything-c-source-eproject-files-init ()
