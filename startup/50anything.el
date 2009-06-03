@@ -30,6 +30,7 @@
 (require 'anything-etags)
 (require 'anything-complete)
 (require 'descbinds-anything)
+(require 'anything-eproject)
 
 ;; For some reason this is not already created.
 (defun anything-c-define-dummy-source (name func &rest other-attrib)
@@ -54,38 +55,6 @@
 ;; Prevent flickering
 (setq anything-save-configuration-functions
       '(set-window-configuration . current-window-configuration))
-
-(defvar anything-c-source-eproject-files
-  '((name . "Files in eProject")
-    (init . anything-c-source-eproject-files-init)
-    (candidates-in-buffer)
-    (type . file)
-    (real-to-display . (lambda (real)
-                         (if real
-                             (cadr (split-string real
-                                                 (concat
-                                                  (expand-file-name (cadr prj-current)) "/")))))))
-  "Search for files in the current eProject.")
-
-(defun anything-c-source-eproject-files-init ()
-  "Build `anything-candidate-buffer' of eproject files."
-  (with-current-buffer (anything-candidate-buffer 'local)
-    (mapcar
-     (lambda (item)
-       (insert (format "%s/%s\n" (cadr prj-current) (car item))))
-     prj-files)))
-
-(defvar anything-c-source-eproject-projects
-  '((name . "Projects")
-    (candidates . (lambda ()
-                    (mapcar (lambda (item)
-                              (car item))
-                            prj-list)))
-    (action ("Open Project" . (lambda (cand)
-                                (eproject-open cand)))
-            ("Close projcet" . (lambda (cand)
-                                 (eproject-close)))))
-  "Open or close eProject projects.")
 
 ;; Bind different groups of `anything' sources to various keys of a map. To
 ;; reduce redundancy, items can be added to the let-binded list `bindings' and
