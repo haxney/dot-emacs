@@ -54,6 +54,9 @@
 (autoload 'global-linum-mode "linum"
   "Set linum mode globally.")
 
+(autoload 'erc-tls "erc"
+  "Interactively select TLS connection parameters and run ERC.")
+
 ;; These two just do now want to autoload properly. The only option left is to
 ;; `require' them.
 (require 'smart-tab)
