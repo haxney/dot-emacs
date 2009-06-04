@@ -101,6 +101,25 @@
   (interactive)
   (when (y-or-n-p "IRC? ")
     (erc :server "irc.freenode.net" :port 6667
-         :nick "chrono325" :full-name "Daniel Hackney")))
+         :nick "chrono325" :full-name "Daniel Hackney")
+    (erc :server "rhoda.haxney.org" :port 6668
+         :nick "dhackney" :full-name "Daniel Hackney")))
+
+(defun erc-generate-log-file-name-date-and-name (buffer target nick server port)
+  "Generates a log-file name with the date and other info.
+This results in a file name of the form \"2009-06-03-#channel@server:port.txt\".
+This function is a possible value for `erc-generate-log-file-name-function'."
+  (let ((file (concat
+               (format-time-string "%Y-%m-%d")
+               "-"
+               target
+               "@" server ":"
+               (cond ((stringp port) port)
+                     ((numberp port)
+                      (number-to-string port))) ".txt")))
+    ;; we need a make-safe-file-name function.
+    (convert-standard-filename file)))
+
+(setq erc-generate-log-file-name-function 'erc-generate-log-file-name-date-and-name)
 
 ;;; 50erc.el ends here
