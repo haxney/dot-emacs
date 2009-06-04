@@ -102,8 +102,8 @@
   (when (y-or-n-p "IRC? ")
     (erc :server "irc.freenode.net" :port 6667
          :nick "chrono325" :full-name "Daniel Hackney")
-    (erc :server "rhoda.haxney.org" :port 6668
-         :nick "dhackney" :full-name "Daniel Hackney")))
+    (erc-tls :server "rhoda.haxney.org" :port 6668
+             :nick "dhackney" :full-name "Daniel Hackney")))
 
 (defun erc-generate-log-file-name-date-and-name (buffer target nick server port)
   "Generates a log-file name with the date and other info.

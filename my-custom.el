@@ -30,7 +30,7 @@
  '(ecb-options-version "2.32")
  '(ecb-tip-of-the-day nil)
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
- '(erc-log-insert-log-on-open t)
+ '(erc-log-insert-log-on-open nil)
  '(erc-log-mode t)
  '(erc-log-write-after-insert t)
  '(erc-log-write-after-send t)
