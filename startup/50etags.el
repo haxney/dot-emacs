@@ -26,13 +26,23 @@
 
 (setq etags-table-alist
       (list
-       `(,(concat (expand-file-name "~") "/Projects/gsoc-2009/.*\\.\\(php[34s]?\\|module\\|install\\|inc\\)$")
+       `(,(concat (expand-file-name "~") "/Projects/gsoc-2009/.*\\.\\(php[34s]?\\|module\\|install\\|inc\\|test\\)$")
          ,(concat (expand-file-name "~") "/Projects/gsoc-2009/TAGS"))
        `(,(concat (expand-file-name "~") "/\.emacs\.d/.*\.el")
          ,(concat (expand-file-name "~") "/\.emacs\.d/TAGS"))
        ))
 
-(global-set-key (kbd "M-.") 'anything-etags-select)
+(defun anything-imenu-or-etags ()
+  "Run anything with imenu and etags.
+Fill in the symbol at point by default."
+  (interactive)
+  (anything '(anything-c-source-imenu anything-c-source-etags-select)
+            nil nil nil
+            ;; select thing-at-point by default.
+            (thing-at-point 'symbol)))
+
+(global-set-key (kbd "M-.") 'anything-imenu-or-etags)
+
 (global-set-key (kbd "M-?") 'anything-etags-select-from-here)
 
 ;;; 50etags.el.el ends here
