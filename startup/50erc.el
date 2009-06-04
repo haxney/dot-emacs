@@ -90,20 +90,7 @@
        "store line"
        (when (string-match "^\\s-*\\(.*\\)$" line)
          (let ((reason (match-string 1 line)))
-           (setq erc-away-reason reason))))
-
-     ;; Load the passwords.
-     (if (file-readable-p "~/.private/private.el")
-         (load-file "~/.private/private.el"))))
-
-(defun irc-maybe ()
-  "Connect to IRC."
-  (interactive)
-  (when (y-or-n-p "IRC? ")
-    (erc :server "irc.freenode.net" :port 6667
-         :nick "chrono325" :full-name "Daniel Hackney")
-    (erc-tls :server "rhoda.haxney.org" :port 6668
-             :nick "dhackney" :full-name "Daniel Hackney")))
+           (setq erc-away-reason reason))))))
 
 (defun erc-generate-log-file-name-date-and-name (buffer target nick server port)
   "Generates a log-file name with the date and other info.

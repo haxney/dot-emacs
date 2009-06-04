@@ -35,6 +35,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.module$" . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . nxhtml-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.test$" . nxhtml-mumamo-mode))
 
 (add-to-list 'auto-mode-alist '("\\.ss$" . scheme-mode))
 (add-to-list 'auto-mode-alist '("\\.scm$" . scheme-mode))
@@ -44,5 +45,29 @@
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 
 (add-to-list 'auto-mode-alist '("\\.dot$" . graphviz-dot-mode))
+
+(defun delete-weird-chars ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    ;; Replace strange space characters
+    (while (search-forward "“" nil t)
+      (replace-match "\""))
+    (goto-char (point-min))
+    (while (search-forward "”" nil t)
+      (replace-match "\""))
+    (goto-char (point-min))
+    (while (search-forward "’" nil t)
+      (replace-match "'"))
+    (goto-char (point-min))
+    (while (search-forward "‘" nil t)
+      (replace-match "'"))))
+
+;; Re-enable narrow-to-region
+(put 'narrow-to-region 'disabled nil)
+
+;; Load the private files.
+(if (file-readable-p "~/.private/private.el")
+    (load-file "~/.private/private.el"))
 
 ;;; 50editor-misc.el ends here
