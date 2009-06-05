@@ -98,12 +98,8 @@ This results in a file name of the form \"2009-06-03-#channel@server:port.txt\".
 This function is a possible value for `erc-generate-log-file-name-function'."
   (let ((file (concat
                (format-time-string "%Y-%m-%d")
-               "-"
-               target
-               "@" server ":"
-               (cond ((stringp port) port)
-                     ((numberp port)
-                      (number-to-string port))) ".txt")))
+               "-" target
+               "@" server ".txt")))
     ;; we need a make-safe-file-name function.
     (convert-standard-filename file)))
 
