@@ -33,7 +33,7 @@ This lets the specification be simpler and more readable."
             (append (list
                      (concat "\\("
                              (car item)
-                             "\\)\\W"))
+                             "\\)\\_>"))
                     (cdr item)))
           smile-list))
 
