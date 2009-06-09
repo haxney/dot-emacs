@@ -35,8 +35,10 @@
     (c-offsets-alist . ((arglist-close . c-lineup-close-paren)
                         (case-label . +)
                         (arglist-intro . +)
-                        (arglist-cont-nonempty . c-lineup-math)))))
+                        (arglist-cont-nonempty . c-lineup-math)
+                        (statement-cont . c-lineup-math)))))
 
 (add-hook 'php-mode-hook '(lambda () (c-set-style "drupal")))
+(add-hook 'php-mode-hook (lambda () (setq require-final-newline 'visit-save)))
 
 ;;; 50nxhtml.el ends here
