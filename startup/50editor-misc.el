@@ -36,6 +36,7 @@
 (add-to-list 'auto-mode-alist '("\\.module$" . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.test$" . nxhtml-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.install$" . nxhtml-mumamo-mode))
 
 (add-to-list 'auto-mode-alist '("\\.ss$" . scheme-mode))
 (add-to-list 'auto-mode-alist '("\\.scm$" . scheme-mode))
