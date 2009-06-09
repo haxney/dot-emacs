@@ -57,6 +57,9 @@
 (autoload 'erc-tls "erc"
   "Interactively select TLS connection parameters and run ERC.")
 
+(autoload 'geben "geben"
+  "Start GEBEN, a DBGp protocol frontend - a script debugger." t)
+
 ;; These two just do now want to autoload properly. The only option left is to
 ;; `require' them.
 (require 'smart-tab)
