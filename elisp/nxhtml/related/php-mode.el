@@ -418,7 +418,7 @@ This is was done due to the problem reported here:
   (set (make-local-variable 'c-opt-cpp-prefix) php-tags-key)
 
   (c-set-offset 'cpp-macro 0)
-  
+
 ;;   (c-lang-defconst c-block-stmt-1-kwds php php-block-stmt-1-kwds)
 ;;   (c-lang-defvar c-block-stmt-1-kwds (c-lang-const c-block-stmt-1-kwds))
   (set (make-local-variable 'c-block-stmt-1-key) php-block-stmt-1-key)
@@ -1097,7 +1097,7 @@ current `tags-file-name'."
     '(1 font-lock-keyword-face))
 
    ;; Fontify keywords and targets, and case default tags.
-   (list "\\<\\(break\\|case\\|continue\\)\\>\\s-+\\(-?\\sw+\\)?"
+   (list "\\<\\(break\\|case\\|continue\\|default\\)\\>\\s-+\\(-?\\sw+\\)?"
          '(1 font-lock-keyword-face) '(2 font-lock-constant-face t t))
    ;; This must come after the one for keywords and targets.
    '(":" ("^\\s-+\\(\\sw+\\)\\s-+\\s-+$"
