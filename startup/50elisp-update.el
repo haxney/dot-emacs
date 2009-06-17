@@ -31,23 +31,23 @@
 (defvar install-elisp-update-files
   '((emacswiki . (
                   (1 . (
-                 "anything-complete.el"
-                 "anything.el"
-                 "anything-etags.el"
-                 "anything-match-plugin.el"
-                 "anything-rcodetools.el"
-                 "apache-mode.el"
-                 "auto-install.el"
-                 "descbinds-anything.el"
-                 "etags-select.el"
-                 "etags-table.el"
-                 ))
+                        "anything-complete.el"
+                        "anything.el"
+                        "anything-etags.el"
+                        "anything-match-plugin.el"
+                        "anything-rcodetools.el"
+                        "apache-mode.el"
+                        "auto-install.el"
+                        "descbinds-anything.el"
+                        "etags-select.el"
+                        "etags-table.el"
+                        ))
                   (2 . (
-                   "install-elisp.el"
-                 "linkd.el"
-                 "notify.el"
-                 "php-completion.el"
-                 ))))
+                        "install-elisp.el"
+                        "linkd.el"
+                        "notify.el"
+                        "php-completion.el"
+                        ))))
     (other . (
               "http://stud4.tuwien.ac.at/~e0225855/linum/linum.el"
               "http://users.skynet.be/ppareit/projects/graphviz-dot-mode/graphviz-dot-mode.el"
