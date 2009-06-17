@@ -81,10 +81,10 @@ Must be in the form:
    (b anything-c-source-buffers
       anything-c-source-buffer-not-found
       anything-c-source-buffers+)
-   (h ;anything-c-source-man-pages
-    anything-c-source-info-pages
-    anything-c-source-info-elisp
-    anything-c-source-info-cl)
+   (h anything-c-source-man-pages
+      anything-c-source-info-pages
+      anything-c-source-info-elisp
+      anything-c-source-info-cl)
    (f anything-c-source-ffap-line
       anything-c-source-ffap-guesser
       anything-c-source-recentf
