@@ -94,6 +94,9 @@ Must be in the form:
       anything-c-source-files-in-current-dir+)
    (p anything-c-source-eproject-files
       anything-c-source-eproject-projects)
+   (m anything-c-source-bm
+      anything-c-source-bm-all
+      anything-c-source-bm-add)
    ))
 
 ;; More useful descbinds-anything
