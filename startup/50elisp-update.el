@@ -47,10 +47,12 @@
                         "linkd.el"
                         "notify.el"
                         "php-completion.el"
+                        "bm-ext.el"
                         ))))
     (other . (
               "http://stud4.tuwien.ac.at/~e0225855/linum/linum.el"
               "http://users.skynet.be/ppareit/projects/graphviz-dot-mode/graphviz-dot-mode.el"
+              "http://cvs.savannah.gnu.org/viewvc/*checkout*/bm/bm/bm.el"
               )))
   "Elisp files to update.
 Since emacswiki only allows downloading 10 files at a time, split
