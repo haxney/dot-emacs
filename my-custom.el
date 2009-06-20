@@ -17,7 +17,10 @@
  '(bcc-blacklist (quote ("/\\.recentf$" "/history$" "auctex" "msf-abbrev")))
  '(bcc-cache-directory "~/.emacs.d/tmp/byte-cache")
  '(blink-cursor-mode nil)
+ '(bm-buffer-persistence t)
+ '(bm-recenter t)
  '(bm-repository-file "~/.emacs.d/tmp/bm-repository")
+ '(bm-restore-repository-on-load t)
  '(bookmark-default-file "~/.emacs.d/tmp/bookmark")
  '(browse-url-firefox-program "firefox-3.5")
  '(case-fold-search t)
@@ -124,6 +127,10 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(bm-face ((((class color) (background light)) (:background "orange1"))))
+ '(bm-fringe-face ((((class color) (background light)) (:background "orange1"))))
+ '(bm-fringe-persistent-face ((((class color) (background light)) (:background "DarkBlue"))))
+ '(bm-persistent-face ((((class color) (background light)) (:background "DarkBlue"))))
  '(diff-added ((t (:inherit diff-changed-face :background "Green"))))
  '(diff-added-face ((t (:inherit diff-changed-face :background "Green"))) t)
  '(diff-removed ((t (:inherit diff-changed-face :background "red"))))
