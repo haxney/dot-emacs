@@ -7,9 +7,6 @@
 [submodule "elisp/smart-tab"]
 	path = elisp/smart-tab
 	url = git@github.com:chrono325/smart-tab.git
-[submodule "elisp/perspective"]
-	path = elisp/perspective
-	url = git://github.com/nex3/perspective-el.git
 [submodule "elisp/anything-config"]
 	path = elisp/anything-config
 	url = ssh://repo.or.cz/srv/git/anything-config.git
