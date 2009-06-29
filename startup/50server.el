@@ -33,22 +33,6 @@
                    'listen)))
   (server-start))
 
-(defun server-perspective-switch ()
-  "Open all server buffers in the \"server\" perspective.
-
-This is intended to be a server hook."
-  (let ((new-buf (switch-to-buffer (buffer-name)))
-        (old-persp (persp-name persp-curr)))
-    (persp-switch "server")
-    (switch-to-buffer new-buf)
-
-    ;; Don't remove the buffer from the current perspective if we are already in
-    ;; the "server" perspective.
-    (when (not (string-equal old-persp "server"))
-      (persp-switch old-persp)
-      (persp-remove-buffer new-buf)
-      (persp-switch "server"))))
-
 (defun server-edit-presets ()
   (cond
    ;; When editing mail, set the goal-column to 72.
@@ -63,10 +47,7 @@ This is intended to be a server hook."
       (while (search-forward (char-to-string 160) nil t)
         (replace-match " "))))))
 
-;;(add-hook 'server-switch-hook 'server-perspective-switch)
-
 (add-hook 'server-visit-hook 'server-edit-presets)
 (add-hook 'server-visit-hook '(lambda () (longlines-mode 1)))
-
 
 ;;; 50server.el ends here
