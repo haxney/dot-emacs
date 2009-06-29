@@ -40,5 +40,6 @@
 
 (add-hook 'php-mode-hook '(lambda () (c-set-style "drupal")))
 (add-hook 'php-mode-hook (lambda () (setq require-final-newline 'visit-save)))
+(add-hook 'php-mode-hook '(lambda () (c-toggle-electric-state 1)))
 
 ;;; 50nxhtml.el ends here
