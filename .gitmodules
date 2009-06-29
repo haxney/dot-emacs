@@ -6,7 +6,7 @@
 	url = git://github.com/nonsequitur/smex.git
 [submodule "elisp/smart-tab"]
 	path = elisp/smart-tab
-	url = git@github.com:chrono325/smart-tab.git
+	url = git@github.com:dhax/smart-tab.git
 [submodule "elisp/anything-config"]
 	path = elisp/anything-config
 	url = ssh://repo.or.cz/srv/git/anything-config.git
