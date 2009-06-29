@@ -37,42 +37,46 @@
 ;;    Open or close eProject projects.
 ;;
 ;;
-;; Eproject: http://www.emacswiki.org/emacs/eproject
+;; Eproject: http://github.com/jrockway/eproject
 ;; Anything: http://www.emacswiki.org/emacs/Anything
 
 ;;; Code:
 
+(defvar anything-eproject-original-buffer nil)
+
 (defvar anything-c-source-eproject-files
   '((name . "Files in eProject")
     (init . anything-c-source-eproject-files-init)
+    (real-to-display . (lambda (real-name)
+                         (replace-regexp-in-string (eproject-root anything-eproject-original-buffer)
+                                                   ""
+                                                   real-name)))
     (candidates-in-buffer)
-    (type . file)
-    (real-to-display . (lambda (real)
-                         (if real
-                             (cadr (split-string real
-                                                 (concat
-                                                  (expand-file-name (cadr prj-current)) "/")))))))
+    (type . file))
   "Search for files in the current eProject.")
 
 (defun anything-c-source-eproject-files-init ()
   "Build `anything-candidate-buffer' of eproject files."
+  (when eproject-mode
+  (setq anything-eproject-original-buffer (current-buffer))
+  (let ((project-files (eproject-list-project-files)))
   (with-current-buffer (anything-candidate-buffer 'local)
     (mapcar
      (lambda (item)
-       (insert (format "%s/%s\n" (cadr prj-current) (car item))))
-     prj-files)))
+       (insert (expand-file-name item) "\n"))
+     project-files)))))
 
 (defvar anything-c-source-eproject-projects
   '((name . "Projects")
-    (candidates . (lambda ()
-                    (mapcar (lambda (item)
-                              (car item))
-                            prj-list)))
-    (action ("Open Project" . (lambda (cand)
-                                (eproject-open cand)))
-            ("Close projcet" . (lambda (cand)
-                                 (eproject-close)))))
+    (candidates . anything-c-source-eproject-projects-init)
+    (action . (lambda (candidate)
+                (find-file candidate))))
   "Open or close eProject projects.")
+
+(defun anything-c-source-eproject-projects-init ()
+  "Build `anything-candidate-buffer' of eproject projects."
+  (mapcar (lambda (item)
+            (car item)) eproject-attributes-alist))
 
 (provide 'anything-eproject)
 
