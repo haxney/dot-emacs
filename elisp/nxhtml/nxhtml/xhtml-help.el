@@ -82,6 +82,7 @@
     (when css-prop
       (xhtml-help-browse-css css-prop))))
 
+;;;###autoload
 (defun xhtml-help-tag-at-point ()
   "Get xhtml tag name at or before point."
   (save-excursion
