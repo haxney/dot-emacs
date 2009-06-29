@@ -26,6 +26,9 @@
 
 ;;; Code:
 
+(setq bm-restore-repository-on-load t)
+(require 'bm)
+
 ;; Loading the repository from file when on start up.
 (add-hook 'after-init-hook 'bm-repository-load)
 
