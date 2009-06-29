@@ -42,7 +42,12 @@
 
 ;;; Code:
 
-(defvar anything-eproject-original-buffer nil)
+(defvar anything-eproject-original-buffer nil
+  "The buffer from which the anything command was invoked. Saved
+because eproject depends on the buffer it is given.")
+
+(defvar anything-eproject-files-alist nil
+  "List of files in each eproject.")
 
 (defvar anything-c-source-eproject-files
   '((name . "Files in eProject")
@@ -58,13 +63,30 @@
 (defun anything-c-source-eproject-files-init ()
   "Build `anything-candidate-buffer' of eproject files."
   (when eproject-mode
-  (setq anything-eproject-original-buffer (current-buffer))
-  (let ((project-files (eproject-list-project-files)))
-  (with-current-buffer (anything-candidate-buffer 'local)
-    (mapcar
-     (lambda (item)
-       (insert (expand-file-name item) "\n"))
-     project-files)))))
+    (setq anything-eproject-original-buffer (current-buffer))
+
+    (let* ((files-cached (assoc (eproject-root) anything-eproject-files-alist))
+           (project-files (cdr (or files-cached
+                                   (progn
+                                   (add-to-list 'anything-eproject-files-alist
+                                                (cons (eproject-root)
+                                                      (eproject-list-project-files)))
+                                   (assoc (eproject-root) anything-eproject-files-alist))))))
+
+      (with-current-buffer (anything-candidate-buffer 'local)
+        (mapcar
+         (lambda (item)
+           (insert (expand-file-name item) "\n"))
+         project-files)))))
+
+(defun anything-eproject-clear-file-cache (&optional root)
+  "Clear the cached files of this project."
+  (interactive)
+  (when (or eproject-mode root)
+    (let ((root (or root (eproject-root))))
+      (setf anything-eproject-files-alist
+            (delete-if (lambda (x) (equal (car x) root))
+                       anything-eproject-files-alist)))))
 
 (defvar anything-c-source-eproject-projects
   '((name . "Projects")
