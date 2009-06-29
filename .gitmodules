@@ -10,3 +10,6 @@
 [submodule "elisp/anything-config"]
 	path = elisp/anything-config
 	url = ssh://repo.or.cz/srv/git/anything-config.git
+[submodule "elisp/eproject"]
+	path = elisp/eproject
+	url = git://github.com/jrockway/eproject.git
