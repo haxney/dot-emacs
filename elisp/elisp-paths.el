@@ -20,6 +20,7 @@
                       "smex"
                       "smart-tab"
                       "anything-config"
+                      "eproject"
                       )
   "A list of additional subdirectories in 'elisp' to add to the load path.")
 
