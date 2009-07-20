@@ -171,126 +171,127 @@ See also `key-cat-cmd-list'."
 (defun key-cat-help-internal()                   ;(category)
   (message "Please wait ...")
   (condition-case err
-      (let ((result))
-        (help-setup-xref (list #'key-cat-help)
-			 (interactive-p))
-;;         (push (list "Changing commands"
-;;                     (list
-;;                      'command
-;;                      indent-line-function
-;;                      ))
-;;               key-cat-cmd-list)
-        (dolist (catentry key-cat-cmd-list)
-          (let ((category (car catentry))
-                (commands (cdr catentry))
-                (cmds)
-                (keyw)
-                (visible)
-                (visible-fun)
-                (cmdstr)
-                (doc))
-            (dolist (cmdlist commands)
-              (setq cmdlist (cdr cmdlist))
-              (setq visible t)
-              (while (keywordp (setq keyw (car cmdlist)))
+      (save-match-data ;; runs in timer
+        (let ((result))
+          (help-setup-xref (list #'key-cat-help)
+                           (interactive-p))
+          ;;         (push (list "Changing commands"
+          ;;                     (list
+          ;;                      'command
+          ;;                      indent-line-function
+          ;;                      ))
+          ;;               key-cat-cmd-list)
+          (dolist (catentry key-cat-cmd-list)
+            (let ((category (car catentry))
+                  (commands (cdr catentry))
+                  (cmds)
+                  (keyw)
+                  (visible)
+                  (visible-fun)
+                  (cmdstr)
+                  (doc))
+              (dolist (cmdlist commands)
                 (setq cmdlist (cdr cmdlist))
-                (case keyw
-                  (:visible (setq visible-fun (pop cmdlist))
-                            (setq visible (if (symbolp visible-fun)
-                                              (progn
-                                                (symbol-value visible-fun))
-                                            (funcall visible-fun)))
-                            )
-                  ))
-              (when visible
-                (dolist (cmd cmdlist)
-                  (setq cmds (cons cmd cmds)))))
-            (when cmds
-              (push (format "\n%s:\n"
-                            (let ((s (format "%s" category)))
-                              (put-text-property 0 (length s)
-                                                 'face (list
-                                                        'bold
-                                                        )
-                                                 s)
-                              s))
-                    result))
-            (setq cmds (reverse cmds))
-            (dolist (cmd cmds)
-              (setq cmdstr
-                    (let ((s "Where to find it:" ))
-                      (put-text-property 0 (length s)
-                                         'face '(:slant italic
-                                                        :background "RGB:dd/dd/ff"
-                                                        ) s) s))
-              (if (not (functionp cmd))
-                  (cond
-                   ((eq 'key-cat-tab cmd)
-                    (let ((s "Indent line"))
-                      (put-text-property 0 (length s) 'face '(:foreground "blue") s)
-                      (push s result))
-                    (push ":\n" result)
-                    (push (concat
-                           "    "
-                           "Indent current line (done by specific major mode function).\n")
-                          result)
-                    (push (format "    %17s  %s\n" cmdstr (key-description [tab])) result)
-                    )
-                   ((eq 'key-cat-complete cmd)
-                    (let ((s "Completion"))
-                      (put-text-property 0 (length s) 'face '(:foreground "blue") s)
-                      (push s result))
-                    (push ":\n" result)
-                    (push (concat
-                           "    "
-                           "Performe completion at point (done by specific major mode function).\n")
-                          result)
-                    (push (format "    %17s  %s\n" cmdstr (key-description [meta tab])) result)
-                    )
-                   (t
-                    (let ((s (format "`%s':  (not a function)\n" cmd)))
-                      (put-text-property 0 (length s) 'face '(:foreground "red") s)
-                      (push s result))))
-                (let ((keys (key-cat-where-is cmd)))
-                  (push (format "`%s':\n" cmd) result)
-                  (setq doc (documentation cmd t))
-                  (push
-                   (concat
-                    "    "
-                    (if doc
-                        (substring doc 0 (string-match "\n" doc))
-                      "(not documented)")
-                    "\n")
-                   result)
-                  (if (not keys)
-                      (if (interactive-form cmd)
-                          (push (format "    %17s  M-x %s\n" cmdstr cmd) result)
-                        (let ((s "(not an interactive command)"))
-                          (put-text-property 0 (length s) 'face '(:foreground "red") s)
-                          (push (format "    %17s  %s\n" cmdstr s) result)))
-                    (dolist (key keys)
-                      (push (format "    %17s  " cmdstr) result)
-                      (push (format "%s\n"
-                                    (if (eq (elt key 0) 'xmenu-bar)
-                                        "Menus"
-                                      (key-description key)))
+                (setq visible t)
+                (while (keywordp (setq keyw (car cmdlist)))
+                  (setq cmdlist (cdr cmdlist))
+                  (case keyw
+                    (:visible (setq visible-fun (pop cmdlist))
+                              (setq visible (if (symbolp visible-fun)
+                                                (progn
+                                                  (symbol-value visible-fun))
+                                              (funcall visible-fun)))
+                              )
+                    ))
+                (when visible
+                  (dolist (cmd cmdlist)
+                    (setq cmds (cons cmd cmds)))))
+              (when cmds
+                (push (format "\n%s:\n"
+                              (let ((s (format "%s" category)))
+                                (put-text-property 0 (length s)
+                                                   'face (list
+                                                          'bold
+                                                          )
+                                                   s)
+                                s))
+                      result))
+              (setq cmds (reverse cmds))
+              (dolist (cmd cmds)
+                (setq cmdstr
+                      (let ((s "Where to find it:" ))
+                        (put-text-property 0 (length s)
+                                           'face '(:slant italic
+                                                          :background "RGB:dd/dd/ff"
+                                                          ) s) s))
+                (if (not (functionp cmd))
+                    (cond
+                     ((eq 'key-cat-tab cmd)
+                      (let ((s "Indent line"))
+                        (put-text-property 0 (length s) 'face '(:foreground "blue") s)
+                        (push s result))
+                      (push ":\n" result)
+                      (push (concat
+                             "    "
+                             "Indent current line (done by specific major mode function).\n")
                             result)
-                      (setq cmdstr ""))))))))
-        (save-excursion
-          (with-current-buffer (help-buffer)
-            (with-output-to-temp-buffer (help-buffer)
-              (insert
-               (let ((s "Some important commands\n"))
-                 (put-text-property 0 (length s)
-                                    'face '(:weight bold
-                                                    :height 1.5
-                                                    :foreground "RGB:00/00/66") s)
-                 s))
-              (setq result (reverse result))
-              (dolist (r result)
-                (insert r))
-              )))
-        (message ""))
+                      (push (format "    %17s  %s\n" cmdstr (key-description [tab])) result)
+                      )
+                     ((eq 'key-cat-complete cmd)
+                      (let ((s "Completion"))
+                        (put-text-property 0 (length s) 'face '(:foreground "blue") s)
+                        (push s result))
+                      (push ":\n" result)
+                      (push (concat
+                             "    "
+                             "Performe completion at point (done by specific major mode function).\n")
+                            result)
+                      (push (format "    %17s  %s\n" cmdstr (key-description [meta tab])) result)
+                      )
+                     (t
+                      (let ((s (format "`%s':  (not a function)\n" cmd)))
+                        (put-text-property 0 (length s) 'face '(:foreground "red") s)
+                        (push s result))))
+                  (let ((keys (key-cat-where-is cmd)))
+                    (push (format "`%s':\n" cmd) result)
+                    (setq doc (documentation cmd t))
+                    (push
+                     (concat
+                      "    "
+                      (if doc
+                          (substring doc 0 (string-match "\n" doc))
+                        "(not documented)")
+                      "\n")
+                     result)
+                    (if (not keys)
+                        (if (interactive-form cmd)
+                            (push (format "    %17s  M-x %s\n" cmdstr cmd) result)
+                          (let ((s "(not an interactive command)"))
+                            (put-text-property 0 (length s) 'face '(:foreground "red") s)
+                            (push (format "    %17s  %s\n" cmdstr s) result)))
+                      (dolist (key keys)
+                        (push (format "    %17s  " cmdstr) result)
+                        (push (format "%s\n"
+                                      (if (eq (elt key 0) 'xmenu-bar)
+                                          "Menus"
+                                        (key-description key)))
+                              result)
+                        (setq cmdstr ""))))))))
+          (save-excursion
+            (with-current-buffer (help-buffer)
+              (with-output-to-temp-buffer (help-buffer)
+                (insert
+                 (let ((s "Some important commands\n"))
+                   (put-text-property 0 (length s)
+                                      'face '(:weight bold
+                                                      :height 1.5
+                                                      :foreground "RGB:00/00/66") s)
+                   s))
+                (setq result (reverse result))
+                (dolist (r result)
+                  (insert r))
+                )))
+          (message "")))
     (error (message "%s" (error-message-string err)))))
 
 ;; Mostly copied from `where-is':

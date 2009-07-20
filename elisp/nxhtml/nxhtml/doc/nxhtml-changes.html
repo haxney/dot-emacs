@@ -27,6 +27,9 @@
     background-position: 0 -35px;
     color: yellow;
 }
+.bugfix {
+    background-color: #ffd700;
+}
 
 </style>
   </head>
@@ -286,6 +289,10 @@
           <a href="#v1.82">v1.82</a>
           <a href="#v1.83">v1.83</a>
           <a href="#v1.84">v1.84</a>
+          <a href="#v1.85">v1.85</a>
+          <a href="#v1.86">v1.86</a>
+          <a href="#v1.87">v1.87</a>
+          <a href="#v1.88">v1.88</a>
         </div>
 
         <dl>
@@ -2559,28 +2566,28 @@
               </li>
             </ul>
           </dd>
-          <dt id="v1.76">1.76</dt>
+          <dt id="v1.76">1.76 -- Released 2009-02-26</dt>
           <dd id="v1.76-dd">
             <ul>
               <li>
-                Fixed a long standing bug in XML validation. (I had
+                <span class="bugfix">Fixed a long standing bug in XML validation.</span> (I had
                 forgot to set the defadvice return value in defadvice
                 rng-set-initial-state in rngalt.el - I wonder why I
                 did not get any bug reports about this...)
               </li>
               <li>
-                css-color.el: bug fix for mIxEd case color names.
+                <span class="bugfix">css-color.el: bug fix for mIxEd case color names.</span>
               </li>
               <li>
-                freemind.el: bug fixes.
+                <span class="bugfix">freemind.el: bug fixes.</span>
               </li>
             </ul>
           </dd>
-          <dt id="v1.77">1.77</dt>
+          <dt id="v1.77">1.77 -- Never released!</dt>
           <dd id="v1.77-dd">
             <ul>
               <li>
-                Fixed numerous bugs, please
+                <span class="bugfix">Fixed numerous bugs</span>, please
                 see <a href="https://bugs.launchpad.net/nxhtml/">nXhtml bug tracker</a>
                 and dito <a href="https://answers.launchpad.net/nxhtml">question and answers</a>.
               </li>
@@ -2588,11 +2595,11 @@
                 Added some missing autoloads.
               </li>
               <li>
-                Tried to fix some smaller troubles with Viper when
-                changing chunk.
+                <span class="bugfix">Tried to fix some smaller troubles with Viper when
+                changing chunk.</span>
               </li>
               <li>
-                Menus for Tidy were broken. Fixed.
+                <span class="bugfix">Menus for Tidy were broken. Fixed.</span>
               </li>
               <li>
                 Added a test that the <i>nxml-mode libraries included
@@ -2667,12 +2674,13 @@
               </li>
             </ul>
           </dd>
-          <dt id="v1.78">1.78</dt>
+          <dt id="v1.78">1.78 -- Released 2009-05-28</dt>
           <dd id="v1.78-dd">
             <ul>
               <li>
-                nXhtml version 1.78 is the release of the previous beta (which had
-                number 1.77 and existed in many versions).
+                <span class="bugfix">nXhtml version 1.78 is the
+                release of the previous beta</span> (which had number
+                1.77 and existed in many versions).
               </li>
             </ul>
           </dd>
@@ -2686,11 +2694,11 @@
               </li>
             </ul>
           </dd>
-          <dt id="v1.80">1.80</dt>
+          <dt id="v1.80">1.80 -- Released 2009-06-02</dt>
           <dd id="v1.80-dd">
             <ul>
               <li>
-                Fixed a (rather serious) bug and cleaned up.
+                <span class="bugfix">Fixed a (rather serious) bug and cleaned up.</span>
               </li>
               <li>
                 Added mumamo regions. Mumamo regions are temporary
@@ -2701,7 +2709,7 @@
               </li>
             </ul>
           </dd>
-          <dt id="v1.81">1.81</dt>
+          <dt id="v1.81">1.81 -- Released 2009-06-19</dt>
           <dd id="v1.81-dd">
             <ul>
               <li>
@@ -2721,39 +2729,187 @@
               </li>
             </ul>
           </dd>
-          <dt id="v1.82">1.82</dt>
+          <dt id="v1.82">1.82 -- Released 2009-06-23</dt>
           <dd id="v1.82-dd">
             <ul>
               <li>
-                Find some bugs when I tried to fix bug 388729. Not sure I fixed the bug though.
+                <span class="bugfix">Find and fixed some bugs when
+                I tried to fix bug 388729.</span> Not sure I fixed that
+                bug though.
               </li>
             </ul>
           </dd>
-          <dt id="v1.83">1.83</dt>
+          <dt id="v1.83">1.83 -- Released 2009-06-24</dt>
           <dd id="v1.83-dd">
             <ul>
               <li>
-                Fontification disappeared for example in *grep* buffer. Fixed.
+                <span class="bugfix">Fontification disappeared for example in *grep* buffer. Fixed.</span>
               </li>
             </ul>
           </dd>
-          <dt id="v1.84">1.84</dt>
+          <dt id="v1.84">1.84 -- Released 2009-06-30</dt>
           <dd id="v1.84-dd">
             <ul>
               <li>
-                Worked around bug in Emacs 22.3 where c-after-change was left in after-change-fucntions.
+                MuMaMo:
+                <ul>
+                  <li>
+                    <span class="bugfix">Worked around bug in Emacs
+                    22.3 where c-after-change was left in
+                    after-change-functions.</span> (This makes no
+                    difference in Emacs 23.)
+                  </li>
+                  <li>
+                    <span class="bugfix">Fixed a bug that occured
+                    after deletion of whole chunks.</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.85">1.85 -- Released 2009-07-04</dt>
+          <dd id="v1.85-dd">
+            <ul>
+              <li>
+                MuMaMo:
+                <ul>
+                  <li>
+                    <span class="bugfix">Corrected various mostly
+                    minor bugs</span>, like indent-line-function which
+                    where globally set to
+                    mumamo-indent-line. Corrected.
+                  </li>
+                  <li>
+                    <span class="bugfix">Forgot to finish the implementation of support for
+                    font-lock-add-keywords. Done.</span>
+                  </li>
+                  <li>
+                    Added some faces hi-mumamo-* to use with hi-lock,
+                    but unfortunately they are not very
+                    visible. Suggestions are welcome.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                CEDET and ECB:
+                <ul>
+                  <li>
+                    <span class="bugfix">Made the routines for fetching and installing CEDET and ECB
+                    from the development sources work again.</span>
+                  </li>
+                  <li>
+                    Added support for ECB in <i>winsav-save-mode</i>. Though I suspect it need some rework...
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Added pointback.el, found on EmacsWiki. This is just
+                so missing in Emacs...
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.86">1.86 -- Released 2009-07-05</dt>
+          <dd id="v1.86-dd">
+            <ul>
+              <li>
+                Made the fetching and installing of CEDET and ECB a
+                bit better.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.87">1.87 -- Released 2009-07-08</dt>
+          <dd id="v1.87-dd">
+            <ul>
+              <li>
+                Some enhancements to winsav.el and menuacc.el.
+              </li>
+              <li>
+                MuMaMo:
+                <ul>
+                  <li>
+                    Added heredoc for some modes. They are currently
+                    kind of hidden since they are only available in
+                    multiple major modes that offer just heredocs.
+                    The implemented heredoc multi major modes are
+
+                    sh-mumamo-heredoc-mode,
+                    php-mumamo-heredoc-mode,
+                    perl-mumamo-heredoc-mode,
+                    cperl-mumamo-heredoc-mode,
+                    python-mumamo-heredoc-mode and
+                    ruby-mumamo-heredoc-mode.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.88">1.88 -- Not yet released</dt>
+          <dd id="v1.88-dd">
+            <ul>
+              <li>
+                MuMaMo:
+                <ul>
+                  <li>
+                    <span class="bugfix">
+                      Background colors could not be removed by setting <i>mumamo-background-coloring</i>.
+                      Fixed, but please notice that this variable now is a number.
+                    </span>
+                  </li>
+                  <li>
+                    <span class="bugfix">Support for chunks in chunks.</span>
+                  </li>
+                  <li>
+                    <span class="bugfix">Removed string-match-p which does not exist in Emacs 22.</span>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Made espresso-mode the default for Javascript.
+              </li>
+              <li>
+                <span class="bugfix">
+                  mumamo-alt-php-tags-mode hardly survived major mode
+                  changes. Rescued.
+                </span>
+              </li>
+              <li>
+                Added support in inlimg-mode to show images in org-mode.
+                Also made inlimg-mode use font lock.
+              </li>
+              <li>
+                Added support
+                for <a href="http://www.emacswiki.org/emacs/Anything">anything
+                style completion</a> in XHTML completion.
+              </li>
+              <li>
+                Added support
+                for <a href="http://www.emacswiki.org/emacs/CompanyMode">Company
+                Mode</a> style completion.  Temporary included a copy
+                of Company Mode with bug fixes and changes needed for nXhtml and
+                Viper.  It also include a lot of other small features
+                (which I hope can be included in Company Mode).
+              </li>
+              <li>
+                TabKey2:
+                <ul>
+                  <li>
+                    Added support for Company Mode.
+                  </li>
+                  <li>
+                    Made completion only occur at word ends.
+                  </li>
+                </ul>
               </li>
             </ul>
           </dd>
         </dl>
       </div>
+
+      <hr class="footer"/>
+      <p class="footer">
+        <span id="latest">Copyright &copy; <!-- this year -->2009<!-- end this year --> OurComments.org</span>
+      </p>
     </div>
 
-    <hr class="footer"/>
-    <p class="footer">
-      Copyright &copy; <!-- this year -->2008<!-- end this year --> OurComments.org
-      --
-      Latest update <!-- today -->2008-09-06<!-- end today -->
-    </p>
   </body>
 </html>

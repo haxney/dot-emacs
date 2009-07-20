@@ -184,6 +184,7 @@
   (interactive)
   (switch-to-buffer-other-window (get-buffer-create "*nXhtml Optional Features Check*") t)
   (help-mode)
+  (nxhtml-minor-mode 1)
   (setq buffer-read-only t)
   (let ((inhibit-read-only t))
     (erase-buffer)

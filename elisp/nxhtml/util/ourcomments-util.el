@@ -363,11 +363,12 @@ To create a menu item something similar to this can be used:
 ;; (major-modep 'laszlo-nxml-mumamo-mode)
 ;; (major-modep 'genshi-nxhtml-mumamo-mode)
 ;; (major-modep 'javascript-mode)
+;; (major-modep 'espresso-mode)
 ;; (major-modep 'css-mode)
 
 ;;;###autoload
 (defun major-or-multi-majorp (value)
-  (or (multi-major-modep value)
+  (or (mumamo-multi-major-modep value)
       (major-modep value)))
 
 ;;;###autoload
@@ -400,6 +401,7 @@ To create a menu item something similar to this can be used:
                            nxhtml-mode
                            css-mode
                            javascript-mode
+                           espresso-mode
                            php-mode
                            ))
                    (and (intern-soft (concat sym-name "-hook"))
@@ -1292,6 +1294,26 @@ PREDICATE.  PREDICATE takes one argument, the symbol."
       (- (point-max)
          (point-min))))
 
+;;;###autoload
+(defun narrow-to-comment ()
+  (interactive)
+  (let* ((here (point-marker))
+         (size 1000)
+         (beg (progn (forward-comment (- size))
+                     ;; It looks like the wrong syntax-table is used here:
+                     ;;(message "skipped %s " (skip-chars-forward "[:space:]"))
+                     (message "skipped %s " (skip-chars-forward " \t\r\n"))
+                     (point)))
+         (end (progn (forward-comment size)
+                     ;;(message "skipped %s " (skip-chars-backward "[:space:]"))
+                     (message "skipped %s " (skip-chars-backward " \t\r\n"))
+                     (point))))
+    (goto-char here)
+    (if (not (and (>= here beg)
+                  (<= here end)))
+        (error "Not in a comment")
+      (narrow-to-region beg end))))
+
 (defvar describe-symbol-alist nil)
 
 (defun describe-symbol-add-known(property description)
@@ -1750,14 +1772,18 @@ of those in for example common web browsers."
 ;;;###autoload
 (defun emacs-buffer-file()
   "Start a new Emacs showing current buffer file.
-If there is no buffer file start with `dired'."
+Go to the current line and column in that file.
+If there is no buffer file then instead start with `dired'."
   (interactive)
   (recentf-save-list)
-  (let ((file (buffer-file-name)))
+  (let ((file (buffer-file-name))
+        (lin (line-number-at-pos))
+        (col (current-column)))
     ;;(unless file (error "No buffer file name"))
     (if file
         (progn
-          (call-process (ourcomments-find-emacs) nil 0 nil "--no-desktop" file)
+          (call-process (ourcomments-find-emacs) nil 0 nil "--no-desktop"
+                        (format "+%d:%d" lin col) file)
           (message "Started 'emacs buffer-file-name' - it will be ready soon ..."))
       (call-process (ourcomments-find-emacs) nil 0 nil "--no-desktop" "--eval"
                     (format "(dired \"%s\")" default-directory)))))
@@ -1976,6 +2002,126 @@ information."
                                      (string-match ".*\\.info\\'" file))))))
      (list name)))
   (info info-file))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Exec path etc
+
+(defun ourcomments-which (prog)
+  "Look for first program PROG in `exec-path' using `exec-suffixes'.
+Return full path if found."
+  (interactive "sProgram: ")
+  ;;(let ((path (locate-file prog exec-path exec-suffixes 'executable)))
+  (let ((path (executable-find prog)))
+    (when (called-interactively-p) (message "%s found in %s" prog path))
+    path))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Custom faces and keys
+
+;;;###autoload
+(defun use-custom-style ()
+  "Setup like in `Custom-mode', but without things specific to Custom."
+  (make-local-variable 'widget-documentation-face)
+  (setq widget-documentation-face 'custom-documentation)
+  (make-local-variable 'widget-button-face)
+  (setq widget-button-face custom-button)
+  (setq show-trailing-whitespace nil)
+
+  ;; We need this because of the "More" button on docstrings.
+  ;; Otherwise clicking on "More" can push point offscreen, which
+  ;; causes the window to recenter on point, which pushes the
+  ;; newly-revealed docstring offscreen; which is annoying.  -- cyd.
+  (set (make-local-variable 'widget-button-click-moves-point) t)
+
+  (set (make-local-variable 'widget-button-pressed-face) custom-button-pressed)
+  (set (make-local-variable 'widget-mouse-face) custom-button-mouse)
+
+  ;; When possible, use relief for buttons, not bracketing.  This test
+  ;; may not be optimal.
+  (when custom-raised-buttons
+    (set (make-local-variable 'widget-push-button-prefix) "")
+    (set (make-local-variable 'widget-push-button-suffix) "")
+    (set (make-local-variable 'widget-link-prefix) "")
+    (set (make-local-variable 'widget-link-suffix) ""))
+
+  ;; From widget-keymap
+  (local-set-key "\t" 'widget-forward)
+  (local-set-key "\e\t" 'widget-backward)
+  (local-set-key [(shift tab)] 'advertised-widget-backward)
+  (local-set-key [backtab] 'widget-backward)
+  (local-set-key [down-mouse-2] 'widget-button-click)
+  (local-set-key [down-mouse-1] 'widget-button-click)
+  (local-set-key [(control ?m)] 'widget-button-press)
+  ;; From custom-mode-map
+  (local-set-key " " 'scroll-up)
+  (local-set-key "\177" 'scroll-down)
+  (local-set-key "n" 'widget-forward)
+  (local-set-key "p" 'widget-backward))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Bookmarks
+
+(defun bookmark-next-marked ()
+  (interactive)
+  (let ((bb (get-buffer "*Bookmark List*"))
+        pos)
+    (when bb
+      (with-current-buffer bb
+        (setq pos (re-search-forward "^>" nil t))
+        (unless pos
+          (goto-char (point-min))
+          (setq pos (re-search-forward "^>" nil t)))))
+    (if pos
+        (with-current-buffer bb
+          (bookmark-bmenu-this-window))
+      (call-interactively 'bookmark-bmenu-list)
+      (message "Please select bookmark for bookmark next command, then press n"))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Org Mode
+
+(defun ourcomments-org-complete-and-replace-file-link ()
+  "If on a org file link complete file name and replace it."
+  (interactive)
+  (let* ((here (point-marker))
+         (on-link (eq 'org-link (get-text-property (point) 'face)))
+         (link-beg (when on-link
+                     (previous-single-property-change (1+ here) 'face)))
+         (link-end (when on-link
+                     (next-single-property-change here 'face)))
+         (link (when on-link (buffer-substring-no-properties link-beg link-end)))
+         type+link
+         link-link
+         link-link-beg
+         link-link-end
+         dir
+         ovl)
+    (when (and on-link
+               (string-match (rx string-start "[["
+                                 (group (0+ (not (any "]"))))) link))
+      (setq type+link (match-string 1 link))
+      (when (string-match "^file:\\(.*\\)" type+link)
+        (setq link-link (match-string 1 type+link))
+        (setq link-link-beg (+ 2 link-beg (match-beginning 1)))
+        (setq link-link-end (+ 2 link-beg (match-end 1)))
+        (unwind-protect
+            (progn
+              (setq ovl (make-overlay link-link-beg link-link-end))
+              (overlay-put ovl 'face 'highlight)
+              (when link-link
+                (setq link-link (org-link-unescape link-link))
+                (setq dir (when (and link-link (> (length link-link) 0))
+                            (file-name-directory link-link)))
+                (setq new-link (read-file-name "Org file:" dir nil nil (file-name-nondirectory link-link)))
+                (delete-overlay ovl)
+                (setq new-link (expand-file-name new-link))
+                (setq new-link (file-relative-name new-link))
+                (delete-region link-link-beg link-link-end)
+                (goto-char link-link-beg)
+                (insert (org-link-escape new-link))
+                t))
+          (delete-overlay ovl)
+          (goto-char here))))))
 
 (provide 'ourcomments-util)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -301,7 +301,7 @@ See `nxhtmlmaint-start-byte-compilation' for byte compiling."
     (nxhtmlmaint-byte-compile-dir nxhtmlmaint-dir t t))
   (message "Byte uncompiling is ready, restart Emacs to use the elisp files"))
 
-(defconst nxhtmlmaint-nonbyte-compile-dirs '("." ".." "alts" "nxml-mode-20041004" "old" "xtests"))
+(defconst nxhtmlmaint-nonbyte-compile-dirs '("." ".." "alts" "nxml-mode-20041004" "old" "tests"))
 
 ;; Fix-me: simplify this now that nxml is not included
 (defun nxhtmlmaint-byte-compile-dir (dir force del-elc)

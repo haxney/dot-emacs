@@ -125,7 +125,8 @@
   "Udev-Src"
   "Mode for udev control buffer."
   (setq show-trailing-whitespace nil)
-  (setq buffer-read-only t))
+  (setq buffer-read-only t)
+  (nxhtml-minor-mode 1))
 
 ;;; Calling steps
 
@@ -364,13 +365,11 @@ Set the buffer name for the inferior process with NAME-FUNCTION
 by giving this to `compilation-start'."
   (let ((default-directory (file-name-as-directory defdir))
         ;; Fix-me:
-        (this-emacs "emacs"))
-    (with-current-buffer
-        (compilation-start
-         (concat this-emacs " -Q -batch " emacs-args)
-         'compilation-mode
-         name-function)
-      (current-buffer))))
+        (this-emacs (ourcomments-find-emacs)))
+    (compilation-start
+     (concat this-emacs " -Q -batch " emacs-args)
+     'compilation-mode
+     name-function)))
 
 ;;; Convenience functions for CVS
 

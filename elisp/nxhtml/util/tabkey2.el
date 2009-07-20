@@ -2,8 +2,8 @@
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
 ;; Created: 2008-03-15
-(defconst tabkey2:version "1.39")
-;; Last-Updated: 2009-06-02 Tue
+(defconst tabkey2:version "1.40")
+;; Last-Updated: 2009-07-15 Wed
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/tabkey2.el
 ;; Keywords:
 ;; Compatibility:
@@ -226,6 +226,9 @@
 ;; Version 1.39:
 ;; - Try first [tab] and then [?\t] when looking for command.
 ;;
+;; Version 1.40:
+;; - Added Company Mode completion.
+;;
 ;; Fix-me: maybe add \\_>> option to behave like smart-tab. But this
 ;; will only works for modes that does not do completion of empty
 ;; words (like in smart-tab).
@@ -348,8 +351,36 @@ If value is a number then delay message that number of seconds."
     (yas/template-condition-predicate
      yas/buffer-local-condition)))
 
+(defvar tabkey2-company-backends
+  "List of frontends and their backends."
+  '((company-mode (NONE                   company-abbrev . "Abbrev")
+                  (NONE                   company-css . "CSS")
+                  (dabbrev-expan          company-dabbrev . "dabbrev for plain text")
+                  (NONE                   company-dabbrev-code . "dabbrev for code")
+                  (NONE                   company-eclim . "eclim (an Eclipse interace)")
+                  (lisp-symbol-complete   company-elisp . "Emacs Lisp")
+                  (complete-tag           company-etags . "etags")
+                  (NONE                   company-files . "Files")
+                  (NONE                   company-gtags . "GNU Global")
+                  (ispell-complete-word   company-ispell . "ispell")
+                  (flyspell-correct-word-before-point company-ispell . "ispell")
+                  (NONE                   company-keywords . "Programming language keywords")
+                  (nxml-complete          company-nxml . "nxml")
+                  (NONE                   company-oddmuse . "Oddmuse")
+                  (NONE                   company-pysmell . "PySmell")
+                  (NONE                   company-ropemacs . "ropemacs")
+                  (senator-complete-symbol company-semantic . "CEDET Semantic")
+                  (NONE                   company-tempo . "Tempo templates")
+                  (NONE                   company-xcode . "Xcode"))))
+
+(defun tabkey2-find-front-end (fun)
+  (let ((
+         ))))
+
 (defcustom tabkey2-completion-functions
   '(
+    ;; Front ends.
+    ("Company Mode completion" company-complete company-mode)
     ;; Temporary things
     ("Spell check word" flyspell-correct-word-before-point)
     ;; Snippets
@@ -362,7 +393,7 @@ If value is a number then delay message that number of seconds."
     ("Widget complete" widget-complete)
     ("Comint Dynamic Complete" comint-dynamic-complete)
     ("PHP completion" php-complete-function)
-    ("Tags completion" complete-symbol)
+    ("Tags completion" complete-tag)
     ;; General word completion
     ("Predictive word" complete-word-at-point predictive-mode)
     ("Predictive abbreviations" pabbrev-expand-maybe)
@@ -497,7 +528,9 @@ You can do use S-Tab in other modes too if you want too."
   :group 'tabkey2)
 
 (defcustom tabkey2-modes-that-just-complete
-  '(shell-mode)
+  '(shell-mode
+    fundamental-mode
+    text-mode)
   "Tab is only used for completion in these modes.
 Therefore `tabkey2-first' just calls the function on Tab."
   :type '(repeat (choice (command :tag "Currently known command")
@@ -774,6 +807,7 @@ Cancel delayed message."
 This is run in `post-command-hook' after each command."
   (condition-case err
       (save-match-data
+        (tabkey2-post-check-stepout)
         ;; Delayd messages
         (if (not (tabkey2-completion-state-p))
             (tabkey2-completion-state-mode -1)
@@ -942,12 +976,13 @@ Shown with the face `tabkey2-highlight-message'."
 (defun tabkey2-timer-deliver-message (txt where)
   "Show message TXT to user.
 Protect from errors cause this is run during a timer."
-  (when (and tabkey2-completion-state-mode
-             (equal (point-marker) where))
-    (condition-case err
-        (tabkey2-deliver-message txt)
-      (error (message "tabkey2-timer-deliver-message: %s"
-                      (error-message-string err))))))
+  (save-match-data ;; runs in timer
+    (when (and tabkey2-completion-state-mode
+               (equal (point-marker) where))
+      (condition-case err
+          (tabkey2-deliver-message txt)
+        (error (message "tabkey2-timer-deliver-message: %s"
+                        (error-message-string err)))))))
 
 (defvar tabkey2-delayed-timer nil)
 
@@ -1060,6 +1095,30 @@ If PREFIX is given just show what this command will do."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Handling of Tab and alternate key
 
+;;;###autoload
+(defun tabkey2-emma-without-tabkey2 ()
+  ;; Remove keymaps from tabkey2 in this copy:
+  (delq 'tabkey2--emul-keymap-alist
+        (copy-sequence emulation-mode-map-alists)))
+
+(defvar tabkey2-step-out-of-the-way nil)
+;;(remove-hook 'pre-command-hook 'tabkey2-pre-command)
+;;(remove-hook 'post-command-hook 'tabkey2-pre-command)
+;;(remove-hook 'post-command-hook 'tabkey2-post-command-2)
+(defun tabkey2-post-check-stepout ()
+  (setq tabkey2-step-out-of-the-way nil)
+  (condition-case err
+      (when tabkey2-mode
+        (when (and (boundp 'company-overriding-keymap-bound) company-overriding-keymap-bound)
+          (setq tabkey2-step-out-of-the-way
+                (let ((emulation-mode-map-alists (tabkey2-emma-without-tabkey2)))
+                  (key-binding (this-command-keys))))
+          (message "tabkey2-step-out=%s, %s" (this-command-keys) tabkey2-step-out-of-the-way)
+          ))
+    (error "tabkey2-pre-command: %s" err)))
+  ;; (and (boundp 'company-preview-overlay)
+  ;;                                    (or company-preview-overlay
+  ;;                                        company-pseudo-tooltip-overlay)))
 (defun tabkey2-first (prefix)
   "Do something else after first Tab.
 This function is bound to the Tab key \(or whatever key
@@ -1128,6 +1187,11 @@ through the completion functions too choose which one to use.)
 NOTE: This uses `emulation-mode-map-alists' and it supposes that
 nothing else is bound to Tab there."
   (interactive "P")
+          (message "first:tabkey2-step-out=%s, %s" (this-command-keys) tabkey2-step-out-of-the-way)
+  (if tabkey2-step-out-of-the-way
+      (progn
+        (message "step-out=%s" tabkey2-step-out-of-the-way)
+        (call-interactively tabkey2-step-out-of-the-way))
   (if (and tabkey2-keymap-overlay
            (eq (overlay-buffer tabkey2-keymap-overlay) (current-buffer))
            (eq (overlay-get tabkey2-keymap-overlay 'window) (selected-window))
@@ -1139,16 +1203,16 @@ nothing else is bound to Tab there."
       (if (memq 'shift (event-modifiers last-input-event))
           (call-interactively 'tabkey2-cycle-completion-functions)
         (call-interactively 'tabkey2-complete prefix))
-    (let* ((emma-without-tabkey2
-            ;; Remove keymaps from tabkey2 in this copy:
-            (delq 'tabkey2--emul-keymap-alist
-                  (copy-sequence emulation-mode-map-alists)))
-           (just-complete (memq major-mode tabkey2-modes-that-just-complete))
+    (let* ((emma-without-tabkey2 (tabkey2-emma-without-tabkey2))
+           (at-word-end (looking-at "\\_>"))
+           (just-complete (or (memq major-mode tabkey2-modes-that-just-complete)
+                              at-word-end))
            (what (if just-complete
                      'complete
                    (if (or (unless tabkey2-in-minibuffer
                              (active-minibuffer-window))
                            (when (fboundp 'use-region-p) (use-region-p))
+                           (not at-word-end)
                            (memq major-mode tabkey2-modes-that-use-more-tabs))
                        'indent
                      'indent-complete
@@ -1165,11 +1229,11 @@ nothing else is bound to Tab there."
                         (or (key-binding [tab] t)
                             (key-binding [?\t] t))
                         )))
-           (to-do-2 (unless (or
-                             ;;(memq what '(complete))
-                             (memq what '(indent))
-                             (memq to-do-1 '(widget-forward button-forward)))
+           (to-do-2 (unless (or ;;(memq what '(complete))
+                                (memq what '(indent))
+                                (memq to-do-1 '(widget-forward button-forward)))
                       (tabkey2-get-default-completion-fun))))
+      ;;(message "step-out-of-the-way=%s to-do=%s/%s, emmaa-without-tabkey2=%s" step-out-of-the-way to-do-1 to-do-2 emma-without-tabkey2)
       (if prefix
           (if (memq 'shift (event-modifiers last-input-event))
               (message
@@ -1183,7 +1247,7 @@ nothing else is bound to Tab there."
               (tabkey2-call-interactively to-do-1)))
         (unless (tabkey2-read-only-p)
           (when to-do-2
-            (tabkey2-completion-state-mode 1)))))))
+            (tabkey2-completion-state-mode 1))))))))
 
 (defun tabkey2-call-interactively (function)
   "Like `call-interactively, but handle `this-command'."

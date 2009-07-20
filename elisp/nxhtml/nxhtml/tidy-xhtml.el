@@ -2761,15 +2761,6 @@ called."
           (when win
             (set-window-point win (point-max))
             ))
-;;         (run-with-idle-timer 0.1 nil
-;;                              (lambda (procbuf start end)
-;;                                (with-current-buffer procbuf
-;;                                  (font-lock-fontify-region start end)
-;;                                  ))
-;;                              (current-buffer)
-;;                              start
-;;                              (point-max)
-;;                              )
         ))))
 
 ;;;}}} +

@@ -2,7 +2,7 @@
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
 ;; Created: Sat Apr 21 2007
-(defconst nxhtml-menu:version "1.84") ;;Version:
+(defconst nxhtml-menu:version "1.88") ;;Version:
 ;; Last-Updated: 2009-05-29 Fri
 ;; URL:
 ;; Keywords:
@@ -312,78 +312,112 @@
       (let ((ecb-map (make-sparse-keymap)))
         (define-key tools-map [nxhtml-ecb-map]
           (list 'menu-item "ECB" ecb-map))
+        (define-key ecb-map [nxhtml-custom-important-ecb]
+          (list 'menu-item "Customize important ECB things"
+                (lambda ()
+                  "Customize group `ecb-most-important'."
+                  (interactive)
+                  (customize-group-other-window 'ecb-most-important))
+                :enable '(featurep 'ecb)))
+        (define-key ecb-map [nxhtml-ecb-mode]
+          (list 'menu-item "ECB Minor Mode"
+                'ecb-minor-mode
+                :button '(:toggle . (and (boundp 'ecb-minor-mode) ecb-minor-mode))
+                :enable '(featurep 'ecb)))
+        (define-key ecb-map [nxhtml-ecb-show-help]
+          (list 'menu-item "ECB Help"
+                'ecb-show-help
+                :enable '(featurep 'ecb)))
+        (define-key ecb-map [nxhtml-ecb-custom-separator]
+          (list 'menu-item "--" nil))
+        ;; (define-key ecb-map [nxhtml-byte-compile-ecb]
+        ;;   (list 'menu-item "Byte compile ECB"
+        ;;         'ecb-byte-compile
+        ;;         :enable '(featurep 'ecb)))
+        (define-key ecb-map [nxhtml-custom-ecb]
+          (list 'menu-item "Customize ECB dev startup from nXhtml"
+                (lambda ()
+                  "Customize ECB dev nXhtml startup group."
+                  (interactive)
+                  (customize-group-other-window 'udev-ecb))
+                :enable '(featurep 'ecb)))
+        (define-key ecb-map [nxhtml-byte-compile-ecb]
+          (list 'menu-item "Fetch or start CEDET (which ECB needs)"
+                (lambda ()
+                  "Ask user about CEDET which is needed."
+                  (interactive)
+                  (if (not (file-exists-p (udev-cedet-el-file)))
+                      (when (y-or-n-p (concat udev-ecb-miss-cedet " Fetch CEDET? "))
+                        (setq udev-ecb-miss-cedet nil)
+                        (udev-cedet-update))
+                    (when (y-or-n-p "CEDET is fetched, but not loaded. Load it? ")
+                      (customize-group-other-window 'udev-cedet))
+                    ))
+                :enable 'udev-ecb-miss-cedet))
+        (define-key ecb-map [nxhtml-update-ecb]
+          (list 'menu-item "Fetch/update ECB dev sources"
+                'udev-ecb-update))
+        (define-key ecb-map [nxhtml-ecb-home-separator]
+          (list 'menu-item "--" nil))
         (define-key ecb-map [nxhtml-rinari-homepage]
           (list 'menu-item "ECB Home Page"
                 (lambda ()
                   "Open ECB home page in your web browser."
                   (interactive)
                   (browse-url "http://ecb.sourceforge.net/"))))
-        (define-key ecb-map [nxhtml-ecb-home-separator]
-          (list 'menu-item "--" nil))
-        (define-key ecb-map [nxhtml-update-ecb]
-          (list 'menu-item "Fetch/update ECB dev sources"
-                'udev-ecb-update))
-        (define-key ecb-map [nxhtml-custom-ecb]
-          (list 'menu-item "Customize ECB dev startup"
-                (lambda () (interactive)
-                  (customize-group-other-window 'udev-ecb))))
-        (define-key ecb-map [nxhtml-custom-important-ecb]
-          (list 'menu-item "Customize important ECB things"
-                (lambda () (interactive)
-                  (customize-group-other-window 'ecb-most-important))
-                :enable (featurep 'ecb)))
         )
       ;;(define-key tools-map [nxhtml-cedet-separator] (list 'menu-item "--" nil))
       (let ((cedet-map (make-sparse-keymap)))
         (define-key tools-map [nxhtml-cedet-map]
           (list 'menu-item "CEDET" cedet-map))
+        (define-key cedet-map [nxhtml-custom-cedet]
+          (list 'menu-item "Customize CEDET dev startup from nXhtml"
+                (lambda ()
+                  "Customize CEDET dev nXhtml startup options."
+                  (interactive)
+                  (customize-group-other-window 'udev-cedet))
+                :enable '(or (featurep 'cedet)
+                             (file-exists-p (udev-cedet-el-file)))))
+        (define-key cedet-map [nxhtml-cedet-utest]
+          (list 'menu-item "Run CEDET unit tests"
+                'udev-cedet-utest))
+        (define-key cedet-map [nxhtml-update-cedet]
+          (list 'menu-item "Fetch/update and install CEDET dev sources"
+                'udev-cedet-update))
+        (define-key cedet-map [nxhtml-cedet-home-separator]
+          (list 'menu-item "--" nil))
         (define-key cedet-map [nxhtml-rinari-homepage]
           (list 'menu-item "CEDET Home Page"
                 (lambda ()
                   "Open CEDET home page in your web browser."
                   (interactive)
                   (browse-url "http://cedet.sourceforge.net/"))))
-        (define-key cedet-map [nxhtml-cedet-home-separator]
-          (list 'menu-item "--" nil))
-        (define-key cedet-map [nxhtml-update-cedet]
-          (list 'menu-item "Fetch/update CEDET dev sources"
-                'udev-cedet-update))
-        (define-key cedet-map [nxhtml-custom-cedet]
-          (list 'menu-item "Customize CEDET dev startup"
-                (lambda () (interactive)
-                  (customize-group-other-window 'udev-cedet))))
         )
       (let ((rinari-map (make-sparse-keymap)))
         (define-key tools-map [nxhtml-rinari-map]
           (list 'menu-item "Rinari" rinari-map))
+        (define-key rinari-map [nxhtml-custom-rinari]
+          (list 'menu-item "Customize Rinari startup from nXhtml"
+                (lambda ()
+                  "Customize Rinari dev nXhtml startup options."
+                  (interactive)
+                  (customize-group-other-window 'udev-rinari))))
+        (define-key rinari-map [nxhtml-update-rinari]
+          (list 'menu-item "Fetch/update Rinari dev sources"
+                'udev-rinari-update))
+        (define-key rinari-map [nxhtml-rinari-home-separator]
+          (list 'menu-item "--" nil))
         (define-key rinari-map [nxhtml-rinari-homepage]
           (list 'menu-item "Rinari Home Page"
                 (lambda ()
                   "Open Rinari home page in your web browser."
                   (interactive)
                   (browse-url "http://rubyforge.org/projects/rinari/"))))
-        (define-key rinari-map [nxhtml-rinari-home-separator]
-          (list 'menu-item "--" nil))
-        (define-key rinari-map [nxhtml-update-rinari]
-          (list 'menu-item "Fetch/update Rinari dev sources"
-                'udev-rinari-update))
-        (define-key rinari-map [nxhtml-custom-rinari]
-          (list 'menu-item "Customize Rinari startup"
-                (lambda () (interactive)
-                  (customize-group-other-window 'udev-rinari))))
         )
       (let ((mozrepl-map (make-sparse-keymap)))
         (define-key tools-map [nxhtml-mozrepl-map]
           (list 'menu-item "MozRepl for Javascript" mozrepl-map
               ))
-        (define-key mozrepl-map [nxhtml-mozrepl-home-page]
-          (list 'menu-item "MozLab/MozRepl Home Page"
-                (lambda ()
-                  "Open MozLab/MozRepl home page in your web browser."
-                  (interactive)
-                  (browse-url "http://hyperstruct.net/projects/mozlab"))))
-        (define-key mozrepl-map [nxhtml-mozrepl-separator2]
-          (list 'menu-item "--" nil))
         (define-key mozrepl-map [nxhtml-mozrepl-run-mozilla]
           (list 'menu-item "Display/Start MozRepl Process" 'run-mozilla
               :enable '(and (boundp 'moz-minor-mode) moz-minor-mode)))
@@ -393,9 +427,6 @@
           (list 'menu-item "Save Buffer and Send it" 'moz-save-buffer-and-send
                 :enable '(or (not (boundp 'mumamo-multi-major-mode))
                              (not mumamo-multi-major-mode))))
-
-
-
         (define-key mozrepl-map [nxhtml-mozrepl-send-defun-and-go]
           (list 'menu-item "Send Current Function, Go to MozRepl"
                 'moz-send-defun-and-go
@@ -407,6 +438,14 @@
           (list 'menu-item "Send the Region" 'moz-send-region
                 :enable '(and mark-active
                               (boundp 'moz-minor-mode) moz-minor-mode)))
+        (define-key mozrepl-map [nxhtml-mozrepl-separator2]
+          (list 'menu-item "--" nil))
+        (define-key mozrepl-map [nxhtml-mozrepl-home-page]
+          (list 'menu-item "MozLab/MozRepl Home Page"
+                (lambda ()
+                  "Open MozLab/MozRepl home page in your web browser."
+                  (interactive)
+                  (browse-url "http://hyperstruct.net/projects/mozlab"))))
         )
       (define-key tools-map [nxhtml-majpri-separator]
         (list 'menu-item "--" nil))
@@ -418,7 +457,9 @@
                 'majmodpri-apply-priorities))
         (define-key majpri-map [nxhtml-majpri-cust]
           (list 'menu-item "Customize Major Mode Priorities"
-                (lambda () (interactive)
+                (lambda ()
+                  "Customize group Major Mode priorities."
+                  (interactive)
                   (customize-group-other-window 'majmodpri))))
         )
       (define-key tools-map [nxhtml-tidy-separator]
@@ -503,7 +544,9 @@
                                   (nxhtml-nxhtml-in-buffer)))))
         (define-key where-map [nxhtml-nxml-where-cust]
           (list 'menu-item "Customize display of XML Path"
-                (lambda () (interactive)
+                (lambda ()
+                  "Customize XML path, ie group `nxml-where'."
+                  (interactive)
                   (customize-group-other-window 'nxml-where))))
         (define-key where-map [where-separator-2] (list 'menu-item "--"))
         (define-key where-map [nxml-where-id]
@@ -731,7 +774,9 @@
                                        html-site-global-mode))))
       (define-key site-map [nxhtml-site-separator] (list 'menu-item "--"))
       (define-key site-map [nxhtml-customize-site-list]
-        (list 'menu-item "Edit Sites" (lambda () (interactive)
+        (list 'menu-item "Edit Sites" (lambda ()
+                                        "Customize option `html-size-list'."
+                                        (interactive)
                                         (customize-option-other-window 'html-site-list))))
       (define-key site-map [nxhtml-set-site]
         (list 'menu-item "Set Current Site" 'html-site-set-site))
@@ -884,6 +929,11 @@
           (list 'menu-item "Completion Style" style-map
                 :visible '(nxhtml-nxml-html-in-buffer)
                 :enable '(nxhtml-nxhtml-in-buffer)))
+        (define-key style-map [popcmp-customize]
+          (list 'menu-item "Customize Completion Style"
+                (lambda () (interactive) (customize-group-other-window 'popcmp))))
+        (define-key style-map [popcmp-style-div2]
+          (list 'menu-item "--"))
         ;;(defun nxhtml-nxml-html-in-buffer ()
         (define-key style-map [popcmp-with-help]
           (list 'menu-item "Show Short Help Beside Alternatives"
@@ -897,10 +947,26 @@
           (list 'menu-item "Group Alternatives"
                 'popcmp-group-alternatives-toggle
                 :button '(:toggle . popcmp-group-alternatives)))
+        (define-key style-map [popcmp-style-div1]
+          (list 'menu-item "--"))
+        (define-key style-map [popcmp-anything-completion]
+          (list 'menu-item "Anything Style Completion"
+                (lambda () (interactive) (customize-set-variable 'popcmp-completion-style 'anything))
+                :enable `(fboundp 'anything)
+                :button `(:radio . (eq popcmp-completion-style 'anything))))
+        (define-key style-map [popcmp-emacs-completion]
+          (list 'menu-item "Emacs Default Style Completion"
+                (lambda () (interactive) (customize-set-variable 'popcmp-completion-style 'emacs-default))
+                :button `(:radio . (eq popcmp-completion-style 'emacs-default))))
         (define-key style-map [popcmp-popup-completion]
           (list 'menu-item "Popup Style Completion"
-                'popcmp-popup-completion-toggle
-                :button '(:toggle . popcmp-popup-completion)))
+                (lambda () (interactive) (customize-set-variable 'popcmp-completion-style 'popcmp-popup))
+                :button `(:radio . (eq popcmp-completion-style 'popcmp-popup))))
+        (define-key style-map [popcmp-company-completion]
+          (list 'menu-item "Company Mode Style Completion"
+                (lambda () (interactive) (customize-set-variable 'popcmp-completion-style 'company-mode))
+                :enable `(fboundp 'company-mode)
+                :button `(:radio . (eq popcmp-completion-style 'company-mode))))
         )
       (define-key cmpl-map [nxhtml-cmpl-separator]
         (list 'menu-item "--" nil
@@ -1181,6 +1247,7 @@ Both the current value and the value to save is set, but
       (let ((inhibit-read-only t)
             (here (point)))
         (Custom-mode)
+        (nxhtml-minor-mode 1)
         (setq cursor-in-non-selected-windows nil)
         (nxhtml-custom-h1 "Welcome to nXhtml - a package for web editing" t)
         (insert "\n\n")
@@ -1205,6 +1272,7 @@ Both the current value and the value to save is set, but
           (insert "Click to ")
           (widget-insert-link "remove this message"
                               (lambda ()
+                                "Customize `nxhtml-skip-welcome'."
                                 (customize-option 'nxhtml-skip-welcome))
                               nil)
           (insert " at startup.  (This page is still "
@@ -1232,7 +1300,8 @@ file using nxhtml-mode."
 (defun nxhtml-say-welcome-unless-skip ()
   (condition-case err
       (unless (nxhtml-skip-welcome)
-        (nxhtml-welcome))
+        (save-match-data
+          (nxhtml-welcome)))
     (error (message "ERROR nxhtml-say-welcome-unless-skip: %s" err))))
 
 ;; Show welcome screen once after loading nxhtml:

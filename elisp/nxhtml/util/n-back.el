@@ -527,57 +527,58 @@ new are maybe ... - and you have it available here in Emacs."
 ;;(n-back-update-control-buffer)
 (defun n-back-update-control-buffer ()
   "Update content of control buffer."
-  (when (buffer-live-p n-back-ctrl-buffer)
-    (with-current-buffer n-back-ctrl-buffer
-      (setq buffer-read-only nil)
-      (erase-buffer)
-      (insert (propertize (format "%s %s-back"
-                                  (let ((n (length n-back-active-match-types)))
-                                    (cond
-                                     ((= 1 n) "Single")
-                                     ((= 2 n) "Dual")
-                                     ((= 3 n) "Triple")
-                                     ))
-                                  n-back-level
-                                  ) 'face 'n-back-header)
-              (propertize
-               (if (n-back-is-playing) "  Press C-g to stop" "  Press SPACE to play")
-               'face 'n-back-do-now)
-              (if (n-back-is-playing) (format "  Left %s" n-back-trials-left) "")
-              "\n")
-      ;;(unless n-back-control-status (n-back-init-control-status))
-      (dolist (entry n-back-control-status)
-        (let* ((what (nth 0 entry))
-               (msg  (nth 1 entry))
-               (sts  (nth 2 entry))
-               (key (key-description (n-back-key-binding what))))
-          ;;(setq msg (concat (key-description (n-back-key-binding what)) msg))
-          (cond
-           ((eq sts 'bad)
-            (setq msg (propertize (concat key msg) 'face 'n-back-bad)))
-           ((eq sts 'ok)
-            (setq msg (propertize (concat key msg) 'face 'n-back-ok)))
-           ((eq sts 'miss)
+  (save-match-data ;; runs in timer
+    (when (buffer-live-p n-back-ctrl-buffer)
+      (with-current-buffer n-back-ctrl-buffer
+        (setq buffer-read-only nil)
+        (erase-buffer)
+        (insert (propertize (format "%s %s-back"
+                                    (let ((n (length n-back-active-match-types)))
+                                      (cond
+                                       ((= 1 n) "Single")
+                                       ((= 2 n) "Dual")
+                                       ((= 3 n) "Triple")
+                                       ))
+                                    n-back-level
+                                    ) 'face 'n-back-header)
+                (propertize
+                 (if (n-back-is-playing) "  Press C-g to stop" "  Press SPACE to play")
+                 'face 'n-back-do-now)
+                (if (n-back-is-playing) (format "  Left %s" n-back-trials-left) "")
+                "\n")
+        ;;(unless n-back-control-status (n-back-init-control-status))
+        (dolist (entry n-back-control-status)
+          (let* ((what (nth 0 entry))
+                 (msg  (nth 1 entry))
+                 (sts  (nth 2 entry))
+                 (key (key-description (n-back-key-binding what))))
+            ;;(setq msg (concat (key-description (n-back-key-binding what)) msg))
+            (cond
+             ((eq sts 'bad)
+              (setq msg (propertize (concat key msg) 'face 'n-back-bad)))
+             ((eq sts 'ok)
+              (setq msg (propertize (concat key msg) 'face 'n-back-ok)))
+             ((eq sts 'miss)
               (setq msg (concat
                          (if n-back-display-hint
                              (propertize key 'face 'n-back-header)
                            key)
                          msg)))
-           ((not sts)
-            (setq msg (concat key msg)))
-           (t
-            (error "n-back:Unknown sts=%s" sts)
-            ))
-          (insert msg "   "))
-        )
-      (when n-back-display-hint
-        (setq n-back-display-hint nil)
-        (run-with-timer 0.1 nil 'n-back-update-control-buffer))
-      (setq buffer-read-only t)
-      (if (window-live-p n-back-ctrl-window)
-          (with-selected-window n-back-ctrl-window
-            (goto-char 1))
-        (goto-char 1)))))
+             ((not sts)
+              (setq msg (concat key msg)))
+             (t
+              (error "n-back:Unknown sts=%s" sts)
+              ))
+            (insert msg "   "))
+          )
+        (when n-back-display-hint
+          (setq n-back-display-hint nil)
+          (run-with-timer 0.1 nil 'n-back-update-control-buffer))
+        (setq buffer-read-only t)
+        (if (window-live-p n-back-ctrl-window)
+            (with-selected-window n-back-ctrl-window
+              (goto-char 1))
+          (goto-char 1))))))
 
 (defcustom n-back-trials 20
   "Number of trials per session."
@@ -898,9 +899,10 @@ MAX-STRLEN.  Display item with background color COLOR."
 
 (defun n-back-clear-game-window ()
   "Erase game buffer."
-  (with-current-buffer n-back-game-buffer
-    (let (buffer-read-only)
-      (erase-buffer))))
+  (save-match-data ;; runs in timer
+    (with-current-buffer n-back-game-buffer
+      (let (buffer-read-only)
+        (erase-buffer)))))
 
 (defun n-back-play ()
   "Start playing."
@@ -1063,7 +1065,7 @@ MAX-STRLEN.  Display item with background color COLOR."
 (defun n-back-display-in-timer ()
   "Display a trial in a timer."
   (condition-case err
-      (progn
+      (save-match-data ;; runs in timer
         (n-back-add-result)
         (if (>= 0 (setq n-back-trials-left (1- n-back-trials-left)))
             (n-back-finish-game)
@@ -1077,7 +1079,8 @@ MAX-STRLEN.  Display item with background color COLOR."
 (defun n-back-play-sound-in-timer (sound-file)
   "Play sound SOUND-FILE in a timer."
   (condition-case err
-      (play-sound (list 'sound :file sound-file :volume n-back-sound-volume))
+      (save-match-data ;; runs in timer
+        (play-sound (list 'sound :file sound-file :volume n-back-sound-volume)))
     (error (message "n-back-sound: %s" (error-message-string err))
            (n-back-cancel-timers))))
 

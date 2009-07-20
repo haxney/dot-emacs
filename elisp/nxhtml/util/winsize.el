@@ -1101,17 +1101,18 @@ should be one of 'left, 'up, 'right and 'down."
 
 (defun winsize-move-mouse ()
   ;;(setq winsize-move-mouse (- winsize-move-mouse))
-  (let* ((fxy (mouse-pixel-position))
-         (f (car fxy))
-         (x (cadr fxy))
-         (y (cddr fxy))
-         (m (mod winsize-move-mouse 2))
-         (d (* (if (= 0 m) 1 -1) 1)))
-    (set-mouse-pixel-position f (+ d x) (+ d y))
-    (when (< 1 winsize-move-mouse)
-      (setq winsize-move-mouse (1- winsize-move-mouse))
-      (setq winsize-make-mouse-prominent-timer
-            (run-with-timer 0.2 nil 'winsize-move-mouse)))))
+  (save-match-data ;; runs in timer
+    (let* ((fxy (mouse-pixel-position))
+           (f (car fxy))
+           (x (cadr fxy))
+           (y (cddr fxy))
+           (m (mod winsize-move-mouse 2))
+           (d (* (if (= 0 m) 1 -1) 1)))
+      (set-mouse-pixel-position f (+ d x) (+ d y))
+      (when (< 1 winsize-move-mouse)
+        (setq winsize-move-mouse (1- winsize-move-mouse))
+        (setq winsize-make-mouse-prominent-timer
+              (run-with-timer 0.2 nil 'winsize-move-mouse))))))
 
 (defun winsize-make-mouse-prominent-f (doit)
   (when (and winsize-make-mouse-prominent-timer

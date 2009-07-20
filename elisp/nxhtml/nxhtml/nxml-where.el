@@ -100,18 +100,18 @@
 
 (defun nxml-where-restart-update ()
   (condition-case err
-      (unless (and nxml-where-last-point
-                   (= nxml-where-last-point (point)))
-        ;;(message "\n restart-update: this-command=%s, nxml-where-last-point=%s, point=%s" this-command nxml-where-last-point (point))
-        (setq nxml-where-last-point nil)
-        (setq nxml-where-last-finished nil)
-        (nxml-where-cancel-once)
-        (setq nxml-where-once-update-timer
-              (run-with-idle-timer
-               (* 0.2 idle-update-delay)
-               nil
-               'nxml-where-start-update-in-timer
-               (current-buffer))))
+      (save-match-data ;; runs in timer
+        (unless (and nxml-where-last-point
+                     (= nxml-where-last-point (point)))
+          (setq nxml-where-last-point nil)
+          (setq nxml-where-last-finished nil)
+          (nxml-where-cancel-once)
+          (setq nxml-where-once-update-timer
+                (run-with-idle-timer
+                 (* 0.2 idle-update-delay)
+                 nil
+                 'nxml-where-start-update-in-timer
+                 (current-buffer)))))
     (error
      (nxml-where-error-message
       "%s" (error-message-string err)))))
@@ -562,7 +562,8 @@ This is possible if `major-mode' in the buffer is derived from
 
 (defun nxml-where-do-marking-in-timer (this-point buffer)
   (condition-case err
-      (nxml-where-do-marking this-point buffer)
+      (save-match-data ;; runs in timer
+        (nxml-where-do-marking this-point buffer))
     (error
      (nxml-where-error-message
       "nxml-where-do-marking error: %s"

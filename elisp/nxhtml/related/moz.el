@@ -207,7 +207,7 @@ Also switch to the interaction buffer."
   (interactive)
   (if (looking-back "\\(\\w+\\)> $")
       (insert moz-repl-name ".")
-    (insert last-command-char)))
+    (insert last-command-event)))
 
 (defun inferior-moz-input-sender (proc string)
   "Custom function to send input with comint-send-input.
