@@ -48,6 +48,7 @@
                         "notify.el"
                         "php-completion.el"
                         "bm-ext.el"
+                        "unbound.el"
                         ))))
     (other . (
               "http://stud4.tuwien.ac.at/~e0225855/linum/linum.el"

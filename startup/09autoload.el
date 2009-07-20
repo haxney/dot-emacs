@@ -68,4 +68,7 @@
 (autoload 'identica-update-status-interactive "identica-mode"
   "Update Identica status Interactively" t)
 
+(autoload 'describe-unbound-keys "unbound"
+  "Display a list of unbound keystrokes of complexity no greater than max." t)
+
 ;;; 09autoload.el ends here
