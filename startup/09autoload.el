@@ -65,4 +65,7 @@
 (require 'smart-tab)
 (require 'auto-complete)
 
+(autoload 'identica-update-status-interactive "identica-mode"
+  "Update Identica status Interactively" t)
+
 ;;; 09autoload.el ends here
