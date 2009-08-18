@@ -49,4 +49,5 @@
 (define-key global-map (kbd "C-c r") 'remember)
 
 (define-key global-map (kbd "C-c i u") 'identica-update-status-interactive)
+(define-key global-map (kbd "C-c i i") 'identica)
 ;;; 70keybindings.el ends here
