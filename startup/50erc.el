@@ -90,7 +90,9 @@
        "store line"
        (when (string-match "^\\s-*\\(.*\\)$" line)
          (let ((reason (match-string 1 line)))
-           (setq erc-away-reason reason))))))
+           (setq erc-away-reason reason))))
+
+     (add-hook 'erc-mode-hook '(lambda () (visual-line-mode 1)))))
 
 (defun erc-generate-log-file-name-date-and-name (buffer target nick server port)
   "Generates a log-file name with the date and other info.
