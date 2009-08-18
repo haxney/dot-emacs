@@ -61,6 +61,7 @@
 (eval-when-compile
   (require 'cl)
   (require 'appmenu-fold)
+  (require 'xhtml-help)
   ;;(require 'nxhtml-menu)
   (require 'fold-dwim)
   (require 'typesetter nil t)
@@ -109,27 +110,71 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; Folding etc. This part is taken from
+;; Folding etc.
+
+
+;; This part is origially taken from
 ;; http://www.emacswiki.org/cgi-bin/wiki/NxmlModeForXHTML and was
-;; originally written by Peter Heslin. It requires fold-dwim.el.
+;; originally written by Peter Heslin, but has been changed rather
+;; much.
+
+;; (defun nxhtml-hs-adjust-beg-func (pos)
+;;   (save-excursion
+;;     (save-match-data
+;;       ;; (search-backward "<" nil t)
+;;       ;; (forward-char)
+;;       ;; (search-forward ">" nil t)
+;;       )
+;;     (point)))
+
+(defun nxhtml-hs-forward-sexp-func (pos)
+  (nxhtml-hs-forward-element))
+
+(defun nxhtml-hs-forward-element ()
+  (let ((nxml-sexp-element-flag))
+    (setq nxml-sexp-element-flag (not (looking-at "<!--")))
+    (unless nil ;;(looking-at outline-regexp)
+      ;;(condition-case nil
+          (nxml-forward-balanced-item 1)
+        ;;(error nil))
+      )))
 
 (defun nxhtml-setup-for-fold-dwim ()
   (make-local-variable 'outline-regexp)
   (setq outline-regexp "\\s *<\\([h][1-6]\\|html\\|body\\|head\\)\\b")
   (make-local-variable 'outline-level)
   (setq outline-level 'nxhtml-outline-level)
-  (outline-minor-mode 1)
-  (hs-minor-mode 1)
+  ;;(outline-minor-mode 1)
+  ;;(hs-minor-mode 1)
+  (setq hs-special-modes-alist (assq-delete-all 'nxhtml-mode hs-special-modes-alist))
   (add-to-list 'hs-special-modes-alist
                '(nxhtml-mode
-                 "<!--\\|<[^/>]>\\|<[^/][^>]*[^/]>"
+                 ;;"<!--\\|<[^/>]>\\|<[^/][^>]*[^/]>"
+                 "<!--\\|<[^/>]>\\|<[^/][^>]*"
                  "</\\|-->"
                  "<!--" ;; won't work on its own; uses syntax table
-                 (lambda (arg) (nxhtml-hs-forward-element))
-                 nil))
+                 nxhtml-hs-forward-sexp-func
+                 nil ;nxhtml-hs-adjust-beg-func
+                 ))
+  (set (make-local-variable 'hs-set-up-overlay) 'nxhtml-hs-set-up-overlay)
+  (put 'hs-set-up-overlay 'permanent-local t)
   (when (featurep 'appmenu-fold)
     (appmenu-fold-setup))
-  )
+  (require 'foldit);; Fix-me
+  (foldit-mode 1))
+
+(defun nxhtml-hs-start-tag-end (beg)
+  (save-excursion
+    (save-match-data
+      (goto-char beg)
+      (or (search-forward ">" (line-end-position) t)
+          (line-end-position)))))
+
+(defun nxhtml-hs-set-up-overlay (ovl)
+  (overlay-put ovl 'priority (1+ mlinks-link-overlay-priority))
+  (when foldit-mode
+    (setq foldit-hs-start-tag-end-func 'nxhtml-hs-start-tag-end)
+    (foldit-hs-set-up-overlay ovl)))
 
 (defun nxhtml-outline-level ()
   ;;(message "nxhtml-outline-level=%s" (buffer-substring (match-beginning 0) (match-end 0)))(sit-for 2)
@@ -140,14 +185,6 @@
   ;;     0))
   8)
 
-
-(defun nxhtml-hs-forward-element ()
-  (let ((nxml-sexp-element-flag))
-    (setq nxml-sexp-element-flag (not (looking-at "<!--")))
-    (unless (looking-at outline-regexp)
-      (condition-case nil
-          (nxml-forward-balanced-item 1)
-        (error nil)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -220,7 +257,8 @@
                    ;;(list vlhead frames normal)
                    (list frames normal)
                  (list frames normal)))
-         res)
+         res
+         (completion-ignore-case t))
     (setq res (popcmp-completing-read "Insert: " hist nil t initial (cons 'hist (length hist))))
     (cond ((string= res frames)
            (nxhtml-insert-empty-frames-page))

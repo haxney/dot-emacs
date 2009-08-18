@@ -84,7 +84,6 @@ See `mumamo-chunk-style=' for an example of use."
 
 (defun mumamo-chunk-attr=-new-fw-exc-fun (pos max)
   ;;(msgtrc "(mumamo-chunk-attr=-new-fw-exc-fun %s %s)" pos max)
-  ;;(message "backtrace=\n%s" (with-output-to-string (backtrace)))
   (save-match-data
     (let ((here (point))
           first-dq
@@ -97,7 +96,8 @@ See `mumamo-chunk-style=' for an example of use."
       (unless (bobp)
         (backward-char)
         (condition-case err
-            (setq next-dq (scan-sexps (point) 1))
+            (with-syntax-table (standard-syntax-table)
+              (setq next-dq (scan-sexps (point) 1)))
           (error nil)))
       (prog1
           next-dq
@@ -149,6 +149,7 @@ See `mumamo-chunk-style=' for an example of use."
               exc-end-next
               (tries 0)
               (min (1- pos))
+	      look-max
               )
           ;; make sure if we have find prev-attr= or not
           (when next-attr=
@@ -581,14 +582,20 @@ See `mumamo-find-possible-chunk' for POS, MIN and MAX."
 
 ;;;; on[a-z]+=\"javascript:"
 
-(defconst mumamo-onjs=start-regex
+(defconst mumamo-onjs=-attr=
+  (rx
+   ;;"on[a-z]+="
+   (or "onclick" "ondblclick" "onmousedown" "onmousemove" "onmouseout" "onmouseover" "onmouseup" "onkeydown" "onkeypress" "onkeyup")
+   "="))
+
+(defconst mumamo-onjs=-attr-regex
   (rx point
       (or "<" "?>")
       (* (not (any ">")))
       space
       (submatch
-       "on"
-       (1+ (any "a-za-z"))
+       ;;"on" (1+ (any "a-za-z"))
+       (or "onclick" "ondblclick" "onmousedown" "onmousemove" "onmouseout" "onmouseover" "onmouseup" "onkeydown" "onkeypress" "onkeyup")
        "=")
       (0+ space)
       ?\"
@@ -600,8 +607,66 @@ See `mumamo-find-possible-chunk' for POS, MIN and MAX."
 
 (defun mumamo-chunk-onjs=(pos min max)
   "Find javascript on...=\"...\".  Return range and 'javascript-mode."
-  (mumamo-chunk-attr= pos min max "on[a-z]+=" t mumamo-onjs=start-regex
+  (mumamo-chunk-attr= pos min max mumamo-onjs=-attr= t mumamo-onjs=-attr-regex
                       'javascript-mode))
+
+;;;; py:somthing=\"python\"
+
+(defconst mumamo-py:=-attr= "py:[a-z]+=")
+
+(defconst mumamo-py:=-attr-regex
+  (rx point
+      (or "<" "?>")
+      (* (not (any ">")))
+      space
+      (submatch
+       "py:" (1+ (any "a-za-z"))
+       "=")
+      (0+ space)
+      ?\"
+      (submatch
+       (0+
+        (not (any "\""))))
+      ))
+
+(defun mumamo-chunk-py:=(pos min max)
+  "Find python py:...=\"...\".  Return range and 'python-mode."
+  (mumamo-chunk-attr= pos min max mumamo-py:=-attr= t mumamo-py:=-attr-regex
+                      'python-mode))
+
+(defun mumamo-chunk-py:match (pos min max)
+  (save-match-data
+    (let ((here (point))
+          (py:match (progn
+                      (goto-char pos)
+                      (re-search-forward (rx "py:match"
+                                             (1+ space)
+                                             (0+ (not (any ">")))
+                                             word-start
+                                             (submatch "path=")
+                                             (0+ space)
+                                             ?\"
+                                             (submatch
+                                              (0+
+                                               (not (any "\"")))))
+                                         max t)))
+          start end borders
+          )
+      (when py:match
+        (setq start (match-beginning 1))
+        (setq end   (match-end 2))
+        (setq borders (list (match-end 1) (1- end)))
+        )
+      (goto-char here)
+      (when start
+        (list start
+              end
+              'python-mode
+              borders
+              nil ;; parseable-by
+              'mumamo-chunk-attr=-new-fw-exc-fun ;; fw-exc-fun
+              'mumamo-chunk-attr=-new-find-borders-fun ;; find-borders-fun
+            )))))
 
 ;;;; style=
 
@@ -634,6 +699,14 @@ See `mumamo-find-possible-chunk' for POS, MIN and MAX."
   (when mumamo-alt-php-tags-mode
     (mumamo-quick-static-chunk pos min max "(?php" "?)" t 'php-mode t)))
 
+(defun mumamo-chunk-alt-php= (pos min max)
+  "Find (?= ... ?), return range and `php-mode'.
+Workaround for the problem that I can not tame `nxml-mode' to recognize <?php.
+
+See `mumamo-find-possible-chunk' for POS, MIN and MAX."
+  (when mumamo-alt-php-tags-mode
+    (mumamo-quick-static-chunk pos min max "(?=" "?)" t 'php-mode t)))
+
 ;;;###autoload
 (define-mumamo-multi-major-mode html-mumamo-mode
   "Turn on multiple major modes for (X)HTML with main mode `html-mode'.
@@ -641,6 +714,7 @@ This covers inlined style and javascript and PHP."
   ("HTML Family" html-mode
    (mumamo-chunk-xml-pi
     mumamo-chunk-alt-php
+    mumamo-chunk-alt-php=
     mumamo-chunk-inlined-style
     mumamo-chunk-inlined-script
     mumamo-chunk-style=
@@ -661,23 +735,27 @@ This covers inlined style and javascript and PHP."
 
 (defun mumamo-alt-php-write-contents ()
   "For `write-contents-functions' when `mumamo-chunk-alt-php' is used."
-  (save-restriction
-    (let ((here (point)))
-      (widen)
-      (condition-case nil
-          (atomic-change-group
-            (progn
-              (goto-char (point-min))
-              (while (search-forward "(?php" nil t)
-                (replace-match "<?php"))
-              (goto-char (point-min))
-              (while (search-forward "?)" nil t)
-                (replace-match "?>"))
-              (basic-save-buffer-1)
-              (signal 'mumamo-error-ind-0 nil)))
-        (mumamo-error-ind-0))
-      (set-buffer-modified-p nil)
-      (goto-char here)))
+  (let ((here (point)))
+    (save-match-data
+      (save-restriction
+        (widen)
+        (condition-case nil
+            (atomic-change-group
+              (progn
+                (goto-char (point-min))
+                (while (search-forward "(?php" nil t)
+                  (replace-match "<?php"))
+                (goto-char (point-min))
+                (while (search-forward "(?=" nil t)
+                  (replace-match "<?="))
+                (goto-char (point-min))
+                (while (search-forward "?)" nil t)
+                  (replace-match "?>"))
+                (basic-save-buffer-1)
+                (signal 'mumamo-error-ind-0 nil)))
+          (mumamo-error-ind-0)))
+      (set-buffer-modified-p nil))
+    (goto-char here))
   ;; saved, return t
   t)
 
@@ -729,6 +807,9 @@ just `php-mode' if there is no html code in the file."
             (while (search-forward "<?php" nil t)
               (replace-match "(?php"))
             (goto-char (point-min))
+            (while (search-forward "<?=" nil t)
+              (replace-match "(?="))
+            (goto-char (point-min))
             (while (search-forward "?>" nil t)
                 (replace-match "?)"))
             (goto-char here))))
@@ -738,6 +819,9 @@ just `php-mode' if there is no html code in the file."
         (goto-char (point-min))
         (while (search-forward "(?php" nil t)
           (replace-match "<?php"))
+        (goto-char (point-min))
+        (while (search-forward "(?=" nil t)
+          (replace-match "<?="))
         (goto-char (point-min))
         (while (search-forward "?)" nil t)
           (replace-match "?>"))
@@ -1055,6 +1139,8 @@ affect your editing normally."
    (
     mumamo-chunk-genshi%
     mumamo-chunk-genshi$
+    mumamo-chunk-py:=
+    mumamo-chunk-py:match
     mumamo-chunk-xml-pi
     mumamo-chunk-inlined-style
     mumamo-chunk-inlined-script
@@ -1207,7 +1293,7 @@ This also covers inlined style and javascript."
     ("JAVASCRIPT" javascript-mode)
     ("JAVA" java-mode)
     )
-  "Matches for perl here doc modes.
+  "Matches for heredoc modes.
 The entries in this list have the form
 
   (REGEXP MAJOR-MODE-SPEC)
@@ -1222,7 +1308,7 @@ The major mode spec is translated to a major mode using
           (list
            regexp
            (function :tag "Major mode")))
-  :group 'mumamo)
+  :group 'mumamo-modes)
 
 (defun mumamo-mode-for-heredoc (marker)
   "Return major mode associated with MARKER.
@@ -1255,10 +1341,13 @@ Supported values are 'perl."
               heredoc-mark
               (delimiter "")
               (skip-b "")
-              start
+              start-inner
               end
               exc-mode
               fw-exc-fun
+              border-fun
+              start-outer
+              ps
               )
           (goto-char pos)
           (beginning-of-line)
@@ -1273,6 +1362,7 @@ Supported values are 'perl."
                  (unless (or (nth 3 ps) (nth 4 ps))
                    (setq want-<< nil))))
              (when next-<<
+               (setq start-outer (- (point) 2))
                (when (= (char-after) ?-)
                  (setq skip-b "\t*")
                  (unless (eolp) (forward-char)))
@@ -1283,7 +1373,7 @@ Supported values are 'perl."
                  (setq heredoc-mark  (buffer-substring-no-properties
                                       (match-beginning 1)
                                       (match-end 1)))
-                 (setq start (match-end 0)))))
+                 (setq start-inner (match-end 0)))))
             ('w32-ps (error "No support for windows power shell yet"))
             ('php
              (while want-<<
@@ -1295,12 +1385,13 @@ Supported values are 'perl."
                  (unless (or (nth 3 ps) (nth 4 ps))
                    (setq want-<< nil))))
              (when next-<<
+               (setq start-outer (- (point) 3))
                (skip-chars-forward " \t")
                (when (looking-at (concat "\\([^\n;]*\\)[[:blank:]]*\n"))
                  (setq heredoc-mark  (buffer-substring-no-properties
                                       (match-beginning 1)
                                       (match-end 1)))
-                 (setq start (match-end 0)))))
+                 (setq start-inner (match-end 0)))))
             ('perl
              (while want-<<
                (setq next-<< (search-forward "<<" max t))
@@ -1311,6 +1402,7 @@ Supported values are 'perl."
                  (unless (or (nth 3 ps) (nth 4 ps))
                    (setq want-<< nil))))
              (when next-<<
+               (setq start-outer (- (point) 2))
                (skip-chars-forward " \t")
                (when (memq (char-after) '(?\" ?\'))
                  (setq delimiter (list (char-after))))
@@ -1318,11 +1410,12 @@ Supported values are 'perl."
                  (setq heredoc-mark  (buffer-substring-no-properties
                                       (match-beginning 1)
                                       (match-end 1)))
-                 (setq start (1+ (match-end 0))))))
+                 (setq start-inner (1+ (match-end 0))))))
             ('python
              (unless (eobp) (forward-char))
              (while want-<<
                (setq next-<< (re-search-forward "\"\"\"\\|'''" max t))
+               (setq start-outer (- (point) 3))
                (if (not next-<<)
                    (setq want-<< nil) ;; give up
                  ;; Check inside string or comment.
@@ -1339,6 +1432,7 @@ Supported values are 'perl."
                  (unless (or (nth 3 ps) (nth 4 ps))
                    (setq want-<< nil))))
              (when next-<<
+               (setq start-outer (- (point) 2))
                (when (= (char-after) ?-)
                  (setq skip-b "[ \t]*")
                  (forward-char))
@@ -1346,11 +1440,11 @@ Supported values are 'perl."
                  (setq heredoc-mark  (buffer-substring-no-properties
                                       (match-beginning 0)
                                       (match-end 0)))
-                 (setq start (match-end 0)))))
+                 (setq start-inner (match-end 0)))))
             (t (error "next-<< not implemented for lang %s" lang)))
-          (when start (assert (<= pos start) t))
+          (when start-inner (assert (<= pos start-inner) t))
           (goto-char old-point)
-          (when (or start end)
+          (when (or start-inner end)
             (let ((endmark-regexp
                    (case lang
                      ('sh (concat "^" skip-b heredoc-mark "$"))
@@ -1359,16 +1453,24 @@ Supported values are 'perl."
                      ('python (concat "^" heredoc-mark "[[:space:]]*"))
                      ('ruby (concat "^" skip-b heredoc-mark "$"))
                      (t (error "mark-regexp not implemented for %s" lang)))))
+              ;; Fix-me: rename start-inner <=> start-outer...
+              (setq border-fun `(lambda (start end exc-mode)
+                                  ;; Fix-me: use lengths...
+                                  (list (+ start (- ,start-inner ,start-outer 1))
+                                        (when end
+                                          (- end ,(1+ (length heredoc-mark)))))))
               (setq fw-exc-fun `(lambda (pos max)
                                   (save-match-data
                                     (let ((here (point)))
                                       (goto-char pos)
                                       (prog1
                                           (when (re-search-forward ,endmark-regexp max t)
-                                            (line-beginning-position))
-                                      (goto-char here)))))))
+                                            (- (point) 0))
+                                        (goto-char here)))))))
             (setq exc-mode (mumamo-mode-for-heredoc heredoc-mark))
-            (list start end exc-mode nil nil fw-exc-fun nil))))
+            (list start-inner end exc-mode nil nil fw-exc-fun nil)
+            (list start-outer end exc-mode (list start-inner end) nil fw-exc-fun border-fun)
+            )))
     (error (mumamo-display-error 'mumamo-chunk-heredoc
                                  "%s" (error-message-string err)))))
 
@@ -1383,13 +1485,13 @@ and MAX."
     r))
 
 ;;;###autoload
-(define-mumamo-multi-major-mode sh-mumamo-heredoc-mode
+(define-mumamo-multi-major-mode sh-heredoc-mumamo-mode
   "Turn on multiple major modes for sh heredoc document.
 See `mumamo-heredoc-modes' for how to specify heredoc major modes."
   ("SH HereDoc" sh-mode
    (mumamo-chunk-sh-heredoc
     )))
-(mumamo-inherit-sub-chunk-family 'sh-mumamo-heredoc-mode)
+(mumamo-inherit-sub-chunk-family 'sh-heredoc-mumamo-mode)
 
 
 ;;;; PHP heredoc
@@ -1402,13 +1504,13 @@ and MAX."
     r))
 
 ;;;###autoload
-(define-mumamo-multi-major-mode php-mumamo-heredoc-mode
+(define-mumamo-multi-major-mode php-heredoc-mumamo-mode
   "Turn on multiple major modes for PHP heredoc document.
 See `mumamo-heredoc-modes' for how to specify heredoc major modes."
   ("PHP HereDoc" php-mode
    (mumamo-chunk-php-heredoc
     )))
-(mumamo-inherit-sub-chunk-family 'php-mumamo-heredoc-mode)
+(mumamo-inherit-sub-chunk-family 'php-heredoc-mumamo-mode)
 
 
 ;;;; Perl heredoc
@@ -1421,16 +1523,16 @@ and MAX."
     r))
 
 ;;;###autoload
-(define-mumamo-multi-major-mode perl-mumamo-heredoc-mode
+(define-mumamo-multi-major-mode perl-heredoc-mumamo-mode
   "Turn on multiple major modes for Perl heredoc document.
 See `mumamo-heredoc-modes' for how to specify heredoc major modes."
   ("Perl HereDoc" perl-mode
    (mumamo-chunk-perl-heredoc
     )))
-(mumamo-inherit-sub-chunk-family 'perl-mumamo-heredoc-mode)
+(mumamo-inherit-sub-chunk-family 'perl-heredoc-mumamo-mode)
 
 ;;;###autoload
-(define-mumamo-multi-major-mode cperl-mumamo-heredoc-mode
+(define-mumamo-multi-major-mode cperl-heredoc-mumamo-mode
   "Turn on multiple major modes for Perl heredoc document.
 See `mumamo-heredoc-modes' for how to specify heredoc major modes.
 
@@ -1439,7 +1541,7 @@ Note: I have seen some problems with this.  Use
   ("Perl HereDoc" cperl-mode
    (mumamo-chunk-perl-heredoc
     )))
-(mumamo-inherit-sub-chunk-family 'cperl-mumamo-heredoc-mode)
+(mumamo-inherit-sub-chunk-family 'cperl-heredoc-mumamo-mode)
 
 
 ;;;; Python heredoc
@@ -1452,13 +1554,13 @@ and MAX."
     r))
 
 ;;;###autoload
-(define-mumamo-multi-major-mode python-mumamo-heredoc-mode
+(define-mumamo-multi-major-mode python-heredoc-mumamo-mode
   "Turn on multiple major modes for Perl heredoc document.
 See `mumamo-heredoc-modes' for how to specify heredoc major modes."
   ("Python HereDoc" python-mode
    (mumamo-chunk-python-heredoc
     )))
-(mumamo-inherit-sub-chunk-family 'python-mumamo-heredoc-mode)
+(mumamo-inherit-sub-chunk-family 'python-heredoc-mumamo-mode)
 
 
 ;;;; Ruby heredoc
@@ -1471,13 +1573,13 @@ and MAX."
     r))
 
 ;;;###autoload
-(define-mumamo-multi-major-mode ruby-mumamo-heredoc-mode
+(define-mumamo-multi-major-mode ruby-heredoc-mumamo-mode
   "Turn on multiple major modes for Ruby heredoc document.
 See `mumamo-heredoc-modes' for how to specify heredoc major modes."
   ("Ruby HereDoc" ruby-mode
    (mumamo-chunk-ruby-heredoc
     )))
-(mumamo-inherit-sub-chunk-family 'ruby-mumamo-heredoc-mode)
+(mumamo-inherit-sub-chunk-family 'ruby-heredoc-mumamo-mode)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1856,15 +1958,20 @@ See `mumamo-find-possible-chunk' for POS, MIN and MAX."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; noweb
 
+(defgroup mumamo-noweb2 nil
+  "Customization group for `noweb2-mumamo-mode'."
+  :group 'mumamo-modes)
+
 (defcustom mumamo-noweb2-mode-from-ext
   '(
     ("php" . php-mode)
     ("c" . c-mode)
     )
-  "File extension regexp to major mode mapping."
+  "File extension regexp to major mode mapping.
+Used by `noweb2-mumamo-mode'."
   :type '(repeat
           (cons regexp major-mode-function))
-  :group 'mumamo)
+  :group 'mumamo-noweb2)
 
 (defvar mumamo-noweb2-found-mode-from-ext nil
   "Major modes determined from file names.  Internal use.")

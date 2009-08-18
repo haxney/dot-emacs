@@ -487,6 +487,7 @@ A character that is part of a valid candidate never starts auto-completion."
                       (const :tag "Generic comment fence." ?!))
                  (function :tag "Predicate function")))
 
+;;(setq company-idle-delay 7)
 (defcustom company-idle-delay .7
   "*The idle delay in seconds until automatic completions starts.
 A value of nil means never complete automatically, t means complete
@@ -540,24 +541,40 @@ The work-around consists of adding a newline.")
 
 (defvar company-active-map
   (let ((keymap (make-sparse-keymap)))
-    (define-key keymap "\e" 'company-ESC)
+    (define-key keymap "\e"     'company-ESC)
     (define-key keymap [escape] 'company-ESC)
     ;;(define-key keymap "\e\e\e" 'company-abort)
-    (define-key keymap "\C-g" 'company-abort)
-    (define-key keymap [(meta) ?n] 'company-select-next)
-    (define-key keymap [(meta) ?p] 'company-select-previous)
-    (define-key keymap [(down)] 'company-select-next)
-    (define-key keymap [(up)] 'company-select-previous)
-    (define-key keymap [down-mouse-1] 'ignore)
-    (define-key keymap [down-mouse-3] 'ignore)
+
+    (define-key keymap "\C-g"         'company-abort)
+    (define-key keymap [(control ?g)] 'company-abort)
+
+    (define-key keymap [(down)]    'company-select-next)
+    (define-key keymap [(up)]      'company-select-previous)
+    ;;(define-key keymap [(meta) ?n] 'company-select-next)
+    ;;(define-key keymap [(meta) ?p] 'company-select-previous)
+    (define-key keymap [remap previous-line]  'company-select-previous)
+    (define-key keymap [remap next-line]      'company-select-next)
+
     (define-key keymap [mouse-1] 'company-complete-mouse)
     (define-key keymap [mouse-3] 'company-select-mouse)
+
+    (define-key keymap [down-mouse-1] 'ignore)
+    (define-key keymap [down-mouse-3] 'ignore)
     (define-key keymap [up-mouse-1] 'ignore)
     (define-key keymap [up-mouse-3] 'ignore)
-    (define-key keymap [(control) ?m] 'company-complete-selection)
-    (define-key keymap "\t" 'company-complete-common)
-    (define-key keymap [(tab)] 'company-complete-common)
-    (define-key keymap (kbd "<f1>") 'company-show-doc-buffer)
+
+    (define-key keymap [(control return)]   'company-complete-selection)
+    ;;(define-key keymap [remap forward-word] 'company-complete-selection)
+    ;;(define-key keymap [remap forward-char] 'company-complete-selection)
+
+    (define-key keymap "\t"               'company-complete-common)
+    (define-key keymap [(tab)]            'company-complete-common)
+    (define-key keymap [(shift return)]   'company-complete-common)
+
+    ;; Using f1 for help is terrible since that is a key you might use
+    ;; often for the normal help.  However S-f1 should be ok - and
+    ;; should maybe be made some kind of standard in Emacs?
+    (define-key keymap [(shift f1)] 'company-show-doc-buffer)
     (define-key keymap "\C-w" 'company-show-location)
     (define-key keymap "\C-s" 'company-search-candidates)
     (define-key keymap [(control) (meta) ?s] 'company-filter-candidates)
@@ -629,9 +646,19 @@ keymap during active completions (`company-active-map'):
     (company-cancel)
     (kill-local-variable 'company-point)))
 
+(defcustom company-major-modes '(css-mode emacs-lisp-mode nxml-mode)
+  "Modes in which `global-company-mode' turn on `company-mode'."
+  :type '(repeat (command :tag "Major mode"))
+  :group 'company)
+
 ;;;###autoload
 (define-globalized-minor-mode global-company-mode company-mode
-  (lambda () (company-mode 1)))
+  (lambda ()
+    (when (catch 'cm
+            (dolist (mode company-major-modes)
+              (when (derived-mode-p mode)
+                (throw 'cm t))))
+      (company-mode 1))))
 
 (defsubst company-assert-enabled ()
   (unless company-mode
@@ -714,9 +741,12 @@ keymap during active completions (`company-active-map'):
 
 (defsubst company--row (&optional pos)
   ;; posn-at-point might return nil in a small window like the
-  ;; minbuffer window, not sure why /LB
+  ;; minbuffer window, not sure why.  It can also return nil if pos is
+  ;; nil.  Seems like an Emacs bug. /LB
   (cdr (posn-actual-col-row (or (posn-at-point pos)
-                                (posn-at-point 1)))))
+                                (with-selected-window (selected-window)
+                                  (message "trying hard to get posn-at-point")
+                                  (posn-at-point (if pos 1 (point))))))))
 
 ;;; backends ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -730,8 +760,8 @@ keymap during active completions (`company-active-map'):
 ;; Fix-me: Why are not `buffer-substring-no-properties' used here?
 (defun company-grab-symbol ()
   (if (looking-at "\\_>")
-      (buffer-substring (point) (save-excursion (skip-syntax-backward "w_")
-                                                (point)))
+      (buffer-substring-no-properties (point) (save-excursion (skip-syntax-backward "w_")
+                                                              (point)))
     (unless (and (char-after) (memq (char-syntax (char-after)) '(?w ?_)))
       "")))
 
@@ -850,7 +880,7 @@ keymap during active completions (`company-active-map'):
 
 (defsubst company-call-frontends (command)
   (dolist (frontend company-frontends)
-    ;;(message "frontend=%s" frontend)
+    ;;(message "frontend=%s, %s" frontend command)
     (condition-case err
         (funcall frontend command)
       (error (error "Company: Front-end %s error \"%s\" on command %s"
@@ -887,12 +917,20 @@ keymap during active completions (`company-active-map'):
     (setq company-selection 0
           company-candidates candidates))
   ;; Save in cache:
-  (push (cons company-prefix company-candidates) company-candidates-cache)
+  ;;(push (cons company-prefix company-candidates) company-candidates-cache)
+  (add-to-list 'company-candidates-cache (cons company-prefix
+                                               (if (listp company-candidates)
+                                                   company-candidates
+                                                 (list company-candidates))))
+  ;;(message ";; Save in cache:company-candidate-cache=%S" company-candidates-cache)
   ;; Calculate common.
   (let ((completion-ignore-case (company-call-backend 'ignore-case)))
     (setq company-common (try-completion company-prefix company-candidates)))
+  ;;(message ";; Calculate common. company-common=%s" company-common)
   (when (eq company-common t)
-    (setq company-candidates nil)))
+    (if (company-call-backend 'no-insert)
+        (setq company-common company-prefix)
+      (setq company-candidates nil))))
 
 (defun company-calculate-candidates (prefix)
   (let ((candidates (cdr (assoc prefix company-candidates-cache))))
@@ -922,9 +960,13 @@ keymap during active completions (`company-active-map'):
                 (setcdr c2 (progn (while (equal (pop c2) (car c2)))
                                   c2)))))))
     (if (or (cdr candidates)
-            (not (equal (car candidates) prefix)))
+            (not (equal (car candidates) prefix))
+            (company-call-backend 'no-insert)
+            )
         ;; Don't start when already completed and unique.
-        candidates
+        (progn
+          ;;(message ";; Don't start when already completed and unique. candidates=%s" candidates)
+          candidates)
       ;; Not the right place? maybe when setting?
       (and company-candidates t))))
 
@@ -970,6 +1012,7 @@ keymap during active completions (`company-active-map'):
              (next (if backward
                        (append before (reverse after))
                      (append after (reverse before)))))
+        (message "company-cancel in company-other-backend")
         (company-cancel)
         (dolist (backend next)
           (when (ignore-errors (company-begin-backend backend))
@@ -1004,6 +1047,7 @@ keymap during active completions (`company-active-map'):
 
 ;; Fix-me: Why are not `buffer-substring-no-properties' used here?
 (defun company--incremental-p ()
+  (message "company--incremental-p")
   (and (> (point) company-point)
        (> (point-max) company--point-max)
        (not (eq this-command 'backward-delete-char-untabify))
@@ -1017,8 +1061,18 @@ keymap during active completions (`company-active-map'):
 
 ;; Fix-me: Why are not `buffer-substring-no-properties' used here?
 (defun company--continue-failed (new-prefix)
+  ;;(message "company--continue-failed %s" new-prefix)
+  (if (company-call-backend 'no-insert)
+      (progn
+        (message "%s" (propertize "No match" 'face 'highlight))
+        (company-echo-show-soon "") ;; fix-me
+        (setq company-prefix new-prefix)
+        (company-update-candidates nil)
+        company-candidates
+        )
   (when (company--incremental-p)
     (let ((input (buffer-substring-no-properties (point) company-point)))
+      (message "input=%s, grab=%s" input (company-call-backend 'prefix))
       (cond
        ((company-auto-complete-p input)
         ;; auto-complete
@@ -1035,8 +1089,9 @@ keymap during active completions (`company-active-map'):
         company-candidates)
        ((equal company-prefix (car company-candidates))
         ;; last input was actually success
+        (message "company-cancel ;; last input was actually success")
         (company-cancel company-prefix)
-        nil)))))
+        nil))))))
 
 (defun company--good-prefix-p (prefix)
   (and (or (company-explicit-action-p)
@@ -1051,22 +1106,30 @@ keymap during active completions (`company-active-map'):
   (let* ((new-prefix (company-call-backend 'prefix))
          (c (when (and (company--good-prefix-p new-prefix)
                        (setq new-prefix (or (car-safe new-prefix) new-prefix))
-                       (= (- (point) (length new-prefix))
-                          (- company-point (length company-prefix))))
+                       ;;(not (company-call-backend 'no-insert))
+                       (or (company-call-backend 'no-insert)
+                           (= (- (point) (length new-prefix))
+                              (- company-point (length company-prefix)))))
               (setq new-prefix (or (car-safe new-prefix) new-prefix))
               (company-calculate-candidates new-prefix))))
+    ;;(message "c=%S" c)
     (or (cond
-         ((eq c t)
+         ((and (eq c t)
+               (not (company-call-backend 'no-insert)))
           ;; t means complete/unique.
+          ;;(message "company-cancel ;; t means complete/unique.")
           (company-cancel new-prefix)
           nil)
          ((consp c)
           ;; incremental match
           (setq company-prefix new-prefix)
+          ;;(message ";; incremental match company-prefix => %S" company-prefix)
           (company-update-candidates c)
           c)
          (t (company--continue-failed new-prefix)))
-        (company-cancel))))
+         (unless (company-call-backend 'no-insert)
+           ;;(progn (message "company-cancel continue") nil)
+           (company-cancel)))))
 
 (defun company--begin-new ()
   (let (prefix c)
@@ -1091,6 +1154,7 @@ keymap during active completions (`company-active-map'):
           ;; t means complete/unique.  We don't start, so no hooks.
           (when (consp c)
             (setq company-prefix prefix)
+            ;;(message "company--begin-new company-prefix => %S" prefix)
             (when (symbolp backend)
               (setq company-lighter (concat " " (symbol-name backend))))
             (company-update-candidates c)
@@ -1101,12 +1165,17 @@ keymap during active completions (`company-active-map'):
 
 (defun company-begin ()
   (setq company-candidates
-        (or (and company-candidates (company--continue))
+        (or (and (or company-candidates
+                     (company-call-backend 'no-insert)
+                     )
+                 (company--continue))
             (and (company--should-complete) (company--begin-new))))
+  ;;(message "company-begin cc=%s" company-candidates)
   (when company-candidates
     (when (and company-end-of-buffer-workaround (eobp))
       (save-excursion (insert "\n"))
       (setq company-added-newline (buffer-chars-modified-tick)))
+    ;;(message "company-begin")
     (setq company-point (point)
           company--point-max (point-max))
     (company-enable-overriding-keymap company-active-map)
@@ -1151,7 +1220,9 @@ keymap during active completions (`company-active-map'):
   (setq company-point (point)))
 
 (defun company-finish (result)
-  (insert (company-strip-prefix result))
+  (unless (company-call-backend 'no-insert)
+    (insert (company-strip-prefix result)))
+  ;;(message "company-cancel finish")
   (company-cancel result)
   ;; Don't start again, unless started manually.
   (setq company-point (point)))
@@ -1176,7 +1247,8 @@ keymap during active completions (`company-active-map'):
   (unless (company-keep this-command)
     (condition-case err
         (progn
-          (unless (equal (point) company-point)
+          (unless (and (equal (point) company-point)
+                       (not (company-call-backend 'no-insert)))
             (company-begin))
           (if company-candidates
               (company-call-frontends 'post-command)
@@ -1440,7 +1512,10 @@ when the selection has been changed, the selected candidate is completed."
   (when (company-manual-begin)
     (if (or company-selection-changed
             (eq last-command 'company-complete-common))
-        (call-interactively 'company-complete-selection)
+        (progn
+          (message "(call-interactively 'company-complete-selection)")
+          (call-interactively 'company-complete-selection))
+      (message "(call-interactively 'company-complete-common)")
       (call-interactively 'company-complete-common)
       (setq this-command 'company-complete-common))))
 
@@ -1686,7 +1761,7 @@ fits `buffer-invisibility-spec'."
          (len-str (length str)))
     ;;(message "3874 A inv1=%s, len str=%s" inv1 len-str)
     ;; (setq x nil)
-    (unless x (setq x str))
+    ;;(unless (and (boundp 'x) x) (setq x str))
     (while (setq pos2 (next-single-property-change pos1 'invisible str))
       (setq pos2 (or pos2 (length str)))
       (put-text-property pos1 pos2 'invisible (invisible-p inv1))
@@ -1695,7 +1770,7 @@ fits `buffer-invisibility-spec'."
       ;;(message "3874 B inv1=%s/%s, inv2=%s/%s" pos1 inv1 pos2 inv2)
       (setq pos1 pos2)))
   ;;(message "3874 str=%S" str)
-  (setq x3874 str)
+  ;;(setq x3874 str)
   str)
 
 ;; Fix-me: invisible, Emacs bug nr ? - buffer-substring does not copy 'invisible property
@@ -1723,7 +1798,9 @@ fits `buffer-invisibility-spec'."
             (p2 len))
       (put-text-property p1 p2 'invisible t visible-str)))
     ;;(message "3875 x vis=%S" visible-str)
-    (setq x3875 visible-str)))
+    ;;(setq x3875 visible-str)
+    ))
+
 (defun company-buffer-lines (beg end)
   (goto-char beg)
   (let ((row (company--row))
@@ -1937,7 +2014,7 @@ Returns a negative number if the tooltip should be displayed above point."
     (overlay-put company-pseudo-tooltip-overlay 'before-string
                  (company-fix-bug3874
                   (overlay-get company-pseudo-tooltip-overlay 'company-before)))
-    (setq x-before-string (overlay-get company-pseudo-tooltip-overlay 'before-string))
+    ;;(setq x-before-string (overlay-get company-pseudo-tooltip-overlay 'before-string))
     (overlay-put company-pseudo-tooltip-overlay 'window (selected-window))))
 
 (defun company-pseudo-tooltip-frontend (command)
@@ -1964,9 +2041,12 @@ Returns a negative number if the tooltip should be displayed above point."
 
 (defun company-pseudo-tooltip-unless-just-one-frontend (command)
   "`company-pseudo-tooltip-frontend', but not shown for single candidates."
-  (unless (and (eq command 'post-command)
-               (not (cdr company-candidates)))
-    (company-pseudo-tooltip-frontend command)))
+  (unless nil ;;(symbolp company-candidates)
+    (unless (and (eq command 'post-command)
+                 (not (cdr company-candidates))
+                 ;;(not (company-call-backend 'no-insert))
+                 )
+      (company-pseudo-tooltip-frontend command))))
 
 ;;; overlay ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1999,7 +2079,7 @@ Returns a negative number if the tooltip should be displayed above point."
 
     (overlay-put company-preview-overlay 'after-string
                  (company-fix-bug3874 completion))
-    (setq x-after-string (overlay-get company-pseudo-tooltip-overlay 'after-string))
+    ;;(setq x-after-string (overlay-get company-pseudo-tooltip-overlay 'after-string))
     (overlay-put company-preview-overlay 'window (selected-window))))
 
 (defun company-preview-hide ()
@@ -2009,10 +2089,12 @@ Returns a negative number if the tooltip should be displayed above point."
 
 (defun company-preview-frontend (command)
   "A `company-mode' front-end showing the selection as if it had been inserted."
-  (case command
-    ('pre-command (company-preview-hide))
-    ('post-command (company-preview-show-at-point (point)))
-    ('hide (company-preview-hide))))
+  (if (company-call-backend 'no-insert)
+      t
+    (case command
+      ('pre-command (company-preview-hide))
+      ('post-command (company-preview-show-at-point (point)))
+      ('hide (company-preview-hide)))))
 
 (defun company-preview-if-just-one-frontend (command)
   "`company-preview-frontend', but only shown for single candidates."

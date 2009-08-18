@@ -73,8 +73,12 @@
                "/>")
           (and "url("
                ?\"
-               (group (1+ (not (any "\""))))
+               (group (1+ (not (any "\)"))))
                ?\"
+               ")"
+               )
+          (and "url("
+               (group (+? (not (any ")"))))
                ")"
                )
           )))
@@ -181,8 +185,8 @@ To add new image tag patterns modify `inlimg-modes-img-values'."
 
 (defvar inlimg-img-keymap
   (let ((map (make-sparse-keymap)))
-    (define-key map [(control ?c) ?+] 'inlimg-toggle-img-display)
-    (define-key map [(control ?c) ?%] 'inlimg-toggle-img-slicing)
+    (define-key map [(control ?c) ?+] 'inlimg-toggle-display)
+    (define-key map [(control ?c) ?%] 'inlimg-toggle-slicing)
     map)
   "Keymap on image overlay.")
 
@@ -212,7 +216,8 @@ Return non-nil if an img tag was found."
     (save-match-data
       (when (re-search-forward (symbol-value inlimg-img-regexp) nil t)
         (setq src (or (match-string-no-properties 1)
-                      (match-string-no-properties 2)))
+                      (match-string-no-properties 2)
+                      (match-string-no-properties 3)))
         (setq beg (match-beginning 0))
         (setq beg-face (get-text-property beg 'face))
         (setq remote (string-match "^https?://" src))
@@ -344,7 +349,8 @@ See also the command `inlimg-mode'."
              (when (inlimg-ovl-p ovl)
                (throw 'ovl ovl)))))
         is-displayed)
-    (when ovl
+    (if (not ovl)
+        (message "No image at point %s" here)
       (setq is-displayed (overlay-get ovl 'after-string))
       (inlimg-next (overlay-start ovl) (not is-displayed))
       (goto-char here))))
@@ -362,7 +368,8 @@ See also the command `inlimg-mode'."
                (throw 'ovl ovl)))))
          (inlimg-slice inlimg-slice)
         is-displayed)
-    (when ovl
+    (if (not ovl)
+        (message "No image at point %s" here)
       (setq is-displayed (overlay-get ovl 'after-string))
       (when (overlay-get ovl 'inlimg-slice)
         (setq inlimg-slice nil))

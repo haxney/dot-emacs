@@ -82,7 +82,7 @@
 
 ;; Add multi major mode entries.
 (add-to-list 'magic-mode-alist
-             '("\\(?:.\\|\n\\)\\{,200\\}xmlns:py=\"http://genshi.edgewall.org/\""
+             '("\\(?:.\\|\n\\)\\{,500\\}xmlns:py=\"http://genshi.edgewall.org/\""
                . genshi-nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.htm\\'"      . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.html\\'"     . nxhtml-mumamo-mode))

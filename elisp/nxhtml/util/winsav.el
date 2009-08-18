@@ -2,14 +2,14 @@
 ;;
 ;; Author: Lennart Borgman
 ;; Created: Sun Jan 14 2007
-;; Version: 0.76
-;; Last-Updated: 2009-05-28 Thu
+(defconst winsav:version "0.77") ;;Version: 0.77
+;; Last-Updated: 2009-08-04 Tue
 ;; Keywords:
 ;; Compatibility:
 ;;
 ;; Features that might be required by this library:
 ;;
-  ;; `cl'.
+;;   None
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -153,6 +153,7 @@
 
 
 (eval-when-compile (require 'cl))
+(eval-when-compile (require 'desktop))
 
 ;; (defun winsav-upper-left-window(&optional frame w)
 ;;   (let* ((tree (if w w (car (window-tree frame))))
@@ -201,6 +202,7 @@ run."
       (run-hook-with-args 'winsav-after-get-hook ret)
       ret)))
 
+;; Fix-me: add window-hscroll
 (defun winsav-get-window-tree-1(frame w)
   (let ((tree (if w w (car (window-tree frame)))))
     (if (windowp tree)
@@ -324,7 +326,14 @@ debugging by tells how far down we are in the call chain."
                     (rename-buffer bufnam))
               (when (eq (string-to-char bufnam) 32)
                 (setq bufnam " *Winsav dummy buffer*"))
-              (setq buffer (get-buffer-create bufnam))))
+              ;; Fix-me, this might need some tweaking: Don't restore
+              ;; buffers without a file name and without
+              ;; content. (desktop-mode will make that when
+              ;; necessary.)  Just show the scratch buffer instead.
+              (setq buffer (get-buffer bufnam))
+              (unless (and buffer
+                           (< 0 (buffer-size buffer)))
+                (setq buffer (get-buffer-create "*scratch*")))))
           (set-window-buffer window buffer)
           (set-window-dedicated-p window dedic)
           ;; Strange incompatibility in scroll args:
@@ -649,6 +658,7 @@ The actual file name will have a system identifier added too."
   "Current winsav configuration directory."
   (or winsav-dirname "~/"))
 
+;;(find-file (winsav-full-file-name))
 (defun winsav-full-file-name (&optional dirname)
   "Return the full name of the winsav session file in DIRNAME.
 DIRNAME omitted or nil means use `~'.
@@ -670,7 +680,10 @@ the value of `window-system' otherwise."
   "Return a string with the printed representation of OBJ.
 This should be possible to eval and get a similar object like OBJ
 again."
-  (prin1-to-string obj))
+  ;;(message "winsav-serialize a")
+  (prin1-to-string obj)
+  ;;(message "winsav-serialize b")
+  )
 
 (defcustom winsav-before-save-configuration-hook nil
   "Hook called before saving frames.
@@ -812,79 +825,104 @@ frame have this minibuffer frame."
     )
   "Parameters saved for frames by `winsav-save-configuration'.")
 
+;;(winsav-set-restore-size nil)
 (defun winsav-set-restore-size (frame)
   (when (fboundp 'w32-send-sys-command)
-    (w32-send-sys-command 61728)
-    (sleep-for 0.5)
+    (let ((cur-frm (selected-frame)))
+      (select-frame-set-input-focus frame)
+      (w32-send-sys-command #xf120)
+      ;; Note: sit-for must be used, not sleep-for. Using the latter
+      ;; prevents the fetching of the new size (for some reason I do not
+      ;; understand).
+      (sit-for 0.5)
+      (select-frame-set-input-focus cur-frm))
     t))
 
 (defun winsav-set-maximized-size (frame)
   (when (fboundp 'w32-send-sys-command)
-    (w32-send-sys-command 61488)
+    (select-frame-set-input-focus frame)
+    (w32-send-sys-command #xf030)
     t))
 
-(defun winsav-save-frame (frame mb-frm-nr)
+(defun winsav-save-frame (frame mb-frm-nr buffer)
   "Write into current buffer elisp code to recreate frame FRAME.
 If MB-FRM-NR is a number then it is the order number of the frame
 whose minibuffer should be used."
-  (let* ((start nil)
-         (end nil)
-         (obj (winsav-get-window-tree frame))
-         (frm-size-now (cons (frame-pixel-height frame)
-                             (frame-pixel-width frame)))
-         (frm-size-rst (when (winsav-set-restore-size frame)
-                         (cons (frame-pixel-height frame)
-                               (frame-pixel-width frame))))
-         (was-max (and frm-size-rst
-                       (not (equal frm-size-now frm-size-rst))))
-         (frm-par (frame-parameters frame)))
-    (setq frm-par
-          (delq nil
-                (mapcar (lambda (elt)
-                          (cond
-                           ((memq (car elt) winsav-frame-parameters-to-save)
-                            elt)
-                           ((eq (car elt) 'minibuffer)
-                            (let ((val (cdr elt)))
-                              (if (not (windowp val))
-                                  elt
-                                (if (eq (window-frame val) frame)
-                                    nil
-                                  (cons 'minibuffer nil)))))))
-                        frm-par)))
-    (insert "(winsav-restore-frame\n'"
-            ;;make-frame-params
-            (winsav-serialize frm-par))
-    ;;window-tree-params
-    (setq start (point))
-    (insert "'" (winsav-serialize obj) "\n")
-    (setq end (copy-marker (point) t))
-    (replace-regexp (rx "#<buffer "
-                        (1+ (not (any ">")))
-                        (1+ ">")) ;; 1+ for indirect buffers ...
-                    "buffer"
-                    nil start end)
-    (replace-regexp (rx "#<window "
-                        (1+ (not (any ">")))
-                        (1+ ">"))
-                    "nil"
-                    nil start end)
-    (goto-char end)
-    ;;use-minibuffer-frame
-    (insert (if mb-frm-nr
-                (format "(nth %s (reverse winsav-loaded-frames))" mb-frm-nr)
-              "nil")
-            (if was-max " t " " nil ")
-            ")\n\n")
+  (message "winsav-save-frame buffer=%s" buffer)
+  (with-current-buffer buffer
+    (message "winsav-save-frame buffer 2=%s" (current-buffer))
+    (let* ((start nil)
+           (end nil)
+           (obj (winsav-get-window-tree frame))
+           (dummy (message "winsav-save-frame buffer 3=%s" (current-buffer)))
+           (frm-size-now (cons (frame-pixel-height frame)
+                               (frame-pixel-width frame)))
+           (dummy (message "winsav-save-frame buffer 4=%s" (current-buffer)))
+           (frm-size-rst (when (winsav-set-restore-size frame)
+                           (cons (frame-pixel-height frame)
+                                 (frame-pixel-width frame))))
+           (was-max (and frm-size-rst
+                         (not (equal frm-size-now frm-size-rst))))
+           (dummy (message "winsav-save-frame buffer 5=%s" (current-buffer)))
+           (frm-par (frame-parameters frame))
+           (dummy (message "winsav-save-frame buffer 6=%s" (current-buffer)))
+           )
+      (message "winsav-save-frame a cb=%s" (current-buffer))
+      (setq frm-par
+            (delq nil
+                  (mapcar (lambda (elt)
+                            (cond
+                             ((memq (car elt) winsav-frame-parameters-to-save)
+                              elt)
+                             ((eq (car elt) 'minibuffer)
+                              (let ((val (cdr elt)))
+                                (if (not (windowp val))
+                                    elt
+                                  (if (eq (window-frame val) frame)
+                                      nil
+                                    (cons 'minibuffer nil)))))))
+                          frm-par)))
+      (message "winsav-save-frame b cb=%s" (current-buffer))
+      (insert "(winsav-restore-frame\n'"
+              ;;make-frame-params
+              (winsav-serialize frm-par))
+      (message "winsav-save-frame b.0.1")
+      ;;window-tree-params
+      (setq start (point))
+      (insert "'" (winsav-serialize obj) "\n")
+      (message "winsav-save-frame b.0.2")
+      (setq end (copy-marker (point) t))
+      (message "winsav-save-frame b.0.3")
+      (message "winsav-save-frame b.1")
+      (replace-regexp (rx "#<buffer "
+                          (1+ (not (any ">")))
+                          (1+ ">")) ;; 1+ for indirect buffers ...
+                      "buffer"
+                      nil start end)
+      (message "winsav-save-frame b.2")
+      (replace-regexp (rx "#<window "
+                          (1+ (not (any ">")))
+                          (1+ ">"))
+                      "nil"
+                      nil start end)
+      (message "winsav-save-frame c")
+      (goto-char end)
+      ;;use-minibuffer-frame
+      (insert (if mb-frm-nr
+                  (format "(nth %s (reverse winsav-loaded-frames))" mb-frm-nr)
+                "nil")
+              (if was-max " t " " nil ")
+              ")\n\n")
 
-    (insert "    ;; ---- before after-save-frame-hook ----\n")
-    ;; (dolist (fun winsav-after-save-frame-hook)
-    ;;   (funcall fun frame (current-buffer)))
-    (run-hooks winsav-after-save-frame-hook)
-    (insert "    ;; ---- after after-save-frame-hook  ----\n")
+      (insert "    ;; ---- before after-save-frame-hook ----\n")
+      ;; (dolist (fun winsav-after-save-frame-hook)
+      ;;   (funcall fun frame (current-buffer)))
+      (run-hooks winsav-after-save-frame-hook)
+      (message "winsav-save-frame d")
+      (insert "    ;; ---- after after-save-frame-hook  ----\n")
 
-    ;;(insert "  )\n\n\n")
-    ))
+      ;;(insert "  )\n\n\n")
+      )))
 
 (defvar winsav-file-version "1"
   "Version number of winsav file format.
@@ -1053,7 +1091,9 @@ Fix-me: RELEASE is not implemented."
       (ecb-minor-mode -1)
       (sit-for 0) ;; Fix-me: is this needed?
       )
+    (message "winsav-save-config:here a")
     (with-temp-buffer
+      (message "winsav-save-config:here b")
       ;;(erase-buffer)
       (insert
        ";; -*- mode: emacs-lisp; coding: utf-8; -*-\n"
@@ -1065,31 +1105,48 @@ Fix-me: RELEASE is not implemented."
        ";; Emacs version " emacs-version "\n\n"
        "(if (not (winsav-can-read-config " winsav-file-version "))\n\n"
        "    (message \"Winsav: Can't read config file with version " winsav-file-version "\")\n")
+      (message "winsav-save-config:here c")
       (insert ";; ---- indirect buffers ------------------------\n")
       (winsav-save-indirect-buffers)
+      (message "winsav-save-config:here c.1")
       ;;(insert ";; ---- special minibuffers ------------------------\n")
       (winsav-save-minibuffers sorted-frames)
+      (message "winsav-save-config:here c.2")
       (insert "(setq winsav-loaded-frames nil)\n")
       (insert ";; ---- before winsav-before-save-configuration-hook ------------------------\n")
       (run-hooks 'winsav-before-save-configuration-hook)
+      (message "winsav-save-config:here c.2a")
       (insert ";; ---- after winsav-before-save-configuration-hook  ------------------------\n\n")
       (dolist (frm sorted-frames)
         (let ((mb-frm-nr (cadr (assoc frm-nr winsav-minibuffer-alist)))
               ;;(mb-frm (when mb-frm-nr (nth mb-frm-nr sorted-frames)))
               )
-          (winsav-save-frame frm mb-frm-nr)
+          (message "winsav-save-config:here c.2b.1 cb=%s frm=%s" (current-buffer) frm)
+          (winsav-save-frame frm mb-frm-nr (current-buffer))
+          (message "winsav-save-config:here c.2b.2")
           (setq frm-nr (1+ frm-nr))))
+      (message "winsav-save-config:here c.2c")
       (insert ";; ---- dedicated windows ------------------------\n")
       (winsav-save-dedicated-windows sorted-frames)
+      (message "winsav-save-config:here c.3")
       (insert ";; ---- ECB --------------------------------------\n")
       (winsav-save-ecb frame-ecb layout-ecb sorted-frames)
+      (message "winsav-save-config:here c.4")
       (insert "\n\n;; ---- before winsav-after-save-configuration-hook  ------------------------\n")
       (run-hooks 'winsav-after-save-configuration-hook)
+      (message "winsav-save-config:here c.5")
+      (insert "\n\n;; ---- before winsav-after-save-configuration-hook  ------------------------\n")
+      (run-hooks 'winsav-after-save-configuration-hook)
+      (message "winsav-save-config:here c.6")
       (insert ";; ---- after winsav-after-save-configuration-hook   ------------------------\n")
       (insert "\n)\n")
+      (message "winsav-save-config:here d")
       (emacs-lisp-mode)
+      (message "winsav-save-config:here e")
       (pp-buffer)
+      (message "winsav-save-config:here f")
       (indent-region (point-min) (point-max))
+      (message "winsav-save-config:here g")
       ;;(save-buffer 0) ;; No backups
       ;;(kill-buffer)
 
@@ -1098,6 +1155,7 @@ Fix-me: RELEASE is not implemented."
         (write-region (point-min) (point-max) file nil 'nomessage))
       (setq winsav-file-modtime (nth 5 (file-attributes file)))
       (setq winsav-dirname (file-name-as-directory (file-name-directory file)))
+      (message "winsav-save-config:here h")
       )))
 
 (defvar winsav-current-config-name nil)
@@ -1119,7 +1177,8 @@ Delete the frames that were used before."
     (if (or (not conf-file)
             (not (file-exists-p conf-file)))
         (progn
-          (message "Winsav: No default configuration file found")
+          (message (propertize "Winsav: No default configuration file found"
+                               'face 'secondary-selection))
           t) ;; Ok
       (setq debug-on-error t) ;; fix-me
       (if (file-exists-p conf-file)
@@ -1296,7 +1355,9 @@ Run this before Emacs exits."
 	;;(winsav-save winsav-dirname t)
 	(winsav-save-configuration winsav-dirname)
       (file-error
-       (unless (yes-or-no-p "Error while saving winsav config: %s  Save anyway? " (error-message-string err))
+       (unless (yes-or-no-p
+                (format "Error while saving winsav config: %s  Save anyway? "
+                        (error-message-string err)))
 	 (signal (car err) (cdr err))))))
   ;; If we own it, we don't anymore.
   ;;(when (eq (emacs-pid) (winsav-owner)) (winsav-release-lock))

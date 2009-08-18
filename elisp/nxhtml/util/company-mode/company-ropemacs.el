@@ -18,7 +18,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (eval-when-compile (require 'cl))
-(require 'pymacs)
+(require 'pymacs nil t)
 
 (unless (fboundp 'rope-completions)
   (pymacs-load "ropemacs" "rope-"))

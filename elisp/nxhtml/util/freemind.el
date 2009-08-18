@@ -1,9 +1,9 @@
 ;;; freemind.el --- Export to FreeMind
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
-;; Created: 2008-02-19T17:52:56+0100 Tue
-;; Version: 0.59
-;; Last-Updated: 2009-05-23 Sat
+;; Created: 2008-02-19 Tue
+(defconst freemind:version "0.60") ;; Version:
+;; Last-Updated: 2009-08-04 Tue
 ;; URL:
 ;; Keywords:
 ;; Compatibility:

@@ -118,16 +118,15 @@
     (company-mode 1)
     (company-set-major-mode-backend)))
 
-(defcustom popcmp-completion-style (cond ((and (fboundp 'global-company-mode)
-                                               'company-mode)
-                                          'company-mode)
-                                         (t 'emacs-default))
+(defcustom popcmp-completion-style (cond
+                                    ;;((and (fboundp 'global-company-mode) 'company-mode) 'company-mode)
+                                    (t 'popcmp-popup))
   "Completion style.
 The currently available completion styles are:
 
-- Company Mode completion (default if available).
-- popcmp-popup: Use OS popup menus (default if not above is).
+- popcmp-popup: Use OS popup menus (default).
 - emacs-default: Emacs default completion.
+- Company Mode completion.
 - anything: The Anything elisp lib completion style.
 
 The style of completion set here is not implemented for all
@@ -238,16 +237,17 @@ This works in the same circumstances as
 
 (defun popcmp-completing-read-1 (prompt collection
                                         predicate require-match
-                                        initial-input hist def inherit-input-method alt-help alt-sets)
+                                        initial-input hist2 def inherit-input-method alt-help alt-sets)
+  ;; Fix-me: must rename hist to hist2 in par list. Emacs bug?
   (cond
    ((eq popcmp-completion-style 'emacs-default)
-    (completing-read prompt collection predicate require-match initial-input hist def inherit-input-method))
+    (completing-read prompt collection predicate require-match initial-input hist2 def inherit-input-method))
    ((eq popcmp-completion-style 'anything)
-    (popcmp-anything prompt collection predicate require-match initial-input hist def inherit-input-method
+    (popcmp-anything prompt collection predicate require-match initial-input hist2 def inherit-input-method
                      alt-help alt-sets))
    ((eq popcmp-completion-style 'company-mode)
     ;; No way to read this from company-mode, use emacs-default
-    (completing-read prompt collection predicate require-match initial-input hist def inherit-input-method))
+    (completing-read prompt collection predicate require-match initial-input hist2 def inherit-input-method))
    (t (error "Do not know popcmp-completion-style %S" popcmp-completion-style))))
 
 (defun popcmp-completing-read-other (prompt

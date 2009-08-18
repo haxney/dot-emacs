@@ -246,17 +246,23 @@ You must restart Emacs to use the byte compiled files.
 If for some reason the byte compiled files does not work you can
 remove then with `nxhtmlmaint-byte-uncompile-all'."
   (interactive)
-  (let ((this-file (expand-file-name "nxhtmlmaint.el" nxhtmlmaint-dir))
-        (auto-file (expand-file-name "autostart.el" nxhtmlmaint-dir)))
-    ;;(message "this-file=%s" this-file)
+  (let* ((this-file (expand-file-name "nxhtmlmaint.el" nxhtmlmaint-dir))
+         (auto-file (expand-file-name "autostart.el" nxhtmlmaint-dir))
+         (this-emacs (locate-file invocation-name
+                                  (list invocation-directory)
+                                  exec-suffixes))
+         (process-args `(,this-emacs nil 0 nil "-Q")))
     (nxhtmlmaint-byte-uncompile-all)
-    ;;(nxhtmlmaint-get-all-autoloads)
-    (require 'ourcomments-util)
-    (call-process (ourcomments-find-emacs) nil 0 nil "-Q"
-                  "-l" this-file
-                  "-l" auto-file
-                  "-f" "nxhtmlmaint-byte-compile-all"))
-  (message "Starting new Emacs instance for byte compiling ..."))
+    (if noninteractive
+        (nxhtmlmaint-byte-compile-all)
+      ;;(when noninteractive (setq process-args (append process-args '("-batch"))))
+      (setq process-args (append process-args
+                                 (list "-l" this-file
+                                       "-l" auto-file
+                                       "-f" "nxhtmlmaint-byte-compile-all")))
+      (message "process-args=%S" process-args)
+      (message "Starting new Emacs instance for byte compiling ...")
+      (apply 'call-process process-args))))
 
 ;;(nxhtmlmaint-byte-compile-all)
 (defun nxhtmlmaint-byte-compile-all ()

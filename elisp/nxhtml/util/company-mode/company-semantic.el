@@ -18,7 +18,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (require 'company)
-(require 'semantic-ia)
+(require 'semantic-iai nil t)
 (eval-when-compile (require 'cl))
 
 (defcustom company-semantic-metadata-function 'company-semantic-summary-and-doc

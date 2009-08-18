@@ -46,10 +46,7 @@
           <dt id="hadron-bugs" style="margin-top:1em;">Thanks for testing!</dt>
           <dd>
             <p>
-              I want to thanks the testers (who have been many now),
-              especially to my first testers Hadron Quark and Eric
-              Lilja, for helping me by testing and pointing out bugs
-              and weaknesses, most of them related to editing of PHP.
+              I want to thanks the testers (who have been many now), especially to my first testers Hadron Quark and Eric Lilja, for helping me by testing and pointing out bugs and weaknesses, most of them related to editing of PHP.
             </p>
             <p>
               Without testers all kind of problems I just can't
@@ -293,6 +290,12 @@
           <a href="#v1.86">v1.86</a>
           <a href="#v1.87">v1.87</a>
           <a href="#v1.88">v1.88</a>
+          <a href="#v1.89">v1.89</a>
+          <a href="#v1.90">v1.90</a>
+          <a href="#v1.91">v1.91</a>
+          <a href="#v1.92">v1.92</a>
+          <a href="#v1.93">v1.93</a>
+          <a href="#v1.94">v1.94</a>
         </div>
 
         <dl>
@@ -1133,15 +1136,7 @@
                 mumamo-mode is turned on.
               </li>
               <li>
-                Some users want to use their own patched version of
-                nXml. Next version of Emacs will come with
-                nXml. Therefore, the loading routine for nXhtml now
-                checks if nXml is is already loaded. Thanks to Eric
-                Lilja for testing this.  Eric also made me aware of
-                that if nXhtml was placed in the site-lisp directory
-                tree then things did not work as I expected. I think I
-                have corrected that by placing a <i>.nosearch</i> file
-                at the top of the nxml tree in nXhtml.
+                Some users want to use their own patched version of nXml. Next version of Emacs will come with nXml. Therefore, the loading routine for nXhtml now checks if nXml is is already loaded. Thanks to Eric Lilja for testing this.  Eric also made me aware of that if nXhtml was placed in the site-lisp directory tree then things did not work as I expected. I think I have corrected that by placing a <i>.nosearch</i> file at the top of the nxml tree in nXhtml.
               </li>
               <li>
                 Restructured the directories. Moved some files out of
@@ -1481,17 +1476,14 @@
                     them are fixed.
                   </li>
                   <li>
-                    Fixed documentation and reordered code in mumamo.el
-                    and mumamo-fun.el.
+                    Fixed documentation and reordered code in mumamo.el and mumamo-fun.el.
                   </li>
                   <li>
                     Changed javascript.el indentation to make it work with
                     mumamo.el.
                   </li>
                   <li>
-                    Introduced the function
-                    <i>mumamo-make-variable-buffer-permanent</i> as an aid for
-                    minor mode authors.
+                    Introduced the function <i>mumamo-make-variable-buffer-permanent</i> as an aid for minor mode authors.
                   </li>
                   <li>
                     Fixed quite a few indentation bugs.
@@ -1503,8 +1495,8 @@
                 nxml-where, mlinks
                 <ul>
                   <li>
-                    Fixed bugs with left over idle timers when buffer had
-                    been killed (nxml-where.el, mlinks.el).
+                    Fixed bugs with left over idle timers when buffer
+                    had been killed (nxml-where.el, mlinks.el).
                   </li>
                 </ul>
               </li>
@@ -1541,12 +1533,7 @@
                 Made nXhtml menu available in sub-chunks.
               </li>
               <li>
-                Included a slightly changed version of Steve Yegge's
-                js2.el + js2-fl-mode.el from 2008-04-24 with support for
-                jit-lock-mode.  This support has some flaws and maybe
-                js2 is not ready for use, I am not sure.  However if you want
-                to use this instead of Karl Landströms javascript-mode
-                then please customize <i>mumamo-major-modes</i>.
+                Included a slightly changed version of Steve Yegge's js2.el + js2-fl-mode.el from 2008-04-24 with support for jit-lock-mode.  This support has some flaws and maybe js2 is not ready for use, I am not sure.  However if you want to use this instead of Karl Landströms javascript-mode then please customize <i>mumamo-major-modes</i>.
               </li>
             </ul>
           </dd>
@@ -1745,11 +1732,7 @@
                 nXhtml:
                 <ul>
                   <li>
-                    Added support for
-                    <a href="http://hyperstruct.net/projects/mozlab">MozLab</a>. If
-                    you install MozLab in Firefox then you can
-                    directly use it from javascript mode without any
-                    additional setup.
+                    Added support for <a href="http://hyperstruct.net/projects/mozlab">MozLab</a>. If you install MozLab in Firefox then you can directly use it from javascript mode without any additional setup.
                   </li>
                   <li>
                     Added <a href="http://www.oak.homeunix.org/~marcel/blog/articles/2008/07/18/nested-imenu-for-php">php-imenu.el</a>.
@@ -1906,8 +1889,8 @@
           <dd id="v1.41-dd">
             <ul>
               <li>
-                There was an error that prevented loading of nXhtml with Emacs 22.
-                (This was before opening any file.)
+                There was an error that prevented loading of nXhtml
+                with Emacs 22.  (This was before opening any file.)
               </li>
               <li>
                 Fixed a problem in startup order for ido-mode and nXhtml.
@@ -2843,7 +2826,7 @@
               </li>
             </ul>
           </dd>
-          <dt id="v1.88">1.88 -- Not yet released</dt>
+          <dt id="v1.88">1.88 -- Never released, only betas</dt>
           <dd id="v1.88-dd">
             <ul>
               <li>
@@ -2851,8 +2834,10 @@
                 <ul>
                   <li>
                     <span class="bugfix">
-                      Background colors could not be removed by setting <i>mumamo-background-coloring</i>.
-                      Fixed, but please notice that this variable now is a number.
+                      Background colors could not be removed by
+                      setting <i>mumamo-background-coloring</i>.
+                      Fixed, but please notice that this variable now
+                      is a number.
                     </span>
                   </li>
                   <li>
@@ -2861,33 +2846,50 @@
                   <li>
                     <span class="bugfix">Removed string-match-p which does not exist in Emacs 22.</span>
                   </li>
+                  <li>
+                    <span class="bugfix">
+                      mumamo-alt-php-tags-mode hardly survived major mode
+                      changes. Rescued.
+                    </span>
+                  </li>
+                  <li>
+                    <span class="bugfix">
+                      Added possibility to display chunk info in
+                      window margins as an alternative/addon to
+                      colored chunks.
+                    </span>
+                  </li>
+                  <li>
+                    <span class="bugfix">
+                      Fixed a bug in n-back.el that prevented the game to be used on Emacs 22.
+                    </span>
+                  </li>
                 </ul>
               </li>
               <li>
-                Made espresso-mode the default for Javascript.
+                Bug fixes and changes to udev for CEDET and ECB. (Udev
+                is a little utility to fetch and install dev sources.)
+                <ul>
+                  <li>
+                    <span class="bugfix">
+                      Changed default directory for installing CEDET and
+                      ECB to be under <i>~/.emacs.d/udev/</i>.
+                    </span>
+                  </li>
+                  <li>
+                    <span class="bugfix">
+                      Several bug fixes for udev.
+                      It should now work again (it did not if you compiled nXhtml).
+                    </span>
+                  </li>
+                </ul>
               </li>
               <li>
-                <span class="bugfix">
-                  mumamo-alt-php-tags-mode hardly survived major mode
-                  changes. Rescued.
-                </span>
-              </li>
-              <li>
-                Added support in inlimg-mode to show images in org-mode.
-                Also made inlimg-mode use font lock.
-              </li>
-              <li>
-                Added support
-                for <a href="http://www.emacswiki.org/emacs/Anything">anything
-                style completion</a> in XHTML completion.
-              </li>
-              <li>
-                Added support
-                for <a href="http://www.emacswiki.org/emacs/CompanyMode">Company
-                Mode</a> style completion.  Temporary included a copy
-                of Company Mode with bug fixes and changes needed for nXhtml and
-                Viper.  It also include a lot of other small features
-                (which I hope can be included in Company Mode).
+                Added support for <a href="http://www.emacswiki.org/emacs/CompanyMode">Company Mode</a> style completion.  Temporary included a copy of Company Mode with bug fixes and changes needed for nXhtml and Viper.  It also include a lot of other small features (which I hope can be included in Company Mode).  On of these is integration with <a href="http://www.emacswiki.org/emacs/PredictiveMode">Predictive Mode</a>. (You have to get Predictive Mode yourself. If you want to install it on MS Windows I recommend using the latest version of Cygwin. A smaller change to the Makefile is required, there is one absolute path you probably want to remove.)
+                <p class="bugfix">
+                  Note: I thought that I should make Company Mode the default completion style.
+                  However there are still some problem so I kept the old default completion style.
+                </p>
               </li>
               <li>
                 TabKey2:
@@ -2899,6 +2901,135 @@
                     Made completion only occur at word ends.
                   </li>
                 </ul>
+              </li>
+              <li>
+                Added support for <a href="http://www.emacswiki.org/emacs/Anything">anything style completion</a> in XHTML completion.
+              </li>
+              <li>
+                Added support in inlimg-mode to show images in org-mode. (Also made inlimg-mode use font lock which makes it more reliable.)
+              </li>
+              <li>
+                Included espresso-mode (with some possible bug fixes).  Not yet the default for Javascript.
+              </li>
+              <li>
+                <p class="bugfix">
+                  Added simple functions for mirroring html files in
+                  Firefox as typing.  This works - at least for small
+                  files.  There is also support for automatic update
+                  of Firefox when saving CSS files.
+                </p>
+                <p>
+                  This is a simple framework for communicating with
+                  MozRepl which enqueues requests, waiting for
+                  response prompt before sending next requests.
+                  <span class="bugfix">Maybe this can be used to make
+                  some more efficient routines than those I have
+                  written here.  Any takers?</span>
+                </p>
+                <p>
+                  For larger files (like this one) this version is
+                  rather slow since it always changes the whole DOM.
+                </p>
+              </li>
+              <li>
+                <span class="bugfix">
+                  Rewrote <i>nxml-where-mode</i> to be more efficient and
+                  fixed some minor bugs.  It can now also be used with
+                  MozRepl to track position in file.
+                </span>
+              </li>
+              <li>
+                <span class="bugfix">
+                  Made <i>winsav-save-mode</i> remember maximized state and forget about empty non-file buffers.
+                </span>
+              </li>
+              <li>
+                <span class="bugfix">
+                  Added workaround for <a href="http://emacsbugs.donarmstrong.com/cgi-bin/bugreport.cgi?bug=4015">Emacs bug 4015 on w32</a>.
+                </span>
+              </li>
+              <li>
+                Added <i>ourcomments-M-x-menu-mode</i> which <a
+                href="http://lists.gnu.org/archive/html/emacs-devel/2009-07/msg01025.html">adds menu commands to M-x history</a>.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.89">1.89 -- Released 2009-08-04</dt>
+          <dd id="v1.89-dd">
+            <ul>
+              <li>
+                The release version of all the fixes in beta 1.88.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.90">1.90 -- Released 2009-08-04</dt>
+          <dd id="v1.90-dd">
+            <ul>
+              <li>
+                <span class="bugfix">
+                  Made wrap-to-fill-column-mode cooperate a bit with
+                  mumamo-margin-info-mode.
+                </span>
+              </li>
+              <li>
+                Made an inventory of utilities in nXhtml and made some
+                of them more visible in the menus.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.91">1.91 -- Released 2009-08-04</dt>
+          <dd id="v1.91-dd">
+            <ul>
+              <li>
+                <span class="bugfix">
+                  Mumamo bug fix for bug reported on Emacs wiki today. Inline scripts end tag could not be in column one if previous line had a // style js comment.
+                </span>
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.92">1.92 -- Released 2009-08-04</dt>
+          <dd id="v1.92-dd">
+            <ul>
+              <li>
+                <span class="bugfix">
+                  An Emacs bug that sometimes prevent changing local keymap in a timer hit us.  Made a workaround.
+                </span>
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.93">1.93 -- Released 2009-08-04</dt>
+          <dd id="v1.93-dd">
+            <ul>
+              <li>
+                <span class="bugfix">
+                  Minor bug in menus gave major problem. Fixed - I hope.
+                </span>
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.94">1.94 -- Not yet released</dt>
+          <dd id="v1.94-dd">
+            <ul>
+              <li>
+                <span class="bugfix">
+                  <i>wrap-to-fill-column-mode</i> calculated window width wrongly so that the displayed wrapping was not consistent with what fill-paragraph would give. Corrected together with some other bugs in it.
+                </span>
+              </li>
+              <li>
+                <span class="bugfix">
+                  Fixed an indentation bug in php-mode I introduced when I fixed another indentation bug for heredoc endings.
+                </span>
+              </li>
+              <li>
+                Improved external editing of web mail.
+              </li>
+              <li>
+                Removed <i>js2-mode</i> (and my attempts to make it work with
+                mumamo) since it is now part of Emacs devel sources. Since js2-mode does not use font-lock its integration with mumamo have to wait until it does that.
+              </li>
+              <li>
+                Reworked <b>folding</b> a bit so it is more useful.
+                There is a new minor mode, <i>foldit-mode</i>, that shows better markers for folding. There is a new entry in the <i>nXhtml / Tools</i> menu for folding. <i>fold-dwim-toggle</i> now alwo toggles images and <i>html-write-mode</i> things. In html it first checks for headers then does tag block style visibility toggling.
               </li>
             </ul>
           </dd>

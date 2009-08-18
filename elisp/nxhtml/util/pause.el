@@ -1,9 +1,9 @@
 ;;; pause.el --- Take a break!
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
-;; Created: 2008-01-19T02:51:39+0100 Sat
-;; Version: 0.64
-;; Last-Updated: 2008-06-15T11:55:21+0200 Sun
+;; Created: 2008-01-19 Sat
+(defconst pause:version "0.64");; Version:
+;; Last-Updated: 2009-08-04 Tue
 ;; URL:
 ;; Keywords:
 ;; Compatibility:
@@ -318,6 +318,7 @@
              (lwarn 'pause-break-in-timer2 :error "%s" (error-message-string err))
              )))))))
 
+;;;###autoload
 (define-minor-mode pause-mode
   "This minor mode tries to make you take a break!
 To customize it see:

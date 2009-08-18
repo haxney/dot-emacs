@@ -247,7 +247,7 @@ in buffers."
         (setq font-lock-keywords (cadr font-lock-keywords))
         (font-lock-mode 1))
       (message "majmodpri-apply-priorities: buffer=%s, %s,%s => %s,%s"
-               buffer
+               (current-buffer)
                old-major-mode
                old-mumamo-multi-major-mode
                major-mode

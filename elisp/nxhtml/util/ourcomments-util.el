@@ -1,9 +1,9 @@
 ;;; ourcomments-util.el --- Utility routines
 ;;
 ;; Author: Lennart Borgman <lennart dot borgman at gmail dot com>
-;; Created: Wed Feb 21 23:19:07 2007
-(defconst ourcomments-util:version "0.24") ;;Version:
-;; Last-Updated: 2008-08-11T12:25:12+0200 Mon
+;; Created: Wed Feb 21 2007
+(defconst ourcomments-util:version "0.25") ;;Version:
+;; Last-Updated: 2009-08-04 Tue
 ;; Keywords:
 ;; Compatibility: Emacs 22
 ;;
@@ -859,235 +859,6 @@ what they will do ;-)."
 ;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Wrapping
-
-;;;###autoload
-(defcustom wrap-to-fill-left-marg nil
-  "Left margin handling for `wrap-to-fill-column-mode'.
-Used by `wrap-to-fill-column-mode'. If nil then center the
-display columns. Otherwise it should be a number which will be
-the left margin."
-  :type '(choice (const :tag "Center" nil)
-                 (integer :tag "Left margin"))
-  :group 'convenience)
-(make-variable-buffer-local 'wrap-to-fill-left-marg)
-
-(defvar wrap-to-fill-left-marg-use 0)
-(make-variable-buffer-local 'wrap-to-fill-left-marg-use)
-(put 'wrap-to-fill-left-marg-use 'permanent-local t)
-
-;;;###autoload
-(defcustom wrap-to-fill-left-marg-modes
-  '(text-mode
-    fundamental-mode)
-  "Major modes where `wrap-to-fill-left-margin' may be nil."
-  :type '(repeat commandp)
-  :group 'convenience)
-
-(defun wrap-to-fill-set-prefix (min max)
-  ;;(wrap-to-fill-set-prefix-1 min max)
-  )
-
-(defun wrap-to-fill-set-prefix-1 (min max)
-  "Set `wrap-prefix' text property from point MIN to MAX."
-  ;; Fix-me: If first word gets wrapped we have a problem.
-  ;;(message "wrap-to-fill-set-prefix here")
-  (let ((here (point))
-        beg-pos
-        end-pos
-        ind-str
-        max-word-len
-        (inhibit-field-text-motion t)
-        )
-    (goto-char min)
-    (forward-line 0)
-    (when (< (point) min) (forward-line))
-    (mumamo-with-buffer-prepared-for-jit-lock
-     (while (and (<= (point) max)
-                 (< (point) (point-max)))
-       (setq beg-pos (point))
-       (setq end-pos (line-end-position))
-       (when (equal (get-text-property beg-pos 'wrap-prefix)
-                    (get-text-property beg-pos 'wrap-to-fill-prefix))
-         (skip-chars-forward "[:blank:]")
-         (setq ind-str (buffer-substring-no-properties beg-pos (point)))
-         (setq max-word-len
-               (apply
-                'max
-                0
-                (mapcar (lambda (word)
-                              (length word))
-                            (split-string
-                             (buffer-substring-no-properties
-                              (point) end-pos)))))
-         ;;(message "max-word-len=%s, %s, %s" max-word-len (length ind-str) (buffer-substring-no-properties (point) end-pos))
-         (unless (< fill-column (+ max-word-len
-                                   ;;(current-indentation)
-                                   (length ind-str)
-                                   5 ;; Fix-me: From where?? This is the diff between the usable area and fill-column ...
-                                   ))
-           (put-text-property beg-pos end-pos 'wrap-prefix ind-str)
-           (put-text-property beg-pos end-pos 'wrap-to-fill-prefix ind-str)))
-       (forward-line)))
-    (goto-char here)))
-
-(defvar wrap-to-fill-after-change-range nil)
-
-(defun wrap-to-fill-after-change (min max old-len)
-  "For `after-change-functions'.
-See the hook for MIN, MAX and OLD-LEN."
-  (let ((here (point))
-        (inhibit-field-text-motion t))
-    (goto-char min)
-    (setq min (line-beginning-position))
-    (goto-char max)
-    (setq max (line-end-position))
-    ;;(wrap-to-fill-set-prefix min max)
-    (wrap-to-fill-save-min-max min max)
-    ))
-
-(defun wrap-to-fill-save-min-max (min max)
-  (let* ((old-min (car wrap-to-fill-after-change-range))
-         (old-max (cdr wrap-to-fill-after-change-range))
-         (new-min (if old-min (min old-min min) min))
-         (new-max (if old-max (max old-max max) max)))
-    (setq wrap-to-fill-after-change-range (cons new-min new-max))))
-
-(defun wrap-to-fill-post-command ()
-  (let* ((min (car wrap-to-fill-after-change-range))
-         (max (cdr wrap-to-fill-after-change-range)))
-    (setq wrap-to-fill-after-change-range nil)
-    (wrap-to-fill-set-prefix min max)))
-
-(defun wrap-to-fill-scroll-fun (window start-pos)
-  "For `window-scroll-functions'.
-See the hook for WINDOW and START-POS."
-  (let ((min (or start-pos (window-start window)))
-        (max (window-end window t)))
-    (wrap-to-fill-save-min-max min max)))
-    ;;(wrap-to-fill-set-prefix min max)))
-
-(defun wrap-to-fill-wider ()
-  "Increase `fill-column' with 10."
-  (interactive)
-  (setq fill-column (+ fill-column 10))
-  (wrap-to-fill-set-values))
-
-(defun wrap-to-fill-narrower ()
-  "Decrease `fill-column' with 10."
-  (interactive)
-  (setq fill-column (- fill-column 10))
-  (wrap-to-fill-set-values))
-
-(defvar wrap-to-fill-column-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map [(control ?c) right] 'wrap-to-fill-wider)
-    (define-key map [(control ?c) left] 'wrap-to-fill-narrower)
-    map))
-
-;;;###autoload
-(define-minor-mode wrap-to-fill-column-mode
-  "Use `fill-column' display columns in buffer windows.
-By default the display columns are centered, but see the option
-`wrap-to-fill-left-marg'.
-
-Note 1: When turning this on `visual-line-mode' is also turned on. This
-is not reset when turning off this mode.
-
-Note 2: The text property `wrap-prefix' is set by this mode to
-indent continuation lines.  This is not recorded in the undo
-list.
-
-Key bindings added by this minor mode:
-
-\\{wrap-to-fill-column-mode-map}"
-  ;; Fix-me: make the `wrap-prefix' behavior an option.
-  :lighter " WrapFill"
-  :group 'convenience
-  ;;(message "wrap-to-fill-column-mode here %s" wrap-to-fill-column-mode)
-  (if wrap-to-fill-column-mode
-      (progn
-        (setq wrap-to-fill-left-marg-use wrap-to-fill-left-marg)
-        (unless (or wrap-to-fill-left-marg-use
-                    (memq major-mode wrap-to-fill-left-marg-modes))
-          (setq wrap-to-fill-left-marg-use
-                (default-value 'wrap-to-fill-left-marg-use)))
-        (add-hook 'window-configuration-change-hook 'wrap-to-fill-set-values nil t)
-        (add-hook 'after-change-functions 'wrap-to-fill-after-change nil t)
-        (add-hook 'window-scroll-functions 'wrap-to-fill-scroll-fun nil t)
-        (add-hook 'post-command-hook 'wrap-to-fill-post-command nil t)
-        ;;(add-hook 'post-command-hook window-scroll-functions 'wrap-to-fill-scroll-fun nil t)
-        (if (fboundp 'visual-line-mode)
-            (visual-line-mode 1)
-          (longlines-mode 1))
-        (dolist (window (get-buffer-window-list (current-buffer)))
-          (wrap-to-fill-scroll-fun window nil)))
-    (remove-hook 'window-configuration-change-hook 'wrap-to-fill-set-values t)
-    (remove-hook 'after-change-functions 'wrap-to-fill-after-change t)
-    (remove-hook 'window-scroll-functions 'wrap-to-fill-scroll-fun t)
-    (if (fboundp 'visual-line-mode)
-        (visual-line-mode -1)
-      (longlines-mode -1))
-    (let ((here (point))
-          (inhibit-field-text-motion t)
-          beg-pos
-          end-pos)
-      (mumamo-with-buffer-prepared-for-jit-lock
-       (save-restriction
-         (widen)
-         (goto-char (point-min))
-         (while (< (point) (point-max))
-           (setq beg-pos (point))
-           (setq end-pos (line-end-position))
-           (when (equal (get-text-property beg-pos 'wrap-prefix)
-                        (get-text-property beg-pos 'wrap-to-fill-prefix))
-             (remove-list-of-text-properties
-              beg-pos end-pos
-              '(wrap-prefix)))
-           (forward-line))
-         (remove-list-of-text-properties
-          (point-min) (point-max)
-          '(wrap-to-fill-prefix)))
-       (goto-char here))))
-  (wrap-to-fill-set-values))
-(put 'wrap-to-fill-column-mode 'permanent-local t)
-
-;; Fix-me: There is a confusion between buffer and window margins
-;; here. Also the doc says that left-margin-width and dito right may
-;; be nil. However they seem to be 0 by default, but when displaying a
-;; buffer in a window then window-margins returns (nil).
-(defun wrap-to-fill-set-values ()
-  (condition-case err
-      (wrap-to-fill-set-values-1)
-    (error (message "ERROR wrap-to-fill-set-values-1: %s" (error-message-string err)))))
-
-(defun wrap-to-fill-set-values-1 ()
-  "Use `fill-column' display columns in buffer windows."
-  ;;(message "wrap-to-fill-set-values window-configuration-change-hook=%s, wrap-to-fill-column-mode=%s, cb=%s" window-configuration-change-hook wrap-to-fill-column-mode (current-buffer))
-  (let ((buf-windows (get-buffer-window-list (current-buffer))))
-    ;;(message "buf-windows=%s" buf-windows)
-    (dolist (win buf-windows)
-      (if wrap-to-fill-column-mode
-          (let* ((edges (window-edges win))
-                 (win-width (- (nth 2 edges) (nth 0 edges)))
-                 (extra-width (- win-width fill-column))
-                 (left-marg (if wrap-to-fill-left-marg-use
-                                wrap-to-fill-left-marg-use
-                              (- (/ extra-width 2) 1)))
-                 (right-marg (- win-width fill-column left-marg))
-                 (win-margs (window-margins win))
-                 (old-left (or (car win-margs) 0))
-                 (old-right (or (cdr win-margs) 0)))
-            ;;(message "left-marg=%s, right-marg=%s, old-left=%s, old-right=%s" left-marg right-marg old-left old-right)
-            (unless (> left-marg 0) (setq left-marg 0))
-            (unless (> right-marg 0) (setq right-marg 0))
-            (unless (and (= old-left left-marg)
-                         (= old-right right-marg))
-              (set-window-margins win left-marg right-marg)))
-        (set-window-buffer win (current-buffer))))))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Fringes.
 
 (defvar better-bottom-angles-defaults nil)
@@ -1210,7 +981,13 @@ and go to the same line number as in the current buffer."
 The purpose of this function is to make it eaiser to start
 `ediff-files' from a shell through Emacs Client.
 
-This is used in EmacsW32 in the file ediff.cmd."
+This is used in EmacsW32 in the file ediff.cmd where Emacs Client
+is called like this:
+
+  @%emacs_client% -e \"(setq default-directory \\\"%emacs_cd%\\\")\"
+  @%emacs_client% -n  -e \"(ediff-files \\\"%f1%\\\" \\\"%f2%\\\")\"
+
+It can of course be done in a similar way with other shells."
   (let ((default-directory def-dir))
     (ediff-files file-a file-b)))
 
@@ -1275,16 +1052,16 @@ PREDICATE.  PREDICATE takes one argument, the symbol."
 (defun describe-command (command)
   "Like `describe-function', but prompts only for interactive commands."
   (interactive
-   (let ((fn (ourcomments-command-at-point))
-	 (enable-recursive-minibuffers t)
-	 val)
-     (setq val (completing-read (if fn
-				    (format "Describe command (default %s): " fn)
-				  "Describe command: ")
+   (let* ((fn (ourcomments-command-at-point))
+          (prompt (if fn
+                      (format "Describe command (default %s): " fn)
+                    "Describe command: "))
+          (enable-recursive-minibuffers t)
+          val)
+     (setq val (completing-read prompt
 				obarray 'commandp t nil nil
 				(and fn (symbol-name fn))))
-     (list (if (equal val "")
-	       fn (intern val)))))
+     (list (if (equal val "") fn (intern val)))))
   (describe-function command))
 
 
@@ -1405,6 +1182,7 @@ The can include 'variable, 'function and variaus 'cl-*."
    (list
     (ourcomments-read-symbol "Customization group"
                              'ourcomments-custom-group-p)))
+  ;; Fix-me:
   (message "g=%s" symbol))
 ;; nxhtml
 
@@ -1761,6 +1539,30 @@ of those in for example common web browsers."
                ;; in executable-find, why?
                ))
 
+(defvar ourcomments-restart-server-mode nil)
+
+(defun emacs-restart-in-kill ()
+  "Last step in restart Emacs and start `server-mode' if on before."
+  (let ((restart-args (when ourcomments-restart-server-mode
+                        ;; Delay 3+2 sec to be sure the old server has stopped.
+                        (list "--eval=(run-with-idle-timer 5 nil 'server-mode 1)"))))
+    (apply 'call-process (ourcomments-find-emacs) nil 0 nil restart-args)
+    ;; Wait to give focus to new Emacs instance:
+    (sleep-for 3)))
+
+;;;###autoload
+(defun emacs-restart ()
+  "Restart Emacs and start `server-mode' if on before."
+  (interactive)
+  (let ((wait 4))
+    (while (> (setq wait (1- wait)) 0)
+      (message (propertize (format "Will restart Emacs in %d seconds..." wait)
+                           'face 'secondary-selection))
+      (sit-for 1)))
+  (setq ourcomments-restart-server-mode server-mode)
+  (add-hook 'kill-emacs-hook 'emacs-restart-in-kill t)
+  (save-buffers-kill-emacs))
+
 ;;;###autoload
 (defun emacs()
   "Start a new Emacs."
@@ -2073,6 +1875,7 @@ Return full path if found."
           (setq pos (re-search-forward "^>" nil t)))))
     (if pos
         (with-current-buffer bb
+	  ;; Defined in bookmark.el, should be loaded now.
           (bookmark-bmenu-this-window))
       (call-interactively 'bookmark-bmenu-list)
       (message "Please select bookmark for bookmark next command, then press n"))))
@@ -2094,6 +1897,7 @@ Return full path if found."
          link-link
          link-link-beg
          link-link-end
+         new-link
          dir
          ovl)
     (when (and on-link
@@ -2122,6 +1926,66 @@ Return full path if found."
                 t))
           (delete-overlay ovl)
           (goto-char here))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Menu commands to M-x history
+
+;; (where-is-internal 'mumamo-mark-chunk nil nil)
+;; (where-is-internal 'mark-whole-buffer nil nil)
+;; (where-is-internal 'save-buffer nil nil)
+;; (where-is-internal 'revert-buffer nil nil)
+;; (setq extended-command-history nil)
+(defun ourcomments-M-x-menu-pre ()
+  "Add menu command to M-x history."
+  (let ((is-menu-command (equal '(menu-bar)
+                                (elt (this-command-keys-vector) 0)))
+        (pre-len (length extended-command-history)))
+    (when (and is-menu-command
+               (not (memq this-command '(ourcomments-M-x-menu-mode))))
+      (pushnew (symbol-name this-command) extended-command-history)
+      (when (< pre-len (length extended-command-history))
+        ;; This message is given pre-command and is therefore likely
+        ;; to be overwritten, but that is ok in this case. If the user
+        ;; has seen one of these messages s?he knows.
+        (message (propertize "(Added %s to M-x history so you can run it from there)"
+                             'face 'file-name-shadow)
+                 this-command)))))
+
+;;;###autoload
+(define-minor-mode ourcomments-M-x-menu-mode
+  "Add commands started from Emacs menus to M-x history.
+The purpose of this is to make it easier to redo them and easier
+to learn how to do them from the command line \(which is often
+faster if you know how to do it).
+
+Only commands that are not already in M-x history are added."
+  :global t
+  (if ourcomments-M-x-menu-mode
+      (add-hook 'pre-command-hook 'ourcomments-M-x-menu-pre)
+    (remove-hook 'pre-command-hook 'ourcomments-M-x-menu-pre)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Warnings etc
+
+(defvar ourcomments-warnings nil)
+
+(defun ourcomments-display-warnings ()
+  (condition-case err
+      (let ((msg (mapconcat 'identity (reverse ourcomments-warnings) "\n")))
+        (setq ourcomments-warnings nil)
+        (message "%s" (propertize msg 'face 'secondary-selection)))
+    (error (message "ourcomments-display-warnings: %s" err))))
+
+(defun ourcomments-warning-post ()
+  (condition-case err
+      (run-with-idle-timer 0.5 nil 'ourcomments-display-warnings)
+    (error (message "ourcomments-warning-post: %s" err))))
+
+;;;###autoload
+(defun ourcomments-warning (format-string &rest args)
+  (setq ourcomments-warnings (cons (apply 'format format-string args)
+                                   ourcomments-warnings))
+  (add-hook 'post-command-hook 'ourcomments-warning-post))
 
 (provide 'ourcomments-util)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -154,6 +154,8 @@ This also covers inlined style and javascript."
   ("Genshi HTML Family" nxhtml-genshi-mode
    (mumamo-chunk-genshi%
     mumamo-chunk-genshi$
+    mumamo-chunk-py:=
+    mumamo-chunk-py:match
     mumamo-chunk-xml-pi
     mumamo-chunk-alt-php
     mumamo-chunk-inlined-style

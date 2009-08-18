@@ -55,7 +55,7 @@
   "Customization group for udev-cedet."
   :group 'nxhtml)
 
-(defcustom udev-cedet-dir "~/cedet-cvs/"
+(defcustom udev-cedet-dir "~/.emacs.d/udev/cedet-cvs/"
   "Directory where to put CVS CEDET sources."
   :type 'directory
   :group 'udev-cedet)
@@ -64,11 +64,15 @@
   (expand-file-name "cedet/common/cedet.el" udev-cedet-dir))
 
 (defun udev-cedet-load-cedet (must-be-fetched)
+  ;;(message "udev-cedet-load-cedet called, backtrace\n%s" (with-output-to-string (backtrace)))
   (let ((cedet-el (udev-cedet-el-file)))
     ;;(message "cedet-el=%s, exists=%s, mbf=%s" cedet-el (file-exists-p cedet-el) must-be-fetched)
     (unless (featurep 'cedet)
       (if (file-exists-p cedet-el)
-          (load-file cedet-el)
+          (let ((missing-path (file-name-as-directory (expand-file-name "cedet/semantic/bovine/" udev-cedet-dir))))
+            ;; Fix-me: reported as bug on cedet-devel 2009-08-31:
+            (add-to-list 'load-path missing-path)
+            (load-file cedet-el))
         (when must-be-fetched
           (error "Can't find %s" cedet-el)))
       (unless (featurep 'cedet)
@@ -200,24 +204,40 @@ For how to start CEDET see `udev-cedet-load-cedet'.
 
 Note that if you install CEDET yourself you should not use this function."
   (interactive)
-  (setq udev-cedet-update-buffer
-        (udev-call-first-step "*Update CEDET*"
-                              ;;udev-cedet-update-buffer
-                              udev-cedet-steps
-                              "Starting updating CEDET from development sources"
-                              'udev-cedet-setup-when-finished)))
+  (let* ((has-it (file-exists-p (udev-cedet-el-file)))
+         (prompt (if has-it
+                     "Do you want to update CEDET from devel sources? "
+                   "Do you want to install CEDET from devel sources? ")))
+    (when (y-or-n-p prompt)
+      (setq udev-cedet-update-buffer
+            (udev-call-first-step "*Update CEDET*"
+                                  ;;udev-cedet-update-buffer
+                                  udev-cedet-steps
+                                  "Starting updating CEDET from development sources"
+                                  'udev-cedet-setup-when-finished)))))
+
+;;;###autoload
+(defun udev-cedet-customize-startup ()
+  "Customize CEDET dev nXhtml startup group."
+  (interactive)
+  (if (file-exists-p (udev-cedet-el-file))
+      (customize-group-other-window 'udev-cedet)
+    (message (propertize "You must fetch CEDET from nXhtml first"
+                         'face 'secondary-selection))))
 
 (defun udev-cedet-fetch (log-buffer)
   "Fetch CEDET sources (asynchronously)."
   (let ((default-directory (file-name-as-directory udev-cedet-dir)))
     (unless (file-directory-p default-directory)
-      (make-directory default-directory))
-    (with-current-buffer
-        (compilation-start
-         "cvs -z3 -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet co -P cedet"
-         'compilation-mode
-         'udev-cedet-buffer-name)
-      (current-buffer))))
+      (when (yes-or-no-p (concat "Directory " default-directory " does not exist. Create it? "))
+        (make-directory default-directory t)))
+    (when (file-directory-p default-directory)
+      (with-current-buffer
+          (compilation-start
+           "cvs -z3 -d:pserver:anonymous@cedet.cvs.sourceforge.net:/cvsroot/cedet co -P cedet"
+           'compilation-mode
+           'udev-cedet-buffer-name)
+        (current-buffer)))))
 
 (defun udev-cedet-cvs-dir ()
   "Return cvs root directory."
@@ -249,20 +269,21 @@ Note that they will not be installed in current Emacs session."
                         (udev-cedet-cvs-dir)
                         'udev-cedet-buffer-name)))
 
+;;;###autoload
 (defun udev-cedet-utest ()
   "Start CEDET unit tests.
 These runs in a fresh Emacs."
   (interactive)
-  (let ((default-directory (file-name-as-directory (expand-file-name "cedet" udev-cedet-dir))))
-    (unless (file-directory-p default-directory)
-      (error "Can't find dir %s, this works only if `udev-cedet-install' was used"
-             default-directory))
-    (call-process (ourcomments-find-emacs) nil 0 nil "-Q"
-                  "-l" "common/cedet.el"
-                  "-f" "semantic-load-enable-minimum-features"
-                  "-f" "cedet-utest"
-                  ))
-  (message "Started CEDET unit tests in a fresh Emacs - it will show up soon ..."))
+  (let ((cedet-el (locate-library "cedet"))
+        (default-directory (udev-cedet-cvs-dir)))
+    (if (not cedet-el)
+        (message (propertize "Can't find CEDET, have you installed and loaded it?" 'face 'secondary-selection))
+      (call-process (ourcomments-find-emacs) nil 0 nil "-Q"
+                    "-l" "common/cedet.el"
+                    "-f" "semantic-load-enable-minimum-features"
+                    "-f" "cedet-utest"
+                    )
+      (message "Started CEDET unit tests in a fresh Emacs - it will show up soon ..."))))
 
 (provide 'udev-cedet)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

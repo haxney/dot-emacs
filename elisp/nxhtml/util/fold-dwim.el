@@ -4,7 +4,7 @@
 ;;
 ;; Author: Peter Heslin <p.j.heslin@dur.ac.uk>
 ;; URL: http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/fold-dwim.el
-(defconst fold-dwim:version "1.3")
+(defconst fold-dwim:version "1.4")
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -140,6 +140,8 @@
 ;; 1.2 fold-dwim-hide-all and -show-all operate only on active region
 ;;     in transient-mark-mode.
 ;; 1.3 Added outline-mode (Lennart Borgman)
+;; 1.4 Removed nxml-mode style folding (Lennart Borgman)
+;;     + some functions used by nXhtml.
 
 (require 'outline)
 (require 'hideshow)
@@ -201,8 +203,8 @@ the top or bottom of the screen"
         (if (fold-dwim-outline-nested-p)
             (hide-sublevels 1)
           (hide-body)))
-      (when (derived-mode-p 'nxml-mode)
-        (nxml-hide-all-text-content))
+      ;; (when (derived-mode-p 'nxml-mode)
+      ;;   (nxml-hide-all-text-content))
       (when (and (boundp 'folding-mode) folding-mode)
         (folding-whole-buffer))))
   (fold-dwim-maybe-recenter))
@@ -218,8 +220,8 @@ the top or bottom of the screen"
         (TeX-fold-clearout-buffer))
       (when hs-minor-mode
         (hs-show-all))
-      (when (derived-mode-p 'nxml-mode)
-        (nxml-show-all))
+      ;; (when (derived-mode-p 'nxml-mode)
+      ;;   (nxml-show-all))
       (when (or outline-minor-mode (eq major-mode 'outline-mode))
         (show-all))
       (when (and (boundp 'folding-mode) folding-mode)
@@ -229,34 +231,43 @@ the top or bottom of the screen"
 
 (defun fold-dwim-hide ()
   "Hide one item"
-  (save-excursion
-    (or (and (boundp 'TeX-fold-mode)
-             TeX-fold-mode
-             (let ((type (fold-dwim-auctex-env-or-macro)))
-               (when type
-                 (TeX-fold-item type))))
-        (and hs-minor-mode
-             (when (save-excursion
-                     (or (hs-find-block-beginning) (hs-inside-comment-p)))
-               (hs-hide-block)
-               (hs-already-hidden-p)))
-        (and (derived-mode-p 'nxml-mode)
-             (condition-case nil
-                 (save-excursion
-                   (nxml-back-to-section-start))
-               (error nil))
-             (nxml-hide-text-content))
-        (and (boundp 'folding-mode)
-             folding-mode
-             (condition-case nil
-                 (save-excursion
-                   (folding-hide-current-entry)
-                   t)
-               (error nil)))
-        (when (or outline-minor-mode (eq major-mode 'outline-mode))
-          (if (fold-dwim-outline-nested-p)
-              (hide-subtree)
-              (hide-entry)))))
+  (or (and (boundp 'TeX-fold-mode)
+           TeX-fold-mode
+           (let ((type (fold-dwim-auctex-env-or-macro)))
+             (when type
+               (TeX-fold-item type))))
+      ;; Look for html headers.
+      (when (and (derived-mode-p 'nxml-mode 'html-mode)
+                 outline-minor-mode)
+        (when (save-excursion
+                (save-match-data
+                  (looking-back (rx "<" (optional "/")
+                                    "h" (any "1-6")
+                                    (0+ (not (any "<")))))))
+          (hide-entry)
+          t))
+      (and hs-minor-mode
+           (when (save-excursion
+                   (or (hs-find-block-beginning) (hs-inside-comment-p)))
+             (hs-hide-block)
+             (hs-already-hidden-p)))
+      ;; (and (derived-mode-p 'nxml-mode)
+      ;;      (condition-case nil
+      ;;          (save-excursion
+      ;;            (nxml-back-to-section-start))
+      ;;        (error nil))
+      ;;      (nxml-hide-text-content))
+      (and (boundp 'folding-mode)
+           folding-mode
+           (condition-case nil
+               (save-excursion
+                 (folding-hide-current-entry)
+                 t)
+             (error nil)))
+      (when (or outline-minor-mode (eq major-mode 'outline-mode))
+        (if (fold-dwim-outline-nested-p)
+            (hide-subtree)
+          (hide-entry))))
   (fold-dwim-maybe-recenter))
 
 
@@ -289,15 +300,15 @@ the top or bottom of the screen"
               (delete-overlay (car overlays))
               (setq stop "Tex-fold-mode"))
             (setq overlays (cdr overlays)))))
-      (when (and (not stop)
-                 (derived-mode-p 'nxml-mode))
-        (let ((overlays (overlays-at (point))))
-          (while (and overlays (not stop))
-            (when (overlay-get (car overlays) 'nxml-outline-display)
-              (setq stop "nxml folding"))
-            (setq overlays (cdr overlays))))
-        (when stop
-            (nxml-show)))
+      ;; (when (and (not stop)
+      ;;            (derived-mode-p 'nxml-mode))
+      ;;   (let ((overlays (overlays-at (point))))
+      ;;     (while (and overlays (not stop))
+      ;;       (when (overlay-get (car overlays) 'nxml-outline-display)
+      ;;         (setq stop "nxml folding"))
+      ;;       (setq overlays (cdr overlays))))
+      ;;   (when stop
+      ;;       (nxml-show)))
       (when (and (not stop)
                  (boundp 'folding-mode)
                  folding-mode
@@ -310,26 +321,94 @@ the top or bottom of the screen"
                        (setq stop "folding-mode"))))))
       stop)))
 
+;;;###autoload
 (defun fold-dwim-toggle ()
-  "Try fold-dwim-show to show any hidden text at point; if no
-hidden fold is found, try fold-dwim-hide to hide the construction
-at the cursor."
+  "Toggle visibility or some other visual things.
+Try toggling different visual things in this order:
+
+- Images shown at point with `inlimg-mode'
+- Text at point prettified by `html-write-mode'.
+
+For the rest it unhides if possible, otherwise hides in this
+order:
+
+- `org-mode' header or something else using that outlines.
+- Maybe `fold-dwim-toggle-selective-display'.
+- `Tex-fold-mode' things.
+- In html if `outline-minor-mode' and after heading hide content.
+- `hs-minor-mode' things.
+- `outline-minor-mode' things. (Turns maybe on this.)
+
+It uses `fold-dwim-show' to show any hidden text at point; if no
+hidden fold is found, try `fold-dwim-hide' to hide the
+construction at the cursor.
+
+Note: Also first turn on `fold-dwim-mode' to get the keybinding
+for this function from it."
   (interactive)
+  (fold-dwim-mode 1)
   (cond
+   ((get-char-property (point) 'html-write)
+    (html-write-toggle-current-tag))
+   ((get-char-property (point) 'inlimg-img)
+    (inlimg-toggle-display (point)))
    ((eq major-mode 'org-mode)
     (org-cycle))
    ((and (fboundp 'outline-cycle)
          outline-minor-mode)
     (outline-cycle))
    (t
+    (unless (or outline-minor-mode hs-minor-mode)
+      (outline-minor-mode 1))
     (if fold-dwim-toggle-selective-display
         (fold-dwim-toggle-selective-display)
-      (save-excursion
         (let ((unfolded (fold-dwim-show)))
           (if unfolded
               (message "Fold DWIM showed: %s" unfolded)
-            (fold-dwim-hide))))))))
+            (fold-dwim-hide)))))))
 
+;;;###autoload
+(define-minor-mode fold-dwim-mode
+  "Key binding for `fold-dwim-toggle'."
+  :global t
+  :group 'nxhtml
+  :group 'foldit
+  nil)
+
+;; Fix-me: Maybe move to fold-dwim and rethink?
+(defvar fold-dwim-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [(control ?c) ?+] 'fold-dwim-toggle)
+    map))
+
+;;;###autoload
+(defun fold-dwim-unhide-hs-and-outline ()
+  "Unhide everything hidden by Hide/Show and Outline.
+Ie everything hidden by `hs-minor-mode' and
+`outline-minor-mode'."
+  (interactive)
+  (hs-show-all)
+  (show-all))
+
+;;;###autoload
+(defun fold-dwim-turn-on-hs-and-hide ()
+  "Turn on minor mode `hs-minor-mode' and hide.
+If major mode is derived from `nxml-mode' call `hs-hide-block'
+else call `hs-hide-all'."
+  (interactive)
+  (hs-minor-mode 1)
+  (foldit-mode 1)
+  (if (derived-mode-p 'nxml-mode)
+      (hs-hide-block)
+    (hs-hide-all)))
+
+;;;###autoload
+(defun fold-dwim-turn-on-outline-and-hide-all ()
+  "Turn on `outline-minor-mode' and call `hide-body'."
+  (interactive)
+  (outline-minor-mode 1)
+  (foldit-mode 1)
+  (hide-body))
 
 (defun fold-dwim-auctex-env-or-macro ()
   (let ((type (cond

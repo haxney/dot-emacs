@@ -48,7 +48,7 @@
 (require 'company)
 (eval-when-compile (require 'cl))
 
-(require 'predictive)
+(require 'predictive nil t)
 (load "dict-english") ;; fix-me
 
 ;(syntax-table-p company-predictive-syntax-table)

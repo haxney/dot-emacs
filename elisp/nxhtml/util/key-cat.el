@@ -60,7 +60,7 @@
 
 (eval-when-compile (require 'cl))
 
-(defvar key-cat-cmd-list
+(defconst key-cat-cmd-list
   '(
     (error-testing
      (commands
@@ -159,6 +159,8 @@ If the argument evaluates to non-nil the list is shown."
   )
 
 
+(defvar key-cat-cmd-list-1 nil)
+
 (defun key-cat-help()
   "Display reference sheet style help for common commands.
 See also `key-cat-cmd-list'."
@@ -166,6 +168,7 @@ See also `key-cat-cmd-list'."
   (if (> 22 emacs-major-version)
       (message "Sorry, this requires Emacs 22 or later")
     ;; Delay to get correct bindings when running through M-x
+    (setq key-cat-cmd-list-1 key-cat-cmd-list)
     (run-with-timer 0.1 nil 'key-cat-help-internal)))
 
 (defun key-cat-help-internal()                   ;(category)
@@ -180,8 +183,8 @@ See also `key-cat-cmd-list'."
           ;;                      'command
           ;;                      indent-line-function
           ;;                      ))
-          ;;               key-cat-cmd-list)
-          (dolist (catentry key-cat-cmd-list)
+          ;;               key-cat-cmd-list-1)
+          (dolist (catentry key-cat-cmd-list-1)
             (let ((category (car catentry))
                   (commands (cdr catentry))
                   (cmds)

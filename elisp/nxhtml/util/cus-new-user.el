@@ -48,6 +48,9 @@
 ;;; Code:
 
 (defvar cusnu-my-skin-widget nil)
+
+(defvar cusnu-insert-os-spec-fun nil)
+
 ;;(customize-for-new-user)
 ;;;###autoload
 (defun customize-for-new-user (&optional name)
@@ -63,10 +66,16 @@
     (buffer-disable-undo)
     (Custom-mode)
     (erase-buffer)
+    (widget-insert (propertize "Easy Customization for New Users\n" 'face '(:weight bold :height 1.5)))
     (setq fill-pos (point))
     (widget-insert
      "Below are some custom options that new users often may want to
-tweak since they may make Emacs a bit more like what they expect from using other software in their environment.
+tweak since they may make Emacs a bit more like what they expect from
+using other software in their environment.
+
+After this, at the bottom of this page, is a tool for exporting your own specific options.
+You choose which to export, make a description and give the group of options a new and click a button.
+Then you just mail it or put it on the web for others to use.
 
 Since Emacs runs in many environment and an Emacs user may use
 several of them it is hard to decide by default what a user
@@ -75,6 +84,7 @@ do those changes here.
 
 Note that this is just a collection of normal custom options.
 There are no new options here.
+
 
 ")
     (fill-region fill-pos (point))
@@ -138,6 +148,7 @@ possibly because you started Emacs with `-q'.")
           (apply button (pop commands)))) ; Exit
       (widget-insert "\n\n")
 
+      (widget-insert (propertize "\nThis part is for your own use\n" 'face '(:weight bold :height 1.5)))
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;; Editor emulator level
 
@@ -179,8 +190,8 @@ For the most common ones you can decide if you want to use them here:
       (fill-region fill-pos (point))
       (cusnu-mark-part-desc fill-pos (point))
 
-      (if cusno-insert-os-spec-fun
-          (funcall cusno-insert-os-spec-fun)
+      (if cusnu-insert-os-spec-fun
+          (funcall cusnu-insert-os-spec-fun)
        (widget-insert "No OS specific customizations.\n"))
 
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -202,9 +213,21 @@ For the most common ones you can decide if you want to use them here:
       ;;(cusnu-insert-options '((initial-scratch-message custom-variable)))
 
       (widget-insert "\n")
+      (widget-insert (propertize "\n\nThis part is for exporting to others\n\n" 'face '(:weight bold :height 1.5)))
       (setq fill-pos (point))
       (widget-insert
-"My skin options - This is for exporting custom options to other users (or yourself on another computer)
+"My skin options - This is for exporting custom options to other users
+\(or maybe yourself on another computer).
+This works the following way:
+
+- You add a description of your options and the options you want to export below.
+Then you click on `Export my skin options'.
+This creates a file that you can send to other Emacs users.
+They simply open that file in Emacs and follow the instructions there to test your options
+and maybe save them for later use if they like them.
+\(You can follow the instructions yourself to see how it works.)
+
+Please change the group symbol name to something specific for you.
 ")
       (fill-region fill-pos (point))
       (cusnu-mark-part-desc fill-pos (point))
@@ -239,14 +262,13 @@ For the most common ones you can decide if you want to use them here:
       (buffer-enable-undo)
       (goto-char (point-min)))))
 
-(defvar cusno-insert-os-spec-fun nil)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Example on Emacs+Emacw32
+(eval-when-compile (require 'emacsw32 nil t))
 (when (fboundp 'emacsw32-version)
   (defun cusnu-emacsw32-show-custstart (&rest args)
     (emacsw32-show-custstart))
-  (setq cusno-insert-os-spec-fun 'cusnu-insert-emacsw32-specific-part)
+  (setq cusnu-insert-os-spec-fun 'cusnu-insert-emacsw32-specific-part)
   (defun cusnu-insert-emacsw32-specific-part ()
     (cusnu-insert-options '((w32-meta-style custom-variable)))
     (widget-insert "\n")
@@ -586,9 +608,10 @@ selection of variables you choose to set to other users.
 
 To send these values to other users you export them to a file
 with `cusnu-export-my-skin-options'."
-  :type '(list (symbol :tag "My custom group name")
+  :type '(list (symbol :tag "My custom group symbol name (should be specific to you)")
                (string :tag "My custom group description")
-               (repeat custom-symbol))
+               (repeat :tag "Add your custom options below"
+                       (custom-symbol :tag "My custom option")))
   :set 'cusnu-set-my-skin-options
   :group 'all-my-loaded-skin-groups)
 
@@ -699,7 +722,8 @@ For more information about this see `cusnu-export-cust-group'."
 Only the options that has been customized will be exported.
 
 The group is exported as elisp code.  Running the code will
-create a group with just those members.
+create a group with just those members.  After this it opens a
+customization buffer with the new group.
 
 The code will also set the options to the customized values, but
 it will not save them in the users init file.
@@ -727,8 +751,11 @@ See also the comment in the exported file."
 ;; This file defines the group and sets the options in it, but does
 ;; not save the values to your init file.
 ;;
-;; To set the values evaluate this file.
-;; To go back to your default evaluate next line:
+;; To set the values evaluate this file.  To do that open this file in Emacs and to
+;;
+;;   M-x eval-buffer
+;;
+;; To go back to your default evaluate next line (place point at the end and to C-x C-e):
 ")
       (insert (format ";; (cusnu-reset-group-options-to-my-defaults '%s)\n\n"  group))
       (insert (format "(let ((grp '%s))\n" group))
@@ -756,19 +783,19 @@ See also the comment in the exported file."
       (insert (format "\n(customize-group '%s)\n" group))
       )))
 
-(defun cusnu-get-options-and-faces (members groups options faces)
-  (dolist (mem members)
-    (inser ";; mem=%s\n" mem)
+(defun cusnu-get-options-and-faces (members groups-par options-par faces-par)
+  (dolist (sym members)
+    (insert (format ";; sym=%s\n" sym))
     (cond ((and (get sym 'custom-type)
            (or (get sym 'saved-value)
                (get sym 'customize-value)))
-           (add-to-list options sym))
+           (add-to-list options-par sym))
           ((and (get sym 'face)
-                (get opt 'customized-face))
-           (add-to-list groups))
+                (get sym 'customized-face))
+           (add-to-list faces-par sym))
           ((get sym 'custom-group)
-           (unless (memq sym groups) ;; Don't loop
-             (cusnu-get-options-and-faces groups options faces)))
+           (unless (memq sym groups-par) ;; Don't loop
+             (cusnu-get-options-and-faces groups-par options-par faces-par)))
           (t (insert ";; Not a custom variable or face: %s\n" sym)))))
 
 (provide 'cus-new-user)

@@ -179,6 +179,62 @@
 ;; <angle><frequency><identifier><integer><length><number><padding-width>
 ;; <percentage><specific-voice><string><time><uri>
 
+
+;; 18.2 System Colors
+;;
+;; Note. The System Colors are deprecated in the CSS3 Color Module
+;; [CSS3COLOR].
+;;
+;; In addition to being able to assign pre-defined color values to
+;; text, backgrounds, etc., CSS2 introduced a set of named color
+;; values that allows authors to specify colors in a manner that
+;; integrates them into the operating system's graphic environment.
+;;
+;; For systems that do not have a corresponding value, the specified
+;; value should be mapped to the nearest system value, or to a default
+;; color.
+;;
+;; The following lists additional values for color-related CSS
+;; properties and their general meaning. Any color property (e.g.,
+;; 'color' or 'background-color') can take one of the following
+;; names. Although these are case-insensitive, it is recommended that
+;; the mixed capitalization shown below be used, to make the names
+;; more legible.
+
+(defconst company-css-system-colors
+  '((ActiveBorder "Active window border")
+    (ActiveCaption "Active window caption")
+    (AppWorkspace "Background color of multiple document interface")
+    (Background "Desktop background")
+    (ButtonFace "Face color for three-dimensional display elements")
+    (ButtonHighlight "Highlight color for three-dimensional display elements (for edges facing away from the light source)")
+    (ButtonShadow "Shadow color for three-dimensional display elements")
+    (ButtonText "Text on push buttons")
+    (CaptionText "Text in caption, size box, and scrollbar arrow box")
+    (GrayText "Grayed (disabled) text. This color is set to #000 if the current display driver does not support a solid gray color")
+    (Highlight "Item(s) selected in a control")
+    (HighlightText "Text of item(s) selected in a control")
+    (InactiveBorder "Inactive window border")
+    (InactiveCaption "Inactive window caption")
+    (InactiveCaptionText "Color of text in an inactive caption")
+    (InfoBackground "Background color for tooltip controls")
+    (InfoText "Text color for tooltip controls")
+    (Menu "Menu background")
+    (MenuText "Text in menus")
+    (Scrollbar "Scroll bar gray area")
+    (ThreeDDarkShadow "Dark shadow for three-dimensional display elements")
+    (ThreeDFace "Face color for three-dimensional display elements")
+    (ThreeDHighlight "Highlight color for three-dimensional display elements")
+    (ThreeDLightShadow "Light color for three-dimensional display elements (for edges facing the light source)")
+    (ThreeDShadow "Dark shadow for three-dimensional display elements")
+    (Window "Window background")
+    (WindowFrame "Window frame")
+    (WindowText "Text in windows"))
+  "CSS2 system colors.
+Note. The System Colors are deprecated in the CSS3 Color Module.")
+
+
+
 (defconst company-css-html-tags
   '("a" "abbr" "acronym" "address" "applet" "area" "b" "base" "basefont" "bdo"
     "big" "blockquote" "body" "br" "button" "caption" "center" "cite" "code"
@@ -231,7 +287,7 @@
 
 ;;; tags
 (defconst company-css-tag-regexp
-  (concat "\\(?:\\`\\|}\\|\*/\\)[[:space:]]*"
+  (concat "\\(?:\\`\\|}\\|\*/\\|);\\)[[:space:]]*"
           ;; multiple
           "\\(?:"
           ;; previous tags:

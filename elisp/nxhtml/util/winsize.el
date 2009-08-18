@@ -3,7 +3,7 @@
 ;; Author: Lennart Borgman <lennart dot borgman at gmail dot com >
 ;; Maintainer:
 ;; Created: Wed Dec 07 15:35:09 2005
-;; Version: 0.97
+(defconst winsize:version "0.98") ;;Version: 0.97
 ;; Lxast-Updated: Sun Nov 18 02:14:52 2007 (3600 +0100)
 ;; Keywords:
 ;; Compatibility:
