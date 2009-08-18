@@ -71,4 +71,7 @@
 (autoload 'describe-unbound-keys "unbound"
   "Display a list of unbound keystrokes of complexity no greater than max." t)
 
+(autoload 'company-mode "company" nil t)
+(autoload 'global-company-mode "company" nil t)
+
 ;;; 09autoload.el ends here
