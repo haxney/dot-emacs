@@ -1,3 +1,0 @@
-sql = """<cursor>"""
-dbcursor.execute(sql)
-# rows = dbcursor.fetchall()

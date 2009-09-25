@@ -1,1 +1,0 @@
-(csock, addr) = <cursor>s.accept()

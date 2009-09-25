@@ -1,1 +1,0 @@
-pyver=`python -c 'import sys; print "%d.%d"%(sys.version_info[0], sys.version_info[1])'`

@@ -1,1 +1,0 @@
-gunzip -qc <field "filename"> | tar xvf -

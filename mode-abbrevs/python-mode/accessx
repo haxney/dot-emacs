@@ -1,1 +1,0 @@
-os.access(<cursor>,os.R_OK)

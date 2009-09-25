@@ -1,4 +1,0 @@
-if (args.length != <field "numargs">) {
-    usage(<field "app name">);
-}
-<endpoint>

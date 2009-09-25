@@ -1,3 +1,0 @@
-# for large files support
-# see http://www.suse.de/~aj/linux_lfs.html
-env.Append(CPPDEFINES=['_FILE_OFFSET_BITS=64','_LARGEFILE_SOURCE'])

@@ -1,3 +1,0 @@
-filesize () {
-    ls -al $1 | awk '{print $5}'
-}

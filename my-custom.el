@@ -14,7 +14,7 @@
  '(auto-install-directory "~/.emacs.d/elisp/auto-install/")
  '(auto-save-list-file-prefix "~/.emacs.d/tmp/auto-save-list/.saves-")
  '(backup-directory-alist (quote (("." . "~/.emacs.d/tmp/baks/"))))
- '(bcc-blacklist (quote ("/\\.recentf$" "/history$" "auctex" "msf-abbrev")))
+ '(bcc-blacklist (quote ("/\\.recentf$" "/history$" "auctex")))
  '(bcc-cache-directory "~/.emacs.d/tmp/byte-cache")
  '(blink-cursor-mode nil)
  '(bm-annotate-on-create nil)

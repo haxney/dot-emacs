@@ -1,1 +1,0 @@
-struct.pack("<i", <field "v1, v2, ...">)
