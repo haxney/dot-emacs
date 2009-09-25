@@ -25,11 +25,6 @@
 
 ;;; Code:
 
-(load (concat conf-home
-              (file-name-as-directory "elisp")
-              (file-name-as-directory "nxhtml")
-              "autostart.el"))
-
 (c-add-style "drupal"
   '((c-basic-offset . 2)
     (c-offsets-alist . ((arglist-close . c-lineup-close-paren)

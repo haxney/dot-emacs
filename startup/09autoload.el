@@ -78,4 +78,14 @@
 
 (autoload 'paredit-mode "paredit" nil t)
 
+(load (concat conf-home
+              (file-name-as-directory "elisp")
+              (file-name-as-directory "nxhtml")
+              "autostart.el"))
+
+(require 'udev-cedet)
+(require 'udev-ecb)
+(udev-cedet-load-cedet nil)
+(udev-ecb-load-ecb)
+
 ;;; 09autoload.el ends here
