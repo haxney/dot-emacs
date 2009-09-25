@@ -50,4 +50,7 @@
 
 (define-key global-map (kbd "C-c i u") 'identica-update-status-interactive)
 (define-key global-map (kbd "C-c i i") 'identica)
+
+(define-key company-active-map (kbd "RET")  'company-complete-selection)
+
 ;;; 70keybindings.el ends here
