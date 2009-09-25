@@ -73,7 +73,6 @@
 (if (file-readable-p "~/.private/private.el")
     (load-file "~/.private/private.el"))
 
-(global-company-mode 1)
 (semantic-load-enable-gaudy-code-helpers)
 
 ;;; 50editor-misc.el ends here
