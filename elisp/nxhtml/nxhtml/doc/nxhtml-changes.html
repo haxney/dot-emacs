@@ -124,11 +124,11 @@
             </p>
             <p>
               For now I have implemented a workaround.
-              If you are using constructs like those above then turn on <em>nxhtml-strval-mode</em>.
+              If you are using constructs like those above then turn on <em>mumamo-alt-php-tags-mode</em>.
               This will temporarily replace the above with
             </p>
             <p style="margin-left:2em">
-              &lt;img src=&quot;images/linux.png&quot; title=&quot;&#171;?php foo(&quot;bar&quot;);?&#187;&quot;/&gt;
+              &lt;img src=&quot;images/linux.png&quot; title=&quot;(?php foo(&quot;bar&quot;);?)&quot;/&gt;
             </p>
             <p>
               However on the screen you will still see the original
@@ -2887,8 +2887,7 @@
               <li>
                 Added support for <a href="http://www.emacswiki.org/emacs/CompanyMode">Company Mode</a> style completion.  Temporary included a copy of Company Mode with bug fixes and changes needed for nXhtml and Viper.  It also include a lot of other small features (which I hope can be included in Company Mode).  On of these is integration with <a href="http://www.emacswiki.org/emacs/PredictiveMode">Predictive Mode</a>. (You have to get Predictive Mode yourself. If you want to install it on MS Windows I recommend using the latest version of Cygwin. A smaller change to the Makefile is required, there is one absolute path you probably want to remove.)
                 <p class="bugfix">
-                  Note: I thought that I should make Company Mode the default completion style.
-                  However there are still some problem so I kept the old default completion style.
+                  Note: I thought that I should make Company Mode the default completion style. However there are still some problem so I kept the old default completion style.
                 </p>
               </li>
               <li>
@@ -3024,12 +3023,19 @@
                 Improved external editing of web mail.
               </li>
               <li>
-                Removed <i>js2-mode</i> (and my attempts to make it work with
-                mumamo) since it is now part of Emacs devel sources. Since js2-mode does not use font-lock its integration with mumamo have to wait until it does that.
+                Removed <i>js2-mode</i> (and my attempts to make it work with mumamo) since it is now part of Emacs devel sources. Since js2-mode does not use font-lock its integration with mumamo have to wait until it does that.
               </li>
               <li>
                 Reworked <b>folding</b> a bit so it is more useful.
                 There is a new minor mode, <i>foldit-mode</i>, that shows better markers for folding. There is a new entry in the <i>nXhtml / Tools</i> menu for folding. <i>fold-dwim-toggle</i> now alwo toggles images and <i>html-write-mode</i> things. In html it first checks for headers then does tag block style visibility toggling.
+              </li>
+              <li>
+                Updated <i>vline.el</i>.
+              </li>
+              <li>
+                <span class="bugfix">
+                  A bug in <i>ourcomments-M-x-menu-mode</i> made Emacs client fail. Fixed.
+                </span>
               </li>
             </ul>
           </dd>

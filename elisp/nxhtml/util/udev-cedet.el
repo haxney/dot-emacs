@@ -55,7 +55,7 @@
   "Customization group for udev-cedet."
   :group 'nxhtml)
 
-(defcustom udev-cedet-dir "~/.emacs.d/udev/cedet-cvs/"
+(defcustom udev-cedet-dir "~/.emacs.d/udev/cedet-dl/"
   "Directory where to put CVS CEDET sources."
   :type 'directory
   :group 'udev-cedet)

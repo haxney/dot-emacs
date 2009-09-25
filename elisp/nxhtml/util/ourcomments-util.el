@@ -1938,7 +1938,8 @@ Return full path if found."
 (defun ourcomments-M-x-menu-pre ()
   "Add menu command to M-x history."
   (let ((is-menu-command (equal '(menu-bar)
-                                (elt (this-command-keys-vector) 0)))
+                                (when (< 0 (length (this-command-keys-vector)))
+                                  (elt (this-command-keys-vector) 0))))
         (pre-len (length extended-command-history)))
     (when (and is-menu-command
                (not (memq this-command '(ourcomments-M-x-menu-mode))))

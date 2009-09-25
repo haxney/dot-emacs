@@ -159,8 +159,10 @@ Note: This fails in Emacs 22, but should work in Emacs 23."
     (put 'mumamo-submode-indent-offset-0 'permanent-local t)
     (put 'mumamo-submode-indent-offset 'permanent-local t)
     ;;
-    (set (make-local-variable 'mumamo-submode-indent-offset-0) nil)
-    (set (make-local-variable 'mumamo-submode-indent-offset) nil)
+    ;;(set (make-local-variable 'mumamo-submode-indent-offset-0) nil)
+    (set (make-local-variable 'mumamo-submode-indent-offset-0) 0)
+    ;;(set (make-local-variable 'mumamo-submode-indent-offset) nil)
+    (set (make-local-variable 'mumamo-submode-indent-offset) 2)
     (ert-simulate-command '(mark-whole-buffer) t)
     (ert-simulate-command '(indent-for-tab-command) t)
     (goto-line 8)   (ert-should (= 8 (current-indentation)))

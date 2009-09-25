@@ -1465,11 +1465,13 @@ Supported values are 'perl."
                                       (goto-char pos)
                                       (prog1
                                           (when (re-search-forward ,endmark-regexp max t)
-                                            (- (point) 0))
+                                            (- (point) 1 ,(length heredoc-mark))
+                                            (- (point) 0)
+                                            )
                                         (goto-char here)))))))
             (setq exc-mode (mumamo-mode-for-heredoc heredoc-mark))
             (list start-inner end exc-mode nil nil fw-exc-fun nil)
-            (list start-outer end exc-mode (list start-inner end) nil fw-exc-fun border-fun)
+            (list start-outer end exc-mode (list start-inner end) nil fw-exc-fun border-fun 'heredoc)
             )))
     (error (mumamo-display-error 'mumamo-chunk-heredoc
                                  "%s" (error-message-string err)))))

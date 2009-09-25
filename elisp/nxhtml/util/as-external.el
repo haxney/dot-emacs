@@ -196,6 +196,7 @@ that it will look similar to how it will look in the sent plain
 text mail.
 
 See also `as-external-mode'."
+  ;; To-do: Look at http://globs.org/articles.php?lng=en&pg=2
   (set (make-local-variable 'comment-column) 0)
   (set (make-local-variable 'comment-start) ">")
   (set (make-local-variable 'comment-end)   "")

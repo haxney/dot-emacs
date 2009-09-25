@@ -602,7 +602,7 @@ See `mozadd-mirror-mode' for more information on Mozadd-Mirror mode.
 ;;;***
 
 ;;;### (autoloads (php-mode php-file-patterns) "../related/php-mode"
-;;;;;;  "related/php-mode.el" (19074 25038))
+;;;;;;  "related/php-mode.el" (19074 28993))
 ;;; Generated autoloads from related/php-mode.el
 
 (defvar php-file-patterns '("\\.php[s34]?\\'" "\\.phtml\\'" "\\.inc\\'") "\
@@ -1266,7 +1266,7 @@ See `nxhtmltest-run' for more information about the tests.
 ;;;***
 
 ;;;### (autoloads (nxhtmltest-run nxhtmltest-run-indent) "../tests/nxhtmltest-suites"
-;;;;;;  "tests/nxhtmltest-suites.el" (19062 23630))
+;;;;;;  "tests/nxhtmltest-suites.el" (19074 63264))
 ;;; Generated autoloads from tests/nxhtmltest-suites.el
 
 (autoload 'nxhtmltest-run-indent "../tests/nxhtmltest-suites" "\
@@ -2076,6 +2076,56 @@ With command prefix also show created HTML source in other window.
 
 ;;;***
 
+;;;### (autoloads (hl-needed-mode) "hl-needed" "util/hl-needed.el"
+;;;;;;  (19082 794))
+;;; Generated autoloads from util/hl-needed.el
+
+(defvar hl-needed-mode nil "\
+Non-nil if Hl-Needed mode is enabled.
+See the command `hl-needed-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `hl-needed-mode'.")
+
+(nxhtml-custom-autoload 'hl-needed-mode "hl-needed" nil)
+
+(autoload 'hl-needed-mode "hl-needed" "\
+Try to highlight current line and column when needed.
+This can operate in some different ways:
+
+- Highlighting can be on always, see `hl-needed-always'.
+
+Or, it can be turned on depending on some conditions.  In this
+case it highlighting is turned off before each command and turned
+it on again in the current window when either:
+
+- A new window was selected, see `hl-needed-on-new-window'.
+- A new buffer was selected, see `hl-needed-on-new-buffer'.
+- Window configuration was changed, see `hl-needed-on-config-change'.
+- Buffer was scrolled see `hl-needed-on-scrolling'.
+- A window was clicked with the mouse, see `hl-needed-on-mouse'.
+
+In this case highlighting may be turned off again, normally after
+a short delay, see `hl-needed-flash'.
+
+If either highlighting was not turned on or was turned off again
+it will be turned on when
+
+- Emacs has been idle for `hl-needed-idle-time' seconds.
+
+See also `hl-needed-not-in-modes' and `hl-needed-currently-fun'.
+
+Note 1: For columns to be highlighted vline.el must be available.
+
+Note 2: This mode depends on `hl-line-mode' and `vline-mode' and
+tries to cooperate with them. If you turn on either of these that
+overrides the variables for turning on the respective
+highlighting here.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (html-write-mode) "html-write" "util/html-write.el"
 ;;;;;;  (19074 11806))
 ;;; Generated autoloads from util/html-write.el
@@ -2263,7 +2313,7 @@ By default the link moved to will be active, see
 ;;;***
 
 ;;;### (autoloads (mumamo-multi-major-modep mumamo-mark-for-refontification)
-;;;;;;  "mumamo" "util/mumamo.el" (19073 59860))
+;;;;;;  "mumamo" "util/mumamo.el" (19075 22528))
 ;;; Generated autoloads from util/mumamo.el
 
 (autoload 'mumamo-mark-for-refontification "mumamo" "\
@@ -2286,7 +2336,7 @@ Return t if VALUE is a multi major mode function.
 ;;;;;;  jsp-html-mumamo-mode smarty-html-mumamo-mode mjt-html-mumamo-mode
 ;;;;;;  genshi-html-mumamo-mode django-html-mumamo-mode embperl-html-mumamo-mode
 ;;;;;;  nxml-mumamo-mode html-mumamo-mode) "mumamo-fun" "util/mumamo-fun.el"
-;;;;;;  (19065 18548))
+;;;;;;  (19074 31970))
 ;;; Generated autoloads from util/mumamo-fun.el
 
 (autoload 'html-mumamo-mode "mumamo-fun" "\
@@ -3028,7 +3078,7 @@ later.
 ;;;***
 
 ;;;### (autoloads (vline-global-mode vline-mode) "vline" "util/vline.el"
-;;;;;;  (18973 28380))
+;;;;;;  (19082 741))
 ;;; Generated autoloads from util/vline.el
 
 (autoload 'vline-mode "vline" "\
@@ -3388,12 +3438,12 @@ Key bindings added by this minor mode:
 ;;;;;;  "util/company-mode/company-eclim.el" "util/company-mode/company-pkg.el"
 ;;;;;;  "util/company-mode/company-ropemacs.el" "util/company-mode/company-start.el"
 ;;;;;;  "util/custsets.el" "util/ecb-batch-compile.el" "util/ffip.el"
-;;;;;;  "util/fmode.el" "util/fupd.el" "util/hl-needed.el" "util/htmlfontify.21.el"
-;;;;;;  "util/key-cat.el" "util/mumamo-aspnet.el" "util/mumamo-trace.el"
-;;;;;;  "util/new-key-seq-widget.el" "util/nxml-mode-os-additions.el"
-;;;;;;  "util/ocr-user.el" "util/org-panel.el" "util/popcmp.el" "util/rebind.el"
-;;;;;;  "util/rxi.el" "util/udev-nxhtml.el" "util/useful-commands.el"
-;;;;;;  "util/whelp.el" "util/zen-mode.el") (19074 25686 390000))
+;;;;;;  "util/fmode.el" "util/fupd.el" "util/htmlfontify.21.el" "util/key-cat.el"
+;;;;;;  "util/mumamo-aspnet.el" "util/mumamo-trace.el" "util/new-key-seq-widget.el"
+;;;;;;  "util/nxml-mode-os-additions.el" "util/ocr-user.el" "util/org-panel.el"
+;;;;;;  "util/popcmp.el" "util/rebind.el" "util/rxi.el" "util/udev-nxhtml.el"
+;;;;;;  "util/useful-commands.el" "util/whelp.el" "util/zen-mode.el")
+;;;;;;  (19082 810 453000))
 
 ;;;***
 
