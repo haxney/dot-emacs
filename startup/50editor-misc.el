@@ -73,4 +73,6 @@
 (if (file-readable-p "~/.private/private.el")
     (load-file "~/.private/private.el"))
 
+(global-company-mode 1)
+
 ;;; 50editor-misc.el ends here
