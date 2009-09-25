@@ -76,4 +76,6 @@
 (autoload 'company-mode "company" nil t)
 (autoload 'global-company-mode "company" nil t)
 
+(autoload 'paredit-mode "paredit" nil t)
+
 ;;; 09autoload.el ends here
