@@ -98,6 +98,8 @@
     %i%?" "~/org/root.org" "Blog Ideas") ("Music" 109 "*** %^{Song title} - %^{Artist}%!" "~/org/music.org" "To buy"))))
  '(org-return-follows-link t)
  '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "WAITING" "DONE"))))
+ '(org-track-directory "~/.emacs.d/elisp/")
+ '(org-track-remove-package t)
  '(persp-completing-func (quote ido-completing-read))
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
