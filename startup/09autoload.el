@@ -63,7 +63,6 @@
 ;; These two just do now want to autoload properly. The only option left is to
 ;; `require' them.
 (require 'smart-tab)
-(require 'auto-complete)
 
 (autoload 'identica-update-status-interactive "identica-mode"
   "Update Identica status Interactively" t)
