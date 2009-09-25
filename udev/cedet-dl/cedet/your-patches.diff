@@ -1,0 +1,13 @@
+? your-patches.diff
+Index: cedet-build.el
+===================================================================
+RCS file: /cvsroot/cedet/cedet/cedet-build.el,v
+retrieving revision 1.11
+diff -b -u -r1.11 cedet-build.el
+--- cedet-build.el	1 Jul 2009 02:15:05 -0000	1.11
++++ cedet-build.el	25 Sep 2009 13:09:59 -0000
+@@ -1,3 +1,4 @@
++(setq debug-on-error t)
+ ;;; cedet-build.el --- Build CEDET within Emacs.
+ 
+ ;; Copyright (C) 2008, 2009 Eric M. Ludlam
