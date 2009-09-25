@@ -33,6 +33,8 @@
 (add-hook 'mail-send-hook 'delete-trailing-whitespace)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+
 (add-to-list 'auto-mode-alist '("\\.module$" . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.test$" . nxhtml-mumamo-mode))
