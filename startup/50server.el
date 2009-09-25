@@ -27,12 +27,6 @@
 
 ;;; Code:
 
-;; Only start when the server is not already started.
-(when (or (not (boundp 'server-process))
-          (not (eq (process-status server-process)
-                   'listen)))
-  (server-start))
-
 (defun server-edit-presets ()
   (cond
    ;; When editing mail, set the goal-column to 72.
