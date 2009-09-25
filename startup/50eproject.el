@@ -31,4 +31,8 @@
   (and (look-for "*.el" :glob) (look-for ".eproject"))
   :relevant-files ("\\.el$"))
 
+(define-project-type drupal (generic-eproject) nil
+  :relevant-files ("\\.php$" "\\.module$" "\\.inc$" "\\.test$")
+  :irrelevant-files ("TAGS"))
+
 ;;; 50eproject.el ends here
