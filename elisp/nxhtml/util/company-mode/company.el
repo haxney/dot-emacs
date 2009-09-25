@@ -505,7 +505,7 @@ Alternatively any command with a non-nil 'company-begin property is treated as
 if it was on this list."
   :group 'company
   :type '(choice (const :tag "Any command" t)
-                 (const :tag "Self insert command" '(self-insert-command))
+                 (const :tag "Self insert command" (self-insert-command))
                  (repeat :tag "Commands" function)))
 
 (defcustom company-show-numbers nil
