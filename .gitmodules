@@ -13,3 +13,6 @@
 [submodule "elisp/eproject"]
 	path = elisp/eproject
 	url = git://github.com/jrockway/eproject.git
+[submodule "elisp/etest"]
+	path = elisp/etest
+	url = git://github.com/philjackson/etest.git
