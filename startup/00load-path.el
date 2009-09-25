@@ -32,8 +32,13 @@
 (setq elisp-dir (concat conf-home
                                 (file-name-as-directory "elisp")))
 
+;; The package directory
+(setq elpa-dir (concat conf-home
+                          (file-name-as-directory "elpa")))
+
 ;; Add local libraries to `load-path'.
 (add-to-list 'load-path elisp-dir t)
+(add-to-list 'load-path elpa-dir t)
 
 ;; Set up load paths for subdirectories of the 'elisp' directory.
 (load-file (concat elisp-dir "elisp-paths.el"))
