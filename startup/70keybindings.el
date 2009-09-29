@@ -46,10 +46,10 @@
 ;; Use meta with arrow keys for windmove.
 (windmove-default-keybindings 'super)
 
-(define-key global-map (kbd "C-c r") 'remember)
+(global-set-key (kbd "C-c r") 'remember)
 
-(define-key global-map (kbd "C-c i u") 'identica-update-status-interactive)
-(define-key global-map (kbd "C-c i i") 'identica)
+(global-set-key (kbd "C-c i u") 'identica-update-status-interactive)
+(global-set-key (kbd "C-c i i") 'identica)
 
 (define-key company-active-map (kbd "RET")  'company-complete-selection)
 
