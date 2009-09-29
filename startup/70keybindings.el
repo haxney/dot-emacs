@@ -53,4 +53,9 @@
 
 (define-key company-active-map (kbd "RET")  'company-complete-selection)
 
+(define-key lisp-interaction-mode-map (kbd "M-j") 'eval-print-last-sexp)
+
+(global-set-key (kbd "M-:") 'data-debug-eval-expression)
+(global-set-key (kbd "C-M-.")  'semantic-symref)
+
 ;;; 70keybindings.el ends here
