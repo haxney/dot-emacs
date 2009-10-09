@@ -130,6 +130,9 @@ Must be in the form:
       (cons 'persistent-action
             'descbinds-anything-action:describe)))
    (descbinds-anything-all-sections buffer prefix menus)))
+
 (descbinds-anything-install)
+
+(setq anything-candidate-number-limit 500)
 
 ;;; 50anything.el ends here
