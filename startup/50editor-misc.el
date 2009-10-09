@@ -75,4 +75,6 @@
 
 (semantic-load-enable-gaudy-code-helpers)
 
+(add-to-list 'company-semantic-modes 'python-mode)
+
 ;;; 50editor-misc.el ends here
