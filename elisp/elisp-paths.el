@@ -17,6 +17,7 @@
 
 (defvar elisp-paths '("org-mode/lisp"
                       "org-mode/contrib/lisp"
+                      "org-mode/contrib/babel/lisp/"
                       "smex"
                       "smart-tab"
                       "anything-config"
