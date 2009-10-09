@@ -56,6 +56,10 @@
 (define-key lisp-interaction-mode-map (kbd "M-j") 'eval-print-last-sexp)
 
 (global-set-key (kbd "M-:") 'data-debug-eval-expression)
-(global-set-key (kbd "C-M-.")  'semantic-symref)
+(global-set-key (kbd "C-M-.") 'semantic-symref)
+
+;; Make paredit play nice with cua's rectangle editing.
+(define-key cua--rectangle-keymap [remap paredit-forward-delete] 'cua-delete-char-rectangle)
+(define-key cua--rectangle-keymap [remap paredit-backward-delete] 'cua-delete-char-rectangle)
 
 ;;; 70keybindings.el ends here
