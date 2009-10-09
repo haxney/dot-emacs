@@ -73,7 +73,8 @@ Must be in the form:
                  (interactive)
                  (anything (list ,@(cdr item))))))
           bindings)
-  (global-set-key (kbd "C-c j") anything-activate-map))
+  (global-set-key (kbd "C-c j") anything-activate-map)
+  (global-set-key (kbd "C-c C-j") anything-activate-map))
 
 (anything-set-map
  '(
