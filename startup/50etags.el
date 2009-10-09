@@ -36,10 +36,10 @@
   "Run anything with imenu and etags.
 Fill in the symbol at point by default."
   (interactive)
-  (anything '(anything-c-source-imenu anything-c-source-etags-select)
-            nil nil nil
-            ;; select thing-at-point by default.
-            (thing-at-point 'symbol)))
+  (let ((tap (substring-no-properties (or (thing-at-point 'symbol) ""))))
+    (anything '(anything-c-source-semantic anything-c-source-imenu)
+              nil nil nil
+              (unless (string= tap "") tap))))
 
 (global-set-key (kbd "M-.") 'anything-imenu-or-etags)
 
