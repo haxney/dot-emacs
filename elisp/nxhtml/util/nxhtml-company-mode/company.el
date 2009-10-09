@@ -509,7 +509,7 @@ Alternatively any command with a non-nil 'company-begin property is treated as
 if it was on this list."
   :group 'company
   :type '(choice (const :tag "Any command" t)
-                 (const :tag "Self insert command" '(self-insert-command))
+                 (const :tag "Self insert command" (self-insert-command))
                  (repeat :tag "Commands" function)))
 
 (defcustom company-show-numbers nil
@@ -1794,11 +1794,12 @@ fits `buffer-invisibility-spec'."
         (setq inv1 inv2)
         (setq pos1 pos2)))
     (setq visible-str (concat visible-str (buffer-substring pos1 (1- pos2))))
-    (when (invisible-p inv1)
-      (let* ((len (length visible-str))
-            (p1 (- len (- pos2 pos1)))
-            (p2 len))
-      (put-text-property p1 p2 'invisible t visible-str)))
+    (if (invisible-p inv1)
+        (let* ((len (length visible-str))
+               (p1 (- len (- pos2 pos1)))
+               (p2 len))
+          (put-text-property p1 p2 'invisible t visible-str))
+      visible-str)
     ;;(message "3875 x vis=%S" visible-str)
     ;;(setq x3875 visible-str)
     ))
