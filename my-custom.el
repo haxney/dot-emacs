@@ -141,6 +141,8 @@
  '(tramp-persistency-file-name "~/.emacs.d/tmp/tramp")
  '(transient-mark-mode t)
  '(truncate-lines t)
+ '(udev-cedet-load-cedet (quote (excessive-code-helpers sem-ia)) nil (udev-cedet))
+ '(udev-ecb-load-ecb t nil (udev-ecb))
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify))
  '(windmove-wrap-around t)
  '(woman-use-own-frame nil))
