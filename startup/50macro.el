@@ -39,6 +39,43 @@
                   (read-from-minibuffer prompt))))
     (unless (string= "" input) (insert input))))
 
-(global-set-key "\C-xQ" 'my-macro-query)
+(global-set-key "\C-xQ" 'simple-macro-query)
+
+(defvar ballroom-levels '("Newcomer" "Bronze" "Silver" "Gold" "Open"))
+(defvar ballroom-dances '("Cha Cha" "Rumba" "Swing" "Mambo" "Bolero"
+                          "Waltz" "Tango" "Foxtrot" "Viennese Waltz" "Quckstep"
+                          "Jive" "Samba" "Paso Doble"))
+
+(defun ballroom-vid-title (comp year section &optional extension)
+  "Generates a name for a ballroom video."
+  (unless extension
+    (setq extension ""))
+  (let* ((level (ido-completing-read "Level: " ballroom-levels))
+         (dance (ido-completing-read "Dance: " ballroom-dances))
+         (round (ido-completing-read "Round: " '("1" "2" "3" "4" "Quarterfinals" "Semifinals" "Finals")))
+         (heat (unless (member round '("Quarterfinals" "Semifinals" "Finals"))
+                 (read-number "Heat: ")))
+         (round-format (if heat
+                           (format "Round %d, Heat %d" (string-to-int round) heat)
+                         round)))
+    (concat comp " " year " " level " " section " " dance " - " round-format extension)))
+
+(defun ballroom-set-line (comp year section)
+  "Insert a ballroom line into the current buffer."
+  (dired-move-to-filename)
+  (dired-do-shell-command "totem" nil (dired-get-marked-files t current-prefix-arg))
+  (let ((extension (save-excursion
+                     (re-search-forward "\\(\\..+\\)$" (point-at-eol))
+                     (match-string-no-properties 1))))
+    (kill-line)
+    (insert (ballroom-vid-title comp year section extension)))
+  (wdired-next-line 1))
+
+(defun ballroom-rename-folder-interactive (comp year section)
+  (interactive "sCompetition: \nnYear: \nsSection (American/International): ")
+  (when (numberp year)
+    (setq year (int-to-string year)))
+  (while (not (eobp))
+    (ballroom-set-line comp year section)))
 
 ;;; 50macro.el ends here
