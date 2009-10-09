@@ -1,9 +1,13 @@
 ;;; company.el --- extensible inline text completion mechanism
 ;;
+;;; EXPERIMENTAL VERSION FOR NXTHML
+;;
 ;; Copyright (C) 2009 Nikolaj Schumacher
 ;;
 ;; Author: Nikolaj Schumacher <bugs * nschum de>
-;; Version: 0.4.3
+;; Version: 0.4.3-nXhtml
+;; Changed by Lennart Borgman to fit with nXhtml. Experimental,
+;;    some problems with this version has been reported with etags.
 ;; Keywords: abbrev, convenience, matchis
 ;; URL: http://nschum.de/src/emacs/company/
 ;; Compatibility: GNU Emacs 22.x, GNU Emacs 23.x
@@ -505,7 +509,7 @@ Alternatively any command with a non-nil 'company-begin property is treated as
 if it was on this list."
   :group 'company
   :type '(choice (const :tag "Any command" t)
-                 (const :tag "Self insert command" (self-insert-command))
+                 (const :tag "Self insert command" '(self-insert-command))
                  (repeat :tag "Commands" function)))
 
 (defcustom company-show-numbers nil
@@ -610,7 +614,6 @@ The work-around consists of adding a newline.")
 (defvar company-lighter company-default-lighter)
 (make-variable-buffer-local 'company-lighter)
 
-;;;###autoload
 (define-minor-mode company-mode
   "\"complete anything\"; in in-buffer completion framework.
 Completion starts automatically, depending on the values
@@ -648,10 +651,9 @@ keymap during active completions (`company-active-map'):
 
 (defcustom company-major-modes '(css-mode emacs-lisp-mode nxml-mode)
   "Modes in which `global-company-mode' turn on `company-mode'."
-  :type '(repeat :tag "Major mode" function)
+  :type '(repeat (command :tag "Major mode"))
   :group 'company)
 
-;;;###autoload
 (define-globalized-minor-mode global-company-mode company-mode
   (lambda ()
     (when (catch 'cm
@@ -1792,12 +1794,11 @@ fits `buffer-invisibility-spec'."
         (setq inv1 inv2)
         (setq pos1 pos2)))
     (setq visible-str (concat visible-str (buffer-substring pos1 (1- pos2))))
-    (if (invisible-p inv1)
+    (when (invisible-p inv1)
       (let* ((len (length visible-str))
             (p1 (- len (- pos2 pos1)))
             (p2 len))
-      (put-text-property p1 p2 'invisible t visible-str))
-      visible-str)
+      (put-text-property p1 p2 'invisible t visible-str)))
     ;;(message "3875 x vis=%S" visible-str)
     ;;(setq x3875 visible-str)
     ))
