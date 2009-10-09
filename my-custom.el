@@ -118,6 +118,7 @@
  '(planner-reverse-chronological-notes nil)
  '(pop-up-windows nil)
  '(quack-default-program "mzscheme -g")
+ '(quack-dir "~/.emacs.d/tmp/quack")
  '(quack-global-menu-p nil)
  '(quack-pretty-lambda-p nil)
  '(quack-run-scheme-always-prompts-p nil)
@@ -144,6 +145,7 @@
  '(udev-cedet-load-cedet (quote (excessive-code-helpers sem-ia)) nil (udev-cedet))
  '(udev-ecb-load-ecb t nil (udev-ecb))
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify))
+ '(wdired-use-dired-vertical-movement (quote sometimes))
  '(windmove-wrap-around t)
  '(woman-use-own-frame nil))
 (custom-set-faces
