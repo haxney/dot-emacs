@@ -24,6 +24,7 @@
  '(bm-repository-file "~/.emacs.d/tmp/bm-repository")
  '(bm-restore-repository-on-load t)
  '(bookmark-default-file "~/.emacs.d/tmp/bookmark")
+ '(browse-url-firefox-program "firefox-3.5")
  '(case-fold-search t)
  '(column-number-mode t)
  '(company-backends (quote (company-elisp company-nxml company-css company-eclim company-semantic company-xcode company-ropemacs (company-etags company-dabbrev-code company-keywords) company-oddmuse company-files company-dabbrev)))
