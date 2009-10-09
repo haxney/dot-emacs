@@ -176,12 +176,13 @@ Key bindings added by this minor mode:
 (put 'wrap-to-fill-set-values 'permanent-local-hook t)
 
 (defun wrap-to-fill-set-values-in-timer (win buf)
-  (condition-case err
-      (when (eq buf (window-buffer win))
-        (with-current-buffer buf
-          (when wrap-to-fill-column-mode
-            (wrap-to-fill-set-values-in-window win))))
-    (error (message "ERROR wrap-to-fill-set-values: %s" (error-message-string err)))))
+  (when (and (window-live-p win) (buffer-live-p buf))
+    (condition-case err
+        (when (eq buf (window-buffer win))
+          (with-current-buffer buf
+            (when wrap-to-fill-column-mode
+              (wrap-to-fill-set-values-in-window win))))
+      (error (message "ERROR wrap-to-fill-set-values: %s" (error-message-string err))))))
 
 (defun wrap-to-fill-set-values-in-buffer-windows ()
   "Use `fill-column' display columns in buffer windows."

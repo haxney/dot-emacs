@@ -76,7 +76,7 @@
 (eval-when-compile (require 'flymake-php))
 (eval-when-compile (require 'flymake-js))
 (eval-when-compile (require 'udev-ecb))
-(eval-when-compile (require 'udev-cedet))
+;;(eval-when-compile (require 'udev-cedet))
 (eval-when-compile (require 'udev-rinari))
 
 (defun nxhtml-nxhtml-in-buffer ()
@@ -418,27 +418,27 @@
         )
 
 
-      (let ((cedet-map (make-sparse-keymap)))
-        (define-key tools-map [nxhtml-cedet-map]
-          (list 'menu-item "CEDET" cedet-map))
-        (define-key cedet-map [nxhtml-custom-cedet]
-          (list 'menu-item "Customize CEDET dev startup from nXhtml"
-                'udev-cedet-customize-startup))
-        (define-key cedet-map [nxhtml-cedet-utest]
-          (list 'menu-item "Run CEDET unit tests"
-                'udev-cedet-utest))
-        (define-key cedet-map [nxhtml-update-cedet]
-          (list 'menu-item "Fetch/update and install CEDET dev sources"
-                'udev-cedet-update))
-        (define-key cedet-map [nxhtml-cedet-home-separator]
-          (list 'menu-item "--" nil))
-        (define-key cedet-map [nxhtml-rinari-homepage]
-          (list 'menu-item "CEDET Home Page"
-                (lambda ()
-                  "Open CEDET home page in your web browser."
-                  (interactive)
-                  (browse-url "http://cedet.sourceforge.net/"))))
-        )
+      ;; (let ((cedet-map (make-sparse-keymap)))
+      ;;   (define-key tools-map [nxhtml-cedet-map]
+      ;;     (list 'menu-item "CEDET" cedet-map))
+      ;;   (define-key cedet-map [nxhtml-custom-cedet]
+      ;;     (list 'menu-item "Customize CEDET dev startup from nXhtml"
+      ;;           'udev-cedet-customize-startup))
+      ;;   (define-key cedet-map [nxhtml-cedet-utest]
+      ;;     (list 'menu-item "Run CEDET unit tests"
+      ;;           'udev-cedet-utest))
+      ;;   (define-key cedet-map [nxhtml-update-cedet]
+      ;;     (list 'menu-item "Fetch/update and install CEDET dev sources"
+      ;;           'udev-cedet-update))
+      ;;   (define-key cedet-map [nxhtml-cedet-home-separator]
+      ;;     (list 'menu-item "--" nil))
+      ;;   (define-key cedet-map [nxhtml-rinari-homepage]
+      ;;     (list 'menu-item "CEDET Home Page"
+      ;;           (lambda ()
+      ;;             "Open CEDET home page in your web browser."
+      ;;             (interactive)
+      ;;             (browse-url "http://cedet.sourceforge.net/"))))
+      ;;   )
 
 
       (let ((rinari-map (make-sparse-keymap)))
@@ -1059,6 +1059,11 @@
                 (lambda () (interactive) (customize-set-variable 'popcmp-completion-style 'anything))
                 :enable `(fboundp 'anything)
                 :button `(:radio . (eq popcmp-completion-style 'anything))))
+        (define-key style-map [popcmp-company-completion]
+          (list 'menu-item "Company Mode Style Completion"
+                (lambda () (interactive) (customize-set-variable 'popcmp-completion-style 'company-mode))
+                :enable `(fboundp 'company-mode)
+                :button `(:radio . (eq popcmp-completion-style 'company-mode))))
         (define-key style-map [popcmp-emacs-completion]
           (list 'menu-item "Emacs Default Style Completion"
                 (lambda () (interactive) (customize-set-variable 'popcmp-completion-style 'emacs-default))
@@ -1067,11 +1072,6 @@
           (list 'menu-item "Popup Style Completion"
                 (lambda () (interactive) (customize-set-variable 'popcmp-completion-style 'popcmp-popup))
                 :button `(:radio . (eq popcmp-completion-style 'popcmp-popup))))
-        (define-key style-map [popcmp-company-completion]
-          (list 'menu-item "Company Mode Style Completion"
-                (lambda () (interactive) (customize-set-variable 'popcmp-completion-style 'company-mode))
-                :enable `(fboundp 'company-mode)
-                :button `(:radio . (eq popcmp-completion-style 'company-mode))))
         )
       (define-key cmpl-map [nxhtml-cmpl-separator]
         (list 'menu-item "--" nil

@@ -163,7 +163,7 @@ emacsw32-eol."
          '(nxhtml-mode fundamental-mode))
     (wrap-to-fill-column-mode 1)
     ;;(visible-point-mode 1)
-    (html-write-mode 1)
+    (when (fboundp 'html-write-mode) (html-write-mode 1))
     (when (boundp 'emacsw32-eol-ask-before-save)
       (make-local-variable 'emacsw32-eol-ask-before-save)
       (setq emacsw32-eol-ask-before-save nil))))

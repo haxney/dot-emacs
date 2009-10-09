@@ -58,14 +58,17 @@
 ;;; Code:
 
 (eval-when-compile (require 'mumamo))
+(eval-when-compile (require 'foldit))
+(eval-when-compile (require 'cl))
+(eval-when-compile (require 'appmenu-fold))
+(eval-when-compile (require 'xhtml-help))
+;;(eval-when-compile (require 'nxhtml-menu)
+(eval-when-compile (require 'fold-dwim))
+(eval-when-compile (require 'typesetter nil t))
+;;(eval-when-compile (require 'outline)
+(eval-when-compile (require 'html-toc nil t))
+(eval-when-compile (require 'html-pagetoc nil t))
 (eval-when-compile
-  (require 'cl)
-  (require 'appmenu-fold)
-  (require 'xhtml-help)
-  ;;(require 'nxhtml-menu)
-  (require 'fold-dwim)
-  (require 'typesetter nil t)
-  ;;(require 'outline)
   (unless (or (< emacs-major-version 23)
               (featurep 'nxhtml-autostart))
     (let ((efn (expand-file-name
@@ -77,9 +80,7 @@
       (message "efn=%s" efn)
       (load efn))
     (require 'rng-valid)
-    (require 'rng-nxml)
-    (require 'html-toc nil t)
-    (require 'html-pagetoc nil t)))
+    (require 'rng-nxml)))
 
 (require 'typesetter nil t)
 (require 'button)
@@ -160,7 +161,6 @@
   (put 'hs-set-up-overlay 'permanent-local t)
   (when (featurep 'appmenu-fold)
     (appmenu-fold-setup))
-  (require 'foldit);; Fix-me
   (foldit-mode 1))
 
 (defun nxhtml-hs-start-tag-end (beg)

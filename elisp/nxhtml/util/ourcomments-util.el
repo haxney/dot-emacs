@@ -51,6 +51,14 @@
 ;;(eval-when-compile (require 'mumamo))
 (eval-when-compile (require 'recentf))
 
+
+(defun ourcomments-goto-line (line)
+  "A version of `goto-line' for use in elisp code."
+  (save-restriction
+    (widen)
+    (goto-char (point-min))
+    (forward-line (1- line))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Popups etc.
 
@@ -972,7 +980,7 @@ and go to the same line number as in the current buffer."
       (error "Can't find the corresponding file %s" other-file))
     (when display-file
       (find-file-other-window other-file)
-      (goto-line line-num))
+      (ourcomments-goto-line line-num))
     other-file))
 
 ;;;###autoload

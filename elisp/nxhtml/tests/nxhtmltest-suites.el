@@ -53,6 +53,9 @@
 
 (setq debug-on-error t)
 
+(defvar nxhtmltest-ert-default-selector "nxhtml-ert-"
+  "Set this to run a single test with `nxhtmltest-run-Q'.")
+
 (defvar nxhtmltest-bin
   (file-name-directory (if load-file-name load-file-name buffer-file-name)))
 
@@ -82,6 +85,39 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Define tests using ert.el
+
+;;(setq nxhtmltest-ert-default-selector "nxhtml-ert-indent-rr-min8")
+(ert-deftest nxhtml-ert-indent-rr-min8 ()
+  "Test of indentation bug.
+As per Richard Riley's bug report 2009-10-08.  Last line gave an
+error."
+  (ert-with-temp-buffer-include-file "rr-min8.php"
+    (add-hook 'ert-simulate-command-post-hook
+              'nxhtmltest-should-no-mumamo-errors
+              nil t)
+    (ert-simulate-command '(nxhtml-mumamo-mode) t)
+    (nxhtmltest-fontify-default-way 2 "trans")
+    (ert-simulate-command '(mark-whole-buffer) t)
+    (ert-simulate-command '(indent-for-tab-command) t)))
+
+;;(setq nxhtmltest-ert-default-selector "nxhtml-ert-bug-400415")
+(ert-deftest nxhtml-ert-bug-400415-foo2 ()
+  "Test for changes before in-here-doc using 400415.
+See URL `https://bugs.launchpad.net/nxhtml/+bug/400415'. This is
+not the bug reported there however."
+  (ert-with-temp-buffer-include-file "bug400415-foo2.php"
+    (add-hook 'ert-simulate-command-post-hook
+              'nxhtmltest-should-no-mumamo-errors
+              nil t)
+    (ert-simulate-command '(nxhtml-mumamo-mode) t)
+    (nxhtmltest-fontify-default-way 2 "trans")
+    (ert-simulate-command '(goto-char 74) t)
+    (ert-should (eq major-mode 'text-mode))
+    (ert-simulate-command '(goto-char 23) t)
+    (ert-simulate-command '(backward-delete-char-untabify 1) t)
+    (ert-simulate-command '(goto-char 74) t)
+    (ert-should (eq major-mode 'text-mode))
+    ))
 
 (ert-deftest nxhtml-ert-bug-300946-index ()
   "Test for bug 300946 in Launchpad.
@@ -161,8 +197,8 @@ Note: This fails in Emacs 22, but should work in Emacs 23."
     ;;
     ;;(set (make-local-variable 'mumamo-submode-indent-offset-0) nil)
     (set (make-local-variable 'mumamo-submode-indent-offset-0) 0)
-    ;;(set (make-local-variable 'mumamo-submode-indent-offset) nil)
-    (set (make-local-variable 'mumamo-submode-indent-offset) 2)
+    (set (make-local-variable 'mumamo-submode-indent-offset) nil)
+    ;;(set (make-local-variable 'mumamo-submode-indent-offset) 2)
     (ert-simulate-command '(mark-whole-buffer) t)
     (ert-simulate-command '(indent-for-tab-command) t)
     (goto-line 8)   (ert-should (= 8 (current-indentation)))
@@ -502,17 +538,16 @@ The indentation on line 7 should be 0."
 ;;; End of test definitions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-(defun nxhtmltest-run-ert ()
+(defun nxhtmltest-run-ert (selector)
   "Run test with ert library."
+  (unless selector (setq selector nxhtmltest-ert-default-selector))
   (setq ert-test-files-root nxhtmltest-files-root)
-  (let ((selector "nxhtml-ert-"))
-    (if noninteractive
-        (ert-run-tests-batch selector)
-      (ert-kill-temp-test-buffers)
-      (ert-run-tests-interactively selector)
-      (other-window 1)
-      (ert-list-temp-test-buffers))))
+  (if noninteractive
+      (ert-run-tests-batch selector)
+    (ert-kill-temp-test-buffers)
+    (ert-run-tests-interactively selector)
+    (other-window 1)
+    (ert-list-temp-test-buffers)))
 
 ;;;###autoload
 (defun nxhtmltest-run-indent ()
@@ -541,7 +576,7 @@ fail (they corresponds to known errors in nXhtml/Emacs):
   (setq message-log-max t)
   (when (called-interactively-p)
     (nxhtmltest-get-fontification-method))
-  (nxhtmltest-run-ert))
+  (nxhtmltest-run-ert nil))
 
 (when (getenv "nxhtmltest-run-Q")
   (nxhtmltest-run))

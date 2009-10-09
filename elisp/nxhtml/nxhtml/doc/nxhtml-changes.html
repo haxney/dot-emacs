@@ -3010,6 +3010,16 @@
           <dd id="v1.94-dd">
             <ul>
               <li>
+                MuMaMo
+                <ul>
+                  <li>
+                    <span class="bugfix">
+                      Hopefully MuMaMo is now fully transfered to the new way of finding the major mode chunks. Chunks in chunks should now work (except for lurking bugs of course...). Tried to fix indentation.
+                    </span>
+                  </li>
+                </ul>
+              </li>
+              <li>
                 <span class="bugfix">
                   <i>wrap-to-fill-column-mode</i> calculated window width wrongly so that the displayed wrapping was not consistent with what fill-paragraph would give. Corrected together with some other bugs in it.
                 </span>
@@ -3017,6 +3027,16 @@
               <li>
                 <span class="bugfix">
                   Fixed an indentation bug in php-mode I introduced when I fixed another indentation bug for heredoc endings.
+                </span>
+              </li>
+              <li>
+                <span class="bugfix">
+                  A bug in <i>ourcomments-M-x-menu-mode</i> made Emacs client fail. Fixed.
+                </span>
+              </li>
+              <li>
+                <span class="bugfix">
+                  The version of company-mode include in nXhtml has some changes. It turns out that these probably gives some problems with company-mode support for etags. The version of company-mode in nXhtml is therefore not autoloaded any more.
                 </span>
               </li>
               <li>
@@ -3033,9 +3053,10 @@
                 Updated <i>vline.el</i>.
               </li>
               <li>
-                <span class="bugfix">
-                  A bug in <i>ourcomments-M-x-menu-mode</i> made Emacs client fail. Fixed.
-                </span>
+                Removed fmode.el since it is not needed any more when majmodpri.el does the job.
+              </li>
+              <li>
+                Removed routines to fetch/load CEDET since CEDET is now part of devel sources of Emacs.
               </li>
             </ul>
           </dd>
