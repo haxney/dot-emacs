@@ -648,7 +648,7 @@ keymap during active completions (`company-active-map'):
 
 (defcustom company-major-modes '(css-mode emacs-lisp-mode nxml-mode)
   "Modes in which `global-company-mode' turn on `company-mode'."
-  :type '(repeat (command :tag "Major mode"))
+  :type '(repeat :tag "Major mode" function)
   :group 'company)
 
 ;;;###autoload
