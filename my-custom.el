@@ -30,7 +30,7 @@
  '(company-backends (quote (company-elisp company-nxml company-css company-eclim company-semantic company-xcode company-predictive company-ropemacs (company-etags company-keywords) company-oddmuse company-files)))
  '(company-begin-commands (quote (self-insert-command org-self-insert-command)))
  '(company-idle-delay t)
- '(company-major-modes (quote (css-mode emacs-lisp-mode nxml-mode lisp-interaction-mode org-mode)))
+ '(company-major-modes (quote (css-mode emacs-lisp-mode nxml-mode lisp-interaction-mode org-mode log-edit-mode)))
  '(confirm-kill-emacs (quote yes-or-no-p))
  '(cua-delete-selection nil)
  '(cua-enable-cua-keys nil)
