@@ -43,5 +43,6 @@
 
 (add-hook 'server-visit-hook 'server-edit-presets)
 (add-hook 'server-visit-hook '(lambda () (longlines-mode 1)))
+(add-hook 'server-visit-hook '(lambda () (company-mode 1)))
 
 ;;; 50server.el ends here

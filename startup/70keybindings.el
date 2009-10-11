@@ -51,11 +51,14 @@
 (global-set-key (kbd "C-c i u") 'identica-update-status-interactive)
 (global-set-key (kbd "C-c i i") 'identica)
 
-(define-key company-active-map (kbd "RET")  'company-complete-selection)
+(eval-after-load "company"
+  '(progn
+     (define-key company-active-map (kbd "RET") 'company-complete-selection)))
 
 (define-key lisp-interaction-mode-map (kbd "M-j") 'eval-print-last-sexp)
 
 (global-set-key (kbd "M-:") 'data-debug-eval-expression)
+
 (global-set-key (kbd "C-M-.") 'semantic-symref)
 
 ;; Make paredit play nice with cua's rectangle editing.
