@@ -36,6 +36,7 @@
  '(cua-enable-cua-keys nil)
  '(cua-mode t nil (cua-base))
  '(current-language-environment "UTF-8")
+ '(debug-on-error nil)
  '(default-frame-alist (quote ((cursor-type bar . 2) (font . "Monospace-8"))))
  '(default-input-method "rfc1345")
  '(default-major-mode (quote text-mode))
