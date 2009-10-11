@@ -62,7 +62,10 @@
 (global-set-key (kbd "C-M-.") 'semantic-symref)
 
 ;; Make paredit play nice with cua's rectangle editing.
-(define-key cua--rectangle-keymap [remap paredit-forward-delete] 'cua-delete-char-rectangle)
-(define-key cua--rectangle-keymap [remap paredit-backward-delete] 'cua-delete-char-rectangle)
+(eval-after-load "cua-rect"
+  '(progn
+     (define-key cua--rectangle-keymap [remap paredit-forward-delete] 'cua-delete-char-rectangle)
+     (define-key cua--rectangle-keymap [remap paredit-backward-delete] 'cua-delete-char-rectangle)))
+
 
 ;;; 70keybindings.el ends here
