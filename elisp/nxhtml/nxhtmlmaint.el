@@ -185,7 +185,8 @@ Update nXhtml autoload file with them."
 
 (defun nxhtmlmaint-autoload-file-load-name (file)
   "Return relative file name for FILE to autoload file directory."
-  (let ((name (if nxhtmlmaint-autoload-default-directory
+  (let ((name (if (and nxhtmlmaint-autoload-default-directory
+                       (file-name-absolute-p file))
                   (file-relative-name
                    file nxhtmlmaint-autoload-default-directory)
                 (file-name-nondirectory file))))

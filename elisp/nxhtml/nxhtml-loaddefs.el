@@ -3,1291 +3,6 @@
 ;; This file should be updated by `nxhtmlmaint-get-file-autoloads',
 ;; `nxhtmlmaint-get-dir-autoloads' or `nxhtmlmaint-get-all-autoloads'.
 
-;;;### (autoloads (html-pagetoc-rebuild-toc html-pagetoc-insert-toc)
-;;;;;;  "../nxhtml/html-pagetoc" "nxhtml/html-pagetoc.el" (18974
-;;;;;;  59066))
-;;; Generated autoloads from nxhtml/html-pagetoc.el
-
-(autoload 'html-pagetoc-insert-toc "../nxhtml/html-pagetoc" "\
-Inserts a table of contents for the current html file.
-The html header tags h1-h6 found in the file are inserted into
-this table.  MIN-LEVEL and MAX-LEVEL specifies the minimum and
-maximum level of h1-h6 to include.  They should be integers.
-
-\(fn &optional MIN-LEVEL MAX-LEVEL)" t nil)
-
-(autoload 'html-pagetoc-rebuild-toc "../nxhtml/html-pagetoc" "\
-Update the table of contents inserted by `html-pagetoc-insert-toc'.
-
-\(fn)" t nil)
-
-(defconst html-pagetoc-menu-map (let ((map (make-sparse-keymap))) (define-key map [html-pagetoc-rebuild-toc] (list 'menu-item "Update Page TOC" 'html-pagetoc-rebuild-toc)) (define-key map [html-pagetoc-insert-style-guide] (list 'menu-item "Insert CSS Style for Page TOC" 'html-pagetoc-insert-style-guide)) (define-key map [html-pagetoc-insert-toc] (list 'menu-item "Insert Page TOC" 'html-pagetoc-insert-toc)) map))
-
-;;;***
-
-;;;### (autoloads (html-site-query-replace html-site-rgrep html-site-find-file
-;;;;;;  html-site-dired-current html-site-set-site html-site-buffer-or-dired-file-name)
-;;;;;;  "../nxhtml/html-site" "nxhtml/html-site.el" (18790 45398))
-;;; Generated autoloads from nxhtml/html-site.el
-
-(autoload 'html-site-buffer-or-dired-file-name "../nxhtml/html-site" "\
-Return buffer file name or file pointed to in dired.
-
-\(fn)" nil nil)
-
-(autoload 'html-site-set-site "../nxhtml/html-site" "\
-Not documented
-
-\(fn NAME)" t nil)
-
-(autoload 'html-site-dired-current "../nxhtml/html-site" "\
-Open `dired' in current site top directory.
-
-\(fn)" t nil)
-
-(autoload 'html-site-find-file "../nxhtml/html-site" "\
-Find file in current site.
-
-\(fn)" t nil)
-
-(autoload 'html-site-rgrep "../nxhtml/html-site" "\
-Search current site's files with `rgrep'.
-See `rgrep' for the arguments REGEXP and FILES.
-
-\(fn REGEXP FILES)" t nil)
-
-(autoload 'html-site-query-replace "../nxhtml/html-site" "\
-Query replace in current site's files.
-
-\(fn FROM TO FILE-REGEXP DELIMITED)" t nil)
-
-;;;***
-
-;;;### (autoloads nil "../nxhtml/html-toc" "nxhtml/html-toc.el" (18974
-;;;;;;  59066))
-;;; Generated autoloads from nxhtml/html-toc.el
-
-(defconst html-toc-menu-map (let ((map (make-sparse-keymap))) (define-key map [html-toc-browse-frames-file] (list 'menu-item "Browse Frames File" 'html-toc-browse-frames-file)) (define-key map [html-toc-write-frames-file] (list 'menu-item "Write Frames File" 'html-toc-write-frames-file)) (define-key map [html-toc-write-toc-file] (list 'menu-item "Write TOC File for Frames" 'html-toc-write-toc-file)) (define-key map [html-toc-sep1] (list 'menu-item "--")) (define-key map [html-toc-edit-pages-file] (list 'menu-item "Edit List of Pages for TOC" 'html-site-edit-pages-file)) (define-key map [html-toc-create-pages-file] (list 'menu-item "Write List of Pages for TOC" 'html-toc-create-pages-file)) map))
-
-;;;***
-
-;;;### (autoloads (html-upl-ediff-file html-upl-edit-remote-file-with-toc
-;;;;;;  html-upl-edit-remote-file html-upl-upload-file html-upl-remote-dired
-;;;;;;  html-upl-upload-site html-upl-upload-site-with-toc) "../nxhtml/html-upl"
-;;;;;;  "nxhtml/html-upl.el" (18969 63118))
-;;; Generated autoloads from nxhtml/html-upl.el
-
-(autoload 'html-upl-upload-site-with-toc "../nxhtml/html-upl" "\
-Not documented
-
-\(fn)" t nil)
-
-(autoload 'html-upl-upload-site "../nxhtml/html-upl" "\
-Not documented
-
-\(fn)" t nil)
-
-(autoload 'html-upl-remote-dired "../nxhtml/html-upl" "\
-Start dired for remote directory or its parent/ancestor.
-
-\(fn DIRNAME)" t nil)
-
-(autoload 'html-upl-upload-file "../nxhtml/html-upl" "\
-Upload a single file in a site.
-For the definition of a site see `html-site-current'.
-
-\(fn FILENAME)" t nil)
-
-(autoload 'html-upl-edit-remote-file "../nxhtml/html-upl" "\
-Not documented
-
-\(fn)" t nil)
-
-(autoload 'html-upl-edit-remote-file-with-toc "../nxhtml/html-upl" "\
-Not documented
-
-\(fn)" t nil)
-
-(autoload 'html-upl-ediff-file "../nxhtml/html-upl" "\
-Run ediff on local and remote file.
-FILENAME could be either the remote or the local file.
-
-\(fn FILENAME)" t nil)
-
-;;;***
-
-;;;### (autoloads (nxhtml-features-check nxhtml-customize) "../nxhtml/nxhtml"
-;;;;;;  "nxhtml/nxhtml.el" (19064 13016))
-;;; Generated autoloads from nxhtml/nxhtml.el
-
-(autoload 'nxhtml-customize "../nxhtml/nxhtml" "\
-Customize nXhtml.
-
-\(fn)" t nil)
-
-(autoload 'nxhtml-features-check "../nxhtml/nxhtml" "\
-Check if external modules used by nXhtml are found.
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (nxhtml-report-bug) "../nxhtml/nxhtml-bug" "nxhtml/nxhtml-bug.el"
-;;;;;;  (18775 60002))
-;;; Generated autoloads from nxhtml/nxhtml-bug.el
-
-(autoload 'nxhtml-report-bug "../nxhtml/nxhtml-bug" "\
-Report a bug in nXhtml.
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (nxhtml-overview nxhtml-global-minor-mode nxhtml-browse-region
-;;;;;;  nxhtml-browse-file nxhtml-edit-with-gimp) "../nxhtml/nxhtml-menu"
-;;;;;;  "nxhtml/nxhtml-menu.el" (19147 32448))
-;;; Generated autoloads from nxhtml/nxhtml-menu.el
-
-(autoload 'nxhtml-edit-with-gimp "../nxhtml/nxhtml-menu" "\
-Edit with GIMP buffer or file at point.
-
-\(fn)" t nil)
-
-(autoload 'nxhtml-browse-file "../nxhtml/nxhtml-menu" "\
-View file in web browser.
-
-\(fn FILE)" t nil)
-
-(autoload 'nxhtml-browse-region "../nxhtml/nxhtml-menu" "\
-View region in web browser.
-
-\(fn)" t nil)
-
-(defvar nxhtml-global-minor-mode nil "\
-Non-nil if Nxhtml-Global minor mode is enabled.
-See the command `nxhtml-global-minor-mode' for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `nxhtml-global-minor-mode'.")
-
-(nxhtml-custom-autoload 'nxhtml-global-minor-mode "../nxhtml/nxhtml-menu" nil)
-
-(autoload 'nxhtml-global-minor-mode "../nxhtml/nxhtml-menu" "\
-Toggle Nxhtml minor mode in every possible buffer.
-With prefix ARG, turn Nxhtml-Global minor mode on if and only if ARG is positive.
-Nxhtml minor mode is enabled in all buffers where `nxhtml-maybe-turn-on-minor-mode' would do it.
-See `nxhtml-minor-mode' for more information on Nxhtml minor mode.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'nxhtml-overview "../nxhtml/nxhtml-menu" "\
-Show a HTML page with an overview of nXhtml.
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (nxhtml-validation-header-mode nxhtml-short-tag-help
-;;;;;;  nxhtml-mode) "../nxhtml/nxhtml-mode" "nxhtml/nxhtml-mode.el"
-;;;;;;  (19148 31427))
-;;; Generated autoloads from nxhtml/nxhtml-mode.el
-
-(when (fboundp 'nxml-mode)
-(autoload 'nxhtml-mode "../nxhtml/nxhtml-mode" "\
-Major mode for editing XHTML documents.
-It is based on `nxml-mode' and adds some features that are useful
-when editing XHTML files.\\<nxhtml-mode-map>
-
-To see an overview in html format do \\[nxhtml-overview].
-
-* Note: Please observe that when loading nXhtml some file
-  associations are done, see `nxhtml-auto-mode-alist'.
-
-The nXhtml menu is added by this mode (or actually the minor
-mode `nxhtml-minor-mode') and gives quick access and an overview
-of some other important features. These includes:
-
-- multiple major modes, see `define-mumamo-multi-major-mode'
-- easy uploading and viewing of files, see for example
-  `html-upl-upload-file'
-- validation in XHTML part for php etc, see
-  `nxhtml-validation-header-mode' (you probably also want to know about
-  `nxhtml-toggle-visible-warnings' for this!)
-- converting of html to xhtml, see `tidy-buffer'
-
-The XML menu contains functionality added by `nxml-mode' (on
-which this major mode is based).  There is also a popup menu
-added to the [apps] key.
-
-The most important features are probably completion and
-validation, which is inherited from `nxml-mode' with some small
-addtions.  In very many situation you can use completion. To
-access it type \\[nxml-complete]. Completion has been enhanced in
-the following way:
-
-- If region is active and visible then completion will surround the
-  region with the chosen tag's start and end tag.  However only the
-  starting point is checked for validity. If something is wrong after
-  insertion you will however immediately see it if you have validation
-  on.
-- It can in some cases give assistance with attribute values.
-- Completion can be customized, see the menus XHTML - Completion:
-  * You can use a menu popup style completion.
-  * You can have alternatives grouped.
-  * You can get a short help text shown for each alternative.
-- There does not have to be a '<' before point for tag name
-  completion. (`nxml-mode' requires a '<' before point for tag name
-  completion.)
-- Completes xml version and encoding.
-- Completes in an empty buffer, ie inserts a skeleton.
-
-Some smaller, useful, but easy-to-miss features:
-
-* Following links. The href and src attribute names are
-  underlined and a special keymap is bound to
-  them:\\<mlinks-mode-map>
-
-    \\[mlinks-backward-link], \\[mlinks-forward-link] Move
-        between underlined href/src attributes
-
-    \\[mlinks-goto], Mouse-1 Follow link inside Emacs
-        (if possible)
-
-  It is even a little bit quicker when the links are in an active
-  state (marked with the face `isearch'):\\<mlinks-active-hilight-keymap>
-
-    \\[mlinks-backward-link], \\[mlinks-forward-link] Move
-        between underlined href/src attributes
-    \\[mlinks-goto], Mouse-1  Follow link inside Emacs (if possible)
-
-  If the link is not into a file that you can edit (a mailto link
-  for example) you will be prompted for an alternative action.
-
-* Creating links. To make it easier to create links to id/name
-  attribute in different files there are two special
-  functions:\\<nxhtml-mode-map>
-
-    \\[nxhtml-save-link-to-here] copy link to id/name (you must
-        be in the tag to get the link)
-    \\[nxhtml-paste-link-as-a-tag] paste this as an a-tag.
-
-Here are all key bindings in nxhtml-mode itself:
-
-\\{nxhtml-mode-map}
-
-The minor mode `nxhtml-minor-mode' adds some bindings:
-
-\\{nxhtml-minor-mode-map}
-
-Notice that other minor mode key bindings may also be active, as
-well as emulation modes. Do \\[describe-bindings] to get a list
-of all active key bindings. Also, *VERY IMPORTANT*, if mumamo is
-used in the buffer each mumamo chunk has a different major mode
-with different key bindings. You can however still see all
-bindings with \\[describe-bindings], but you have to do that with
-point in the mumamo chunk you want to know the key bindings in.
-
----------
-* Note: Some of the features supported by this mode are optional
-  and available only if other Emacs modules are found.  Use
-  \\[nxhtml-features-check] to get a list of these optional
-  features and modules needed. You should however have no problem
-  with this if you have followed the installation instructions
-  for nXhtml.
-
-\(fn)" t nil))
-
-(autoload 'nxhtml-short-tag-help "../nxhtml/nxhtml-mode" "\
-Display description of tag TAG.  If TAG is omitted, try tag at point.
-
-\(fn TAG)" t nil)
-
-(when (fboundp 'nxml-mode)
-(autoload 'nxhtml-validation-header-mode "../nxhtml/nxhtml-mode" "\
-If on use a Fictive XHTML Validation Header for the buffer.
-See `nxhtml-set-validation-header' for information about Fictive XHTML Validation Headers.
-
-This mode may be turned on automatically in two ways:
-- If you try to do completion of a XHTML tag or attribute then
-  `nxthml-mode' may ask you if you want to turn this mode on if
-  needed.
-- You can also choose to have it turned on automatically whenever
-  a mumamo multi major mode is used, see
-  `nxhtml-validation-header-if-mumamo' for further information.
-
-\(fn &optional ARG)" t nil))
-
-;;;***
-
-;;;### (autoloads (mako-nxhtml-mumamo-mode asp-nxhtml-mumamo-mode
-;;;;;;  eruby-nxhtml-mumamo-mode jsp-nxhtml-mumamo-mode smarty-nxhtml-mumamo-mode
-;;;;;;  mjt-nxhtml-mumamo-mode genshi-nxhtml-mumamo-mode django-nxhtml-mumamo-mode
-;;;;;;  embperl-nxhtml-mumamo-mode nxhtml-mumamo-mode) "../nxhtml/nxhtml-mumamo"
-;;;;;;  "nxhtml/nxhtml-mumamo.el" (19065 19164))
-;;; Generated autoloads from nxhtml/nxhtml-mumamo.el
-
-(autoload 'nxhtml-mumamo-mode "../nxhtml/nxhtml-mumamo" "\
-Turn on multiple major modes for (X)HTML with main mode `nxhtml-mode'.
-This covers inlined style and javascript and PHP.
-
-See also `mumamo-alt-php-tags-mode'." t)
-
-(autoload 'embperl-nxhtml-mumamo-mode "../nxhtml/nxhtml-mumamo" "\
-Turn on multiple major modes for Embperl files with main mode `nxhtml-mode'.
-This also covers inlined style and javascript." t)
-
-(autoload 'django-nxhtml-mumamo-mode "../nxhtml/nxhtml-mumamo" "\
-Turn on multiple major modes for Django with main mode `nxhtml-mode'.
-This also covers inlined style and javascript." t)
-
-(autoload 'genshi-nxhtml-mumamo-mode "../nxhtml/nxhtml-mumamo" "\
-Turn on multiple major modes for Genshi with main mode `nxhtml-mode'.
-This also covers inlined style and javascript." t)
-
-(autoload 'mjt-nxhtml-mumamo-mode "../nxhtml/nxhtml-mumamo" "\
-Turn on multiple major modes for MJT with main mode `nxhtml-mode'.
-This also covers inlined style and javascript." t)
-
-(autoload 'smarty-nxhtml-mumamo-mode "../nxhtml/nxhtml-mumamo" "\
-Turn on multiple major modes for Smarty with main mode `nxhtml-mode'.
-This also covers inlined style and javascript." t)
-
-(autoload 'jsp-nxhtml-mumamo-mode "../nxhtml/nxhtml-mumamo" "\
-Turn on multiple major modes for JSP with main mode `nxhtml-mode'.
-This also covers inlined style and javascript." t)
-
-(autoload 'eruby-nxhtml-mumamo-mode "../nxhtml/nxhtml-mumamo" "\
-Turn on multiple major modes for eRuby with main mode `nxhtml-mode'.
-This also covers inlined style and javascript." t)
-
-(autoload 'asp-nxhtml-mumamo-mode "../nxhtml/nxhtml-mumamo" "\
-Turn on multiple major modes for ASP with main mode `nxhtml-mode'.
-This also covers inlined style and javascript." t)
-
-(autoload 'mako-nxhtml-mumamo-mode "../nxhtml/nxhtml-mumamo" "\
-Turn on multiple major modes for Mako with main mode `nxhtml-mode'.
-This also covers inlined style and javascript." t)
-
-;;;***
-
-;;;### (autoloads (nxml-where-global-mode nxml-where-mode) "../nxhtml/nxml-where"
-;;;;;;  "nxhtml/nxml-where.el" (19061 60294))
-;;; Generated autoloads from nxhtml/nxml-where.el
-
-(autoload 'nxml-where-mode "../nxhtml/nxml-where" "\
-Shows path in mode line.
-
-\(fn &optional ARG)" t nil)
-
-(defvar nxml-where-global-mode nil "\
-Non-nil if Nxml-Where-Global mode is enabled.
-See the command `nxml-where-global-mode' for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `nxml-where-global-mode'.")
-
-(nxhtml-custom-autoload 'nxml-where-global-mode "../nxhtml/nxml-where" nil)
-
-(autoload 'nxml-where-global-mode "../nxhtml/nxml-where" "\
-Toggle Nxml-Where mode in every possible buffer.
-With prefix ARG, turn Nxml-Where-Global mode on if and only if ARG is positive.
-Nxml-Where mode is enabled in all buffers where `nxml-where-turn-on-in-nxml-child' would do it.
-See `nxml-where-mode' for more information on Nxml-Where mode.
-
-\(fn &optional ARG)" t nil)
-
-;;;***
-
-;;;### (autoloads (rngalt-set-validation-header) "../nxhtml/rngalt"
-;;;;;;  "nxhtml/rngalt.el" (18982 33732))
-;;; Generated autoloads from nxhtml/rngalt.el
-
-(autoload 'rngalt-set-validation-header "../nxhtml/rngalt" "\
-Not documented
-
-\(fn START-OF-DOC)" nil nil)
-
-;;;***
-
-;;;### (autoloads (tidy-build-menu) "../nxhtml/tidy-xhtml" "nxhtml/tidy-xhtml.el"
-;;;;;;  (19148 43677))
-;;; Generated autoloads from nxhtml/tidy-xhtml.el
-
-(autoload 'tidy-build-menu "../nxhtml/tidy-xhtml" "\
-Set up the tidy menu in MAP.
-Used to set up a Tidy menu in your favourite mode.
-
-\(fn &optional MAP)" t nil)
-
-;;;***
-
-;;;### (autoloads (xhtml-help-show-tag-ref xhtml-help-tag-at-point
-;;;;;;  xhtml-help-show-css-ref) "../nxhtml/xhtml-help" "nxhtml/xhtml-help.el"
-;;;;;;  (19036 37218))
-;;; Generated autoloads from nxhtml/xhtml-help.el
-
-(autoload 'xhtml-help-show-css-ref "../nxhtml/xhtml-help" "\
-Show CSS reference for CSS property name at point.
-
-\(fn)" t nil)
-
-(autoload 'xhtml-help-tag-at-point "../nxhtml/xhtml-help" "\
-Get xhtml tag name at or before point.
-
-\(fn)" nil nil)
-
-(autoload 'xhtml-help-show-tag-ref "../nxhtml/xhtml-help" "\
-Show xhtml reference for tag name at or before point.
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (csharp-mode) "../related/csharp-mode" "related/csharp-mode.el"
-;;;;;;  (18283 4168))
-;;; Generated autoloads from related/csharp-mode.el
-
-(autoload 'csharp-mode "../related/csharp-mode" "\
-Major mode for editing C# (pronounced \"see sharp\") code.
-This is a simple example of a separate mode derived from CC Mode to
-support a language with syntax similar to C/C++/ObjC/Java/IDL/Pike.
-
-The hook `c-mode-common-hook' is run with no args at mode
-initialization, then `csharp-mode-hook'.
-
-Key bindings:
-\\{csharp-mode-map}
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (django-mode) "../related/django" "related/django.el"
-;;;;;;  (18654 33920))
-;;; Generated autoloads from related/django.el
-
-(autoload 'django-mode "../related/django" "\
-Simple Django mode for use with mumamo.
-This mode only provides syntax highlighting.
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (espresso-mode) "../related/espresso" "related/espresso.el"
-;;;;;;  (19039 48498))
-;;; Generated autoloads from related/espresso.el
-
-(autoload 'espresso-mode "../related/espresso" "\
-Major mode for editing JavaScript source text.
-
-Key bindings:
-
-\\{espresso-mode-map}
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (javascript-mode) "../related/javascript" "related/javascript.el"
-;;;;;;  (19148 43773))
-;;; Generated autoloads from related/javascript.el
-
-(autoload 'javascript-mode "../related/javascript" "\
-Major mode for editing JavaScript source text.
-
-Key bindings:
-
-\\{javascript-mode-map}
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (inferior-moz-mode moz-minor-mode) "../related/moz"
-;;;;;;  "related/moz.el" (19048 2102))
-;;; Generated autoloads from related/moz.el
-
-(autoload 'moz-minor-mode "../related/moz" "\
-MozRepl minor mode for interaction with Firefox.
-With no argument, this command toggles the mode.
-Non-null prefix argument turns on the mode.
-Null prefix argument turns off the mode.
-
-When this minor mode is enabled, some commands become available
-to send current code area (as understood by c-mark-function) or
-region or buffer to an inferior MozRepl process (which will be
-started as needed).
-
-The following keys are bound in this minor mode:
-
-\\{moz-minor-mode-map}
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'inferior-moz-mode "../related/moz" "\
-Major mode for interacting with Firefox via MozRepl.
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (global-mozadd-mirror-mode mozadd-mirror-mode global-mozadd-refresh-edited-on-save-mode
-;;;;;;  mozadd-refresh-edited-on-save-mode) "../related/mozadd" "related/mozadd.el"
-;;;;;;  (19064 13016))
-;;; Generated autoloads from related/mozadd.el
-
-(autoload 'mozadd-refresh-edited-on-save-mode "../related/mozadd" "\
-Refresh mozadd edited file in Firefox when saving file.
-The mozadd edited file is the file in the last buffer visited in
-`mozadd-mirror-mode'.
-
-You can use this for example when you edit CSS files.
-
-The mozadd edited file must be shown in Firefox and visible.
-
-\(fn &optional ARG)" t nil)
-
-(defvar global-mozadd-refresh-edited-on-save-mode nil "\
-Non-nil if Global-Mozadd-Refresh-Edited-On-Save mode is enabled.
-See the command `global-mozadd-refresh-edited-on-save-mode' for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `global-mozadd-refresh-edited-on-save-mode'.")
-
-(nxhtml-custom-autoload 'global-mozadd-refresh-edited-on-save-mode "../related/mozadd" nil)
-
-(autoload 'global-mozadd-refresh-edited-on-save-mode "../related/mozadd" "\
-Toggle Mozadd-Refresh-Edited-On-Save mode in every possible buffer.
-With prefix ARG, turn Global-Mozadd-Refresh-Edited-On-Save mode on if and only if ARG is positive.
-Mozadd-Refresh-Edited-On-Save mode is enabled in all buffers where `(lambda nil (when (or (derived-mode-p (quote css-mode)) (mozadd-html-buffer-file-p)) (mozadd-refresh-edited-on-save-mode 1)))' would do it.
-See `mozadd-refresh-edited-on-save-mode' for more information on Mozadd-Refresh-Edited-On-Save mode.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'mozadd-mirror-mode "../related/mozadd" "\
-Mirror content of current file buffer immediately in Firefox.
-When you turn on this mode the file will be opened in Firefox.
-Every change you make in the buffer will trigger a redraw in
-Firefox - regardless of if you save the file or not.
-
-For the mirroring to work the edited file must be shown in
-Firefox and visible.
-
-If `nxml-where-mode' is on the marks will also be shown in
-Firefox as CSS outline style.  You can customize the style
-through the option `mozadd-xml-path-outline-style'.
-
-See also `mozadd-refresh-edited-on-save-mode'.
-
-\(fn &optional ARG)" t nil)
-
-(defvar global-mozadd-mirror-mode nil "\
-Non-nil if Global-Mozadd-Mirror mode is enabled.
-See the command `global-mozadd-mirror-mode' for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `global-mozadd-mirror-mode'.")
-
-(nxhtml-custom-autoload 'global-mozadd-mirror-mode "../related/mozadd" nil)
-
-(autoload 'global-mozadd-mirror-mode "../related/mozadd" "\
-Toggle Mozadd-Mirror mode in every possible buffer.
-With prefix ARG, turn Global-Mozadd-Mirror mode on if and only if ARG is positive.
-Mozadd-Mirror mode is enabled in all buffers where `(lambda nil (when (mozadd-html-buffer-file-p) (mozadd-mirror-mode 1)))' would do it.
-See `mozadd-mirror-mode' for more information on Mozadd-Mirror mode.
-
-\(fn &optional ARG)" t nil)
-
-;;;***
-
-;;;### (autoloads (php-mode php-file-patterns) "../related/php-mode"
-;;;;;;  "related/php-mode.el" (19114 62258))
-;;; Generated autoloads from related/php-mode.el
-
-(defvar php-file-patterns '("\\.php[s34]?\\'" "\\.phtml\\'" "\\.inc\\'") "\
-List of file patterns for which to automatically invoke `php-mode'.")
-
-(nxhtml-custom-autoload 'php-file-patterns "../related/php-mode" nil)
-
-(autoload 'php-mode "../related/php-mode" "\
-Major mode for editing PHP code.
-
-\\{php-mode-map}
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (smarty-mode) "../related/smarty-mode" "related/smarty-mode.el"
-;;;;;;  (19039 48498))
-;;; Generated autoloads from related/smarty-mode.el
-
-(autoload 'smarty-mode "../related/smarty-mode" "\
-Smarty Mode
-***********
-
-Smarty Mode is a GNU XEmacs major mode for editing Smarty templates.
-
-1 Introduction
-**************
-
-Smarty-Mode is a mode allowing easy edit of Smarty templates:
-highlight, templates, navigation into source files...
-
-
-
-Features (new features in bold) :
-
-   * Completion
-
-   * Customizable
-
-   * Highlight
-
-   * Menu
-
-   * Stuttering
-
-   * Templates
-        - Built-in Functions
-
-        - User Functions
-
-        - Variable Modifiers
-
-        - Plugin (Functions)
-             * BlockRepeatPlugin
-
-             * ClipCache
-
-             * Smarty Formtool
-
-             * Smarty Paginate
-
-             * Smarty Validate
-
-        - Plugin (Variable Modifiers)
-             * AlternativeDateModifierPlugin
-
-             * B2Smilies
-
-             * BBCodePlugin
-
-        - Fonctions Non-Smarty
-
-
-
-This manual describes Smarty Mode version 0.0.5.
-
-2 Installation
-**************
-
-2.1 Requirements
-================
-
-Smarty Mode is a XEmacs major mode that needs the following
-software/packages:
-
-   * XEmacs (http://www.xemacs.org/).
-
-   * `font-lock' mode generaly installed with XEmacs.
-
-   * `assoc' mode generaly installed with XEmacs.
-
-   * `easymenu' mode generaly installed with XEmacs.
-
-   * `hippie-exp' mode generaly installed with XEmacs.
-
-Before continuing, you must be sure to have all this packages
-installed.
-
-2.2 Download
-============
-
-Two internet address to download Smarty Mode :
-
-   * Principal: Smarty-Mode 0.0.5
-     (http://deboutv.free.fr/lisp/smarty/download/smarty-0.0.5.tar.gz)
-     (http://deboutv.free.fr/lisp/smarty/)
-
-   * Secondary: Smarty-Mode 0.0.5
-     (http://www.morinie.fr/lisp/smarty/download/smarty-0.0.5.tar.gz)
-     (http://www.morinie.fr/lisp/smarty/)
-
-   * Old releases: Smarty-Mode
-     (http://deboutv.free.fr/lisp/smarty/download.php)
-     (http://deboutv.free.fr/lisp/smarty/)
-
-2.3 Installation
-================
-
-2.3.1 Installation
-------------------
-
-To install Smarty Mode you need to choose an installation directory
-\(for example `/usr/local/share/lisp' or `c:lisp'). The administrator
-must have the write rights on this directory.
-
-With your favorite unzip software, unzip the archive in the
-installation directory.
-
-Example:
-     cd /usr/local/share/lisp
-     tar zxvf smarty-0.0.5.tar.gz
-Now you have a `smarty' directory in the installation directory. This
-directory contains 2 files `smarty-mode.el' and `smarty-mode.elc' and
-another directory `docs' containing the documentation.
-
-You need to configure XEmacs. open you initialization file `init.el'
-\(open the file or start XEmacs then choose the Options menu and Edit
-Init File). Add the following lines (the installation directory in
-this example is `/usr/local/share/lisp') :
-
-     (setq load-path
-           (append (list \"/usr/local/share/lisp/\") load-path))
-     (autoload 'smarty-mode \"smarty-mode\" \"Smarty Mode\" t)
-
-2.3.2 Update
-------------
-
-The update is easy. You need to unzip the archive in the installation
-directory to remove the old release.
-
-Example:
-     cd /usr/local/share/lisp
-     rm -rf smarty
-     tar zxvf smarty-0.0.5.tar.gz
-
-2.4 Invoke Smarty-Mode
-======================
-
-You have two possibilities to invoke the Smarty Mode.
-
-   - Manually: At each file opening you need to launch Smarty Mode
-     with the following command:
-
-     `M-x smarty-mode'
-
-   - Automatically: Add the following linesin your initialization
-     file `init.el' :
-
-          (setq auto-mode-alist
-                (append
-                 '((\"\\.tpl$\" . smarty-mode))
-          	 auto-mode-alist))
-
-
-3 Customization
-***************
-
-This chapter describes the differents parameters and functions that
-you can change to customize Smarty Mode.  To do that, open a Smarty
-file, click on the Smarty menu and choose Options then Browse
-Options....
-
-3.1 Parameters
-==============
-
-3.1.1 Mode
-----------
-
-Smarty Mode has 2 modes allowing to simplify the writing of Smarty
-templates. You can enable/disable each mode individually.
-
-`smarty-electric-mode'
-     Type: boolean
-     Default value: `t'
-     Description: If `t'; enable automatic generation of template.
-     If `nil'; template generators can still be invoked through key
-     bindings and menu. Is indicated in the modeline by \"/e\" after
-     the mode name and can be toggled by `smarty-electric-mode'.
-
-`smarty-stutter-mode'
-     Type: boolean
-     Default value: `t'
-     Description: If `t'; enable the stuttering. Is indicated in the
-     modeline by \"/s\" after the mode name and can be toggled by
-     `smarty-stutter-mode'.
-
-3.1.2 Menu
-----------
-
-Smarty Mode has also 1 menu that you can enable/disable. The menu
-Sources is specific to each Smarty files opened.
-
-`smarty-source-file-menu'
-     Type: boolean
-     Default value: `t'
-     Description: If `t'; the Sources menu is enabled. This menu
-     contains the list of Smarty file located in the current
-     directory. The Sources menu scans the directory when a file is
-     opened.
-
-3.1.3 Menu
-----------
-
-`smarty-highlight-plugin-functions'
-     Type: boolean
-     Default value: `t'
-     Description: If `t'; the functions described in the smarty
-     plugins are highlighted.
-
-3.1.4 Templates
----------------
-
-3.1.4.1 Header
-..............
-
-`smarty-file-header'
-     Type: string
-     Default value: `\"\"'
-     Description: String or file to insert as file header. If the
-     string specifies an existing file name the contents of the file
-     is inserted; otherwise the string itself is inserted as file
-     header.
-     Type `C-j' for newlines.
-     The follonwing keywords are supported:
-     <filename>: replaced by the file name.
-     <author>: replaced by the user name and email address.
-     <login>: replaced by `user-login-name'.
-     <company>: replaced by `smarty-company-name' content.
-     <date>: replaced by the current date.
-     <year>: replaced by the current year.
-     <copyright>: replaced by `smarty-copyright-string' content.
-     <cursor>: final cursor position.
-
-`smarty-file-footer'
-     Type: string
-     Default value: `\"\"'
-     Description: String or file to insert as file footer.  See
-     `smarty-file-header'
-
-`smarty-company-name'
-     Type: string
-     Default value: `\"\"'
-     Description: Name of the company to insert in file header.
-
-`smarty-copyright-string'
-     Type: string
-     Default value: `\"\"'
-     Description: Coryright string to insert in file header.
-
-`smarty-date-format'
-     Type: string
-     Default value: `\"%Y-%m-%d\"'
-     Description: Date format.
-
-`smarty-modify-date-prefix-string'
-     Type: string
-     Default value: `\"\"'
-     Description: Prefix string of modification date in Smarty file
-     header.
-
-`smarty-modify-date-on-saving'
-     Type: bool
-     Default value: `nil'
-     Description: If `t'; update the modification date when the
-     buffer is saved.
-
-3.1.5 Miscellaneous
--------------------
-
-`smarty-left-delimiter'
-     Type: string
-     Default value: `\"\"'
-     Description: Left escaping delimiter for Smarty templates.
-
-`smarty-right-delimiter'
-     Type: string
-     Default value: `\"\"'
-     Description: Right escaping delimiter for Smarty templates.
-
-`smarty-intelligent-tab'
-     Type: bool
-     Default value: `t'
-     Description: If `t'; TAB does indentation; completion and insert
-     tabulations. If `nil'; TAB does only indentation.
-
-`smarty-word-completion-in-minibuffer'
-     Type: bool
-     Default value: `t'
-     Description: If `t'; enable completion in the minibuffer.
-
-`smarty-word-completion-case-sensitive'
-     Type: bool
-     Default value: `nil'
-     Description: If `t'; completion is case sensitive.
-
-3.2 Functions
-=============
-
-3.2.1 Mode
-----------
-
-`smarty-electric-mode'
-     Menu: Smarty -> Options -> Mode -> Electric Mode
-     Keybinding: `C-c C-m C-e'
-     Description: This functions is used to enable/disable the
-     electric mode.
-
-`smarty-stutter-mode'
-     Menu: Smarty -> Options -> Mode -> Stutter Mode
-     Keybinding: `C-c C-m C-s'
-     Description: This function is used to enable/disable the stutter
-     mode.
-
-4 Menus
-*******
-
-There are 2 menus: Smarty and Sources. All theses menus can be
-accessed from the menubar or from the right click. This chapter
-describes each menus.
-
-4.1 Smarty
-==========
-
-This is the main menu of Smarty Mode. It allows an easy access to the
-main features of the Smarty Mode: Templates (see *Note Templates::)
-and Options (see *Note Customization::).
-
-This menu contains also 3 functions that are discussed in the next
-part.
-
-4.1.1 Functions
----------------
-
-`smarty-show-messages'
-     Menu: Smarty -> Show Messages
-     Keybinding: `C-c M-m'
-     Description: This function opens the *Messages* buffer to
-     display previous error messages.
-
-`smarty-doc-mode'
-     Menu: Smarty -> Smarty Mode Documentation
-     Keybinding: `C-c C-h'
-     Description: This function opens the *Help* buffer and prints in
-     it the Smarty Mode documentation.
-
-`smarty-version'
-     Menu: Smarty -> Version
-     Keybinding: `C-c C-v'
-     Description: This function displays in the minibuffer the
-     current Smarty Mode version with the timestamp.
-
-4.2 Sources
-===========
-
-The Sources menu shows the Smarty files in the current directory. If
-you add or delete a file in the current directory, you need to
-refresh the menu.
-
-4.2.1 Customization
--------------------
-
-`smarty-source-file-menu'
-     Type: boolean
-     Default value: `t'
-     Description: If `t'; the Sources menu is enabled. This menu
-     contains the list of Smarty file located in the current
-     directory. The Sources menu scans the directory when a file is
-     opened.
-
-4.2.2 Functions
----------------
-
-`smarty-add-source-files-menu'
-     Menu: Sources -> *Rescan*
-     Keybinding: `C-c C-s C-u'
-     Description: This function is used to refresh the Sources menu.
-
-5 Stuttering
-************
-
-The stutter mode is a mode that affects a function to a key. For
-example, when you use the `ENTER' key, the associated function will
-create a new line and indent it.
-
-5.1 Customization
-=================
-
-`smarty-stutter-mode'
-     Type: boolean
-     Default value: `t'
-     Description: If `t'; enable the stuttering. Is indicated in the
-     modeline by \"/s\" after the mode name and can be toggled by
-     `smarty-stutter-mode'.
-
-5.2 Functions
-=============
-
-`SPACE'
-     If in comment, indent the comment and add new line if necessary.
-     In other case, add a space.
-
-`('
-     If the previous character is a `(', the `((' will be replaced by
-     `['.
-     If the previous character is a `[', the `[(' will be replaced by
-     `{'.
-     In other case, insert a `('.
-
-`)'
-     If the previous character is a `)', the `))' will be replaced by
-     `]'.
-     If the previous character is a `]', the `])' will be replaced by
-     `}'.
-     In other case, insert a `)'.
-
-6 Templates
-***********
-
-In the Smarty Mode, the Smarty functions (like if, while, for, fopen,
-fclose) are predefined in functions called \"Templates\".
-
-Each template can be invoked by the function name or by using the
-<SPACE> key after the Smarty function name in the buffer (Note, using
-`M-<SPACE>' disable the template).
-
-A template can be aborted by using the `C-g' or by lefting empty the
-tempate prompt (in the minibuffer).
-
-6.1 Customization
-=================
-
-`smarty-electric-mode'
-     Type: boolean
-     Default value: `t'
-     Description: If `t'; enable automatic generation of template.
-     If `nil'; template generators can still be invoked through key
-     bindings and menu. Is indicated in the modeline by \"/e\" after
-     the mode name and can be toggled by `smarty-electric-mode'.
-
-For a complete description of the template customizable variables,
-see *Note Cu01-Pa01-Template::
-
-6.2 Functions
-=============
-
-6.2.1 Smarty Functions
-----------------------
-
-For Smarty functions, see PDF or HTML documentation.
-
-6.2.2 Non-Smarty Functions
---------------------------
-
-`smarty-template-header'
-     Menu: Smarty -> Templates -> Insert Header
-     Keybinding: `C-c C-t C-h'
-     Description: This function is used to insert a header in the
-     current buffer.
-
-`smarty-template-footer'
-     Menu: Smarty -> Templates -> Insert Footer
-     Keybinding: `C-c C-t C-f'
-     Description: This function is used to insert a footer in the
-     current buffer.
-
-`smarty-template-insert-date'
-     Menu: Smarty -> Templates -> Insert Date
-     Keybinding: `C-c C-t C-d i'
-     Description: This function is used to insert the date in the
-     current buffer.
-
-`smarty-template-modify'
-     Menu: Smarty -> Templates -> Modify Date
-     Keybinding: `C-c C-t C-d m'
-     Description: This function is used to modify the last
-     modification date in the current buffer.
-
-7 Bugs, Help
-************
-
-   * To report bugs: Bugtracker
-     (http://bugtracker.morinie.fr/lisp/set_project.php?project_id=2)
-
-   * To obtain help you can post on the dedicated forum: Forum
-     (http://forum.morinie.fr/lisp/)
-
-8 Key bindings
-**************
-
-\\{smarty-mode-map}
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (tt-mode) "../related/tt-mode" "related/tt-mode.el"
-;;;;;;  (18603 15792))
-;;; Generated autoloads from related/tt-mode.el
-
-(autoload 'tt-mode "../related/tt-mode" "\
-Major mode for editing Template Toolkit files.
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (wikipedia-draft-buffer wikipedia-draft-page wikipedia-draft
-;;;;;;  wikipedia-mode) "../related/wikipedia-mode" "related/wikipedia-mode.el"
-;;;;;;  (18790 45400))
-;;; Generated autoloads from related/wikipedia-mode.el
-
-(autoload 'wikipedia-mode "../related/wikipedia-mode" "\
-Major mode for editing wikimedia style wikis.
-Major mode for editing articles written in the markup language
-used by Wikipedia, the free on-line
-encyclopedia (see URL `http://www.wikipedia.org').
-
-There are several ways to use wikipedia-mode:
-
-- You can simply cut and paste articles between Emacs and your
-  web browser's text box.
-- If you are using Firefox you can use the It's All Text add-on
-  for Firefox.
-- You can use MozEx, a Mozilla/Firefox web browser extension that
-  allows you to call Emacs from a text
-  box (see URL `http://mozex.mozdev.org/').
-- Another way is to use the PERL script ee-helper, which allows
-  you to up and download wiki texts.
-
-Wikipedia articles are usually unfilled: newline characters are not
-used for breaking paragraphs into lines. Unfortunately, Emacs does not
-handle word wrapping yet. As a workaround, wikipedia-mode turns on
-longlines-mode automatically. In case something goes wrong, the
-following commands may come in handy:
-
-\\[wikipedia-fill-article] fills the buffer.
-\\[wikipedia-unfill-article] unfills the buffer.
-Be warned that function can be dead  slow, better use wikipedia-unfill-paragraph-or-region.
-\\[wikipedia-unfill-paragraph-or-region] unfills the paragraph
-\\[wikipedia-unfill-paragraph-simple] doehe same but simpler.
-
-
-
-The following commands put in markup structures.
-
-\\[wikipedia-insert-bold-italic] bold+italic
-\\[wikipedia-insert-bold] bold text
-\\[wikipedia-insert-italics] italics
-\\[wikipedia-insert-nowiki] no wiki markup
-\\[wikipedia-insert-link-wiki] inserts a link
-
-The following commands are also defined:
-\\[wikipedia-insert-user] inserts user name
-\\[wikipedia-insert-signature] inserts ~~~~
-\\[wikipedia-insert-enumerate] inserts enumerate type structures
-\\[wikipedia-insert-itemize] inserts itemize type structures
-\\[wikipedia-insert-hline] inserts a hline
-
-The draft functionality
-\\[wikipedia-draft]
-\\[wikipedia-draft-region]
-\\[wikipedia-draft-view-draft]
-\\[wikipedia-draft-page]
-\\[wikipedia-draft-buffer]
-
-Replying and sending functionality
-\\[wikipedia-reply-at-point-simple]
-\\[wikipedia-draft-reply]
-
-
-The register functionality
-\\[wikipedia-copy-page-to-register]
-\\[defun wikipedia-insert-page-to-register]
-
-
-Some simple editing commands.
-\\[wikipedia-enhance-indent]
-\\[wikipedia-yank-prefix]
-\\[wikipedia-unfill-paragraph-or-region]
-
-
-
-\\[wikipedia-terminate-paragraph]     starts a new list item or paragraph in a context-aware manner.
-
-\(fn)" t nil)
-
-(autoload 'wikipedia-draft "../related/wikipedia-mode" "\
-Open a temporary buffer in wikipedia mode for editing an
- wikipedia draft, which an arbitrary piece of data. After
- finishing the editing either use \\[wikipedia-draft-buffer] to
- send the data into the wikipedia-draft-data-file, or send the
- buffer using `wikipedia-draft-send-to-mozex' and insert it later
- into a wikipedia article.
-
-\(fn)" t nil)
-
-(autoload 'wikipedia-draft-page "../related/wikipedia-mode" "\
-Not documented
-
-\(fn)" t nil)
-
-(autoload 'wikipedia-draft-buffer "../related/wikipedia-mode" "\
-Wikipedia-draft-buffer sends the contents of the current (temporary)
-buffer to the wikipedia-draft-buffer, see the variable
-wikipedia-draft-data-file.
-
-\(fn)" t nil)
-
-(defvar wikipedia-draft-send-archive t "\
-*Archive the reply.")
-
-;;;***
-
-;;;### (autoloads (ert-run-tests-interactively ert-deftest) "../tests/ert"
-;;;;;;  "tests/ert.el" (18775 60002))
-;;; Generated autoloads from tests/ert.el
-
-(autoload 'ert-deftest "../tests/ert" "\
-Define NAME (a symbol) as a test.
-
-\(fn NAME () [:documentation DOCSTRING] [:expected-result TYPE] BODY...)" nil (quote macro))
-
-(autoload 'ert-run-tests-interactively "../tests/ert" "\
-Run the tests specified by SELECTOR and display the results in a buffer.
-
-\(fn SELECTOR &optional OUTPUT-BUFFER-NAME MESSAGE-FN)" t nil)
-
-;;;***
-
-;;;### (autoloads (nxhtmltest-run-Q) "../tests/nxhtmltest-Q" "tests/nxhtmltest-Q.el"
-;;;;;;  (18781 14068))
-;;; Generated autoloads from tests/nxhtmltest-Q.el
-
-(autoload 'nxhtmltest-run-Q "../tests/nxhtmltest-Q" "\
-Run all tests defined for nXhtml in fresh Emacs.
-See `nxhtmltest-run' for more information about the tests.
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads (nxhtmltest-run nxhtmltest-run-indent) "../tests/nxhtmltest-suites"
-;;;;;;  "tests/nxhtmltest-suites.el" (19146 21134))
-;;; Generated autoloads from tests/nxhtmltest-suites.el
-
-(autoload 'nxhtmltest-run-indent "../tests/nxhtmltest-suites" "\
-Run indentation tests.
-
-\(fn)" t nil)
-
-(autoload 'nxhtmltest-run "../tests/nxhtmltest-suites" "\
-Run all tests defined for nXhtml.
-Currently there are only tests using ert.el defined.
-
-Note that it is currently expected that the following tests will
-fail (they corresponds to known errors in nXhtml/Emacs):
-
-  `nxhtml-ert-nxhtml-changes-jump-back-10549'
-  `nxhtml-ert-nxhtml-changes-jump-back-7014'
-
-\(fn)" t nil)
-
-;;;***
-
 ;;;### (autoloads (appmenu-add) "appmenu" "util/appmenu.el" (18977
 ;;;;;;  25246))
 ;;; Generated autoloads from util/appmenu.el
@@ -1303,7 +18,7 @@ DEFINITION as explained there.
 
 ;;;### (autoloads (as-external-mode as-external-for-wiki as-external-for-mail-mode
 ;;;;;;  as-external-for-xhtml) "as-external" "util/as-external.el"
-;;;;;;  (19114 62258))
+;;;;;;  (19148 46022))
 ;;; Generated autoloads from util/as-external.el
 
 (autoload 'as-external-for-xhtml "as-external" "\
@@ -1719,7 +434,7 @@ See `foldit-mode' for more information on Foldit mode.
 
 ;;;### (autoloads (freemind-to-org-mode freemind-from-org-sparse-tree
 ;;;;;;  freemind-from-org-mode freemind-from-org-mode-node freemind-show)
-;;;;;;  "freemind" "util/freemind.el" (19148 43831))
+;;;;;;  "freemind" "util/freemind.el" (19148 46022))
 ;;; Generated autoloads from util/freemind.el
 
 (autoload 'freemind-show "freemind" "\
@@ -2063,7 +778,7 @@ By default the link moved to will be active, see
 ;;;***
 
 ;;;### (autoloads (mumamo-multi-major-modep mumamo-mark-for-refontification)
-;;;;;;  "mumamo" "util/mumamo.el" (19146 25714))
+;;;;;;  "mumamo" "util/mumamo.el" (19150 62294))
 ;;; Generated autoloads from util/mumamo.el
 
 (autoload 'mumamo-mark-for-refontification "mumamo" "\
@@ -2255,6 +970,57 @@ new are maybe ... - and you have it available here in Emacs.
 
 ;;;***
 
+;;;### (autoloads (nxhtmltest-run nxhtmltest-run-indent) "nxhtmltest-suites"
+;;;;;;  "tests/nxhtmltest-suites.el" (19150 35948))
+;;; Generated autoloads from tests/nxhtmltest-suites.el
+
+(autoload 'nxhtmltest-run-indent "nxhtmltest-suites" "\
+Run indentation tests.
+
+\(fn)" t nil)
+
+(autoload 'nxhtmltest-run "nxhtmltest-suites" "\
+Run all tests defined for nXhtml.
+Currently there are only tests using ert.el defined.
+
+Note that it is currently expected that the following tests will
+fail (they corresponds to known errors in nXhtml/Emacs):
+
+  `nxhtml-ert-nxhtml-changes-jump-back-10549'
+  `nxhtml-ert-nxhtml-changes-jump-back-7014'
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (nxhtmltest-run-Q) "nxhtmltest-Q" "tests/nxhtmltest-Q.el"
+;;;;;;  (19150 35948))
+;;; Generated autoloads from tests/nxhtmltest-Q.el
+
+(autoload 'nxhtmltest-run-Q "nxhtmltest-Q" "\
+Run all tests defined for nXhtml in fresh Emacs.
+See `nxhtmltest-run' for more information about the tests.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (ert-run-tests-interactively ert-deftest) "ert"
+;;;;;;  "tests/ert.el" (18775 60002))
+;;; Generated autoloads from tests/ert.el
+
+(autoload 'ert-deftest "ert" "\
+Define NAME (a symbol) as a test.
+
+\(fn NAME () [:documentation DOCSTRING] [:expected-result TYPE] BODY...)" nil (quote macro))
+
+(autoload 'ert-run-tests-interactively "ert" "\
+Run the tests specified by SELECTOR and display the results in a buffer.
+
+\(fn SELECTOR &optional OUTPUT-BUFFER-NAME MESSAGE-FN)" t nil)
+
+;;;***
+
 ;;;### (autoloads (ourcomments-warning ourcomments-M-x-menu-mode
 ;;;;;;  use-custom-style info-open-file grep-query-replace emacs-Q-nxhtml
 ;;;;;;  emacs-Q emacs--no-desktop emacs--debug-init emacs-buffer-file
@@ -2266,7 +1032,7 @@ new are maybe ... - and you have it available here in Emacs.
 ;;;;;;  ourcomments-move-end-of-line ourcomments-move-beginning-of-line
 ;;;;;;  major-modep major-or-multi-majorp unfill-individual-paragraphs
 ;;;;;;  unfill-region unfill-paragraph define-toggle popup-menu-at-point)
-;;;;;;  "ourcomments-util" "util/ourcomments-util.el" (19148 43931))
+;;;;;;  "ourcomments-util" "util/ourcomments-util.el" (19148 46022))
 ;;; Generated autoloads from util/ourcomments-util.el
 
 (autoload 'popup-menu-at-point "ourcomments-util" "\
@@ -2797,7 +1563,7 @@ Customize ECB dev nXhtml startup group.
 ;;;***
 
 ;;;### (autoloads (udev-fmcss-update) "udev-flymake-css" "util/udev-flymake-css.el"
-;;;;;;  (19114 28238))
+;;;;;;  (19144 38738))
 ;;; Generated autoloads from util/udev-flymake-css.el
 
 (autoload 'udev-fmcss-update "udev-flymake-css" "\
@@ -2861,6 +1627,800 @@ or call the function `vline-global-mode'.")
 Display vertical line mode as globally.
 
 \(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (wikipedia-draft-buffer wikipedia-draft-page wikipedia-draft
+;;;;;;  wikipedia-mode) "wikipedia-mode" "related/wikipedia-mode.el"
+;;;;;;  (18790 45400))
+;;; Generated autoloads from related/wikipedia-mode.el
+
+(autoload 'wikipedia-mode "wikipedia-mode" "\
+Major mode for editing wikimedia style wikis.
+Major mode for editing articles written in the markup language
+used by Wikipedia, the free on-line
+encyclopedia (see URL `http://www.wikipedia.org').
+
+There are several ways to use wikipedia-mode:
+
+- You can simply cut and paste articles between Emacs and your
+  web browser's text box.
+- If you are using Firefox you can use the It's All Text add-on
+  for Firefox.
+- You can use MozEx, a Mozilla/Firefox web browser extension that
+  allows you to call Emacs from a text
+  box (see URL `http://mozex.mozdev.org/').
+- Another way is to use the PERL script ee-helper, which allows
+  you to up and download wiki texts.
+
+Wikipedia articles are usually unfilled: newline characters are not
+used for breaking paragraphs into lines. Unfortunately, Emacs does not
+handle word wrapping yet. As a workaround, wikipedia-mode turns on
+longlines-mode automatically. In case something goes wrong, the
+following commands may come in handy:
+
+\\[wikipedia-fill-article] fills the buffer.
+\\[wikipedia-unfill-article] unfills the buffer.
+Be warned that function can be dead  slow, better use wikipedia-unfill-paragraph-or-region.
+\\[wikipedia-unfill-paragraph-or-region] unfills the paragraph
+\\[wikipedia-unfill-paragraph-simple] doehe same but simpler.
+
+
+
+The following commands put in markup structures.
+
+\\[wikipedia-insert-bold-italic] bold+italic
+\\[wikipedia-insert-bold] bold text
+\\[wikipedia-insert-italics] italics
+\\[wikipedia-insert-nowiki] no wiki markup
+\\[wikipedia-insert-link-wiki] inserts a link
+
+The following commands are also defined:
+\\[wikipedia-insert-user] inserts user name
+\\[wikipedia-insert-signature] inserts ~~~~
+\\[wikipedia-insert-enumerate] inserts enumerate type structures
+\\[wikipedia-insert-itemize] inserts itemize type structures
+\\[wikipedia-insert-hline] inserts a hline
+
+The draft functionality
+\\[wikipedia-draft]
+\\[wikipedia-draft-region]
+\\[wikipedia-draft-view-draft]
+\\[wikipedia-draft-page]
+\\[wikipedia-draft-buffer]
+
+Replying and sending functionality
+\\[wikipedia-reply-at-point-simple]
+\\[wikipedia-draft-reply]
+
+
+The register functionality
+\\[wikipedia-copy-page-to-register]
+\\[defun wikipedia-insert-page-to-register]
+
+
+Some simple editing commands.
+\\[wikipedia-enhance-indent]
+\\[wikipedia-yank-prefix]
+\\[wikipedia-unfill-paragraph-or-region]
+
+
+
+\\[wikipedia-terminate-paragraph]     starts a new list item or paragraph in a context-aware manner.
+
+\(fn)" t nil)
+
+(autoload 'wikipedia-draft "wikipedia-mode" "\
+Open a temporary buffer in wikipedia mode for editing an
+ wikipedia draft, which an arbitrary piece of data. After
+ finishing the editing either use \\[wikipedia-draft-buffer] to
+ send the data into the wikipedia-draft-data-file, or send the
+ buffer using `wikipedia-draft-send-to-mozex' and insert it later
+ into a wikipedia article.
+
+\(fn)" t nil)
+
+(autoload 'wikipedia-draft-page "wikipedia-mode" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'wikipedia-draft-buffer "wikipedia-mode" "\
+Wikipedia-draft-buffer sends the contents of the current (temporary)
+buffer to the wikipedia-draft-buffer, see the variable
+wikipedia-draft-data-file.
+
+\(fn)" t nil)
+
+(defvar wikipedia-draft-send-archive t "\
+*Archive the reply.")
+
+;;;***
+
+;;;### (autoloads (tt-mode) "tt-mode" "related/tt-mode.el" (18603
+;;;;;;  15792))
+;;; Generated autoloads from related/tt-mode.el
+
+(autoload 'tt-mode "tt-mode" "\
+Major mode for editing Template Toolkit files.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (smarty-mode) "smarty-mode" "related/smarty-mode.el"
+;;;;;;  (19039 48498))
+;;; Generated autoloads from related/smarty-mode.el
+
+(autoload 'smarty-mode "smarty-mode" "\
+Smarty Mode
+***********
+
+Smarty Mode is a GNU XEmacs major mode for editing Smarty templates.
+
+1 Introduction
+**************
+
+Smarty-Mode is a mode allowing easy edit of Smarty templates:
+highlight, templates, navigation into source files...
+
+
+
+Features (new features in bold) :
+
+   * Completion
+
+   * Customizable
+
+   * Highlight
+
+   * Menu
+
+   * Stuttering
+
+   * Templates
+        - Built-in Functions
+
+        - User Functions
+
+        - Variable Modifiers
+
+        - Plugin (Functions)
+             * BlockRepeatPlugin
+
+             * ClipCache
+
+             * Smarty Formtool
+
+             * Smarty Paginate
+
+             * Smarty Validate
+
+        - Plugin (Variable Modifiers)
+             * AlternativeDateModifierPlugin
+
+             * B2Smilies
+
+             * BBCodePlugin
+
+        - Fonctions Non-Smarty
+
+
+
+This manual describes Smarty Mode version 0.0.5.
+
+2 Installation
+**************
+
+2.1 Requirements
+================
+
+Smarty Mode is a XEmacs major mode that needs the following
+software/packages:
+
+   * XEmacs (http://www.xemacs.org/).
+
+   * `font-lock' mode generaly installed with XEmacs.
+
+   * `assoc' mode generaly installed with XEmacs.
+
+   * `easymenu' mode generaly installed with XEmacs.
+
+   * `hippie-exp' mode generaly installed with XEmacs.
+
+Before continuing, you must be sure to have all this packages
+installed.
+
+2.2 Download
+============
+
+Two internet address to download Smarty Mode :
+
+   * Principal: Smarty-Mode 0.0.5
+     (http://deboutv.free.fr/lisp/smarty/download/smarty-0.0.5.tar.gz)
+     (http://deboutv.free.fr/lisp/smarty/)
+
+   * Secondary: Smarty-Mode 0.0.5
+     (http://www.morinie.fr/lisp/smarty/download/smarty-0.0.5.tar.gz)
+     (http://www.morinie.fr/lisp/smarty/)
+
+   * Old releases: Smarty-Mode
+     (http://deboutv.free.fr/lisp/smarty/download.php)
+     (http://deboutv.free.fr/lisp/smarty/)
+
+2.3 Installation
+================
+
+2.3.1 Installation
+------------------
+
+To install Smarty Mode you need to choose an installation directory
+\(for example `/usr/local/share/lisp' or `c:lisp'). The administrator
+must have the write rights on this directory.
+
+With your favorite unzip software, unzip the archive in the
+installation directory.
+
+Example:
+     cd /usr/local/share/lisp
+     tar zxvf smarty-0.0.5.tar.gz
+Now you have a `smarty' directory in the installation directory. This
+directory contains 2 files `smarty-mode.el' and `smarty-mode.elc' and
+another directory `docs' containing the documentation.
+
+You need to configure XEmacs. open you initialization file `init.el'
+\(open the file or start XEmacs then choose the Options menu and Edit
+Init File). Add the following lines (the installation directory in
+this example is `/usr/local/share/lisp') :
+
+     (setq load-path
+           (append (list \"/usr/local/share/lisp/\") load-path))
+     (autoload 'smarty-mode \"smarty-mode\" \"Smarty Mode\" t)
+
+2.3.2 Update
+------------
+
+The update is easy. You need to unzip the archive in the installation
+directory to remove the old release.
+
+Example:
+     cd /usr/local/share/lisp
+     rm -rf smarty
+     tar zxvf smarty-0.0.5.tar.gz
+
+2.4 Invoke Smarty-Mode
+======================
+
+You have two possibilities to invoke the Smarty Mode.
+
+   - Manually: At each file opening you need to launch Smarty Mode
+     with the following command:
+
+     `M-x smarty-mode'
+
+   - Automatically: Add the following linesin your initialization
+     file `init.el' :
+
+          (setq auto-mode-alist
+                (append
+                 '((\"\\.tpl$\" . smarty-mode))
+          	 auto-mode-alist))
+
+
+3 Customization
+***************
+
+This chapter describes the differents parameters and functions that
+you can change to customize Smarty Mode.  To do that, open a Smarty
+file, click on the Smarty menu and choose Options then Browse
+Options....
+
+3.1 Parameters
+==============
+
+3.1.1 Mode
+----------
+
+Smarty Mode has 2 modes allowing to simplify the writing of Smarty
+templates. You can enable/disable each mode individually.
+
+`smarty-electric-mode'
+     Type: boolean
+     Default value: `t'
+     Description: If `t'; enable automatic generation of template.
+     If `nil'; template generators can still be invoked through key
+     bindings and menu. Is indicated in the modeline by \"/e\" after
+     the mode name and can be toggled by `smarty-electric-mode'.
+
+`smarty-stutter-mode'
+     Type: boolean
+     Default value: `t'
+     Description: If `t'; enable the stuttering. Is indicated in the
+     modeline by \"/s\" after the mode name and can be toggled by
+     `smarty-stutter-mode'.
+
+3.1.2 Menu
+----------
+
+Smarty Mode has also 1 menu that you can enable/disable. The menu
+Sources is specific to each Smarty files opened.
+
+`smarty-source-file-menu'
+     Type: boolean
+     Default value: `t'
+     Description: If `t'; the Sources menu is enabled. This menu
+     contains the list of Smarty file located in the current
+     directory. The Sources menu scans the directory when a file is
+     opened.
+
+3.1.3 Menu
+----------
+
+`smarty-highlight-plugin-functions'
+     Type: boolean
+     Default value: `t'
+     Description: If `t'; the functions described in the smarty
+     plugins are highlighted.
+
+3.1.4 Templates
+---------------
+
+3.1.4.1 Header
+..............
+
+`smarty-file-header'
+     Type: string
+     Default value: `\"\"'
+     Description: String or file to insert as file header. If the
+     string specifies an existing file name the contents of the file
+     is inserted; otherwise the string itself is inserted as file
+     header.
+     Type `C-j' for newlines.
+     The follonwing keywords are supported:
+     <filename>: replaced by the file name.
+     <author>: replaced by the user name and email address.
+     <login>: replaced by `user-login-name'.
+     <company>: replaced by `smarty-company-name' content.
+     <date>: replaced by the current date.
+     <year>: replaced by the current year.
+     <copyright>: replaced by `smarty-copyright-string' content.
+     <cursor>: final cursor position.
+
+`smarty-file-footer'
+     Type: string
+     Default value: `\"\"'
+     Description: String or file to insert as file footer.  See
+     `smarty-file-header'
+
+`smarty-company-name'
+     Type: string
+     Default value: `\"\"'
+     Description: Name of the company to insert in file header.
+
+`smarty-copyright-string'
+     Type: string
+     Default value: `\"\"'
+     Description: Coryright string to insert in file header.
+
+`smarty-date-format'
+     Type: string
+     Default value: `\"%Y-%m-%d\"'
+     Description: Date format.
+
+`smarty-modify-date-prefix-string'
+     Type: string
+     Default value: `\"\"'
+     Description: Prefix string of modification date in Smarty file
+     header.
+
+`smarty-modify-date-on-saving'
+     Type: bool
+     Default value: `nil'
+     Description: If `t'; update the modification date when the
+     buffer is saved.
+
+3.1.5 Miscellaneous
+-------------------
+
+`smarty-left-delimiter'
+     Type: string
+     Default value: `\"\"'
+     Description: Left escaping delimiter for Smarty templates.
+
+`smarty-right-delimiter'
+     Type: string
+     Default value: `\"\"'
+     Description: Right escaping delimiter for Smarty templates.
+
+`smarty-intelligent-tab'
+     Type: bool
+     Default value: `t'
+     Description: If `t'; TAB does indentation; completion and insert
+     tabulations. If `nil'; TAB does only indentation.
+
+`smarty-word-completion-in-minibuffer'
+     Type: bool
+     Default value: `t'
+     Description: If `t'; enable completion in the minibuffer.
+
+`smarty-word-completion-case-sensitive'
+     Type: bool
+     Default value: `nil'
+     Description: If `t'; completion is case sensitive.
+
+3.2 Functions
+=============
+
+3.2.1 Mode
+----------
+
+`smarty-electric-mode'
+     Menu: Smarty -> Options -> Mode -> Electric Mode
+     Keybinding: `C-c C-m C-e'
+     Description: This functions is used to enable/disable the
+     electric mode.
+
+`smarty-stutter-mode'
+     Menu: Smarty -> Options -> Mode -> Stutter Mode
+     Keybinding: `C-c C-m C-s'
+     Description: This function is used to enable/disable the stutter
+     mode.
+
+4 Menus
+*******
+
+There are 2 menus: Smarty and Sources. All theses menus can be
+accessed from the menubar or from the right click. This chapter
+describes each menus.
+
+4.1 Smarty
+==========
+
+This is the main menu of Smarty Mode. It allows an easy access to the
+main features of the Smarty Mode: Templates (see *Note Templates::)
+and Options (see *Note Customization::).
+
+This menu contains also 3 functions that are discussed in the next
+part.
+
+4.1.1 Functions
+---------------
+
+`smarty-show-messages'
+     Menu: Smarty -> Show Messages
+     Keybinding: `C-c M-m'
+     Description: This function opens the *Messages* buffer to
+     display previous error messages.
+
+`smarty-doc-mode'
+     Menu: Smarty -> Smarty Mode Documentation
+     Keybinding: `C-c C-h'
+     Description: This function opens the *Help* buffer and prints in
+     it the Smarty Mode documentation.
+
+`smarty-version'
+     Menu: Smarty -> Version
+     Keybinding: `C-c C-v'
+     Description: This function displays in the minibuffer the
+     current Smarty Mode version with the timestamp.
+
+4.2 Sources
+===========
+
+The Sources menu shows the Smarty files in the current directory. If
+you add or delete a file in the current directory, you need to
+refresh the menu.
+
+4.2.1 Customization
+-------------------
+
+`smarty-source-file-menu'
+     Type: boolean
+     Default value: `t'
+     Description: If `t'; the Sources menu is enabled. This menu
+     contains the list of Smarty file located in the current
+     directory. The Sources menu scans the directory when a file is
+     opened.
+
+4.2.2 Functions
+---------------
+
+`smarty-add-source-files-menu'
+     Menu: Sources -> *Rescan*
+     Keybinding: `C-c C-s C-u'
+     Description: This function is used to refresh the Sources menu.
+
+5 Stuttering
+************
+
+The stutter mode is a mode that affects a function to a key. For
+example, when you use the `ENTER' key, the associated function will
+create a new line and indent it.
+
+5.1 Customization
+=================
+
+`smarty-stutter-mode'
+     Type: boolean
+     Default value: `t'
+     Description: If `t'; enable the stuttering. Is indicated in the
+     modeline by \"/s\" after the mode name and can be toggled by
+     `smarty-stutter-mode'.
+
+5.2 Functions
+=============
+
+`SPACE'
+     If in comment, indent the comment and add new line if necessary.
+     In other case, add a space.
+
+`('
+     If the previous character is a `(', the `((' will be replaced by
+     `['.
+     If the previous character is a `[', the `[(' will be replaced by
+     `{'.
+     In other case, insert a `('.
+
+`)'
+     If the previous character is a `)', the `))' will be replaced by
+     `]'.
+     If the previous character is a `]', the `])' will be replaced by
+     `}'.
+     In other case, insert a `)'.
+
+6 Templates
+***********
+
+In the Smarty Mode, the Smarty functions (like if, while, for, fopen,
+fclose) are predefined in functions called \"Templates\".
+
+Each template can be invoked by the function name or by using the
+<SPACE> key after the Smarty function name in the buffer (Note, using
+`M-<SPACE>' disable the template).
+
+A template can be aborted by using the `C-g' or by lefting empty the
+tempate prompt (in the minibuffer).
+
+6.1 Customization
+=================
+
+`smarty-electric-mode'
+     Type: boolean
+     Default value: `t'
+     Description: If `t'; enable automatic generation of template.
+     If `nil'; template generators can still be invoked through key
+     bindings and menu. Is indicated in the modeline by \"/e\" after
+     the mode name and can be toggled by `smarty-electric-mode'.
+
+For a complete description of the template customizable variables,
+see *Note Cu01-Pa01-Template::
+
+6.2 Functions
+=============
+
+6.2.1 Smarty Functions
+----------------------
+
+For Smarty functions, see PDF or HTML documentation.
+
+6.2.2 Non-Smarty Functions
+--------------------------
+
+`smarty-template-header'
+     Menu: Smarty -> Templates -> Insert Header
+     Keybinding: `C-c C-t C-h'
+     Description: This function is used to insert a header in the
+     current buffer.
+
+`smarty-template-footer'
+     Menu: Smarty -> Templates -> Insert Footer
+     Keybinding: `C-c C-t C-f'
+     Description: This function is used to insert a footer in the
+     current buffer.
+
+`smarty-template-insert-date'
+     Menu: Smarty -> Templates -> Insert Date
+     Keybinding: `C-c C-t C-d i'
+     Description: This function is used to insert the date in the
+     current buffer.
+
+`smarty-template-modify'
+     Menu: Smarty -> Templates -> Modify Date
+     Keybinding: `C-c C-t C-d m'
+     Description: This function is used to modify the last
+     modification date in the current buffer.
+
+7 Bugs, Help
+************
+
+   * To report bugs: Bugtracker
+     (http://bugtracker.morinie.fr/lisp/set_project.php?project_id=2)
+
+   * To obtain help you can post on the dedicated forum: Forum
+     (http://forum.morinie.fr/lisp/)
+
+8 Key bindings
+**************
+
+\\{smarty-mode-map}
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (php-mode php-file-patterns) "php-mode" "related/php-mode.el"
+;;;;;;  (19114 62258))
+;;; Generated autoloads from related/php-mode.el
+
+(defvar php-file-patterns '("\\.php[s34]?\\'" "\\.phtml\\'" "\\.inc\\'") "\
+List of file patterns for which to automatically invoke `php-mode'.")
+
+(nxhtml-custom-autoload 'php-file-patterns "php-mode" nil)
+
+(autoload 'php-mode "php-mode" "\
+Major mode for editing PHP code.
+
+\\{php-mode-map}
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (global-mozadd-mirror-mode mozadd-mirror-mode global-mozadd-refresh-edited-on-save-mode
+;;;;;;  mozadd-refresh-edited-on-save-mode) "mozadd" "related/mozadd.el"
+;;;;;;  (19064 13016))
+;;; Generated autoloads from related/mozadd.el
+
+(autoload 'mozadd-refresh-edited-on-save-mode "mozadd" "\
+Refresh mozadd edited file in Firefox when saving file.
+The mozadd edited file is the file in the last buffer visited in
+`mozadd-mirror-mode'.
+
+You can use this for example when you edit CSS files.
+
+The mozadd edited file must be shown in Firefox and visible.
+
+\(fn &optional ARG)" t nil)
+
+(defvar global-mozadd-refresh-edited-on-save-mode nil "\
+Non-nil if Global-Mozadd-Refresh-Edited-On-Save mode is enabled.
+See the command `global-mozadd-refresh-edited-on-save-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `global-mozadd-refresh-edited-on-save-mode'.")
+
+(nxhtml-custom-autoload 'global-mozadd-refresh-edited-on-save-mode "mozadd" nil)
+
+(autoload 'global-mozadd-refresh-edited-on-save-mode "mozadd" "\
+Toggle Mozadd-Refresh-Edited-On-Save mode in every possible buffer.
+With prefix ARG, turn Global-Mozadd-Refresh-Edited-On-Save mode on if and only if ARG is positive.
+Mozadd-Refresh-Edited-On-Save mode is enabled in all buffers where `(lambda nil (when (or (derived-mode-p (quote css-mode)) (mozadd-html-buffer-file-p)) (mozadd-refresh-edited-on-save-mode 1)))' would do it.
+See `mozadd-refresh-edited-on-save-mode' for more information on Mozadd-Refresh-Edited-On-Save mode.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'mozadd-mirror-mode "mozadd" "\
+Mirror content of current file buffer immediately in Firefox.
+When you turn on this mode the file will be opened in Firefox.
+Every change you make in the buffer will trigger a redraw in
+Firefox - regardless of if you save the file or not.
+
+For the mirroring to work the edited file must be shown in
+Firefox and visible.
+
+If `nxml-where-mode' is on the marks will also be shown in
+Firefox as CSS outline style.  You can customize the style
+through the option `mozadd-xml-path-outline-style'.
+
+See also `mozadd-refresh-edited-on-save-mode'.
+
+\(fn &optional ARG)" t nil)
+
+(defvar global-mozadd-mirror-mode nil "\
+Non-nil if Global-Mozadd-Mirror mode is enabled.
+See the command `global-mozadd-mirror-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `global-mozadd-mirror-mode'.")
+
+(nxhtml-custom-autoload 'global-mozadd-mirror-mode "mozadd" nil)
+
+(autoload 'global-mozadd-mirror-mode "mozadd" "\
+Toggle Mozadd-Mirror mode in every possible buffer.
+With prefix ARG, turn Global-Mozadd-Mirror mode on if and only if ARG is positive.
+Mozadd-Mirror mode is enabled in all buffers where `(lambda nil (when (mozadd-html-buffer-file-p) (mozadd-mirror-mode 1)))' would do it.
+See `mozadd-mirror-mode' for more information on Mozadd-Mirror mode.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (inferior-moz-mode moz-minor-mode) "moz" "related/moz.el"
+;;;;;;  (19048 2102))
+;;; Generated autoloads from related/moz.el
+
+(autoload 'moz-minor-mode "moz" "\
+MozRepl minor mode for interaction with Firefox.
+With no argument, this command toggles the mode.
+Non-null prefix argument turns on the mode.
+Null prefix argument turns off the mode.
+
+When this minor mode is enabled, some commands become available
+to send current code area (as understood by c-mark-function) or
+region or buffer to an inferior MozRepl process (which will be
+started as needed).
+
+The following keys are bound in this minor mode:
+
+\\{moz-minor-mode-map}
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'inferior-moz-mode "moz" "\
+Major mode for interacting with Firefox via MozRepl.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (javascript-mode) "javascript" "related/javascript.el"
+;;;;;;  (19148 46022))
+;;; Generated autoloads from related/javascript.el
+
+(autoload 'javascript-mode "javascript" "\
+Major mode for editing JavaScript source text.
+
+Key bindings:
+
+\\{javascript-mode-map}
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (espresso-mode) "espresso" "related/espresso.el"
+;;;;;;  (19039 48498))
+;;; Generated autoloads from related/espresso.el
+
+(autoload 'espresso-mode "espresso" "\
+Major mode for editing JavaScript source text.
+
+Key bindings:
+
+\\{espresso-mode-map}
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (django-mode) "django" "related/django.el" (18654
+;;;;;;  33920))
+;;; Generated autoloads from related/django.el
+
+(autoload 'django-mode "django" "\
+Simple Django mode for use with mumamo.
+This mode only provides syntax highlighting.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (csharp-mode) "csharp-mode" "related/csharp-mode.el"
+;;;;;;  (18283 4168))
+;;; Generated autoloads from related/csharp-mode.el
+
+(autoload 'csharp-mode "csharp-mode" "\
+Major mode for editing C# (pronounced \"see sharp\") code.
+This is a simple example of a separate mode derived from CC Mode to
+support a language with syntax similar to C/C++/ObjC/Java/IDL/Pike.
+
+The hook `c-mode-common-hook' is run with no args at mode
+initialization, then `csharp-mode-hook'.
+
+Key bindings:
+\\{csharp-mode-map}
+
+\(fn)" t nil)
 
 ;;;***
 
@@ -3151,7 +2711,7 @@ Not documented
 
 ;;;### (autoloads (wrap-to-fill-column-mode wrap-to-fill-left-marg-modes
 ;;;;;;  wrap-to-fill-left-marg) "wrap-to-fill" "util/wrap-to-fill.el"
-;;;;;;  (19146 33796))
+;;;;;;  (19148 46022))
 ;;; Generated autoloads from util/wrap-to-fill.el
 
 (defvar wrap-to-fill-left-marg nil "\
@@ -3186,6 +2746,444 @@ Key bindings added by this minor mode:
 
 ;;;***
 
+;;;### (autoloads (xhtml-help-show-tag-ref xhtml-help-tag-at-point
+;;;;;;  xhtml-help-show-css-ref) "xhtml-help" "nxhtml/xhtml-help.el"
+;;;;;;  (19036 37218))
+;;; Generated autoloads from nxhtml/xhtml-help.el
+
+(autoload 'xhtml-help-show-css-ref "xhtml-help" "\
+Show CSS reference for CSS property name at point.
+
+\(fn)" t nil)
+
+(autoload 'xhtml-help-tag-at-point "xhtml-help" "\
+Get xhtml tag name at or before point.
+
+\(fn)" nil nil)
+
+(autoload 'xhtml-help-show-tag-ref "xhtml-help" "\
+Show xhtml reference for tag name at or before point.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (tidy-build-menu) "tidy-xhtml" "nxhtml/tidy-xhtml.el"
+;;;;;;  (19148 46020))
+;;; Generated autoloads from nxhtml/tidy-xhtml.el
+
+(autoload 'tidy-build-menu "tidy-xhtml" "\
+Set up the tidy menu in MAP.
+Used to set up a Tidy menu in your favourite mode.
+
+\(fn &optional MAP)" t nil)
+
+;;;***
+
+;;;### (autoloads (rngalt-set-validation-header) "rngalt" "nxhtml/rngalt.el"
+;;;;;;  (18982 33732))
+;;; Generated autoloads from nxhtml/rngalt.el
+
+(autoload 'rngalt-set-validation-header "rngalt" "\
+Not documented
+
+\(fn START-OF-DOC)" nil nil)
+
+;;;***
+
+;;;### (autoloads (nxml-where-global-mode nxml-where-mode) "nxml-where"
+;;;;;;  "nxhtml/nxml-where.el" (19061 60294))
+;;; Generated autoloads from nxhtml/nxml-where.el
+
+(autoload 'nxml-where-mode "nxml-where" "\
+Shows path in mode line.
+
+\(fn &optional ARG)" t nil)
+
+(defvar nxml-where-global-mode nil "\
+Non-nil if Nxml-Where-Global mode is enabled.
+See the command `nxml-where-global-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `nxml-where-global-mode'.")
+
+(nxhtml-custom-autoload 'nxml-where-global-mode "nxml-where" nil)
+
+(autoload 'nxml-where-global-mode "nxml-where" "\
+Toggle Nxml-Where mode in every possible buffer.
+With prefix ARG, turn Nxml-Where-Global mode on if and only if ARG is positive.
+Nxml-Where mode is enabled in all buffers where `nxml-where-turn-on-in-nxml-child' would do it.
+See `nxml-where-mode' for more information on Nxml-Where mode.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (nxhtml-features-check nxhtml-customize) "nxhtml"
+;;;;;;  "nxhtml/nxhtml.el" (19064 13016))
+;;; Generated autoloads from nxhtml/nxhtml.el
+
+(autoload 'nxhtml-customize "nxhtml" "\
+Customize nXhtml.
+
+\(fn)" t nil)
+
+(autoload 'nxhtml-features-check "nxhtml" "\
+Check if external modules used by nXhtml are found.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (mako-nxhtml-mumamo-mode asp-nxhtml-mumamo-mode
+;;;;;;  eruby-nxhtml-mumamo-mode jsp-nxhtml-mumamo-mode smarty-nxhtml-mumamo-mode
+;;;;;;  mjt-nxhtml-mumamo-mode genshi-nxhtml-mumamo-mode django-nxhtml-mumamo-mode
+;;;;;;  embperl-nxhtml-mumamo-mode nxhtml-mumamo-mode) "nxhtml-mumamo"
+;;;;;;  "nxhtml/nxhtml-mumamo.el" (19065 19164))
+;;; Generated autoloads from nxhtml/nxhtml-mumamo.el
+
+(autoload 'nxhtml-mumamo-mode "nxhtml-mumamo" "\
+Turn on multiple major modes for (X)HTML with main mode `nxhtml-mode'.
+This covers inlined style and javascript and PHP.
+
+See also `mumamo-alt-php-tags-mode'." t)
+
+(autoload 'embperl-nxhtml-mumamo-mode "nxhtml-mumamo" "\
+Turn on multiple major modes for Embperl files with main mode `nxhtml-mode'.
+This also covers inlined style and javascript." t)
+
+(autoload 'django-nxhtml-mumamo-mode "nxhtml-mumamo" "\
+Turn on multiple major modes for Django with main mode `nxhtml-mode'.
+This also covers inlined style and javascript." t)
+
+(autoload 'genshi-nxhtml-mumamo-mode "nxhtml-mumamo" "\
+Turn on multiple major modes for Genshi with main mode `nxhtml-mode'.
+This also covers inlined style and javascript." t)
+
+(autoload 'mjt-nxhtml-mumamo-mode "nxhtml-mumamo" "\
+Turn on multiple major modes for MJT with main mode `nxhtml-mode'.
+This also covers inlined style and javascript." t)
+
+(autoload 'smarty-nxhtml-mumamo-mode "nxhtml-mumamo" "\
+Turn on multiple major modes for Smarty with main mode `nxhtml-mode'.
+This also covers inlined style and javascript." t)
+
+(autoload 'jsp-nxhtml-mumamo-mode "nxhtml-mumamo" "\
+Turn on multiple major modes for JSP with main mode `nxhtml-mode'.
+This also covers inlined style and javascript." t)
+
+(autoload 'eruby-nxhtml-mumamo-mode "nxhtml-mumamo" "\
+Turn on multiple major modes for eRuby with main mode `nxhtml-mode'.
+This also covers inlined style and javascript." t)
+
+(autoload 'asp-nxhtml-mumamo-mode "nxhtml-mumamo" "\
+Turn on multiple major modes for ASP with main mode `nxhtml-mode'.
+This also covers inlined style and javascript." t)
+
+(autoload 'mako-nxhtml-mumamo-mode "nxhtml-mumamo" "\
+Turn on multiple major modes for Mako with main mode `nxhtml-mode'.
+This also covers inlined style and javascript." t)
+
+;;;***
+
+;;;### (autoloads (nxhtml-validation-header-mode nxhtml-short-tag-help
+;;;;;;  nxhtml-mode) "nxhtml-mode" "nxhtml/nxhtml-mode.el" (19148
+;;;;;;  46020))
+;;; Generated autoloads from nxhtml/nxhtml-mode.el
+
+(when (fboundp 'nxml-mode)
+(autoload 'nxhtml-mode "nxhtml-mode" "\
+Major mode for editing XHTML documents.
+It is based on `nxml-mode' and adds some features that are useful
+when editing XHTML files.\\<nxhtml-mode-map>
+
+To see an overview in html format do \\[nxhtml-overview].
+
+* Note: Please observe that when loading nXhtml some file
+  associations are done, see `nxhtml-auto-mode-alist'.
+
+The nXhtml menu is added by this mode (or actually the minor
+mode `nxhtml-minor-mode') and gives quick access and an overview
+of some other important features. These includes:
+
+- multiple major modes, see `define-mumamo-multi-major-mode'
+- easy uploading and viewing of files, see for example
+  `html-upl-upload-file'
+- validation in XHTML part for php etc, see
+  `nxhtml-validation-header-mode' (you probably also want to know about
+  `nxhtml-toggle-visible-warnings' for this!)
+- converting of html to xhtml, see `tidy-buffer'
+
+The XML menu contains functionality added by `nxml-mode' (on
+which this major mode is based).  There is also a popup menu
+added to the [apps] key.
+
+The most important features are probably completion and
+validation, which is inherited from `nxml-mode' with some small
+addtions.  In very many situation you can use completion. To
+access it type \\[nxml-complete]. Completion has been enhanced in
+the following way:
+
+- If region is active and visible then completion will surround the
+  region with the chosen tag's start and end tag.  However only the
+  starting point is checked for validity. If something is wrong after
+  insertion you will however immediately see it if you have validation
+  on.
+- It can in some cases give assistance with attribute values.
+- Completion can be customized, see the menus XHTML - Completion:
+  * You can use a menu popup style completion.
+  * You can have alternatives grouped.
+  * You can get a short help text shown for each alternative.
+- There does not have to be a '<' before point for tag name
+  completion. (`nxml-mode' requires a '<' before point for tag name
+  completion.)
+- Completes xml version and encoding.
+- Completes in an empty buffer, ie inserts a skeleton.
+
+Some smaller, useful, but easy-to-miss features:
+
+* Following links. The href and src attribute names are
+  underlined and a special keymap is bound to
+  them:\\<mlinks-mode-map>
+
+    \\[mlinks-backward-link], \\[mlinks-forward-link] Move
+        between underlined href/src attributes
+
+    \\[mlinks-goto], Mouse-1 Follow link inside Emacs
+        (if possible)
+
+  It is even a little bit quicker when the links are in an active
+  state (marked with the face `isearch'):\\<mlinks-active-hilight-keymap>
+
+    \\[mlinks-backward-link], \\[mlinks-forward-link] Move
+        between underlined href/src attributes
+    \\[mlinks-goto], Mouse-1  Follow link inside Emacs (if possible)
+
+  If the link is not into a file that you can edit (a mailto link
+  for example) you will be prompted for an alternative action.
+
+* Creating links. To make it easier to create links to id/name
+  attribute in different files there are two special
+  functions:\\<nxhtml-mode-map>
+
+    \\[nxhtml-save-link-to-here] copy link to id/name (you must
+        be in the tag to get the link)
+    \\[nxhtml-paste-link-as-a-tag] paste this as an a-tag.
+
+Here are all key bindings in nxhtml-mode itself:
+
+\\{nxhtml-mode-map}
+
+The minor mode `nxhtml-minor-mode' adds some bindings:
+
+\\{nxhtml-minor-mode-map}
+
+Notice that other minor mode key bindings may also be active, as
+well as emulation modes. Do \\[describe-bindings] to get a list
+of all active key bindings. Also, *VERY IMPORTANT*, if mumamo is
+used in the buffer each mumamo chunk has a different major mode
+with different key bindings. You can however still see all
+bindings with \\[describe-bindings], but you have to do that with
+point in the mumamo chunk you want to know the key bindings in.
+
+---------
+* Note: Some of the features supported by this mode are optional
+  and available only if other Emacs modules are found.  Use
+  \\[nxhtml-features-check] to get a list of these optional
+  features and modules needed. You should however have no problem
+  with this if you have followed the installation instructions
+  for nXhtml.
+
+\(fn)" t nil))
+
+(autoload 'nxhtml-short-tag-help "nxhtml-mode" "\
+Display description of tag TAG.  If TAG is omitted, try tag at point.
+
+\(fn TAG)" t nil)
+
+(when (fboundp 'nxml-mode)
+(autoload 'nxhtml-validation-header-mode "nxhtml-mode" "\
+If on use a Fictive XHTML Validation Header for the buffer.
+See `nxhtml-set-validation-header' for information about Fictive XHTML Validation Headers.
+
+This mode may be turned on automatically in two ways:
+- If you try to do completion of a XHTML tag or attribute then
+  `nxthml-mode' may ask you if you want to turn this mode on if
+  needed.
+- You can also choose to have it turned on automatically whenever
+  a mumamo multi major mode is used, see
+  `nxhtml-validation-header-if-mumamo' for further information.
+
+\(fn &optional ARG)" t nil))
+
+;;;***
+
+;;;### (autoloads (nxhtml-overview nxhtml-global-minor-mode nxhtml-browse-region
+;;;;;;  nxhtml-browse-file nxhtml-edit-with-gimp) "nxhtml-menu" "nxhtml/nxhtml-menu.el"
+;;;;;;  (19151 55660))
+;;; Generated autoloads from nxhtml/nxhtml-menu.el
+
+(autoload 'nxhtml-edit-with-gimp "nxhtml-menu" "\
+Edit with GIMP buffer or file at point.
+
+\(fn)" t nil)
+
+(autoload 'nxhtml-browse-file "nxhtml-menu" "\
+View file in web browser.
+
+\(fn FILE)" t nil)
+
+(autoload 'nxhtml-browse-region "nxhtml-menu" "\
+View region in web browser.
+
+\(fn)" t nil)
+
+(defvar nxhtml-global-minor-mode nil "\
+Non-nil if Nxhtml-Global minor mode is enabled.
+See the command `nxhtml-global-minor-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `nxhtml-global-minor-mode'.")
+
+(nxhtml-custom-autoload 'nxhtml-global-minor-mode "nxhtml-menu" nil)
+
+(autoload 'nxhtml-global-minor-mode "nxhtml-menu" "\
+Toggle Nxhtml minor mode in every possible buffer.
+With prefix ARG, turn Nxhtml-Global minor mode on if and only if ARG is positive.
+Nxhtml minor mode is enabled in all buffers where `nxhtml-maybe-turn-on-minor-mode' would do it.
+See `nxhtml-minor-mode' for more information on Nxhtml minor mode.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'nxhtml-overview "nxhtml-menu" "\
+Show a HTML page with an overview of nXhtml.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (nxhtml-report-bug) "nxhtml-bug" "nxhtml/nxhtml-bug.el"
+;;;;;;  (18775 60002))
+;;; Generated autoloads from nxhtml/nxhtml-bug.el
+
+(autoload 'nxhtml-report-bug "nxhtml-bug" "\
+Report a bug in nXhtml.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (html-upl-ediff-file html-upl-edit-remote-file-with-toc
+;;;;;;  html-upl-edit-remote-file html-upl-upload-file html-upl-remote-dired
+;;;;;;  html-upl-upload-site html-upl-upload-site-with-toc) "html-upl"
+;;;;;;  "nxhtml/html-upl.el" (18969 63118))
+;;; Generated autoloads from nxhtml/html-upl.el
+
+(autoload 'html-upl-upload-site-with-toc "html-upl" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'html-upl-upload-site "html-upl" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'html-upl-remote-dired "html-upl" "\
+Start dired for remote directory or its parent/ancestor.
+
+\(fn DIRNAME)" t nil)
+
+(autoload 'html-upl-upload-file "html-upl" "\
+Upload a single file in a site.
+For the definition of a site see `html-site-current'.
+
+\(fn FILENAME)" t nil)
+
+(autoload 'html-upl-edit-remote-file "html-upl" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'html-upl-edit-remote-file-with-toc "html-upl" "\
+Not documented
+
+\(fn)" t nil)
+
+(autoload 'html-upl-ediff-file "html-upl" "\
+Run ediff on local and remote file.
+FILENAME could be either the remote or the local file.
+
+\(fn FILENAME)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "html-toc" "nxhtml/html-toc.el" (18974 59066))
+;;; Generated autoloads from nxhtml/html-toc.el
+
+(defconst html-toc-menu-map (let ((map (make-sparse-keymap))) (define-key map [html-toc-browse-frames-file] (list 'menu-item "Browse Frames File" 'html-toc-browse-frames-file)) (define-key map [html-toc-write-frames-file] (list 'menu-item "Write Frames File" 'html-toc-write-frames-file)) (define-key map [html-toc-write-toc-file] (list 'menu-item "Write TOC File for Frames" 'html-toc-write-toc-file)) (define-key map [html-toc-sep1] (list 'menu-item "--")) (define-key map [html-toc-edit-pages-file] (list 'menu-item "Edit List of Pages for TOC" 'html-site-edit-pages-file)) (define-key map [html-toc-create-pages-file] (list 'menu-item "Write List of Pages for TOC" 'html-toc-create-pages-file)) map))
+
+;;;***
+
+;;;### (autoloads (html-site-query-replace html-site-rgrep html-site-find-file
+;;;;;;  html-site-dired-current html-site-set-site html-site-buffer-or-dired-file-name)
+;;;;;;  "html-site" "nxhtml/html-site.el" (18790 45398))
+;;; Generated autoloads from nxhtml/html-site.el
+
+(autoload 'html-site-buffer-or-dired-file-name "html-site" "\
+Return buffer file name or file pointed to in dired.
+
+\(fn)" nil nil)
+
+(autoload 'html-site-set-site "html-site" "\
+Not documented
+
+\(fn NAME)" t nil)
+
+(autoload 'html-site-dired-current "html-site" "\
+Open `dired' in current site top directory.
+
+\(fn)" t nil)
+
+(autoload 'html-site-find-file "html-site" "\
+Find file in current site.
+
+\(fn)" t nil)
+
+(autoload 'html-site-rgrep "html-site" "\
+Search current site's files with `rgrep'.
+See `rgrep' for the arguments REGEXP and FILES.
+
+\(fn REGEXP FILES)" t nil)
+
+(autoload 'html-site-query-replace "html-site" "\
+Query replace in current site's files.
+
+\(fn FROM TO FILE-REGEXP DELIMITED)" t nil)
+
+;;;***
+
+;;;### (autoloads (html-pagetoc-rebuild-toc html-pagetoc-insert-toc)
+;;;;;;  "html-pagetoc" "nxhtml/html-pagetoc.el" (18974 59066))
+;;; Generated autoloads from nxhtml/html-pagetoc.el
+
+(autoload 'html-pagetoc-insert-toc "html-pagetoc" "\
+Inserts a table of contents for the current html file.
+The html header tags h1-h6 found in the file are inserted into
+this table.  MIN-LEVEL and MAX-LEVEL specifies the minimum and
+maximum level of h1-h6 to include.  They should be integers.
+
+\(fn &optional MIN-LEVEL MAX-LEVEL)" t nil)
+
+(autoload 'html-pagetoc-rebuild-toc "html-pagetoc" "\
+Update the table of contents inserted by `html-pagetoc-insert-toc'.
+
+\(fn)" t nil)
+
+(defconst html-pagetoc-menu-map (let ((map (make-sparse-keymap))) (define-key map [html-pagetoc-rebuild-toc] (list 'menu-item "Update Page TOC" 'html-pagetoc-rebuild-toc)) (define-key map [html-pagetoc-insert-style-guide] (list 'menu-item "Insert CSS Style for Page TOC" 'html-pagetoc-insert-style-guide)) (define-key map [html-pagetoc-insert-toc] (list 'menu-item "Insert Page TOC" 'html-pagetoc-insert-toc)) map))
+
+;;;***
+
 ;;;### (autoloads nil nil ("autostart.el" "autostart22.el" "etc/schema/schema-path-patch.el"
 ;;;;;;  "nxhtml/doc/cedet-build.el" "nxhtml/html-chklnk.el" "nxhtml/html-imenu.el"
 ;;;;;;  "nxhtml/html-move.el" "nxhtml/html-quote.el" "nxhtml/html-wtoc.el"
@@ -3202,15 +3200,15 @@ Key bindings added by this minor mode:
 ;;;;;;  "util/mumamo-trace.el" "util/new-key-seq-widget.el" "util/nxml-mode-os-additions.el"
 ;;;;;;  "util/ocr-user.el" "util/org-panel.el" "util/popcmp.el" "util/rebind.el"
 ;;;;;;  "util/rxi.el" "util/udev-nxhtml.el" "util/useful-commands.el"
-;;;;;;  "util/whelp.el" "util/zen-mode.el") (19148 44003 859000))
+;;;;;;  "util/whelp.el" "util/zen-mode.el") (19152 43169 593000))
 
 ;;;***
 
 ;;;### (autoloads (nxhtmlmaint-byte-uncompile-all nxhtmlmaint-start-byte-compilation)
-;;;;;;  "../nxhtmlmaint" "nxhtmlmaint.el" (19148 23034))
+;;;;;;  "nxhtmlmaint" "nxhtmlmaint.el" (19152 42845))
 ;;; Generated autoloads from nxhtmlmaint.el
 
-(autoload 'nxhtmlmaint-start-byte-compilation "../nxhtmlmaint" "\
+(autoload 'nxhtmlmaint-start-byte-compilation "nxhtmlmaint" "\
 Start byte compilation of nXhtml in new Emacs instance.
 Byte compiling in general makes elisp code run 5-10 times faster
 which is quite noticeable when you use nXhtml.
@@ -3224,7 +3222,7 @@ remove then with `nxhtmlmaint-byte-uncompile-all'.
 
 \(fn)" t nil)
 
-(autoload 'nxhtmlmaint-byte-uncompile-all "../nxhtmlmaint" "\
+(autoload 'nxhtmlmaint-byte-uncompile-all "nxhtmlmaint" "\
 Delete byte compiled files in nXhtml.
 This will also update the file nxhtml-loaddefs.el.
 
