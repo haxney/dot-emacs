@@ -23,6 +23,7 @@
                       "anything-config"
                       "eproject"
                       "predictive"
+                      "egg"
                       )
   "A list of additional subdirectories in 'elisp' to add to the load path.")
 
