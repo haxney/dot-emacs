@@ -22,6 +22,7 @@
                       "smart-tab"
                       "anything-config"
                       "eproject"
+                      "predictive"
                       )
   "A list of additional subdirectories in 'elisp' to add to the load path.")
 
