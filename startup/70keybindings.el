@@ -67,5 +67,7 @@
      (define-key cua--rectangle-keymap [remap paredit-forward-delete] 'cua-delete-char-rectangle)
      (define-key cua--rectangle-keymap [remap paredit-backward-delete] 'cua-delete-char-rectangle)))
 
+(define-key dired-mode-map (kbd "C-!")
+  '(lambda () (interactive) (dired-do-shell-command "totem" nil (dired-get-marked-files t current-prefix-arg))))
 
 ;;; 70keybindings.el ends here
