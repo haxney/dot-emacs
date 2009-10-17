@@ -140,6 +140,7 @@
  '(smart-tab-using-hippie-expand t)
  '(smex-save-file "~/.emacs.d/tmp/smex.save")
  '(smiley-data-directory "~/.emacs.d/smileys")
+ '(srecode-map-save-file "/home/dhackney/.emacs.d/tmp/srecode-map")
  '(tab-width 4)
  '(text-mode-hook (quote (turn-on-flyspell turn-on-auto-fill text-mode-hook-identify)))
  '(tool-bar-mode nil)
