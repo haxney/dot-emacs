@@ -53,7 +53,8 @@
 
 (eval-after-load "company"
   '(progn
-     (define-key company-active-map (kbd "RET") 'company-complete-selection)))
+     (define-key company-active-map (kbd "RET") 'company-complete-selection)
+     (define-key company-active-map (kbd "C-w") 'backward-kill-word)))
 
 (define-key lisp-interaction-mode-map (kbd "M-j") 'eval-print-last-sexp)
 
