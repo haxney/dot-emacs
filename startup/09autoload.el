@@ -60,10 +60,6 @@
 (autoload 'geben "geben"
   "Start GEBEN, a DBGp protocol frontend - a script debugger." t)
 
-;; These two just do now want to autoload properly. The only option left is to
-;; `require' them.
-(require 'smart-tab)
-
 (autoload 'identica-update-status-interactive "identica-mode"
   "Update Identica status Interactively" t)
 
@@ -82,10 +78,5 @@
               (file-name-as-directory "elisp")
               (file-name-as-directory "nxhtml")
               "autostart.el"))
-
-(require 'udev-cedet)
-(require 'udev-ecb)
-(udev-cedet-load-cedet nil)
-(udev-ecb-load-ecb)
 
 ;;; 09autoload.el ends here
