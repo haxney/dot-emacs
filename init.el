@@ -16,4 +16,5 @@
 ;; Load all of the files in `startup-dir'.
 (debian-run-directories "~/.emacs.d/startup")
 
+(provide 'init-file)
 ;;; init.el ends here
