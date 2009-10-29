@@ -48,11 +48,11 @@ day-page file matching that name."
 (eval-after-load 'org
   '(progn
      ;; Allow indentation without having to go to the arrow keys
-     (define-key org-mode-map "\C-c\C-x\C-f" 'org-shiftmetaright)
-     (define-key org-mode-map "\C-c\C-x\C-b" 'org-shiftmetaleft)
-     (define-key org-mode-map "\C-\M-m" 'org-insert-heading-after-current)
-     (define-key org-mode-map "\C-c\C-x\C-o" 'my/org-clock-out)
-     (define-key global-map "\C-c\C-x\C-i" 'my/org-todo-starting)
+     (define-key org-mode-map (kbd "C-c C-x C-f") 'org-shiftmetaright)
+     (define-key org-mode-map (kbd "C-c C-x C-b") 'org-shiftmetaleft)
+     (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
+     (define-key org-mode-map (kbd "C-c C-x C-o") 'my/org-clock-out)
+     (global-set-key (kbd "C-c C-x C-i") 'my/org-todo-starting)
 
      ;; Turn on Flyspell when loading org-mode
      (add-hook 'org-mode-hook 'turn-on-flyspell)
@@ -118,6 +118,6 @@ day-page file matching that name."
              (desc (read-from-minibuffer "Desc: ")))
          (insert (org-make-link-string link desc))))
 
-     (define-key org-mode-map "\C-c\M-l" 'dhackney/org-link-to-project)))
+     (define-key org-mode-map (kbd "C-c M-l") 'dhackney/org-link-to-project)))
 
 ;;; 50org-mode.el ends here
