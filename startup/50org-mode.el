@@ -43,6 +43,8 @@ day-page file matching that name."
                       (replace-regexp-in-string "-" "." (org-read-date nil))
                       ".org"))))
 
+(add-to-list 'Info-directory-list (concat elisp-dir (file-name-as-directory "org-mode") "doc"))
+
 (define-key global-map "\C-c\M-d" 'dhackney/org-open-day-page)
 
 (eval-after-load 'org
