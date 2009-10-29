@@ -74,6 +74,7 @@
     (load-file "~/.private/private.el"))
 
 (semantic-load-enable-gaudy-code-helpers)
+(global-semantic-idle-completions-mode -1)
 
 (eval-after-load "company-semantic"
   '(add-to-list 'company-semantic-modes 'python-mode))
