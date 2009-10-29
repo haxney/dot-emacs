@@ -3,7 +3,7 @@
 ;; Copyright (C) 2002, 2003 David Ponce
 
 ;; Author: Daniel Hackney <dhackney@priscilla>
-;; Created: 2009-09-25 08:58:12-0400
+;; Created: 2009-10-29 01:28:38-0400
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

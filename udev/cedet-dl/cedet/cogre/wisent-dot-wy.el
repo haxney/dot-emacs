@@ -3,7 +3,7 @@
 ;; Copyright (C) 2003, 2004, 2009 Eric M. Ludlam
 
 ;; Author: Daniel Hackney <dhackney@priscilla>
-;; Created: 2009-09-25 08:58:52-0400
+;; Created: 2009-10-29 01:29:11-0400
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 
