@@ -22,14 +22,11 @@
 
 ;;; Code:
 
-(when (string-match "^21\\." emacs-version)
-  (require 'ido))
-
 (ido-mode t)
 
 ;; Set up Smex
 (require 'smex)
-(eval-after-load "init.el" '(smex-initialize))
+(smex-initialize)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "C-x C-m") 'smex)
