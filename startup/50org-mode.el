@@ -118,6 +118,62 @@ day-page file matching that name."
              (desc (read-from-minibuffer "Desc: ")))
          (insert (org-make-link-string link desc))))
 
-     (define-key org-mode-map (kbd "C-c M-l") 'dhackney/org-link-to-project)))
+     (define-key org-mode-map (kbd "C-c M-l") 'dhackney/org-link-to-project)
+
+     (add-to-list 'org-export-latex-classes `("vita"
+                                              ,(concat "\\documentclass[ComputerScience]{vita}"
+                                                       "\\usepackage{hyperref}"
+
+                                                       "\\usepackage{multicol}"
+                                                       "\\addtolength{\\columnsep}{-0.3in}"
+                                                       "\\addtolength{\\multicolsep}{-0.2in}"
+
+                                                       "\\usepackage[compact]{titlesec}"
+                                                       "\\titlespacing{\\section}{0pt}{*0.5}{*0.5}"
+                                                       "\\titlespacing{\\subsection}{0pt}{*0.5}{*0.5}"
+                                                       "\\titlespacing{\\subsubsection}{0pt}{*0.5}{*0.5}"
+
+                                                       "\\usepackage{comment}"
+                                                       "\\usepackage{setspace}"
+                                                       "\\singlespacing"
+
+                                                       "\\usepackage{enumitem}"
+                                                       "\\setlist{noitemsep,topsep=0pt}"
+                                                       "\\setitemize{noitemsep,topsep=0pt}"
+                                                       "\\setenumerate{noitemsep,topsep=0pt}"
+
+                                                       "\\addtolength{\\textwidth}{2in}"
+                                                       "\\addtolength{\\oddsidemargin}{-1in}"
+                                                       "\\addtolength{\\evensidemargin}{-1in}"
+                                                       "\\setlength{\\topsep}{-1in}"
+                                                       "\\setlength{\\parskip}{0in}"
+                                                       "\\topmargin=-1in"
+                                                       "\\textheight=10.1in"
+
+                                                       "\\setlength{\\parskip}{0pt}"
+                                                       "\\setlength{\\parsep}{0pt}"
+                                                       "\\setlength{\\partopsep}{0pt}")
+                                              ("\\section{%s \\hrulefill}" . "\\section*{%s \\hrulefill}")
+                                              ("\\subsection{%s}" . "\\subsection*{%s}")
+                                              ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                              ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                              ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+     (defun org-preprocess-radio-lists ()
+       "Preprocess radio lists before exporting."
+       (save-excursion
+         (goto-char (point-min))
+         (while (search-forward "#+ORGLST:" nil t)
+           (forward-line 1)
+           (org-list-send-list t))))
+
+     (defun org-preprocess-radio-tables ()
+       "Preprocess radio tables before exporting."
+       (save-excursion
+         (goto-char (point-min))
+         (while (search-forward "#+ORGTBL:" nil t)
+           (forward-line 1)
+           (orgtbl-send-table t))))
+     (add-hook 'org-export-preprocess-final-hook 'org-preprocess-radio-lists)
+     (add-hook 'org-export-preprocess-final-hook 'org-preprocess-radio-tables)))
 
 ;;; 50org-mode.el ends here
