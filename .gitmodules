@@ -16,3 +16,6 @@
 [submodule "elisp/egg"]
 	path = elisp/egg
 	url = git://github.com/bogolisk/egg.git
+[submodule "elisp/org-mode"]
+	path = elisp/org-mode
+	url = git://repo.or.cz/org-mode.git
