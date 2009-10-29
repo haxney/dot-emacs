@@ -152,7 +152,7 @@
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(udev-cedet-load-cedet (quote (excessive-code-helpers sem-ia)) nil (udev-cedet))
- '(udev-ecb-load-ecb t nil (udev-ecb))
+ '(udev-ecb-load-ecb nil nil (udev-ecb))
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify))
  '(wdired-use-dired-vertical-movement (quote sometimes))
  '(windmove-wrap-around t)
