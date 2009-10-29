@@ -90,6 +90,4 @@
      (add-hook 'company-mode-hook 'predictive-mode)
      (add-hook 'company-completion-finished-hook 'company-predictive-accept)))
 
-
-
 ;;; 50editor-misc.el ends here
