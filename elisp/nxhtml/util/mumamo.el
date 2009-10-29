@@ -4,7 +4,7 @@
 ;; Maintainer:
 ;; Created: Fri Mar 09 2007
 (defconst mumamo:version "0.91") ;;Version:
-;; Last-Updated: 2009-09-17 Thu
+;; Last-Updated: 2009-10-19 Mon
 ;; URL: http://OurComments.org/Emacs/Emacs.html
 ;; Keywords:
 ;; Compatibility:
@@ -1053,6 +1053,8 @@ somewhat visible."
     (java-mode
      jde-mode
      java-mode)
+    (groovy-mode
+     groovy-mode)
     ;; For Emacs 22 that do not have nxml by default
     ;; Fix me: fallback when autoload fails!
     (nxhtml-mode
@@ -1390,7 +1392,7 @@ ends before END then create chunks upto END."
                       mumamo-last-chunk
                       ;;(= (point-max) (overlay-end mumamo-last-chunk))
                       (= (overlay-end mumamo-last-chunk) (overlay-start mumamo-last-chunk)))
-            (msgtrc "delete-overlay at end")
+            ;;(msgtrc "delete-overlay at end")
             (delete-overlay mumamo-last-chunk)
             (setq mumamo-last-chunk (overlay-get mumamo-last-chunk 'mumamo-prev-chunk))
             (when mumamo-last-chunk (overlay-put mumamo-last-chunk 'mumamo-next-chunk nil)))
@@ -6639,7 +6641,7 @@ The following rules are used when indenting:
   - Even (going out): Same test as for going in, but going out
     happens on current line.
 "
-  (msgtrc "mumamo-indent-line-function-1 blp=%s" (line-beginning-position))
+  ;;(msgtrc "indent-line-function-1 blp=%s" (line-beginning-position))
   (unless prev-line-chunks
     (save-excursion
       (goto-char (line-beginning-position 1))
@@ -6839,7 +6841,7 @@ The following rules are used when indenting:
                                                mumamo-submode-indent-offset)))))))))
             )))))
     (when want-indent
-      (msgtrc "indent-line-to %s at line-beginning=%s" want-indent (line-beginning-position))
+      ;;(msgtrc "indent-line-to %s at line-beginning=%s" want-indent (line-beginning-position))
       (indent-line-to want-indent))
     (goto-char here-on-line)
     ;;(message "exit: %s" (list this-line-chunks last-parent-major-indent))
@@ -6871,7 +6873,7 @@ The following rules are used when indenting:
 
 (defun mumamo-call-indent-line (chunk)
   "Call the relevant `indent-line-function'."
-  (msgtrc "mumamo-call-indent-line %s, lbp=%s" chunk (line-beginning-position))
+  ;;(msgtrc "call-indent-line %s, lbp=%s" chunk (line-beginning-position))
   (if nil
       (mumamo-with-major-mode-indentation major-mode
         `(save-restriction
@@ -6887,7 +6889,7 @@ The following rules are used when indenting:
         ;;   (let ((syn-min-max (mumamo-chunk-syntax-min-max chunk nil)))
         ;;     (narrow-to-region (car syn-min-max) (cdr syn-min-max))))
         (when (mumamo-indent-use-widen major-mode) (widen))
-        (msgtrc "mumamo-call-indent-line fun=%s" fun)
+        ;;(msgtrc "call-indent-line fun=%s" fun)
         (funcall fun)
         ))))
 

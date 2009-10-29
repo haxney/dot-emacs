@@ -2,17 +2,18 @@
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
 ;; Created: 2008-02-19 Tue
-(defconst freemind:version "0.60") ;; Version:
-;; Last-Updated: 2009-08-04 Tue
+(defconst freemind:version "0.61") ;; Version:
+;; Last-Updated: 2009-10-25 Sun
 ;; URL:
 ;; Keywords:
 ;; Compatibility:
 ;;
 ;; Features that might be required by this library:
 ;;
-  ;; `easymenu', `font-lock', `noutline', `org', `org-compat',
-  ;; `org-faces', `org-footnote', `org-list', `org-macs',
-  ;; `org-panel', `outline', `syntax', `time-date', `xml'.
+  ;; `backquote', `bytecomp', `cl', `easymenu', `font-lock',
+  ;; `noutline', `org', `org-compat', `org-faces', `org-footnote',
+  ;; `org-list', `org-macs', `org-src', `outline', `syntax',
+  ;; `time-date', `xml'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -41,6 +42,8 @@
 ;;
 ;; 2009-02-15: Added check for next level=current+1
 ;; 2009-02-21: Fixed bug in `freemind-to-org-mode'.
+;; 2009-10-25: Added support for `org-odd-levels-only'.
+;;             Added y/n question before showing in FreeMind.
 ;;
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -460,6 +463,8 @@ NOT READY YET."
              (first-time t)
              (current-level 1)
              base-level
+             skipping-odd
+             (skipped-odd 0)
              prev-node-end
              rich-text
              unfinished-tag
@@ -552,7 +557,8 @@ NOT READY YET."
                 next-m2
                 next-level
                 next-has-some-visible-child
-                next-children-visible)
+                next-children-visible
+                )
             (while (and
                     (re-search-forward freemind-node-pattern nil t)
                     (if node-at-line-last (<= (point) node-at-line-last) t)
@@ -564,7 +570,14 @@ NOT READY YET."
                 (setq next-m2 (match-string-no-properties 2))
                 (setq next-level (length next-m1))
                 (when (> next-level current-level)
-                  (unless (= next-level (1+ current-level))
+                  (if (not (and org-odd-levels-only
+                                (/= (mod current-level 2) 0)
+                                (= next-level (+ 2 current-level))))
+                      (setq skipping-odd nil)
+                    (setq skipping-odd t)
+                    (setq skipped-odd (1+ skipped-odd)))
+                  (unless (or (= next-level (1+ current-level))
+                              skipping-odd)
                     (error "Next level step > +1 for node ending at line %s" (line-number-at-pos))
                     ))
                 (setq next-children-visible
@@ -580,7 +593,11 @@ NOT READY YET."
                     (with-current-buffer mm-buffer
                       (insert "</node>\n")
                       ;;(insert (format "</node>\ncurrent-level=%s, next-level%s\n" current-level next-level))
-                      (setq current-level (1- current-level)))))
+                      (setq current-level (1- current-level))
+                      (when (< 0 skipped-odd)
+                        (setq skipped-odd (1- skipped-odd))
+                        (setq current-level (1- current-level)))
+                      )))
                 (setq this-node-end (1+ next-node-end))
                 (setq this-m2 next-m2)
                 (setq current-level next-level)
@@ -603,7 +620,8 @@ NOT READY YET."
           (with-current-buffer mm-buffer
             (while (> current-level base-level)
               (insert "</node>\n")
-              (setq current-level (1- current-level))))
+              (setq current-level (1- current-level))
+              ))
           (with-current-buffer mm-buffer
             (insert "</map>")
             (delete-trailing-whitespace)
@@ -710,7 +728,8 @@ NOT READY YET."
         (basic-save-buffer)
         (when (called-interactively-p)
           (switch-to-buffer-other-window mm-buffer)
-          (freemind-show buffer-file-name))))))
+          (when (y-or-n-p "Show in FreeMind? ")
+            (freemind-show buffer-file-name)))))))
 
 ;;;###autoload
 (defun freemind-from-org-mode (org-file mm-file)
@@ -733,7 +752,8 @@ NOT READY YET."
         (basic-save-buffer)
         (when (called-interactively-p)
           (switch-to-buffer-other-window mm-buffer)
-          (freemind-show buffer-file-name))))))
+          (when (y-or-n-p "Show in FreeMind? ")
+            (freemind-show buffer-file-name)))))))
 
 ;;;###autoload
 (defun freemind-from-org-sparse-tree (org-buffer mm-file)
@@ -758,7 +778,8 @@ NOT READY YET."
         (basic-save-buffer)
         (when (called-interactively-p)
           (switch-to-buffer-other-window mm-buffer)
-          (freemind-show buffer-file-name))))))
+          (when (y-or-n-p "Show in FreeMind? ")
+            (freemind-show buffer-file-name)))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

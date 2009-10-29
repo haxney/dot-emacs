@@ -652,7 +652,7 @@ hyperlinks as appropriate.
 ;;;***
 
 ;;;### (autoloads (inlimg-toggle-slicing inlimg-toggle-display inlimg-global-mode
-;;;;;;  inlimg-mode) "inlimg" "util/inlimg.el" (19045 31314))
+;;;;;;  inlimg-mode) "inlimg" "util/inlimg.el" (19155 44727))
 ;;; Generated autoloads from util/inlimg.el
 
 (autoload 'inlimg-mode "inlimg" "\
@@ -778,7 +778,7 @@ By default the link moved to will be active, see
 ;;;***
 
 ;;;### (autoloads (mumamo-multi-major-modep mumamo-mark-for-refontification)
-;;;;;;  "mumamo" "util/mumamo.el" (19150 62294))
+;;;;;;  "mumamo" "util/mumamo.el" (19156 57074))
 ;;; Generated autoloads from util/mumamo.el
 
 (autoload 'mumamo-mark-for-refontification "mumamo" "\
@@ -798,10 +798,10 @@ Return t if VALUE is a multi major mode function.
 ;;;;;;  metapost-mumamo-mode ruby-heredoc-mumamo-mode python-heredoc-mumamo-mode
 ;;;;;;  cperl-heredoc-mumamo-mode perl-heredoc-mumamo-mode php-heredoc-mumamo-mode
 ;;;;;;  sh-heredoc-mumamo-mode eruby-html-mumamo-mode eruby-mumamo-mode
-;;;;;;  jsp-html-mumamo-mode smarty-html-mumamo-mode mjt-html-mumamo-mode
-;;;;;;  genshi-html-mumamo-mode django-html-mumamo-mode embperl-html-mumamo-mode
-;;;;;;  nxml-mumamo-mode html-mumamo-mode) "mumamo-fun" "util/mumamo-fun.el"
-;;;;;;  (19114 62258))
+;;;;;;  jsp-html-mumamo-mode gsp-html-mumamo-mode smarty-html-mumamo-mode
+;;;;;;  mjt-html-mumamo-mode genshi-html-mumamo-mode django-html-mumamo-mode
+;;;;;;  embperl-html-mumamo-mode nxml-mumamo-mode html-mumamo-mode)
+;;;;;;  "mumamo-fun" "util/mumamo-fun.el" (19156 54878))
 ;;; Generated autoloads from util/mumamo-fun.el
 
 (autoload 'html-mumamo-mode "mumamo-fun" "\
@@ -841,6 +841,10 @@ This also covers inlined style and javascript." t)
 
 (autoload 'smarty-html-mumamo-mode "mumamo-fun" "\
 Turn on multiple major modes for Smarty with main mode `html-mode'.
+This also covers inlined style and javascript." t)
+
+(autoload 'gsp-html-mumamo-mode "mumamo-fun" "\
+Turn on multiple major modes for GSP with main mode `html-mode'.
 This also covers inlined style and javascript." t)
 
 (autoload 'jsp-html-mumamo-mode "mumamo-fun" "\
@@ -1027,12 +1031,12 @@ Run the tests specified by SELECTOR and display the results in a buffer.
 ;;;;;;  emacs emacs-restart ourcomments-ido-ctrl-tab ourcomments-ido-buffer-raise-frame
 ;;;;;;  ourcomments-ido-buffer-other-frame ourcomments-ido-buffer-other-window
 ;;;;;;  describe-symbol describe-defstruct describe-custom-group
-;;;;;;  narrow-to-comment describe-command ourcomments-ediff-files
+;;;;;;  narrow-to-comment buffer-narrowed-p describe-command ourcomments-ediff-files
 ;;;;;;  find-emacs-other-file better-fringes-mode describe-key-and-map-briefly
 ;;;;;;  ourcomments-move-end-of-line ourcomments-move-beginning-of-line
-;;;;;;  major-modep major-or-multi-majorp unfill-individual-paragraphs
-;;;;;;  unfill-region unfill-paragraph define-toggle popup-menu-at-point)
-;;;;;;  "ourcomments-util" "util/ourcomments-util.el" (19148 46022))
+;;;;;;  unfill-individual-paragraphs unfill-region unfill-paragraph
+;;;;;;  define-toggle popup-menu-at-point) "ourcomments-util" "util/ourcomments-util.el"
+;;;;;;  (19156 54975))
 ;;; Generated autoloads from util/ourcomments-util.el
 
 (autoload 'popup-menu-at-point "ourcomments-util" "\
@@ -1083,19 +1087,6 @@ Unfill the current region.
 Unfill individual paragraphs in the current region.
 
 \(fn)" t nil)
-
-(autoload 'major-or-multi-majorp "ourcomments-util" "\
-Not documented
-
-\(fn VALUE)" nil nil)
-
-(autoload 'major-modep "ourcomments-util" "\
-Return t if VALUE is a major mode function.
-
-\(fn VALUE)" nil nil)
-
-(define-widget 'major-mode-function 'function "\
-A major mode lisp function." :complete-function (lambda nil (interactive) (lisp-complete-symbol (quote major-or-multi-majorp))) :prompt-match (quote major-or-multi-majorp) :prompt-history (quote widget-function-prompt-value-history) :match-alternatives (quote (major-or-multi-majorp)) :validate (lambda (widget) (unless (major-or-multi-majorp (widget-value widget)) (widget-put widget :error (format "Invalid function: %S" (widget-value widget))) widget)) :value (quote fundamental-mode) :tag "Major mode function")
 
 (autoload 'ourcomments-move-beginning-of-line "ourcomments-util" "\
 Move point to beginning of line or indentation.
@@ -1175,6 +1166,11 @@ It can of course be done in a similar way with other shells.
 Like `describe-function', but prompts only for interactive commands.
 
 \(fn COMMAND)" t nil)
+
+(autoload 'buffer-narrowed-p "ourcomments-util" "\
+Return non-nil if the current buffer is narrowed.
+
+\(fn)" nil nil)
 
 (autoload 'narrow-to-comment "ourcomments-util" "\
 Not documented
@@ -1310,6 +1306,24 @@ Only commands that are not already in M-x history are added.
 Not documented
 
 \(fn FORMAT-STRING &rest ARGS)" nil nil)
+
+;;;***
+
+;;;### (autoloads (major-modep major-or-multi-majorp) "ourcomments-widgets"
+;;;;;;  "util/ourcomments-widgets.el" (19155 45022))
+;;; Generated autoloads from util/ourcomments-widgets.el
+ (autoload 'command "ourcomments-widgets")
+
+(autoload 'major-or-multi-majorp "ourcomments-widgets" "\
+Return t if VALUE is a major or multi major mode function.
+
+\(fn VALUE)" nil nil)
+
+(autoload 'major-modep "ourcomments-widgets" "\
+Return t if VALUE is a major mode function.
+
+\(fn VALUE)" nil nil)
+ (autoload 'major-mode-function "ourcomments-widgets")
 
 ;;;***
 
@@ -1606,7 +1620,7 @@ later.
 ;;;***
 
 ;;;### (autoloads (vline-global-mode vline-mode) "vline" "util/vline.el"
-;;;;;;  (19114 62258))
+;;;;;;  (19155 27104))
 ;;; Generated autoloads from util/vline.el
 
 (autoload 'vline-mode "vline" "\
@@ -2508,7 +2522,7 @@ See also option `winsav-save-mode' and command
 ;;;***
 
 ;;;### (autoloads (winsize-save-window-configuration winsize-balance-siblings
-;;;;;;  resize-windows) "winsize" "util/winsize.el" (19064 13018))
+;;;;;;  resize-windows) "winsize" "util/winsize.el" (19155 44503))
 ;;; Generated autoloads from util/winsize.el
 
 (autoload 'resize-windows "winsize" "\
@@ -2711,7 +2725,7 @@ Not documented
 
 ;;;### (autoloads (wrap-to-fill-column-mode wrap-to-fill-left-marg-modes
 ;;;;;;  wrap-to-fill-left-marg) "wrap-to-fill" "util/wrap-to-fill.el"
-;;;;;;  (19148 46022))
+;;;;;;  (19153 44415))
 ;;; Generated autoloads from util/wrap-to-fill.el
 
 (defvar wrap-to-fill-left-marg nil "\
@@ -2836,10 +2850,10 @@ Check if external modules used by nXhtml are found.
 ;;;***
 
 ;;;### (autoloads (mako-nxhtml-mumamo-mode asp-nxhtml-mumamo-mode
-;;;;;;  eruby-nxhtml-mumamo-mode jsp-nxhtml-mumamo-mode smarty-nxhtml-mumamo-mode
-;;;;;;  mjt-nxhtml-mumamo-mode genshi-nxhtml-mumamo-mode django-nxhtml-mumamo-mode
-;;;;;;  embperl-nxhtml-mumamo-mode nxhtml-mumamo-mode) "nxhtml-mumamo"
-;;;;;;  "nxhtml/nxhtml-mumamo.el" (19065 19164))
+;;;;;;  eruby-nxhtml-mumamo-mode jsp-nxhtml-mumamo-mode gsp-nxhtml-mumamo-mode
+;;;;;;  smarty-nxhtml-mumamo-mode mjt-nxhtml-mumamo-mode genshi-nxhtml-mumamo-mode
+;;;;;;  django-nxhtml-mumamo-mode embperl-nxhtml-mumamo-mode nxhtml-mumamo-mode)
+;;;;;;  "nxhtml-mumamo" "nxhtml/nxhtml-mumamo.el" (19156 54753))
 ;;; Generated autoloads from nxhtml/nxhtml-mumamo.el
 
 (autoload 'nxhtml-mumamo-mode "nxhtml-mumamo" "\
@@ -2868,6 +2882,10 @@ This also covers inlined style and javascript." t)
 Turn on multiple major modes for Smarty with main mode `nxhtml-mode'.
 This also covers inlined style and javascript." t)
 
+(autoload 'gsp-nxhtml-mumamo-mode "nxhtml-mumamo" "\
+Turn on multiple major modes for GSP with main mode `nxhtml-mode'.
+This also covers inlined style and javascript." t)
+
 (autoload 'jsp-nxhtml-mumamo-mode "nxhtml-mumamo" "\
 Turn on multiple major modes for JSP with main mode `nxhtml-mode'.
 This also covers inlined style and javascript." t)
@@ -2887,8 +2905,8 @@ This also covers inlined style and javascript." t)
 ;;;***
 
 ;;;### (autoloads (nxhtml-validation-header-mode nxhtml-short-tag-help
-;;;;;;  nxhtml-mode) "nxhtml-mode" "nxhtml/nxhtml-mode.el" (19148
-;;;;;;  46020))
+;;;;;;  nxhtml-mode) "nxhtml-mode" "nxhtml/nxhtml-mode.el" (19156
+;;;;;;  54620))
 ;;; Generated autoloads from nxhtml/nxhtml-mode.el
 
 (when (fboundp 'nxml-mode)
@@ -3020,7 +3038,7 @@ This mode may be turned on automatically in two ways:
 
 ;;;### (autoloads (nxhtml-overview nxhtml-global-minor-mode nxhtml-browse-region
 ;;;;;;  nxhtml-browse-file nxhtml-edit-with-gimp) "nxhtml-menu" "nxhtml/nxhtml-menu.el"
-;;;;;;  (19151 55660))
+;;;;;;  (19156 54590))
 ;;; Generated autoloads from nxhtml/nxhtml-menu.el
 
 (autoload 'nxhtml-edit-with-gimp "nxhtml-menu" "\
@@ -3127,7 +3145,7 @@ FILENAME could be either the remote or the local file.
 
 ;;;### (autoloads (html-site-query-replace html-site-rgrep html-site-find-file
 ;;;;;;  html-site-dired-current html-site-set-site html-site-buffer-or-dired-file-name)
-;;;;;;  "html-site" "nxhtml/html-site.el" (18790 45398))
+;;;;;;  "html-site" "nxhtml/html-site.el" (19156 56026))
 ;;; Generated autoloads from nxhtml/html-site.el
 
 (autoload 'html-site-buffer-or-dired-file-name "html-site" "\
@@ -3200,12 +3218,12 @@ Update the table of contents inserted by `html-pagetoc-insert-toc'.
 ;;;;;;  "util/mumamo-trace.el" "util/new-key-seq-widget.el" "util/nxml-mode-os-additions.el"
 ;;;;;;  "util/ocr-user.el" "util/org-panel.el" "util/popcmp.el" "util/rebind.el"
 ;;;;;;  "util/rxi.el" "util/udev-nxhtml.el" "util/useful-commands.el"
-;;;;;;  "util/whelp.el" "util/zen-mode.el") (19152 43169 593000))
+;;;;;;  "util/whelp.el" "util/zen-mode.el") (19156 57219 656000))
 
 ;;;***
 
 ;;;### (autoloads (nxhtmlmaint-byte-uncompile-all nxhtmlmaint-start-byte-compilation)
-;;;;;;  "nxhtmlmaint" "nxhtmlmaint.el" (19152 42845))
+;;;;;;  "nxhtmlmaint" "nxhtmlmaint.el" (19152 58803))
 ;;; Generated autoloads from nxhtmlmaint.el
 
 (autoload 'nxhtmlmaint-start-byte-compilation "nxhtmlmaint" "\

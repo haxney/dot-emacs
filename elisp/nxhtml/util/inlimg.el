@@ -138,7 +138,7 @@
   :group 'inlimg)
 
 (define-widget 'inlimg-spec-widget 'symbol
-  "A major mode lisp function."
+  "An inline image specification."
   :complete-function (lambda ()
                        (interactive)
                        (lisp-complete-symbol 'inlimg-img-spec-p))

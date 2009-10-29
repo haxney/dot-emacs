@@ -73,7 +73,7 @@
     ('prefix (company-predictive-grab-word))
     ('candidates (predictive-complete arg))
     ('ignore-case t)
-    ('sorted nil)
+    ('sorted t)
     ('duplicates t)))
 
 

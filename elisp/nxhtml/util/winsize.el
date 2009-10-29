@@ -66,6 +66,7 @@
 
 (eval-when-compile (require 'windmove))
 (eval-when-compile (require 'winsav nil t))
+(require 'ourcomments-widgets)
 
 ;;; Custom variables
 
@@ -108,25 +109,6 @@ makes the mouse jump a few times."
 
 (defvar widget-command-prompt-value-history nil
   "History of input to `widget-function-prompt-value'.")
-
-(define-widget 'command 'restricted-sexp
-  "A Lisp function."
-  :complete-function (lambda ()
-                       (interactive)
-                       (lisp-complete-symbol 'commandp))
-  :prompt-value 'widget-field-prompt-value
-  :prompt-internal 'widget-symbol-prompt-internal
-  :prompt-match 'commandp
-  :prompt-history 'widget-command-prompt-value-history
-  :action 'widget-field-action
-  :match-alternatives '(commandp)
-  :validate (lambda (widget)
-              (unless (commandp (widget-value widget))
-                (widget-put widget :error (format "Invalid command: %S"
-                                                  (widget-value widget)))
-                widget))
-  :value 'ignore
-  :tag "Command")
 
 (defvar winsize-keymap nil
   "Keymap used by `resize-windows'.")

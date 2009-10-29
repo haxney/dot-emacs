@@ -81,9 +81,9 @@
       (custom-load-symbol symbol)
       )))
 
-(defun nxhtml-list-loaded-features ()
-  (interactive)
-  (let ((buf (when (called-interactively-p)
+(defun nxhtml-list-loaded-features (use-message)
+  (interactive (list t))
+  (let ((buf (when use-message ;(called-interactively-p)
                (get-buffer-create "*nXhtml loaded features*"))))
     (if buf
         (with-current-buffer buf (erase-buffer))
@@ -176,7 +176,7 @@
     (message "... nXhtml loading %.1f seconds elapsed ..." (- (float-time) nxhtml-load-time-start))
 
   ;; Tell what have been loaded of nXhtml:
-  (nxhtml-list-loaded-features)
+  (nxhtml-list-loaded-features nil)
 
   ;; How long time did it all take?
   (message "Nxml/Nxhtml Autostart.el loaded in %.1f seconds" (- (float-time) nxhtml-load-time-start))

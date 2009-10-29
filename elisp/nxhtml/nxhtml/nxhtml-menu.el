@@ -2,7 +2,7 @@
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
 ;; Created: Sat Apr 21 2007
-(defconst nxhtml-menu:version "beta 1.96") ;;Version:
+(defconst nxhtml-menu:version "1.99") ;;Version:
 ;; Last-Updated: 2009-05-29 Fri
 ;; URL:
 ;; Keywords:
@@ -1125,6 +1125,7 @@ See `nxhtml-mode' for more information."
     css-mode
     javascript-mode
     java-mode ;; jsp
+    groovy-mode ;; gsp
     image-mode
     ;;
     dired-mode

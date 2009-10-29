@@ -68,7 +68,7 @@ the left margin."
   '(text-mode
     fundamental-mode)
   "Major modes where `wrap-to-fill-left-margin' may be nil."
-  :type '(repeat commandp)
+  :type '(repeat command)
   :group 'convenience)
 
 

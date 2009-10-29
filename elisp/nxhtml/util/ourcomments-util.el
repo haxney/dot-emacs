@@ -362,6 +362,7 @@ To create a menu item something similar to this can be used:
 ;; (major-modep 'nxhtml-mode)
 ;; (major-modep 'nxhtml-mumamo-mode)
 ;; (major-modep 'jsp-nxhtml-mumamo-mode)
+;; (major-modep 'gsp-nxhtml-mumamo-mode)
 ;; (major-modep 'asp-nxhtml-mumamo-mode)
 ;; (major-modep 'django-nxhtml-mumamo-mode)
 ;; (major-modep 'eruby-nxhtml-mumamo-mode)
@@ -373,69 +374,6 @@ To create a menu item something similar to this can be used:
 ;; (major-modep 'javascript-mode)
 ;; (major-modep 'espresso-mode)
 ;; (major-modep 'css-mode)
-
-;;;###autoload
-(defun major-or-multi-majorp (value)
-  (or (mumamo-multi-major-modep value)
-      (major-modep value)))
-
-;;;###autoload
-(defun major-modep (value)
-  "Return t if VALUE is a major mode function."
-  (let ((sym-name (symbol-name value)))
-    ;; Do some reasonable test to find out if it is a major mode.
-    ;; Load autoloaded mode functions.
-    ;;
-    ;; Fix-me: Maybe test for minor modes? How was that done?
-    (when (and (fboundp value)
-               (commandp value)
-               (not (memq value '(flyspell-mode
-                                  isearch-mode
-                                  savehist-mode
-                                  )))
-               (< 5 (length sym-name))
-               (string= "-mode" (substring sym-name (- (length sym-name) 5)))
-               (if (and (listp (symbol-function value))
-                        (eq 'autoload (car (symbol-function value))))
-                   (progn
-                     (message "loading ")
-                     (load (cadr (symbol-function value)) t t))
-                 t)
-               (or (memq value
-                         ;; Fix-me: Complement this table of known major modes:
-                         '(fundamental-mode
-                           xml-mode
-                           nxml-mode
-                           nxhtml-mode
-                           css-mode
-                           javascript-mode
-                           espresso-mode
-                           php-mode
-                           ))
-                   (and (intern-soft (concat sym-name "-hook"))
-                        (boundp (intern-soft (concat sym-name "-hook"))))
-                   (progn (message "Not a major mode: %s" value)
-                          ;;(sit-for 4)
-                          nil)
-                   ))
-      t)))
-
-;;;###autoload
-(define-widget 'major-mode-function 'function
-  "A major mode lisp function."
-  :complete-function (lambda ()
-                       (interactive)
-                       (lisp-complete-symbol 'major-or-multi-majorp))
-  :prompt-match 'major-or-multi-majorp
-  :prompt-history 'widget-function-prompt-value-history
-  :match-alternatives '(major-or-multi-majorp)
-  :validate (lambda (widget)
-              (unless (major-or-multi-majorp (widget-value widget))
-                (widget-put widget :error (format "Invalid function: %S"
-                                                  (widget-value widget)))
-                widget))
-  :value 'fundamental-mode
-  :tag "Major mode function")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1073,6 +1011,7 @@ PREDICATE.  PREDICATE takes one argument, the symbol."
   (describe-function command))
 
 
+;;;###autoload
 (defun buffer-narrowed-p ()
   "Return non-nil if the current buffer is narrowed."
   (/= (buffer-size)

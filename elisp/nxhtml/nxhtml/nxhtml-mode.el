@@ -2374,6 +2374,7 @@ The function returns true if the condition here is met."
 ;;     ("\.php\\'" nxhtml-validation-headers-check)
 ;;     ("\.rhtml\\'" nxhtml-validation-headers-check)
 ;;     ("\.jsp\\'" nxhtml-validation-headers-check)
+;;     ("\.gsp\\'" nxhtml-validation-headers-check)
 ;;     )
 ;;   "Alist for turning on `nxhtml-validation-mode'.
 ;; The entries in the list should have the form

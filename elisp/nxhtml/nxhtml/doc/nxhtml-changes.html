@@ -97,7 +97,9 @@
               single underlined character.  Many users (me included)
               find this quite a bit disturbing. I have therefore added
               a command to quickly hide/show the underlines. This is
-              on <em>C-c C-w</em>.
+              on <em>C-c C-w</em> (nxhtml-toggle-visible-warnings, key
+              binding changed to <em>C-c _</em> in later versions of
+              nXhtml).
             </p>
             <p>
               This is particular useful for example in the case where
@@ -298,6 +300,9 @@
           <a href="#v1.94">v1.94</a>
           <a href="#v1.95">v1.95</a>
           <a href="#v1.96">v1.96</a>
+          <a href="#v1.97">v1.97</a>
+          <a href="#v1.98">v1.98</a>
+          <a href="#v1.99">v1.99</a>
         </div>
 
         <dl>
@@ -3070,11 +3075,58 @@
               </li>
             </ul>
           </dd>
-          <dt id="v1.96">1.96 - not yet released</dt>
+          <dt id="v1.96">1.96</dt>
           <dd id="v1.96-dd">
             <ul>
               <li>
-                Problem creating autoload file in latest dev version of Emacs. Fixed.
+                <span class="bugfix">
+                  Problem creating autoload file in latest dev version of Emacs. Fixed.
+                </span>
+              </li>
+              <li>
+                <span class="bugfix">
+                  Fixed typo in wrap-to-fill.el.
+                </span>
+              </li>
+              <li>
+                <span class="bugfix">
+                  Autoloaded <i>buffer-narrowed-p</i>.
+                </span>
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.97">1.97</dt>
+          <dd id="v1.97-dd">
+            <ul>
+              <li>
+                <span class="bugfix">
+                  Problem with customize-option because widgets where not loaded. Rearranged code to bit to fix this.
+                </span>
+              </li>
+              <li>
+                Added support for Groovy from
+                <a href="http://tiagocury.blogspot.com/2009/10/gsp-groovy-server-pages-support-for.html">Tiago Cury</a>.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.98">1.98</dt>
+          <dd id="v1.98-dd">
+            <ul>
+              <li>
+                <span class="bugfix">
+                  Added support for PHP nowdocs.
+                </span>
+              </li>
+              <li>
+                Freemind.el: Added support for <i>org-odd-levels-only</i>.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.99">1.99</dt>
+          <dd id="v1.99-dd">
+            <ul>
+              <li>
+                Converted line endings from CRLF to LF.
               </li>
             </ul>
           </dd>

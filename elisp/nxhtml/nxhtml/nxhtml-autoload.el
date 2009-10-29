@@ -95,6 +95,7 @@
 (add-to-list 'auto-mode-alist '("\\.php\\'"      . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml\\'"    . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.jsp\\'"      . jsp-nxhtml-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.gsp\\'"      . gsp-nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.asp\\'"      . asp-nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'"   . django-nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml\\'"    . eruby-nxhtml-mumamo-mode))
