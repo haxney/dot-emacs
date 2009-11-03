@@ -102,7 +102,7 @@
  '(org-default-notes-file "~/org/root.org")
  '(org-id-locations-file "~/.emacs.d/tmp/.org-id-locations")
  '(org-log-done (quote time))
- '(org-modules (quote (org-bbdb org-bibtex org-gnus org-info org-jsinfo org-habit org-irc org-registry)))
+ '(org-modules (quote (org-bibtex org-info org-jsinfo org-habit org-irc org-protocol org-registry org-special-blocks)))
  '(org-registry-file "~/.emacs.d/tmp/org-registry.el")
  '(org-remember-templates (quote (("Todo" 116 "** TODO %?
   %i
