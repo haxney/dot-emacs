@@ -49,6 +49,11 @@ day-page file matching that name."
 
 (eval-after-load 'org
   '(progn
+     (require 'org-babel-init)
+     (require 'org-babel-R)
+     (require 'org-babel-ruby)
+     (require 'org-babel-python)
+     (org-babel-load-library-of-babel)
      ;; Allow indentation without having to go to the arrow keys
      (define-key org-mode-map (kbd "C-c C-x C-f") 'org-shiftmetaright)
      (define-key org-mode-map (kbd "C-c C-x C-b") 'org-shiftmetaleft)
