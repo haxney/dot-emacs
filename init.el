@@ -14,7 +14,7 @@
 (defvar *emacs-load-start* (current-time))
 
 ;; Load all of the files in `startup-dir'.
-(debian-run-directories "~/.emacs.d/startup")
+(debian-run-directories (concat (file-name-as-directory user-emacs-directory) "startup"))
 
 (provide 'init-file)
 ;;; init.el ends here
