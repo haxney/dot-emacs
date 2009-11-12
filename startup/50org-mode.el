@@ -127,44 +127,34 @@ day-page file matching that name."
 
      (define-key org-mode-map (kbd "C-c M-l") 'dhackney/org-link-to-project)
 
-     (add-to-list 'org-export-latex-classes `("vita"
-                                              ,(concat "\\documentclass[ComputerScience]{vita}"
-                                                       "\\usepackage{hyperref}"
+     (unless (boundp 'org-export-latex-classes)
+       (setq org-export-latex-classes nil))
+     (add-to-list 'org-export-latex-classes
+                  `("vita"
+                    ,(concat "\\documentclass[ComputerScience,10pt]{vita}\n"
+                             "\\usepackage{hyperref}\n"
+                             "\\usepackage[left=2cm,top=1cm,right=2cm]{geometry}\n"
+                             "\\usepackage{multicol}\n"
+                             "\\addtolength{\\columnsep}{-0.3in}\n"
+                             "\\addtolength{\\multicolsep}{-0.1in}\n"
+                             "\\usepackage{savetrees}\n"
 
-                                                       "\\usepackage{multicol}"
-                                                       "\\addtolength{\\columnsep}{-0.3in}"
-                                                       "\\addtolength{\\multicolsep}{-0.2in}"
+                             "\\usepackage[compact]{titlesec}\n"
+                             "\\titlespacing{\\section}{0pt}{*0}{*0}\n"
+                             "\\titlespacing{\\subsection}{0pt}{*0}{*0}\n"
+                             "\\titlespacing{\\subsubsection}{0pt}{*0}{*0}\n"
 
-                                                       "\\usepackage[compact]{titlesec}"
-                                                       "\\titlespacing{\\section}{0pt}{*0.5}{*0.5}"
-                                                       "\\titlespacing{\\subsection}{0pt}{*0.5}{*0.5}"
-                                                       "\\titlespacing{\\subsubsection}{0pt}{*0.5}{*0.5}"
+                             "\\usepackage{comment}\n"
+                             "\\usepackage{setspace}\n"
+                             "\\singlespacing\n"
 
-                                                       "\\usepackage{comment}"
-                                                       "\\usepackage{setspace}"
-                                                       "\\singlespacing"
-
-                                                       "\\usepackage{enumitem}"
-                                                       "\\setlist{noitemsep,topsep=0pt}"
-                                                       "\\setitemize{noitemsep,topsep=0pt}"
-                                                       "\\setenumerate{noitemsep,topsep=0pt}"
-
-                                                       "\\addtolength{\\textwidth}{2in}"
-                                                       "\\addtolength{\\oddsidemargin}{-1in}"
-                                                       "\\addtolength{\\evensidemargin}{-1in}"
-                                                       "\\setlength{\\topsep}{-1in}"
-                                                       "\\setlength{\\parskip}{0in}"
-                                                       "\\topmargin=-1in"
-                                                       "\\textheight=10.1in"
-
-                                                       "\\setlength{\\parskip}{0pt}"
-                                                       "\\setlength{\\parsep}{0pt}"
-                                                       "\\setlength{\\partopsep}{0pt}")
-                                              ("\\section{%s \\hrulefill}" . "\\section*{%s \\hrulefill}")
-                                              ("\\subsection{%s}" . "\\subsection*{%s}")
-                                              ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                                              ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                                              ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+                             "\\setlength{\\topsep}{-0.6in}\n"
+                             )
+                    ("\\section{%s \\hrulefill}" . "\\section*{%s \\hrulefill}")
+                    ("\\subsection{%s}" . "\\subsection*{%s}")
+                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
      (defun org-preprocess-radio-lists ()
        "Preprocess radio lists before exporting."
        (save-excursion
