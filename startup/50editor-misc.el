@@ -73,6 +73,9 @@
 (if (file-readable-p "~/.private/private.el")
     (load-file "~/.private/private.el"))
 
+;; Live on the wild side.
+(setq write-region-inhibit-fsync t)
+
 (semantic-load-enable-gaudy-code-helpers)
 (global-semantic-idle-completions-mode -1)
 
