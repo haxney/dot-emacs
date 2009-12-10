@@ -35,4 +35,7 @@
   :relevant-files ("\\.php$" "\\.module$" "\\.inc$" "\\.test$")
   :irrelevant-files ("TAGS"))
 
+;; Disable the C-c C-f keybinding, I want it for org-mode.
+(define-key eproject-mode-map (kbd "C-c C-f") nil)
+
 ;;; 50eproject.el ends here
