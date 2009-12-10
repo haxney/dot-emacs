@@ -79,13 +79,11 @@ Must be in the form:
 (anything-set-map
  '(
    (o anything-c-source-occur)
-   (b anything-c-source-buffers
-      anything-c-source-buffer-not-found
-      anything-c-source-buffers+)
+   (b anything-c-source-buffers+
+      anything-c-source-buffer-not-found)
    (h anything-c-source-man-pages
       anything-c-source-info-pages
-      anything-c-source-info-elisp
-      anything-c-source-info-cl)
+      anything-c-source-info-elisp)
    (f anything-c-source-ffap-line
       anything-c-source-ffap-guesser
       anything-c-source-recentf
