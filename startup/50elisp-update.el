@@ -35,22 +35,19 @@
                         "anything.el"
                         "anything-etags.el"
                         "anything-match-plugin.el"
-                        "anything-rcodetools.el"
-                        "apache-mode.el"
                         "auto-install.el"
                         "descbinds-anything.el"
                         "etags-select.el"
                         "etags-table.el"
+                        "install-elisp.el"
+                        "bm-ext.el"
                         ))
                   (2 . (
-                        "install-elisp.el"
                         "linkd.el"
                         "notify.el"
-                        "bm-ext.el"
                         "unbound.el"
                         ))))
     (other . (
-              "http://stud4.tuwien.ac.at/~e0225855/linum/linum.el"
               "http://users.skynet.be/ppareit/projects/graphviz-dot-mode/graphviz-dot-mode.el"
               "http://cvs.savannah.gnu.org/viewvc/*checkout*/bm/bm/bm.el"
               "http://mumble.net/~campbell/emacs/paredit.el"
@@ -65,12 +62,12 @@ it into multiple lists.")
   (interactive '(1))
   "Automatically update elisp files.
 EWIKI-INDEX specifies which set of 10 files to read from EmacsWiki."
-  (mapcar (lambda (elem)
-            (install-elisp-from-emacswiki elem))
-          (cdr (assoc ewiki-index
-                      (cdr (assoc 'emacswiki install-elisp-update-files)))))
-  (mapcar (lambda (elem)
-            (install-elisp elem))
-          (cdr (assoc 'other install-elisp-update-files))))
+  (mapc (lambda (elem)
+          (install-elisp-from-emacswiki elem))
+        (cdr (assoc ewiki-index
+                    (cdr (assoc 'emacswiki install-elisp-update-files)))))
+  (mapc (lambda (elem)
+          (install-elisp elem))
+        (cdr (assoc 'other install-elisp-update-files))))
 
 ;;; 50elisp-update.el ends here
