@@ -2,11 +2,11 @@
 ;; bm-ext.el
 ;;
 ;; An extension for bm.el that adds a function that lists all bookmarks in all
-;; buffers. 
+;; buffers.
 ;;
 ;; By Dan McKinley, 2008 - http://mcfunley.com or mcfunley at gmail.
 ;;
-;; For the latest version of bm.el, visit: 
+;; For the latest version of bm.el, visit:
 ;;    http://www.nongnu.org/bm/
 ;;
 ;; For the latest version of this extension, visit:
@@ -39,7 +39,7 @@
     (if (null bookmarks)
 	(message "No bookmarks.")
       (with-output-to-temp-buffer "*bm-bookmarks*"
-	(set-buffer standard-output)	
+	(set-buffer standard-output)
 	(insert lines)
 	(bm-show-mode)
 	(setq buffer-read-only t))
@@ -51,7 +51,7 @@
 (defun bm-format-line (bm)
   (let ((buf (overlay-buffer bm)))
     (with-current-buffer buf
-      (let ((string 
+      (let ((string
 	     (format "%-30s %5s   %s"
 		     buf
 		     (count-lines (point-min) (overlay-start bm))
@@ -59,10 +59,10 @@
     (put-text-property 0 (length string) 'bm-buffer buf string)
     (put-text-property 0 (length string) 'bm-bookmark bm string)
     string))))
-    
+
 (defun bm-all-bookmarks ()
   (let (bookmarks)
-    (mapcar #'(lambda (buf) 
+    (mapcar #'(lambda (buf)
 		(mapcar #'(lambda (bm) (push bm bookmarks))
 			(bm-bookmarks-in-buffer buf)))
 	    (buffer-list))
@@ -73,7 +73,7 @@
   (flet ((mklist (x) (if (listp x) x (list x))))
     (mklist
      (with-current-buffer buf
-       (apply 'append 
+       (apply 'append
 	      (mapcar 'mklist (remove nil (bm-lists))))))))
 
 (provide 'bm-ext)
