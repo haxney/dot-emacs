@@ -28,7 +28,7 @@
 (require 'smex)
 
 (eval-after-load 'init-file
-    (smex-initialize))
+  (smex-initialize))
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "C-x C-m") 'smex)
