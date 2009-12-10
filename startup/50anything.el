@@ -129,6 +129,14 @@ Must be in the form:
             'descbinds-anything-action:describe)))
    (descbinds-anything-all-sections buffer prefix menus)))
 
+(defun anything-for-buffers+ ()
+  "Preconfigured `anything' for buffer."
+  (interactive)
+  (anything-other-buffer '(anything-c-source-buffers+ anything-c-source-buffer-not-found) "*anything for buffers*"))
+
+(eval-after-load "anything"
+  '(global-set-key (kbd "C-x b") 'anything-for-buffers+))
+
 (descbinds-anything-install)
 
 (setq anything-candidate-number-limit 500)
