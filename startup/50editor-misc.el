@@ -108,6 +108,8 @@
                    (second before-init-time))))
               1000)))
 
+(global-undo-tree-mode)
+
 (add-hook 'after-init-hook 'message-startup-time)
 
 ;;; 50editor-misc.el ends here
