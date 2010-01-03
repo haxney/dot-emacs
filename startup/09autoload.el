@@ -79,4 +79,6 @@
               (file-name-as-directory "nxhtml")
               "autostart.el"))
 
+(autoload 'global-undo-tree-mode "undo-tree" nil t)
+
 ;;; 09autoload.el ends here
