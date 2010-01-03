@@ -22,7 +22,6 @@
  '(bm-highlight-style (quote bm-highlight-only-fringe))
  '(bm-recenter t)
  '(bm-repository-file "~/.emacs.d/tmp/bm-repository")
- '(bm-restore-repository-on-load t)
  '(bookmark-default-file "~/.emacs.d/tmp/bookmark")
  '(browse-url-firefox-program "firefox-3.5")
  '(case-fold-search t)
