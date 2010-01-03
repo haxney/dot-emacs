@@ -27,25 +27,6 @@
 
 (eval-after-load "erc"
   '(progn
-     ;; Prevent these message types from triggering a display
-     (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"))
-
-     ;; Use faces for styling
-     (setq erc-track-use-faces t)
-
-     (erc-timestamp-mode t)
-     (setq erc-timestamp-format "[%R-%m/%d]")
-
-     (setq erc-user-full-name "Daniel Hackney")
-     (setq erc-email-userid "dan@haxney.org")
-
-     (setq erc-max-buffer-size 20000)
-
-     (require 'erc-join)
-     (erc-autojoin-mode 1)
-     (setq erc-autojoin-channels-alist
-           '(("freenode.net" "#drupal-vcs" "#drupal")))
-
      ;; Set the prompt to the channel name
      (setq erc-prompt
            (lambda ()
@@ -96,6 +77,7 @@
 
 (defun erc-generate-log-file-name-date-and-name (buffer target nick server port)
   "Generates a log-file name with the date and other info.
+
 This results in a file name of the form \"2009-06-03-#channel@server:port.txt\".
 This function is a possible value for `erc-generate-log-file-name-function'."
   (let ((file (concat
@@ -104,7 +86,5 @@ This function is a possible value for `erc-generate-log-file-name-function'."
                "@" server ".txt")))
     ;; we need a make-safe-file-name function.
     (convert-standard-filename file)))
-
-(setq erc-generate-log-file-name-function 'erc-generate-log-file-name-date-and-name)
 
 ;;; 50erc.el ends here
