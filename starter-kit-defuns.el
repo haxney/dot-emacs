@@ -34,15 +34,15 @@ Symbols matching the text at point are put first in the completion list."
                              (cond
                               ((and (listp symbol) (imenu--subalist-p symbol))
                                (addsymbols symbol))
-                              
+
                               ((listp symbol)
                                (setq name (car symbol))
                                (setq position (cdr symbol)))
-                              
+
                               ((stringp symbol)
                                (setq name symbol)
                                (setq position (get-text-property 1 'org-imenu-marker symbol))))
-                             
+
                              (unless (or (null position) (null name))
                                (add-to-list 'symbol-names name)
                                (add-to-list 'name-and-pos (cons name position))))))))
@@ -103,7 +103,7 @@ Symbols matching the text at point are put first in the completion list."
 (add-hook 'coding-hook 'turn-on-save-place-mode)
 (add-hook 'coding-hook 'pretty-lambdas)
 (add-hook 'coding-hook 'add-watchwords)
-  
+
 (defun run-coding-hook ()
   "Enable things that are convenient across all coding buffers."
   (run-hooks 'coding-hook))
@@ -230,6 +230,78 @@ Symbols matching the text at point are put first in the completion list."
 (defun vc-git-annotate-command (file buf &optional rev)
   (let ((name (file-relative-name file)))
     (vc-git-command buf 0 name "blame" "-w" rev)))
+
+(defun esk-unique-strings (strings)
+  "Takes a list of strings and returns the list with *adjacent*
+duplicates removed."
+  (let ((result '()))
+    (while (consp strings)
+      (if (not (string= (car strings) (car (cdr strings))))
+          (setq result (cons (car strings) result)))
+      (setq strings (cdr strings)))
+    (nreverse result)))
+
+;; Copy of debian-run-directories.
+(defun esk-run-directories (&rest dirs)
+  "Load each file of the form XXfilename.el or XXfilename.elc in any
+of the dirs, where XX must be a number. The files will be run in
+alphabetical order. If a file appears in more than one of the dirs,
+then the earlier dir takes precedence, and a .elc file always
+supercedes a .el file of the same name."
+
+  (let* ((paths dirs)
+         ;; Get a list of all the files in all the specified
+         ;; directories that match the pattern.
+         (files
+          (apply 'append
+                 (mapcar
+                  (lambda (dir)
+                    (directory-files dir nil "^[0-9][0-9].*\\.elc?$" t))
+                  paths)))
+
+         ;; Now strip the directory portion, remove any .el or .elc
+         ;; extension.
+
+         (stripped-names
+          (mapcar (lambda (file)
+                    (if (string-match "\\.el$" file)
+                        (substring file 0 -3)
+                      (if (string-match "\\.elc$" file)
+                          (substring file 0 -4)
+                        file)))
+                  (mapcar
+                   (lambda (file) (file-name-nondirectory file))
+                   files)))
+
+         ;; Finally sort them, and delete duplicates
+         (base-names (esk-unique-strings (sort stripped-names 'string<)))
+
+         (old-load-path load-path))
+
+    ;; Set a new load path with the directories specified in the
+    ;; proper order, and first.
+    (let ((new-path (append paths load-path)))
+      (setq load-path new-path)
+      ;; Now load the files.  "load" will make sure we get the byte
+      ;; compiled one first, if any, and will respect load-path's
+      ;; ordering.
+      (mapcar
+       (lambda (file)
+         (condition-case err
+             (load file nil)
+           (error (message "Error while loading %s: %s"
+                           file (error-message-string err)))))
+       base-names)
+      ;; restore the old load-path -- including any new paths added by
+      ;; files loaded in directory traversal.
+      (let ((add-on-package-paths
+             (delq nil (mapcar
+                        (lambda (item)
+                          (if (not (member item new-path))
+                              item
+                            nil))
+                        load-path))))
+        (setq load-path (append add-on-package-paths old-load-path))))))
 
 (provide 'starter-kit-defuns)
 ;;; starter-kit-defuns.el ends here
