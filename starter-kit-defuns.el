@@ -243,11 +243,11 @@ duplicates removed."
 
 ;; Copy of debian-run-directories.
 (defun esk-run-directories (&rest dirs)
-  "Load each file of the form XXfilename.el or XXfilename.elc in any
-of the dirs, where XX must be a number. The files will be run in
-alphabetical order. If a file appears in more than one of the dirs,
-then the earlier dir takes precedence, and a .elc file always
-supercedes a .el file of the same name."
+  "Load each file of the form XXfilename.el or XXfilename.elc in
+any of the dirs, where XX must be a number. The files will be run
+in alphabetical order. If a file appears in more than one of the
+dirs, then the earlier dir takes precedence, and a .elc file
+always supercedes a .el file of the same name."
 
   (let* ((paths dirs)
          ;; Get a list of all the files in all the specified
