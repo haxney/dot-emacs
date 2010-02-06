@@ -51,7 +51,7 @@
 (require 'starter-kit-elpa)
 
 (add-to-list 'package-archives
-             '("haxney" . "http://github.com/haxney/elpa/raw/master/") t)
+             '("haxney" . "http://github.com/haxney/elpa/raw/master/public/") t)
 
 (load "elpa-to-submit/nxhtml/autostart")
 
