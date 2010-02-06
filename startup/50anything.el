@@ -22,15 +22,9 @@
 
 ;;; Commentary:
 ;;
+;; Provides some convenient functions for anything.el
 
 ;;; Code:
-
-(require 'anything)
-(require 'anything-config)
-(require 'anything-etags)
-(require 'anything-complete)
-(require 'descbinds-anything)
-(require 'anything-eproject)
 
 ;; For some reason this is not already created.
 (defun anything-c-define-dummy-source (name func &rest other-attrib)
@@ -59,7 +53,8 @@
 ;; Bind different groups of `anything' sources to various keys of a map. To
 ;; reduce redundancy, items can be added to the let-binded list `bindings' and
 ;; then are substituted into the command when it is evaled. Yay macros!
-(defvar anything-activate-map (make-sparse-keymap) "Keybindings for various anything commands.")
+(defvar anything-activate-map (make-sparse-keymap)
+  "Keybindings for various anything commands.")
 
 (defun anything-set-map (bindings)
   "Set `anything-activate-map' according to the list of BINDINGS passed in.
