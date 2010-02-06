@@ -144,5 +144,8 @@
             (unless (string-match "question" oddmuse-post)
               (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
 
+;; Re-enable narrow-to-region
+(put 'narrow-to-region 'disabled nil)
+
 (provide 'starter-kit-misc)
 ;;; starter-kit-misc.el ends here

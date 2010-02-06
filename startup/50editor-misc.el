@@ -27,9 +27,6 @@
 
 ;;; Code:
 
-
-;; Re-enable narrow-to-region
-(put 'narrow-to-region 'disabled nil)
 ;; Live on the wild side.
 (setq write-region-inhibit-fsync t)
 
