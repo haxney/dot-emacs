@@ -1,4 +1,4 @@
-;;; 40pgg.el --- Add sign-and-encrypt function to PGG.
+;;; 50pgg.el --- Add sign-and-encrypt function to PGG.
 
 ;; Copyright (C) 2008, Daniel Hackney
 
@@ -27,16 +27,22 @@
 
 ;;; Code:
 
-(defun dhackney/pgg-encrypt-sign (rcpts &optional sign start end passphrase)
-  "Sign and encrypt the buffer."
-  (interactive (list (split-string (read-string "Recipients: ") "[ \t,]+") t))
-  (let* ((start (or start (point-min)))
-         (end (or end (point-max)))
-         (status (pgg-encrypt-region start end rcpts sign passphrase)))
+(defun esk/pgg-encrypt-sign (rcpts &optional sign start end passphrase)
+  "Sign and encrypt the buffer or region (if the mark is active).
+
+If the mark is active, sign and encrypt the region only,
+otherwise sign and encrypt the whole buffer."
+  (interactive
+   (let ((string (split-string (read-string "Recipients: ") "[ \t,]+")))
+     (list string
+           t
+           (if mark-active (region-beginning) (point-min))
+           (if mark-active (region-end) (point-max)))))
+  (let ((status (pgg-encrypt-region start end rcpts sign passphrase)))
     (when (interactive-p)
       (pgg-display-output-buffer start end status))
     status))
 
-(global-set-key (kbd "C-c / e") 'dhackney/pgg-encrypt-sign)
+(global-set-key (kbd "C-c / e") 'esk/pgg-encrypt-sign)
 
-;;; 40pgg.el ends here
+;;; 50pgg.el ends here
