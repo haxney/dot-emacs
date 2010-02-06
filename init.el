@@ -50,6 +50,9 @@
 (package-initialize)
 (require 'starter-kit-elpa)
 
+(add-to-list 'package-archives
+             '("haxney" . "http://github.com/haxney/elpa/raw/master/") t)
+
 (load "elpa-to-submit/nxhtml/autostart")
 
 ;; Load up starter kit customizations
