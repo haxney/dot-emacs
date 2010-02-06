@@ -26,24 +26,6 @@
 
 ;;; Code:
 
-;; For some reason this is not already created.
-(defun anything-c-define-dummy-source (name func &rest other-attrib)
-  `((name . ,name)
-    (candidates "dummy")
-    ,@other-attrib
-    (filtered-candidate-transformer
-     . (lambda (candidates source)
-         (funcall ',func)))
-    (requires-pattern . 1)
-    (volatile)
-    (category create)))
-
-(defun anything-c-dummy-candidate ()
-  ;; `source' is defined in filtered-candidate-transformer
-  (list (cons (concat (assoc-default 'name source)
-                      " '" anything-input "'")
-              anything-input)))
-
 (remove-hook 'kill-emacs-hook 'anything-c-adaptive-save-history)
 
 ;; Prevent flickering
