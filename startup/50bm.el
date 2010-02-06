@@ -28,9 +28,6 @@
 
 (setq bm-restore-repository-on-load t)
 
-;; Loading the repository from file when on start up.
-(add-hook 'after-init-hook 'bm-repository-load)
-
 ;; Restoring bookmarks when on file find.
 (add-hook 'find-file-hooks 'bm-buffer-restore)
 
