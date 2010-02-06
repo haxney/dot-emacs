@@ -303,5 +303,42 @@ always supercedes a .el file of the same name."
                         load-path))))
         (setq load-path (append add-on-package-paths old-load-path))))))
 
+(defun esk-message-startup-time ()
+  "Display a message of how long Emacs took to start up, in milliseconds."
+  (message "Emacs loaded in %dms"
+           (/ (-
+               (+
+                (third after-init-time)
+                (* 1000000
+                   (second after-init-time)))
+               (+
+                (third before-init-time)
+                (* 1000000
+                   (second before-init-time))))
+              1000)))
+
+(add-hook 'after-init-hook 'message-startup-time)
+
+(defun delete-weird-chars ()
+  "Replace non-ASCII characters with their ASCII equivalents.
+
+Replaces fancy characters in the current buffer. For example,
+replaces “ with \"."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    ;; Replace strange space characters
+    (while (search-forward "“" nil t)
+      (replace-match "\""))
+    (goto-char (point-min))
+    (while (search-forward "”" nil t)
+      (replace-match "\""))
+    (goto-char (point-min))
+    (while (search-forward "’" nil t)
+      (replace-match "'"))
+    (goto-char (point-min))
+    (while (search-forward "‘" nil t)
+      (replace-match "'"))))
+
 (provide 'starter-kit-defuns)
 ;;; starter-kit-defuns.el ends here

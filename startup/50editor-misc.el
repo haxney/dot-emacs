@@ -27,53 +27,12 @@
 
 ;;; Code:
 
-(defun delete-weird-chars ()
-  "Replace non-ASCII characters with their ASCII equivalents.
-
-Replaces fancy characters in the current buffer. For example,
-replaces “ with \"."
-  (interactive)
-  (save-excursion
-    (goto-char (point-min))
-    ;; Replace strange space characters
-    (while (search-forward "“" nil t)
-      (replace-match "\""))
-    (goto-char (point-min))
-    (while (search-forward "”" nil t)
-      (replace-match "\""))
-    (goto-char (point-min))
-    (while (search-forward "’" nil t)
-      (replace-match "'"))
-    (goto-char (point-min))
-    (while (search-forward "‘" nil t)
-      (replace-match "'"))))
 
 ;; Re-enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
-
-;; Load the private files.
-(if (file-readable-p "~/.private/private.el")
-    (load-file "~/.private/private.el"))
-
 ;; Live on the wild side.
 (setq write-region-inhibit-fsync t)
 
-(defun message-startup-time ()
-  "Display a message of how long Emacs took to start up, in milliseconds."
-  (message "Emacs loaded in %dms"
-           (/ (-
-               (+
-                (third after-init-time)
-                (* 1000000
-                   (second after-init-time)))
-               (+
-                (third before-init-time)
-                (* 1000000
-                   (second before-init-time))))
-              1000)))
-
 (global-undo-tree-mode)
-
-(add-hook 'after-init-hook 'message-startup-time)
 
 ;;; 50editor-misc.el ends here
