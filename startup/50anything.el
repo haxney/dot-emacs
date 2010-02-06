@@ -53,27 +53,46 @@ Must be in the form:
   (global-set-key (kbd "C-c j") anything-activate-map)
   (global-set-key (kbd "C-c C-j") anything-activate-map))
 
-(anything-set-map
- '(
-   (o anything-c-source-occur)
-   (b anything-c-source-buffers+
-      anything-c-source-buffer-not-found)
-   (h anything-c-source-man-pages
-      anything-c-source-info-pages
-      anything-c-source-info-elisp)
-   (f anything-c-source-ffap-line
-      anything-c-source-ffap-guesser
-      anything-c-source-recentf
-      anything-c-source-buffers+
-      anything-c-source-bookmarks
-      anything-c-source-file-cache
-      anything-c-source-files-in-current-dir+)
-   (p anything-c-source-eproject-files
-      anything-c-source-eproject-projects)
-   (m anything-c-source-bm
-      anything-c-source-bm-all
-      anything-c-source-bm-add)
-   ))
+(defvar anything-activate-map-commands
+  '((o anything-c-source-occur)
+    (b anything-c-source-buffers+
+       anything-c-source-buffer-not-found)
+    (h anything-c-source-man-pages
+       anything-c-source-info-pages
+       anything-c-source-info-elisp)
+    (f anything-c-source-ffap-line
+       anything-c-source-ffap-guesser
+       anything-c-source-recentf
+       anything-c-source-buffers+
+       anything-c-source-bookmarks
+       anything-c-source-file-cache
+       anything-c-source-files-in-current-dir+)
+    (p anything-c-source-eproject-files
+       anything-c-source-eproject-projects)
+    (m anything-c-source-bm
+       anything-c-source-bm-all
+       anything-c-source-bm-add))
+  "List of keys to map to anything sources.
+
+Is a list of (KEY SOURCE...), where KEY is the key in the keymap
+which activate the SOURCEs given. For example, the if the list
+contained the element
+
+    (b anything-c-source-buffers+
+       anything-c-source-buffer-not-found)
+
+pressing \"b\" from the keymap would run
+
+    (anything '(anything-c-source-buffers+
+                anything-c-source-buffer-not-found))
+
+This allows for simple definition of a large number of sources
+without being overly verbose.")
+
+(eval-after-load "anything"
+  '(progn
+     (require 'anything-config)
+     (anything-set-map anything-activate-map-commands)))
 
 ;; More useful descbinds-anything
 (setq descbinds-anything-actions
@@ -109,7 +128,9 @@ Must be in the form:
 (defun anything-for-buffers+ ()
   "Preconfigured `anything' for buffer."
   (interactive)
-  (anything-other-buffer '(anything-c-source-buffers+ anything-c-source-buffer-not-found) "*anything for buffers*"))
+  (anything-other-buffer
+   '(anything-c-source-buffers+ anything-c-source-buffer-not-found)
+   "*anything for buffers*"))
 
 (eval-after-load "anything"
   '(global-set-key (kbd "C-x b") 'anything-for-buffers+))
