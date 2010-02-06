@@ -101,6 +101,15 @@
 (add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
 
+(add-to-list 'auto-mode-alist '("\\.module$" . nxhtml-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.inc$" . nxhtml-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.test$" . nxhtml-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.install$" . nxhtml-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.ss$" . scheme-mode))
+(add-to-list 'auto-mode-alist '("\\.scm$" . scheme-mode))
+(add-to-list 'auto-mode-alist '("\\.gri$" . gri-mode))
+(add-to-list 'auto-mode-alist '("\\.dot$" . graphviz-dot-mode))
+
 ;; Default to unified diffs
 (setq diff-switches "-u")
 
