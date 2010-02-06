@@ -83,7 +83,7 @@
 
 ;; Don't clutter up directories with files~
 (setq backup-directory-alist `(("." . ,(expand-file-name
-                                        (concat dotfiles-dir "backups")))))
+                                        (concat tmp-dir "backups")))))
 
 ;; nxhtml stuff
 (setq mumamo-chunk-coloring 'submode-colored
