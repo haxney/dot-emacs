@@ -317,7 +317,7 @@ always supercedes a .el file of the same name."
                    (second before-init-time))))
               1000)))
 
-(add-hook 'after-init-hook 'message-startup-time)
+(add-hook 'after-init-hook 'esk-message-startup-time)
 
 (defun delete-weird-chars ()
   "Replace non-ASCII characters with their ASCII equivalents.
