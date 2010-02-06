@@ -27,14 +27,6 @@
 
 ;;; Code:
 
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'log-edit-hook 'flyspell-mode)
-
-(add-hook 'mail-send-hook 'delete-trailing-whitespace)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-
 (defun delete-weird-chars ()
   "Replace non-ASCII characters with their ASCII equivalents.
 
@@ -65,9 +57,6 @@ replaces “ with \"."
 
 ;; Live on the wild side.
 (setq write-region-inhibit-fsync t)
-
-(semantic-load-enable-gaudy-code-helpers)
-(global-semantic-idle-completions-mode -1)
 
 (defun message-startup-time ()
   "Display a message of how long Emacs took to start up, in milliseconds."
