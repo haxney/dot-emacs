@@ -19,7 +19,7 @@
 
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name))
-      tmp-dir (file-name-directory (concat dotfiles-dir "/tmp")))
+      tmp-dir (file-name-directory (concat dotfiles-dir "tmp/")))
 
 (make-directory tmp-dir t)
 
