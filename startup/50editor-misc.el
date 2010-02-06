@@ -69,21 +69,6 @@ replaces “ with \"."
 (semantic-load-enable-gaudy-code-helpers)
 (global-semantic-idle-completions-mode -1)
 
-(eval-after-load "company-semantic"
-  '(add-to-list 'company-semantic-modes 'python-mode))
-
-;; Notify predictive of an accepted completion
-(defun company-predictive-accept (candidate)
-  "Notify predictive that a completion has been accepted."
-  (when (eq company-backend 'company-predictive)
-    (run-hook-with-args 'predictive-accept-functions
-                        company-prefix candidate current-prefix-arg)))
-
-(eval-after-load "company"
-  '(progn
-     (add-hook 'company-mode-hook 'predictive-mode)
-     (add-hook 'company-completion-finished-hook 'company-predictive-accept)))
-
 (defun message-startup-time ()
   "Display a message of how long Emacs took to start up, in milliseconds."
   (message "Emacs loaded in %dms"
