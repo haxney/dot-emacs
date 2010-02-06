@@ -132,6 +132,23 @@ without being overly verbose.")
    '(anything-c-source-buffers+ anything-c-source-buffer-not-found)
    "*anything for buffers*"))
 
+(defun anything-semantic-or-imenu ()
+  "Run anything with semantic or imenu.
+
+If semantic is active in the current buffer, then use semantic
+for generating tags, otherwise fall back to imenu. Fill in the
+symbol at point by default."
+  (interactive)
+  (let ((tap (substring-no-properties (or (thing-at-point 'symbol) "")))
+        (source (if (semantic-active-p)
+                    'anything-c-source-semantic
+                  'anything-c-source-imenu)))
+    (anything source
+              nil nil nil
+              (unless (string= tap "") tap))))
+
+(global-set-key (kbd "M-.") 'anything-semantic-or-imenu)
+
 (eval-after-load "anything"
   '(global-set-key (kbd "C-x b") 'anything-for-buffers+))
 
