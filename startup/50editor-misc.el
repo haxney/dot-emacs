@@ -36,6 +36,10 @@
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 
 (defun delete-weird-chars ()
+  "Replace non-ASCII characters with their ASCII equivalents.
+
+Replaces fancy characters in the current buffer. For example,
+replaces “ with \"."
   (interactive)
   (save-excursion
     (goto-char (point-min))
