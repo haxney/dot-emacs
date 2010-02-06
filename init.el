@@ -18,7 +18,10 @@
 ;; Load path etc.
 
 (setq dotfiles-dir (file-name-directory
-                    (or (buffer-file-name) load-file-name)))
+                    (or (buffer-file-name) load-file-name))
+      tmp-dir (file-name-directory (concat dotfiles-dir "/tmp")))
+
+(make-directory tmp-dir t)
 
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
