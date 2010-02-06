@@ -148,6 +148,7 @@ symbol at point by default."
               (unless (string= tap "") tap))))
 
 (global-set-key (kbd "M-.") 'anything-semantic-or-imenu)
+(global-set-key (kbd "C-h a") 'anything-apropos)
 
 (eval-after-load "anything"
   '(global-set-key (kbd "C-x b") 'anything-for-buffers+))
