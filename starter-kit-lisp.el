@@ -83,5 +83,8 @@
      (idle-highlight +1)
      (run-coding-hook))))
 
+;; Paredit steals C-j from `eval-print-last-sexp'. Bring it back!
+(define-key lisp-interaction-mode-map (kbd "C-c C-e") 'eval-print-last-sexp)
+
 (provide 'starter-kit-lisp)
 ;; starter-kit-lisp.el ends here
