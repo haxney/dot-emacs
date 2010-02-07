@@ -121,6 +121,8 @@
      (define-key cua--rectangle-keymap [remap paredit-forward-delete] 'cua-delete-char-rectangle)
      (define-key cua--rectangle-keymap [remap paredit-backward-delete] 'cua-delete-char-rectangle)))
 
+(define-key dired-mode-map "e" 'wdired-change-to-wdired-mode)
+
 (provide 'starter-kit-bindings)
 
 ;;; starter-kit-bindings.el ends here
