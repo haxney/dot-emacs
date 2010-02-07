@@ -1,4 +1,4 @@
-;;; 50planner.el --- Set up planner project.
+;;; planner.el --- Set up planner project.
 
 ;; Copyright (C) 2009 Daniel Hackney
 
@@ -62,4 +62,4 @@
 
 	 (setq planner-day-page-template 'dhackney/planner-daily-template)))
 
-;;; 50planner.el ends here
+;;; planner.el ends here
