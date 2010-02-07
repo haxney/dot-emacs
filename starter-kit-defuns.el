@@ -389,6 +389,27 @@ by using nXML's indentation rules."
   "Unconditionally enable electric state in CC-modes."
   (c-toggle-electric-state 1))
 
+(defun longlines-mode-on ()
+  "Unconditionally turn on longlines mode.
+
+Why doesn't this exist already? Who knows."
+  (longlines-mode 1))
+
+(defun server-edit-presets ()
+  "Run some things when a server buffer is opened."
+  (cond
+   ;; When editing mail, set the goal-column to 72.
+   ((string-match "mail\\.google\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
+    (longlines-mode-off)
+    (auto-fill-mode 1)
+    (set-fill-column 72)
+    (save-excursion
+      (set-buffer (buffer-name))
+      (goto-char (point-min))
+      ;; Replace non-breaking strange space characters
+      (while (search-forward (char-to-string 160) nil t)
+        (replace-match " "))))))
+
 (provide 'starter-kit-defuns)
 
 ;;; starter-kit-defuns.el ends here
