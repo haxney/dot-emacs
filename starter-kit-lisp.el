@@ -29,8 +29,6 @@
               (if (file-exists-p (concat buffer-file-name "c"))
                   (delete-file (concat buffer-file-name "c"))))))
 
-(define-key emacs-lisp-mode-map (kbd "M-.") 'find-function-at-point)
-
 ;;; Clojure
 
 (eval-after-load 'find-file-in-project
