@@ -57,9 +57,6 @@ day-page file matching that name."
              (not (string= last-state state)))
     (org-clock-in)))
 
-(add-hook 'org-after-todo-state-change-hook
-          'wicked/org-clock-in-if-starting)
-
 (defun wicked/org-clock-out-if-waiting ()
   "Clock out when the task is marked WAITING."
   (when (and (string= state "WAITING")
@@ -69,9 +66,6 @@ day-page file matching that name."
                 org-clock-marker)
              (not (string= last-state state)))
     (org-clock-out)))
-
-(add-hook 'org-after-todo-state-change-hook
-          'wicked/org-clock-out-if-waiting)
 
 (defun org-preprocess-radio-lists ()
   "Preprocess radio lists before exporting."
@@ -89,9 +83,10 @@ day-page file matching that name."
       (forward-line 1)
       (orgtbl-send-table t))))
 
-;; Make linking between org files easier
 (defun dhackney/org-link-to-project (link desc)
-  "Prompt for a link between org files."
+  "Prompt for a link between org files.
+
+Makes linking between `org-mode' files easier."
   (interactive (list (concat
                       "file:"
                       (ido-completing-read
@@ -136,12 +131,8 @@ day-page file matching that name."
      (define-key org-mode-map (kbd "C-c C-x C-f") 'org-shiftmetaright)
      (define-key org-mode-map (kbd "C-c C-x C-b") 'org-shiftmetaleft)
      (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
-     (define-key org-mode-map (kbd "C-c C-x C-o") 'my/org-clock-out)
      (define-key org-mode-map (kbd "C-c M-l") 'dhackney/org-link-to-project)
-     (global-set-key (kbd "C-c C-x C-i") 'my/org-todo-starting)
-
-     ;; Turn on Flyspell when loading org-mode
-     (add-hook 'org-mode-hook 'turn-on-flyspell)
+     (define-key org-mode-map (kbd "C-c C-x C-i") 'my/org-todo-starting)
 
      ;; Custom agenda commands
      (setq org-agenda-custom-commands
@@ -158,6 +149,9 @@ day-page file matching that name."
        (setq org-export-latex-classes nil))
 
      (add-to-list 'org-export-latex-classes org-export-latex-class-vita)
+     (add-hook 'org-mode-hook 'turn-on-flyspell)
+     (add-hook 'org-after-todo-state-change-hook 'wicked/org-clock-in-if-starting)
+     (add-hook 'org-after-todo-state-change-hook 'wicked/org-clock-out-if-waiting)
      (add-hook 'org-export-preprocess-final-hook 'org-preprocess-radio-lists)
      (add-hook 'org-export-preprocess-final-hook 'org-preprocess-radio-tables)))
 

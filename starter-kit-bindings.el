@@ -103,6 +103,7 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c M-d") 'org-open-day-page)
+(global-set-key (kbd "C-c C-x C-o") 'my/org-clock-out)
 
 ;; Smex, a Super M-x
 (global-set-key (kbd "M-x") 'smex)
