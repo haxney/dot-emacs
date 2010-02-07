@@ -18,12 +18,12 @@
 (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
 ;; Font size
-(define-key global-map (kbd "C-+") 'text-scale-increase)
-(define-key global-map (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 
 ;; Use regex searches by default.
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "\C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
@@ -97,9 +97,9 @@
       (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
 
 ;; Org
-(define-key global-map (kbd "C-c l") 'org-store-link)
-(define-key global-map (kbd "C-c a") 'org-agenda)
-(define-key global-map (kbd "C-c M-d") 'org-open-day-page)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c M-d") 'org-open-day-page)
 
 ;; Smex, a Super M-x
 (global-set-key (kbd "M-x") 'smex)
@@ -111,4 +111,5 @@
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 (provide 'starter-kit-bindings)
+
 ;;; starter-kit-bindings.el ends here
