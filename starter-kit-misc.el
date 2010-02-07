@@ -131,6 +131,8 @@
      '(ignore-errors (set-face-background
                       'mumamo-background-chunk-submode "gray22"))))
 
+(add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
+
 (eval-after-load "smex"
   '(smex-initialize))
 
