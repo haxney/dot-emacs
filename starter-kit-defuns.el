@@ -340,21 +340,23 @@ replaces “ with \"."
     (while (search-forward "‘" nil t)
       (replace-match "'"))))
 
-(defun pretty-print-xml-region (begin end)
+(defun pretty-print-xml (begin end)
   "Pretty format XML markup in region.
 
 You need to have `nxml-mode'
-(http://www.emacswiki.org/cgi-bin/wiki/NxmlMode) installed to do
+http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
 this. The function inserts linebreaks to separate tags that have
 nothing but whitespace between them. It then indents the markup
 by using nXML's indentation rules."
-  (interactive "r")
+  (interactive (list (if mark-active (region-beginning) (point-min))
+                     (if mark-active (region-end) (point-max))))
   (save-excursion
-    (nxml-mode)
-    (goto-char begin)
-    (while (search-forward-regexp "\>[ \\t]*\<" nil t)
-      (backward-char) (insert "\n"))
-    (indent-region begin end))
+    (save-match-data
+      (nxml-mode)
+      (goto-char begin)
+      (while (search-forward-regexp "\>[ \\t]*\<" nil t)
+        (backward-char) (insert "\n"))
+      (indent-region begin end)))
   (message "Ah, much better!"))
 
 (provide 'starter-kit-defuns)
