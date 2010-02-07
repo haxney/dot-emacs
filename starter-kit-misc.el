@@ -131,6 +131,9 @@
      '(ignore-errors (set-face-background
                       'mumamo-background-chunk-submode "gray22"))))
 
+(eval-after-load "smex"
+  '(smex-initialize))
+
 ;; Platform-specific stuff
 (when (eq system-type 'darwin)
   ;; Work around a bug on OS X where system-name is FQDN
