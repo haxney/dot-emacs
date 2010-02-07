@@ -10,8 +10,5 @@
 
 (global-set-key (kbd "C-c r") 'remember)
 
-(global-set-key (kbd "C-c i u") 'identica-update-status-interactive)
-(global-set-key (kbd "C-c i i") 'identica)
-
 (define-key dired-mode-map (kbd "C-!")
   '(lambda () (interactive) (dired-do-shell-command "totem" nil (dired-get-marked-files t current-prefix-arg))))
