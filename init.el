@@ -47,11 +47,10 @@
 ;; Load up ELPA, the package manager
 
 (require 'package)
-(package-initialize)
-(require 'starter-kit-elpa)
-
 (add-to-list 'package-archives
              '("haxney" . "http://github.com/haxney/elpa/raw/master/public/") t)
+(package-initialize)
+(require 'starter-kit-elpa)
 
 (load "elpa-to-submit/nxhtml/autostart")
 
