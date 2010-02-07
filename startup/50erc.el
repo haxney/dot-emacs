@@ -25,55 +25,36 @@
 
 ;;; Code:
 
-(eval-after-load "erc"
-  '(progn
-     ;; Set the prompt to the channel name
-     (setq erc-prompt
-           (lambda ()
-             (if (and (boundp 'erc-default-recipients) (erc-default-target))
-                 (erc-propertize (concat (erc-default-target) ">")
-                                 'read-only t 'rear-nonsticky t 'front-nonsticky t)
-               (erc-propertize "ERC>"
-                               'read-only t 'rear-nonsticky t 'front-nonsticky t))))
+(defun notify-erc (match-type nickuserhost message)
+  "Notify when a message is received."
+  (notify (format "%s in %s"
+                  ;; Username of sender
+                  (car (split-string nickuserhost "!"))
+                  ;; Channel
+                  (or (erc-default-target) "#unknown"))
+          ;; Remove duplicate spaces
+          (replace-regexp-in-string " +" " " message)
+          :icon "emacs-snapshot"
+          :timeout -1))
 
-     (require 'notify)
-     (defun dhackney-notify-erc (match-type nickuserhost message)
-       "Notify when a message is received."
-       (notify (format "%s in %s"
-                       ;; Username of sender
-                       (car (split-string nickuserhost "!"))
-                       ;; Channel
-                       (or (erc-default-target) "#unknown"))
-               ;; Remove duplicate spaces
-               (replace-regexp-in-string " +" " " message)
-               :icon "emacs-snapshot"
-               :timeout -1))
-     (add-hook 'erc-text-matched-hook 'dhackney-notify-erc)
+;; Respond once if mentioned while away
+(defvar erc-responded-once nil)
+(defvar erc-away-reason nil)
+(defun erc-respond-once-if-away (match-type nickuserhost msg)
+  "Respond once to messages sent while away."
+  (if (erc-away-time)
+      (if (eq match-type 'current-nick)
+          (unless erc-responded-once
+            (erc-send-action (erc-default-target) (concat "is away: " erc-away-reason))
+            (setq erc-responded-once t)))))
 
-     ;; Respond once if mentioned while away
-     (defvar erc-responded-once nil)
-     (defvar erc-away-reason nil)
-     (defun erc-respond-once-if-away (match-type nickuserhost msg)
-       (if (erc-away-time)
-           (if (eq match-type 'current-nick)
-               (unless erc-responded-once
-                 (erc-send-action (erc-default-target) (concat "is away: " erc-away-reason))
-                 (setq erc-responded-once t)))))
-     (add-hook 'erc-text-matched-hook 'erc-respond-once-if-away)
-
-     (defadvice erc-process-away (after erc-away-reason-clear (proc away-p) activate)
-       "Clear things"
-       (unless away-p
-         (setq erc-responded-once nil
-               erc-away-reason nil)))
-
-     (defadvice erc-cmd-AWAY (after erc-store-reason (line) activate)
-       "store line"
-       (when (string-match "^\\s-*\\(.*\\)$" line)
-         (let ((reason (match-string 1 line)))
-           (setq erc-away-reason reason))))
-
-     (add-hook 'erc-mode-hook '(lambda () (visual-line-mode 1)))))
+(defun erc-custom-prompt ()
+  "A nicer default prompt."
+  (if (and (boundp 'erc-default-recipients) (erc-default-target))
+      (erc-propertize (concat (erc-default-target) ">")
+                      'read-only t 'rear-nonsticky t 'front-nonsticky t)
+    (erc-propertize "ERC>"
+                    'read-only t 'rear-nonsticky t 'front-nonsticky t)))
 
 (defun erc-generate-log-file-name-date-and-name (buffer target nick server port)
   "Generates a log-file name with the date and other info.
@@ -86,5 +67,28 @@ This function is a possible value for `erc-generate-log-file-name-function'."
                "@" server ".txt")))
     ;; we need a make-safe-file-name function.
     (convert-standard-filename file)))
+
+(defadvice erc-process-away (after erc-away-reason-clear (proc away-p))
+  "Clear things"
+  (unless away-p
+    (setq erc-responded-once nil
+          erc-away-reason nil)))
+
+(defadvice erc-cmd-AWAY (after erc-store-reason (line))
+  "store line"
+  (when (string-match "^\\s-*\\(.*\\)$" line)
+    (let ((reason (match-string 1 line)))
+      (setq erc-away-reason reason))))
+
+(eval-after-load "erc"
+  '(progn
+     (setq erc-prompt 'erc-custom-prompt)
+
+     (add-hook 'erc-text-matched-hook 'notify-erc)
+     (add-hook 'erc-text-matched-hook 'erc-respond-once-if-away)
+     (add-hook 'erc-mode-hook '(lambda () (visual-line-mode 1)))
+
+     (ad-activate 'erc-process-away)
+     (ad-activate 'erc-cmd-AWAY)))
 
 ;;; 50erc.el ends here
