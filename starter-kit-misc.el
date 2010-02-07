@@ -153,5 +153,14 @@
 ;; Re-enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
 
+;; Coding style for Drupal.
+(c-add-style "drupal"
+             '((c-basic-offset . 2)
+               (c-offsets-alist . ((arglist-close . c-lineup-close-paren)
+                                   (case-label . +)
+                                   (arglist-intro . +)
+                                   (arglist-cont-nonempty . c-lineup-math)
+                                   (statement-cont . c-lineup-math)))))
+
 (provide 'starter-kit-misc)
 ;;; starter-kit-misc.el ends here

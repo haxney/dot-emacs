@@ -385,6 +385,10 @@ by using nXML's indentation rules."
              (message
               "The region has %d words." count))))))
 
+(defun c-enable-electric-state ()
+  "Unconditionally enable electric state in CC-modes."
+  (c-toggle-electric-state 1))
+
 (provide 'starter-kit-defuns)
 
 ;;; starter-kit-defuns.el ends here
