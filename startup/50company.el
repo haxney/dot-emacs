@@ -33,6 +33,8 @@
   '(progn
 ;     (add-hook 'company-mode-hook 'predictive-mode)
 ;     (add-hook 'company-completion-finished-hook 'company-predictive-accept)
+     (define-key company-active-map (kbd "RET") 'company-complete-selection)
+     (define-key company-active-map (kbd "C-w") 'backward-kill-word)
 ))
 
 ;; Notify predictive of an accepted completion

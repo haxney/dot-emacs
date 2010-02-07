@@ -110,6 +110,14 @@
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
+(global-set-key (kbd "C-M-;") 'comment-dwim)
+
+;; Make paredit play nice with cua's rectangle editing.
+(eval-after-load "cua-rect"
+  '(progn
+     (define-key cua--rectangle-keymap [remap paredit-forward-delete] 'cua-delete-char-rectangle)
+     (define-key cua--rectangle-keymap [remap paredit-backward-delete] 'cua-delete-char-rectangle)))
+
 (provide 'starter-kit-bindings)
 
 ;;; starter-kit-bindings.el ends here
