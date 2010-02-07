@@ -26,26 +26,19 @@
 
 ;;; Code:
 
-;; Org mode keys
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-
-(autoload 'org-read-date "org")
-
 (require 'org-install)
 
-(defun dhackney/org-open-day-page ()
+(defun org-open-day-page ()
   "Use `org-read-date' to prompt for a date, and open the
 day-page file matching that name."
   (interactive)
   (find-file (expand-file-name
-              (concat "~/org/"
+              (concat (file-name-as-directory org-directory)
                       (replace-regexp-in-string "-" "." (org-read-date nil))
                       ".org"))))
 
 (add-to-list 'Info-directory-list (concat elisp-dir (file-name-as-directory "org-mode") "doc"))
 
-(define-key global-map "\C-c\M-d" 'dhackney/org-open-day-page)
 
 (eval-after-load 'org
   '(progn
