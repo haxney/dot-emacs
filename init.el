@@ -69,6 +69,8 @@
 (regen-autoloads)
 (load custom-file 'noerror)
 
+(zenburn)
+
 ;; Load package-specific startup files.
 (esk-run-directories (concat dotfiles-dir "startup"))
 
