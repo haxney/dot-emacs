@@ -410,6 +410,12 @@ Why doesn't this exist already? Who knows."
       (while (search-forward (char-to-string 160) nil t)
         (replace-match " "))))))
 
+(defun visual-line-mode-on ()
+  "Unconditionally turn on visual-line-mode.
+
+Why doesn't this exist already? Who knows."
+  (visual-line-mode 1))
+
 (provide 'starter-kit-defuns)
 
 ;;; starter-kit-defuns.el ends here
