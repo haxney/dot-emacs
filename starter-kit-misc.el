@@ -55,6 +55,8 @@
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)
 
+(highline-mode-on)
+
 ;; ido-mode is like magic pixie dust!
 (when (> emacs-major-version 21)
   (ido-mode t)
