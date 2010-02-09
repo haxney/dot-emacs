@@ -416,6 +416,20 @@ Why doesn't this exist already? Who knows."
 Why doesn't this exist already? Who knows."
   (visual-line-mode 1))
 
+(defun unwrap-line ()
+  "Remove all newlines until we get to two consecutive ones.
+    Or until we reach the end of the buffer.
+    Great for unwrapping quotes before sending them on IRC."
+  (interactive)
+  (let ((start (point))
+        (end (copy-marker (or (search-forward "\n\n" nil t)
+                              (point-max))))
+        (fill-column (point-max)))
+    (fill-region start end)
+    (goto-char end)
+    (newline)
+    (goto-char start)))
+
 (provide 'starter-kit-defuns)
 
 ;;; starter-kit-defuns.el ends here

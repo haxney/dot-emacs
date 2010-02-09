@@ -72,6 +72,9 @@
 ;; For debugging Emacs modes
 (global-set-key (kbd "C-c p") 'message-point)
 
+;; Unwrap the line.
+(global-set-key (kbd "M-Q") 'unwrap-line)
+
 ;; Applications
 
 (global-set-key (kbd "C-c j") (lambda () (interactive)
