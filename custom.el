@@ -42,8 +42,9 @@
  '(ecb-tip-of-the-day nil)
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
  '(erc-autoaway-mode t)
- '(erc-autojoin-channels-alist (quote (("freenode.net" "#git" "#drupal-vcs" "#drupal" "#emacs" "#uzbl"))))
+ '(erc-autojoin-channels-alist (quote (("freenode.net" "#drupal-vcs" "#drupal" "#emacs" "#uzbl"))))
  '(erc-autojoin-mode t)
+ '(erc-email-userid "dan@haxney.org")
  '(erc-generate-log-file-name-function (quote erc-generate-log-file-name-date-and-name))
  '(erc-log-channels-directory "~/logs")
  '(erc-log-insert-log-on-open nil)
@@ -51,7 +52,7 @@
  '(erc-log-write-after-insert t)
  '(erc-log-write-after-send t)
  '(erc-max-buffer-size 20000)
- '(erc-modules (quote (autoaway autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring services smiley stamp spelling track truncate)))
+ '(erc-modules (quote (autoaway autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring services smiley stamp spelling truncate)))
  '(erc-nick "haxney")
  '(erc-pals (quote ("evie")))
  '(erc-prompt-for-nickserv-password nil)
@@ -60,6 +61,8 @@
  '(erc-timestamp-format "[%R-%m/%d]")
  '(erc-track-exclude-server-buffer t)
  '(erc-track-exclude-types (quote ("JOIN" "NICK" "PART" "QUIT" "MODE" "333" "353")))
+ '(erc-track-minor-mode t)
+ '(erc-track-position-in-mode-line t)
  '(erc-track-remove-disconnected-buffers t)
  '(erc-truncate-buffer-on-save t)
  '(erc-truncate-mode t)
@@ -178,6 +181,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(anything-header ((t (:inherit header-line :background "gray7"))))
  '(bm-face ((((class color) (background light)) (:background "orange1"))))
  '(bm-fringe-face ((((class color) (background light)) (:background "orange1"))))
  '(bm-fringe-persistent-face ((((class color) (background light)) (:background "DarkBlue"))))
