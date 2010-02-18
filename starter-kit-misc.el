@@ -162,5 +162,7 @@
                                    (arglist-cont-nonempty . c-lineup-math)
                                    (statement-cont . c-lineup-math)))))
 
+(add-hook 'php-mode-hook '(lambda () (semantic-show-unmatched-syntax-mode nil)))
+
 (provide 'starter-kit-misc)
 ;;; starter-kit-misc.el ends here
