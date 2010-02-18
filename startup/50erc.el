@@ -40,6 +40,7 @@
 ;; Respond once if mentioned while away
 (defvar erc-responded-once nil)
 (defvar erc-away-reason nil)
+
 (defun erc-respond-once-if-away (match-type nickuserhost msg)
   "Respond once to messages sent while away."
   (if (erc-away-time)
@@ -79,6 +80,25 @@ This function is a possible value for `erc-generate-log-file-name-function'."
   (when (string-match "^\\s-*\\(.*\\)$" line)
     (let ((reason (match-string 1 line)))
       (setq erc-away-reason reason))))
+
+(defun erc-cmd-DEMOGRAPHICS (&rest ignore)
+  "Display short channel demographics."
+  (erc-display-message nil 'notice (current-buffer)
+                       (let ((hash-table erc-channel-users)
+                             (demo-hashes (make-hash-table :test 'equal))
+                             (tld-distri))
+                         (maphash (lambda (k v)
+                                    (let* ((host (format "%s" (aref (car v) 2)))
+                                           (tld (and (string-match ".+\\.\\([a-zA-Z]+\\)$" host)
+                                                     (downcase (match-string 1 host))))
+                                           (tldc (and tld (gethash tld demo-hashes 0))))
+                                      (and tldc (puthash tld (1+ tldc) demo-hashes))))
+                                  hash-table)
+                         (maphash (lambda (k v)
+                                    (add-to-list 'tld-distri (format "%s %s" v k)))
+                                  demo-hashes)
+                         (format "TLD Demographics: %s" (mapconcat 'identity tld-distri ", ")))))
+(defalias 'erc-cmd-DG 'erc-cmd-DEMOGRAPHICS)
 
 (eval-after-load "erc"
   '(progn
