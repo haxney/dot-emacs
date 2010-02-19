@@ -149,7 +149,9 @@ Makes linking between `org-mode' files easier."
      (unless (boundp 'org-export-latex-classes)
        (setq org-export-latex-classes nil))
 
-     (add-to-list 'org-export-latex-classes org-export-latex-class-vita)
+     (eval-after-load 'org-export-latex
+       '(progn
+         (add-to-list 'org-export-latex-classes org-export-latex-class-vita)))
      (add-hook 'org-mode-hook 'turn-on-flyspell)
      (add-hook 'org-after-todo-state-change-hook 'wicked/org-clock-in-if-starting)
      (add-hook 'org-after-todo-state-change-hook 'wicked/org-clock-out-if-waiting)
