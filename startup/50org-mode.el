@@ -24,13 +24,16 @@
 ;;
 ;;  Set up clock in/out functionality, as well as convenience keybindings.
 
+
+;;; History:
+;;
+
 ;;; Code:
 
 (require 'org-install)
 
 (defun org-open-day-page ()
-  "Use `org-read-date' to prompt for a date, and open the
-day-page file matching that name."
+  "Use `org-read-date' to prompt for a date, and open the day-page file matching that name."
   (interactive)
   (require 'org)
   (find-file (expand-file-name
@@ -39,16 +42,16 @@ day-page file matching that name."
                       ".org"))))
 
 (defun my/org-clock-out ()
-  (interactive)
   "Clock out of whatever task is currently STARTED."
+  (interactive)
   (save-excursion
     (set-buffer (marker-buffer org-clock-marker))
     (goto-char org-clock-marker)
     (org-todo "WAITING")))
 
 (defun my/org-todo-starting ()
-  (interactive)
   "Mark the current task WAITING."
+  (interactive)
   (org-todo "STARTED"))
 
 ;; Add Sacha Chua's 'clock-in(out)-if-starting' functions
