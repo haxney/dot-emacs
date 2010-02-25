@@ -44,12 +44,14 @@ Must be in the form:
 
   '((\"o\" anything-c-source-occur))"
   (mapcar (lambda (item)
-            (define-key anything-activate-map
-              (read-kbd-macro (symbol-name (car item)))
-              `(lambda ()
-                 (interactive)
-                 (anything-other-buffer (list ,@(cdr item))
-                                        ,(concat " *anything-map-" (symbol-name (car item)) "*")))))
+            (let* ((key-name (symbol-name (car item)))
+                   (map-buffer (concat " *anything-map-" key-name "*")))
+             (define-key anything-activate-map
+               (read-kbd-macro key-name)
+               `(lambda ()
+                  (interactive)
+                  (anything-other-buffer (list ,@(cdr item))
+                                         ,(get-buffer-create map-buffer))))))
           bindings)
   (global-set-key (kbd "C-c j") anything-activate-map)
   (global-set-key (kbd "C-c C-j") anything-activate-map))
@@ -131,7 +133,7 @@ without being overly verbose.")
   (interactive)
   (anything-other-buffer
    '(anything-c-source-buffers+ anything-c-source-buffer-not-found)
-   "*anything for buffers*"))
+   (get-buffer-create " *anything for buffers+*")))
 
 (defun anything-semantic-or-imenu ()
   "Run anything with semantic or imenu.
