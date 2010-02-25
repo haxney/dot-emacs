@@ -154,6 +154,7 @@
  '(scroll-bar-mode nil)
  '(semanticdb-default-save-directory "~/.emacs.d/tmp/")
  '(semanticdb-global-mode t nil (semanticdb))
+ '(sentence-end-double-space nil)
  '(server-switch-hook (quote (turn-on-flyspell)))
  '(server-visit-hook (quote (longlines-mode-on server-edit-presets)))
  '(show-paren-mode t)
