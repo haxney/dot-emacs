@@ -26,23 +26,25 @@
 
 ;;; Code:
 
-(setq bm-restore-repository-on-load t)
+(eval-after-load "bm"
+  '(progn
+     (setq bm-restore-repository-on-load t)
 
-;; Restoring bookmarks when on file find.
-(add-hook 'find-file-hooks 'bm-buffer-restore)
+     ;; Restoring bookmarks when on file find.
+     (add-hook 'find-file-hooks 'bm-buffer-restore)
 
-;; Saving bookmark data on killing a buffer
-(add-hook 'kill-buffer-hook 'bm-buffer-save)
+     ;; Saving bookmark data on killing a buffer
+     (add-hook 'kill-buffer-hook 'bm-buffer-save)
 
-;; Saving the repository to file when on exit. kill-buffer-hook is not called
-;; when emacs is killed, so we must save all bookmarks first.
-(add-hook 'kill-emacs-hook 'bm-buffer-save-all)
-(add-hook 'kill-emacs-hook 'bm-repository-save)
+     ;; Saving the repository to file when on exit. kill-buffer-hook is not called
+     ;; when emacs is killed, so we must save all bookmarks first.
+     (add-hook 'kill-emacs-hook 'bm-buffer-save-all)
+     (add-hook 'kill-emacs-hook 'bm-repository-save)
 
-;; Update bookmark repository when saving the file.
-(add-hook 'after-save-hook 'bm-buffer-save)
+     ;; Update bookmark repository when saving the file.
+     (add-hook 'after-save-hook 'bm-buffer-save)
 
-;; Restore bookmarks when buffer is reverted.
-(add-hook 'after-revert-hook 'bm-buffer-restore)
+     ;; Restore bookmarks when buffer is reverted.
+     (add-hook 'after-revert-hook 'bm-buffer-restore)))
 
 ;;; 50bm.el ends here
