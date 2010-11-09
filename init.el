@@ -48,7 +48,7 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("haxney" . "http://github.com/haxney/elpa/raw/master/public/") t)
+             '("elpa" . "http://tromey.com/elpa/") t)
 (package-initialize)
 (require 'starter-kit-elpa)
 
