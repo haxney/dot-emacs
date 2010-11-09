@@ -154,9 +154,9 @@ symbol at point by default."
 (global-set-key (kbd "C-h a") 'anything-apropos)
 
 (eval-after-load "anything"
-  '(global-set-key (kbd "C-x b") 'anything-for-buffers+))
-
-(descbinds-anything-install)
+  '(progn
+     (global-set-key (kbd "C-x b") 'anything-for-buffers+)
+     (descbinds-anything-install)))
 
 (setq anything-candidate-number-limit 500)
 
