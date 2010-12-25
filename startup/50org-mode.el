@@ -74,18 +74,23 @@
 (defun org-preprocess-radio-lists ()
   "Preprocess radio lists before exporting."
   (save-excursion
-    (goto-char (point-min))
-    (while (search-forward "#+ORGLST:" nil t)
-      (forward-line 1)
-      (org-list-send-list t))))
+    (save-match-data
+     (goto-char (point-min))
+     (while (re-search-forward "^[ \t]*#\\+ORGLST:?" nil t)
+       (forward-line 1)
+       (when (org-at-item-p)
+         (save-excursion
+           (org-list-send-list t)))))))
 
 (defun org-preprocess-radio-tables ()
   "Preprocess radio tables before exporting."
   (save-excursion
-    (goto-char (point-min))
-    (while (search-forward "#+ORGTBL:" nil t)
-      (forward-line 1)
-      (orgtbl-send-table t))))
+    (save-match-data
+     (goto-char (point-min))
+     (while (search-forward "#+ORGTBL:" nil t)
+       (forward-line 1)
+       (when (org-at-table-p)
+         (orgtbl-send-table t))))))
 
 (defun dhackney/org-link-to-project (link desc)
   "Prompt for a link between org files.
@@ -158,7 +163,7 @@ Makes linking between `org-mode' files easier."
      (add-hook 'org-mode-hook 'turn-on-flyspell)
      (add-hook 'org-after-todo-state-change-hook 'wicked/org-clock-in-if-starting)
      (add-hook 'org-after-todo-state-change-hook 'wicked/org-clock-out-if-waiting)
-     (add-hook 'org-export-preprocess-final-hook 'org-preprocess-radio-lists)
-     (add-hook 'org-export-preprocess-final-hook 'org-preprocess-radio-tables)))
+     (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-lists)
+     (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-tables)))
 
 ;;; 50org-mode.el ends here
