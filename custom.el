@@ -116,18 +116,13 @@
  '(org-agenda-custom-commands (quote (("p" tags "PROJECT-MAYBE-DONE" nil))))
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "%s_archive::* Archived Tasks")
+ '(org-capture-templates (quote (("t" "Todo" entry (file+headline "~/org/root.org" "Task Inbox") "** TODO %?
+   %i"))))
  '(org-default-notes-file "~/org/root.org")
  '(org-id-locations-file "~/.emacs.d/tmp/.org-id-locations")
  '(org-log-done (quote time))
  '(org-modules (quote (org-bibtex org-info org-jsinfo org-habit org-irc org-protocol org-registry org-special-blocks)))
  '(org-registry-file "~/.emacs.d/tmp/org-registry.el")
- '(org-remember-templates (quote (("Todo" 116 "** TODO %?
-  %i
- %a" "~/org/root.org" "") ("Appointment" 97 "** Appointment: %?
-%^T
-%i
-  %a" "~/org/root.org" "") ("Blog Idea" 98 "*** %^{Title}
-    %i%?" "~/org/root.org" "Blog Ideas") ("Music" 109 "*** %^{Song title} - %^{Artist}%!" "~/org/music.org" "To buy"))))
  '(org-return-follows-link t)
  '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "WAITING" "DONE"))))
  '(org-track-directory "~/.emacs.d/elisp/")
