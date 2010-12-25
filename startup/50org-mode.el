@@ -142,6 +142,7 @@ Makes linking between `org-mode' files easier."
      (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
      (define-key org-mode-map (kbd "C-c M-l") 'dhackney/org-link-to-project)
      (define-key org-mode-map (kbd "C-c C-x C-i") 'my/org-todo-starting)
+     (define-key org-mode-map (kbd "C-c C-x C-o") 'my/org-clock-out)
 
      ;; Custom agenda commands
      (setq org-agenda-custom-commands
