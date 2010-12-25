@@ -119,6 +119,20 @@
  '(org-capture-templates (quote (("t" "Todo" entry (file+headline "~/org/root.org" "Task Inbox") "** TODO %?
    %i"))))
  '(org-default-notes-file "~/org/root.org")
+ '(org-export-latex-classes (quote (("vita" "\\documentclass[ComputerScience]{vita}
+\\usepackage[left=2cm,top=1cm,right=2cm]{geometry}
+\\usepackage{multicol}
+\\addtolength{\\columnsep}{-0.3in}
+\\addtolength{\\multicolsep}{-0.1in}
+\\usepackage{savetrees}
+\\usepackage[compact]{titlesec}
+\\titlespacing{\\section}{0pt}{*0}{*0}
+\\titlespacing{\\subsection}{0pt}{*0}{*0}
+\\titlespacing{\\subsubsection}{0pt}{*0}{*0}
+\\usepackage{comment}
+\\usepackage{setspace}
+\\singlespacing
+\\setlength{\\topsep}{-0.6in}" ("\\section{%s \\hrulefill}" . "\\section*{%s \\hrulefill}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}") ("\\paragraph{%s}" . "\\paragraph*{%s}") ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))) t)
  '(org-id-locations-file "~/.emacs.d/tmp/.org-id-locations")
  '(org-log-done (quote time))
  '(org-modules (quote (org-bibtex org-info org-jsinfo org-habit org-irc org-protocol org-registry org-special-blocks)))
