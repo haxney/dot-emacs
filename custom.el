@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(LaTeX-command "latex -shell-escape")
- '(LaTeX-mode-hook (quote (flymake-mode-off turn-on-flyspell)))
+ '(LaTeX-mode-hook (quote (flymake-mode-off turn-on-flyspell)) t)
  '(TeX-master nil)
  '(after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))
  '(anything-c-adaptive-history-file "~/.emacs.d/tmp/anything-c-adaptive-history")
