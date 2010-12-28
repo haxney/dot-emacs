@@ -42,7 +42,7 @@
  '(ecb-tip-of-the-day nil)
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
  '(edit-server-new-frame nil)
- '(emacs-lisp-mode-hook (quote (turn-on-eldoc-mode (lambda nil (setq mode-name "El")) (lambda nil (paredit-mode 1) (idle-highlight 1) (run-coding-hook)) esk-remove-elc-on-save)))
+ '(emacs-lisp-mode-hook (quote (turn-on-eldoc-mode (lambda nil (setq mode-name "El")) (lambda nil (paredit-mode 1) (idle-highlight 1) (esk-run-coding-hook)) esk-remove-elc-on-save)))
  '(erc-autoaway-mode t)
  '(erc-autojoin-channels-alist (quote (("freenode.net" "#drupal-vcs" "#drupal" "#emacs" "#uzbl"))))
  '(erc-autojoin-mode t)
