@@ -19,7 +19,6 @@
 
 (add-to-list 'load-path dotfiles-dir)
 
-;(setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq custom-file (concat dotfiles-dir "custom.el"))
 
 ;; Load up ELPA, the package manager
