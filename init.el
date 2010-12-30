@@ -122,7 +122,7 @@ always supercedes a .el file of the same name."
 
 (add-hook 'after-init-hook 'my/message-startup-time)
 
-(my/run-directories "startup")
+(my/run-directories "~/.emacs.d/startup")
 
 (defun pretty-print-xml (begin end)
   "Pretty format XML markup in region.
