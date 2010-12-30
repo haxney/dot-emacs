@@ -148,11 +148,10 @@ by using nXML's indentation rules."
   (cond
    ;; When editing mail, set the goal-column to 72.
    ((string-match "mail\\.google\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
-    (longlines-mode-off)
-    (auto-fill-mode 1)
-    (set-fill-column 72)
+    (org-mode)
+    (auto-fill-mode)
+    (setq fill-column 72)
     (save-excursion
-      (set-buffer (buffer-name))
       (goto-char (point-min))
       ;; Replace non-breaking strange space characters
       (while (search-forward (char-to-string 160) nil t)
