@@ -24,9 +24,14 @@
 ;; Load up ELPA, the package manager
 (require 'package)
 (add-to-list 'package-archives
-             '("elpa" . "http://tromey.com/elpa/") t)
+             '("elpa" . "http://tromey.com/elpa/"))
+
 (add-to-list 'package-archives
-             '("technomancy" . "http://repo.technomancy.us/emacs/") t)
+             '("technomancy" . "http://repo.technomancy.us/emacs/"))
+
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+
 (package-initialize)
 
 (smex-initialize)
