@@ -8,7 +8,9 @@
 ;; Use super with arrow keys for windmove.
 (windmove-default-keybindings 'super)
 
-(global-set-key (kbd "C-c r") 'remember)
+(global-set-key (kbd "C-c r") 'org-capture)
 
-(define-key dired-mode-map (kbd "C-!")
-  '(lambda () (interactive) (dired-do-shell-command "totem" nil (dired-get-marked-files t current-prefix-arg))))
+(eval-after-load 'dired
+  '(progn
+     (define-key dired-mode-map (kbd "C-!")
+       '(lambda () (interactive) (dired-do-shell-command "totem" nil (dired-get-marked-files t current-prefix-arg))))))
