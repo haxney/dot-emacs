@@ -204,4 +204,8 @@ by using nXML's indentation rules."
              '(nil "\\`root\\'" "/ssh:%h:"))
 (add-to-list 'tramp-default-proxies-alist
              '((regexp-quote (system-name)) nil nil))
+
+(autoload 'ensime-scala-mode-hook "ensime" "Conveniance hook function that just starts ensime-mode.")
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
 ;;; init.el ends here
