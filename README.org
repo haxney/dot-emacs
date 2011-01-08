@@ -1,0 +1,50 @@
+* My startup files
+
+  This is a collection of all of my Emacs startup files. Feel free to copy and
+  use whatever you like.
+
+* Installed packages
+
+  I use the following repositories (also defined in =init.el=):
+
+#+BEGIN_SRC emacs-lisp
+  '("elpa" . "http://tromey.com/elpa/")
+  '("technomancy" . "http://repo.technomancy.us/emacs/")
+  '("marmalade" . "http://marmalade-repo.org/packages/")
+
+#+END_SRC
+
+  I currently have the following packages installed:
+
+  - auctex           :: 11.86
+  - company          :: 0.5
+  - diminish         :: 0.44
+  - ensime           :: 0.4.1
+  - findr            :: 0.7
+  - furl             :: 0.0.0
+  - gist             :: 0.5
+  - highline         :: 4.2
+  - htmlize          :: 1.37
+  - idle-highlight   :: 1.0
+  - inf-ruby         :: 2.1
+  - inflections      :: 1.0
+  - json             :: 1.2
+  - jump             :: 2.0
+  - keywiz           :: 1.4
+  - magit            :: 0.8.1
+  - marmalade        :: 0.0.3
+  - mediawiki        :: 2.2.2
+  - notify           :: 2010.8.20
+  - org              :: 20101120
+  - paredit          :: 22
+  - rinari           :: 2.1
+  - ruby-compilation :: 0.7
+  - ruby-mode        :: 1.1
+  - scala-mode       :: 0.5.99.5
+  - scpaste          :: 0.3
+  - smex             :: 1.1.1
+  - starter-kit      :: 2.0
+  - starter-kit-lisp :: 2.0
+  - undo-tree        :: 0.1.6
+  - xml-rpc          :: 1.6.7
+  - yaml-mode        :: 0.0.5
