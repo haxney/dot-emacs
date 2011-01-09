@@ -153,10 +153,9 @@ symbol at point by default."
 (global-set-key (kbd "M-.") 'anything-semantic-or-imenu)
 (global-set-key (kbd "C-h a") 'anything-apropos)
 
-(eval-after-load "anything"
-  '(progn
-     (global-set-key (kbd "C-x b") 'anything-for-buffers+)
-     (descbinds-anything-install)))
+(when (require 'descbinds-anything nil t)
+  (global-set-key (kbd "C-x b") 'anything-for-buffers+)
+  (descbinds-anything-install))
 
 (setq anything-candidate-number-limit 500)
 
