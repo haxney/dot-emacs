@@ -152,6 +152,7 @@ symbol at point by default."
               (unless (string= tap "") tap))))
 
 (global-set-key (kbd "M-.") 'anything-semantic-or-imenu)
+(define-key emacs-lisp-mode-map (kbd "M-.") 'anything-semantic-or-imenu)
 (global-set-key (kbd "C-h a") 'anything-apropos)
 
 (when (require 'descbinds-anything nil t)
