@@ -146,6 +146,7 @@ symbol at point by default."
         (source (if (semantic-active-p)
                     'anything-c-source-semantic
                   'anything-c-source-imenu)))
+    (push-mark)
     (anything source
               nil nil nil
               (unless (string= tap "") tap))))
