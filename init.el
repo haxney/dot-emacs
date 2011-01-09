@@ -209,5 +209,6 @@ by using nXML's indentation rules."
 
 (autoload 'ensime-scala-mode-hook "ensime" "Conveniance hook function that just starts ensime-mode.")
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+(remove-hook 'esk-coding-hook 'esk-pretty-lambdas)
 
 ;;; init.el ends here
