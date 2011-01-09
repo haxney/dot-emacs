@@ -155,6 +155,34 @@ symbol at point by default."
 (define-key emacs-lisp-mode-map (kbd "M-.") 'anything-semantic-or-imenu)
 (global-set-key (kbd "C-h a") 'anything-apropos)
 
+(defun anything-get-visible-buffers (&optional minibuf all-frames)
+  (let ((bufs (make-symbol "buffers")))
+    (set bufs nil)
+    (walk-windows '(lambda (wind)
+                     (add-to-list bufs (window-buffer wind)))
+                  minibuf
+                  all-frames)
+    (symbol-value bufs)))
+
+(defun anything-c-buffer-list ()
+  "Return the list of names of buffers with boring buffers filtered out.
+Boring buffer names are specified by
+`anything-c-boring-buffer-regexp'. The first buffer in the list
+will be the last recently used buffer that is not visible in the
+current frame."
+  (save-window-excursion
+    (anything-frame/window-configuration 'restore)
+    (let* ((visible (anything-get-visible-buffers))
+           (buffers (mapcar '(lambda (buf)
+                               (if (memq buf visible)
+                                   nil
+                                 buf))
+                            (buffer-list))))
+
+      (setq buffers (delq nil buffers))
+      (mapc '(lambda (buf) (setq buffers (delete buf buffers))) visible)
+      (mapcar 'buffer-name buffers))))
+
 (when (require 'descbinds-anything nil t)
   (global-set-key (kbd "C-x b") 'anything-for-buffers+)
   (descbinds-anything-install))
