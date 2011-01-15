@@ -71,7 +71,6 @@
  '(erc-truncate-buffer-on-save t)
  '(erc-truncate-mode t)
  '(erc-user-full-name "Daniel Hackney")
- '(eshell-before-prompt-hook (quote (smart-tab-mode-off)))
  '(eshell-directory-name "~/.emacs.d/tmp/eshell/")
  '(eshell-mode-hook (quote (visual-line-mode)))
  '(espresso-indent-level 4 t)
