@@ -149,6 +149,7 @@ by using nXML's indentation rules."
 
 (defun server-edit-presets ()
   "Run some things when a server buffer is opened."
+  (longlines-mode)
   (cond
    ;; When editing mail, set the goal-column to 72.
    ((string-match "mail\\.google\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
