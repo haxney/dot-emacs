@@ -208,6 +208,8 @@ by using nXML's indentation rules."
      (add-to-list 'tramp-default-proxies-alist
                   '((regexp-quote (system-name)) nil nil))))
 
+(add-to-list 'auto-mode-alist '("\\.json\\'" . javascript-mode))
+
 (autoload 'ensime-scala-mode-hook "ensime" "Conveniance hook function that just starts ensime-mode.")
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 (remove-hook 'esk-coding-hook 'esk-pretty-lambdas)
