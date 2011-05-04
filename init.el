@@ -23,19 +23,14 @@
 
 ;; Load up ELPA, the package manager
 (require 'package)
-(add-to-list 'package-archives
-             '("elpa" . "http://tromey.com/elpa/"))
 
-(add-to-list 'package-archives
-             '("technomancy" . "http://repo.technomancy.us/emacs/"))
-
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(mapc '(lambda (item) (add-to-list 'package-archives item))
+      '(("elpa" . "http://tromey.com/elpa/")
+        ("technomancy" . "http://repo.technomancy.us/emacs/")
+        ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 (package-initialize)
-
 (smex-initialize)
-
 (load custom-file 'noerror)
 
 (defun my/unique-strings (strings)
