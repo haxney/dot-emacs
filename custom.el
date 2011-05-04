@@ -116,7 +116,14 @@
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "%s_archive::* Archived Tasks")
  '(org-capture-templates (quote (("t" "Todo" entry (file+headline "~/org/root.org" "Task Inbox") "** TODO %?
-   %i"))))
+   %i") ("d" "Day Page" entry (function org-open-day-page) "* Slavit Reflection
+  :PROPERTIES:
+  :CHAOS:    %^{Chaos level|1|2|3|4|5}
+  :END:
+** Most Difficult
+** Most Approachable
+** Learned
+* Sleep" :immediate-finish t :unnarrowed t))))
  '(org-default-notes-file "~/org/root.org")
  '(org-export-latex-classes (quote (("vita" "\\documentclass[ComputerScience]{vita}
 \\usepackage[left=2cm,top=1cm,right=2cm]{geometry}
