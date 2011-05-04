@@ -157,43 +157,26 @@ by using nXML's indentation rules."
       (while (search-forward (char-to-string 160) nil t)
         (replace-match " "))))))
 
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c M-d") 'org-open-day-page)
-(global-set-key (kbd "C-c C-x C-o") 'my/org-clock-out)
+(load-file (concat dotfiles-dir "/nxhtml/autostart.el"))
 
-;; Smex, a Super M-x
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "C-x C-m") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c M-x") 'smex-update-and-run)
+(c-add-style "drupal"
+             '((c-basic-offset . 2)
+               (c-offsets-alist . ((arglist-close . c-lineup-close-paren)
+                                   (case-label . +)
+                                   (arglist-intro . +)
+                                   (arglist-cont-nonempty . c-lineup-math)))))
 
-;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+(defun c-style-drupal ()
+  "Set the style to \"drupal\"."
+  (interactive)
+  (c-set-style "drupal"))
 
-(global-set-key (kbd "C-M-;") 'comment-dwim)
-
-;; Make paredit play nice with cua's rectangle editing.
-(eval-after-load "cua-rect"
-  '(progn
-     (define-key cua--rectangle-keymap [remap paredit-forward-delete] 'cua-delete-char-rectangle)
-     (define-key cua--rectangle-keymap [remap paredit-backward-delete] 'cua-delete-char-rectangle)))
-
-(eval-after-load 'dired
-  '(progn
-     (define-key dired-mode-map "e" 'wdired-change-to-wdired-mode)))
+(add-hook 'ruby-mode-hook 'flyspell-prog-mode)
 
 (highline-mode-on)
 
 ;; Re-enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
-
-;; Paredit steals C-j from `eval-print-last-sexp'. Bring it back!
-(define-key lisp-interaction-mode-map (kbd "C-c C-e") 'eval-print-last-sexp)
-
-(global-set-key (kbd "C-x C-o") 'delete-blank-lines)
-
-(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; Allow "/sudo:host:/etc/stuff" to sudo on a remote host
 (eval-after-load 'tramp

@@ -1,15 +1,3 @@
-;; Set C-w to backward kill word and remap existing C-w to C-x C-k
-(global-set-key (kbd "C-w") 'backward-kill-word)
-(global-set-key (kbd "C-x C-k") 'kill-region)
-
-;; Use C-c k for kmacro keys
-(global-set-key (kbd "C-c k") 'kmacro-keymap)
-
-;; Use super with arrow keys for windmove.
-(windmove-default-keybindings 'super)
-
-(global-set-key (kbd "C-c r") 'org-capture)
-
 (eval-after-load 'dired
   '(progn
      (define-key dired-mode-map (kbd "C-!")
