@@ -194,4 +194,6 @@ by using nXML's indentation rules."
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 (remove-hook 'esk-coding-hook 'esk-pretty-lambdas)
 
+(add-hook 'Info-mode-hook 'flyspell-mode-off)
+
 ;;; init.el ends here
