@@ -11,7 +11,7 @@
  '(anything-su-or-sudo "sudo")
  '(auto-save-list-file-prefix "~/.emacs.d/tmp/auto-save-list/.saves-")
  '(backup-directory-alist (quote (("." . "~/.emacs.d/tmp/baks/"))))
- '(before-save-hook (quote (delete-trailing-whitespace)))
+ '(before-save-hook (quote (whitespace-cleanup)))
  '(blink-cursor-mode nil)
  '(bm-annotate-on-create nil)
  '(bm-buffer-persistence t)
