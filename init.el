@@ -171,6 +171,7 @@ by using nXML's indentation rules."
   (c-set-style "drupal"))
 
 (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
+(add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 (highline-mode-on)
 
