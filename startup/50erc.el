@@ -25,17 +25,18 @@
 
 ;;; Code:
 
+(autoload 'notifications-notify "notifications")
+
 (defun notify-erc (match-type nickuserhost message)
   "Notify when a message is received."
-  (notify (format "%s in %s"
+  (notifications-notify
+   :title (format "%s in %s"
                   ;; Username of sender
                   (car (split-string nickuserhost "!"))
                   ;; Channel
                   (or (erc-default-target) "#unknown"))
-          ;; Remove duplicate spaces
-          (replace-regexp-in-string " +" " " message)
-          :icon "emacs-snapshot"
-          :timeout -1))
+   ;; Remove duplicate spaces
+   :body (replace-regexp-in-string " +" " " message)))
 
 ;; Respond once if mentioned while away
 (defvar erc-responded-once nil)
@@ -125,7 +126,7 @@ This function is a possible value for `erc-generate-log-file-name-function'."
 
      (add-hook 'erc-text-matched-hook 'notify-erc)
      (add-hook 'erc-text-matched-hook 'erc-respond-once-if-away)
-     (add-hook 'erc-mode-hook '(lambda () (visual-line-mode 1)))
+     (add-hook 'erc-mode-hook 'visual-line-mode)
 
      (ad-activate 'erc-process-away)
      (ad-activate 'erc-cmd-AWAY)))
