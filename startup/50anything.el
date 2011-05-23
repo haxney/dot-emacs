@@ -191,4 +191,26 @@ current frame."
 
 (setq anything-candidate-number-limit 500)
 
+(defvar anything-frame nil)
+
+(defun anything-initialize-frame ()
+  (unless (and anything-frame (frame-live-p anything-frame))
+    (setq anything-frame (make-frame '((name . "*Anything*")
+                                       (width . 80)
+                                       (height . 40)))))
+  (select-frame anything-frame)
+
+  (set-window-buffer (frame-selected-window anything-frame)
+                     (get-buffer-create anything-buffer)))
+
+(defun anything-hide-frame ()
+  (when (and anything-frame (frame-live-p anything-frame))
+    (make-frame-invisible anything-frame)))
+
+(add-hook 'anything-after-initialize-hook
+          'anything-initialize-frame)
+
+(add-hook 'anything-cleanup-hook
+          'anything-hide-frame)
+
 ;;; 50anything.el ends here
