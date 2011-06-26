@@ -42,6 +42,14 @@
 
 (add-to-list 'auto-mode-alist '("\\.dot$" . graphviz-dot-mode))
 
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("config.ru$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+
+;; Make sure `haml-mode' has a higher priority than `nxhtml-mumamo-mode'.
+(delete '("\\.haml$" . haml-mode) auto-mode-alist)
+(add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
+
 ;; Live on the wild side.
 (setq write-region-inhibit-fsync t)
 
