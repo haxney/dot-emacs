@@ -197,4 +197,12 @@ by using nXML's indentation rules."
 
 (add-hook 'Info-mode-hook 'flyspell-mode-off)
 
+(require 'auto-complete)
+(require 'auto-complete-config)
+(defun ac-ruby-mode-setup ()
+  (setq ac-sources (append '(ac-source-filename
+                             ac-source-semantic-raw) ac-sources)))
+
+(ac-config-default)
+
 ;;; init.el ends here
