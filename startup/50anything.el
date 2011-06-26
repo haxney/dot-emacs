@@ -147,9 +147,8 @@ symbol at point by default."
                     'anything-c-source-semantic
                   'anything-c-source-imenu)))
     (push-mark)
-    (anything source
-              nil nil nil
-              (unless (string= tap "") tap))))
+    (anything :sources source
+              :preselect (unless (string= tap "") tap))))
 
 (when (and (require 'anything nil t)
            (require 'anything-complete nil t))
