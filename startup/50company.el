@@ -26,22 +26,16 @@
 
 ;;; Code:
 
+(autoload 'global-company-mode "company" nil t)
+
 (eval-after-load "company-semantic"
-  '(add-to-list 'company-semantic-modes 'python-mode))
+  '(progn
+    '(add-to-list 'company-semantic-modes 'python-mode)
+    '(add-to-list 'company-semantic-modes 'ruby-mode)))
 
 (eval-after-load "company"
   '(progn
-;     (add-hook 'company-mode-hook 'predictive-mode)
-;     (add-hook 'company-completion-finished-hook 'company-predictive-accept)
      (define-key company-active-map (kbd "RET") 'company-complete-selection)
-     (define-key company-active-map (kbd "C-w") 'backward-kill-word)
-))
-
-;; Notify predictive of an accepted completion
-(defun company-predictive-accept (candidate)
-  "Notify predictive that a completion has been accepted."
-  (when (eq company-backend 'company-predictive)
-    (run-hook-with-args 'predictive-accept-functions
-                        company-prefix candidate current-prefix-arg)))
+     (define-key company-active-map (kbd "C-w") 'backward-kill-word)))
 
 ;;; 50company.el ends here
