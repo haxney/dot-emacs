@@ -121,6 +121,7 @@ always supercedes a .el file of the same name."
 
 (add-hook 'after-init-hook 'my/message-startup-time)
 
+(load-file (concat dotfiles-dir "/nxhtml/autostart.el"))
 (my/run-directories "~/.emacs.d/startup")
 
 (defun pretty-print-xml (begin end)
@@ -155,8 +156,6 @@ by using nXML's indentation rules."
       ;; Replace non-breaking strange space characters
       (while (search-forward (char-to-string 160) nil t)
         (replace-match " "))))))
-
-(load-file (concat dotfiles-dir "/nxhtml/autostart.el"))
 
 (c-add-style "drupal"
              '((c-basic-offset . 2)
@@ -197,12 +196,7 @@ by using nXML's indentation rules."
 
 (add-hook 'Info-mode-hook 'flyspell-mode-off)
 
-(require 'auto-complete)
-(require 'auto-complete-config)
-(defun ac-ruby-mode-setup ()
-  (setq ac-sources (append '(ac-source-filename
-                             ac-source-semantic-raw) ac-sources)))
-
-(ac-config-default)
+(require 'inf-ruby)
+(setf (first inf-ruby-implementations) '("ruby" . "pry"))
 
 ;;; init.el ends here
