@@ -120,7 +120,15 @@ This function is a possible value for `erc-generate-log-file-name-function'."
                           "There are %s users (%s ops) on the current channel"
                           users ops))))
 
-(eval-after-load "erc"
+(defun irc-maybe ()
+  "Connect to IRC."
+  (interactive)
+  (when (y-or-n-p "IRC? ")
+    (erc :server "irc.freenode.net")
+    (erc :server "localhost")
+    (erc :server "irc.conversationmedia.org" :password conversationmedia-password)))
+
+(eval-after-load 'erc
   '(progn
      (setq erc-prompt 'erc-custom-prompt)
 
