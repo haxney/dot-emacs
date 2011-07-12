@@ -50,6 +50,8 @@
 (delete '("\\.haml$" . haml-mode) auto-mode-alist)
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 
+(add-to-list 'auto-mode-alist '("\\.json\\'" . javascript-mode))
+
 ;; Live on the wild side.
 (setq write-region-inhibit-fsync t)
 

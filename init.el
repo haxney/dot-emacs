@@ -112,8 +112,6 @@ by using nXML's indentation rules."
      (add-to-list 'tramp-default-proxies-alist
                   '((regexp-quote (system-name)) nil nil))))
 
-(add-to-list 'auto-mode-alist '("\\.json\\'" . javascript-mode))
-
 (require 'undo-tree)
 (global-undo-tree-mode)
 
