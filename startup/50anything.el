@@ -206,10 +206,4 @@ current frame."
   (when (and anything-frame (frame-live-p anything-frame))
     (make-frame-invisible anything-frame)))
 
-(add-hook 'anything-after-initialize-hook
-          'anything-initialize-frame)
-
-(add-hook 'anything-cleanup-hook
-          'anything-hide-frame)
-
 ;;; 50anything.el ends here
