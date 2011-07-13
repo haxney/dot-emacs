@@ -16,21 +16,8 @@
       tmp-dir (file-name-directory (concat dotfiles-dir "tmp/")))
 
 (make-directory tmp-dir t)
-
 (add-to-list 'load-path dotfiles-dir)
-
 (setq custom-file (concat dotfiles-dir "custom.el"))
-
-;; Load up ELPA, the package manager
-(require 'package)
-
-(mapc '(lambda (item) (add-to-list 'package-archives item))
-      '(("elpa" . "http://tromey.com/elpa/")
-        ("technomancy" . "http://repo.technomancy.us/emacs/")
-        ("marmalade" . "http://marmalade-repo.org/packages/")))
-
-(package-initialize)
-(smex-initialize)
 (load custom-file 'noerror)
 
 (defun my/message-startup-time ()
@@ -70,37 +57,6 @@ by using nXML's indentation rules."
       (indent-region begin end)))
   (message "Ah, much better!"))
 
-(defun server-edit-presets ()
-  "Run some things when a server buffer is opened."
-  (cond
-   ;; When editing mail, set the goal-column to 72.
-   ((string-match "mail\\.google\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
-    (org-mode)
-    (auto-fill-mode)
-    (setq fill-column 72)
-    (save-excursion
-      (goto-char (point-min))
-      ;; Replace non-breaking strange space characters
-      (while (search-forward (char-to-string 160) nil t)
-        (replace-match " "))))))
-
-(c-add-style "drupal"
-             '((c-basic-offset . 2)
-               (c-offsets-alist . ((arglist-close . c-lineup-close-paren)
-                                   (case-label . +)
-                                   (arglist-intro . +)
-                                   (arglist-cont-nonempty . c-lineup-math)))))
-
-(defun c-style-drupal ()
-  "Set the style to \"drupal\"."
-  (interactive)
-  (c-set-style "drupal"))
-
-(add-hook 'ruby-mode-hook 'flyspell-prog-mode)
-(add-hook 'ruby-mode-hook 'ruby-electric-mode)
-
-(highline-mode-on)
-
 ;; Re-enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
 
@@ -112,16 +68,13 @@ by using nXML's indentation rules."
      (add-to-list 'tramp-default-proxies-alist
                   '((regexp-quote (system-name)) nil nil))))
 
-(require 'undo-tree)
-(global-undo-tree-mode)
-
-(autoload 'ensime-scala-mode-hook "ensime" "Conveniance hook function that just starts ensime-mode.")
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-(remove-hook 'esk-coding-hook 'esk-pretty-lambdas)
-
 (add-hook 'Info-mode-hook 'flyspell-mode-off)
 
-(require 'inf-ruby)
-(setf (first inf-ruby-implementations) '("ruby" . "pry"))
+(defun load-undo-tree ()
+  (require 'undo-tree))
+
+(add-hook 'after-init-hook 'smex-initialize)
+(add-hook 'after-init-hook 'highline-mode-on)
+(add-hook 'after-init-hook 'load-undo-tree)
 
 ;;; init.el ends here

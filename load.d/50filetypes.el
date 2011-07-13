@@ -27,10 +27,36 @@
 
 ;;; Code:
 
+(defun server-edit-presets ()
+  "Run some things when a server buffer is opened."
+  (cond
+   ;; When editing mail, set the goal-column to 72.
+   ((string-match "mail\\.google\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
+    (org-mode)
+    (auto-fill-mode)
+    (setq fill-column 72)
+    (save-excursion
+      (goto-char (point-min))
+      ;; Replace non-breaking strange space characters
+      (while (search-forward (char-to-string 160) nil t)
+        (replace-match " "))))))
+
 (add-to-list 'auto-mode-alist '("\\.module$" . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.test$" . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.install$" . nxhtml-mumamo-mode))
+
+(c-add-style "drupal"
+             '((c-basic-offset . 2)
+               (c-offsets-alist . ((arglist-close . c-lineup-close-paren)
+                                   (case-label . +)
+                                   (arglist-intro . +)
+                                   (arglist-cont-nonempty . c-lineup-math)))))
+
+(defun c-style-drupal ()
+  "Set the style to \"drupal\"."
+  (interactive)
+  (c-set-style "drupal"))
 
 (add-to-list 'auto-mode-alist '("\\.ss$" . scheme-mode))
 (add-to-list 'auto-mode-alist '("\\.scm$" . scheme-mode))
@@ -45,6 +71,14 @@
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("config.ru$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+(eval-after-load 'ruby
+  '(progn
+     (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
+     (add-hook 'ruby-mode-hook 'ruby-electric-mode)))
+
+(eval-after-load 'inf-ruby
+  '(progn
+     (setf (first inf-ruby-implementations) '("ruby" . "pry"))))
 
 ;; Make sure `haml-mode' has a higher priority than `nxhtml-mumamo-mode'.
 (delete '("\\.haml$" . haml-mode) auto-mode-alist)
@@ -54,5 +88,12 @@
 
 ;; Live on the wild side.
 (setq write-region-inhibit-fsync t)
+
+(defun set-elisp-mode-name ()
+  (setq mode-name "El"))
+(require 'semantic/bovine/el)
+(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+(add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
+(add-hook 'emacs-lisp-mode-hook 'set-elisp-mode-name)
 
 ;;; 50filetyptes.el ends here
