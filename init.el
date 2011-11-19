@@ -64,8 +64,11 @@ by using nXML's indentation rules."
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(defun require-undo-tree ()
+  "Load `undo-tree'."
+  (require 'undo-tree))
 (add-hook 'after-init-hook 'smex-initialize)
 (add-hook 'after-init-hook 'highline-mode-on)
-(require 'undo-tree)  ; Doesn't provide autoloads :(
+(add-hook 'after-init-hook 'require-undo-tree)  ; Doesn't provide autoloads :(
 
 ;;; init.el ends here
