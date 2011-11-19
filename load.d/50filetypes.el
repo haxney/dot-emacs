@@ -94,8 +94,5 @@
 (defun set-elisp-mode-name ()
   (setq mode-name "El"))
 (require 'semantic/bovine/el)
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-(add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
-(add-hook 'emacs-lisp-mode-hook 'set-elisp-mode-name)
 
 ;;; 50filetyptes.el ends here
