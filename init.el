@@ -62,6 +62,7 @@ by using nXML's indentation rules."
 
 (add-hook 'Info-mode-hook 'flyspell-mode-off)
 
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 (add-hook 'after-init-hook 'smex-initialize)
 (add-hook 'after-init-hook 'highline-mode-on)
