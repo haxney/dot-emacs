@@ -12,6 +12,7 @@
  '(ac-dictionary-directories (quote (".emacs.d/elpa/auto-complete-1.4.20110207/dict")))
  '(after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))
  '(anything-c-adaptive-history-file "~/.emacs.d/tmp/anything-c-adaptive-history")
+ '(anything-c-enable-eval-defun-hack nil)
  '(anything-su-or-sudo "sudo")
  '(auto-save-list-file-prefix "~/.emacs.d/tmp/auto-save-list/.saves-")
  '(backup-directory-alist (quote (("." . "~/.emacs.d/tmp/baks/"))))
@@ -26,8 +27,11 @@
  '(bookmark-default-file "~/.emacs.d/tmp/bookmark")
  '(browse-url-firefox-program "firefox-3.5")
  '(case-fold-search t)
+ '(coffee-js-mode (quote javascript-mode))
+ '(coffee-tab-width 2)
  '(column-number-mode t)
- '(company-backends (quote (company-elisp company-nxml company-css company-eclim company-semantic company-xcode (company-etags company-keywords) company-oddmuse company-files company-dabbrev-code)))
+ '(command-frequency-table-file "~/.emacs.d/tmp/frequencies")
+ '(company-backends (quote (company-elisp company-nxml company-css company-semantic (company-etags company-keywords company-dabbrev-code) company-dabbrev company-oddmuse company-files)))
  '(company-begin-commands (quote (self-insert-command org-self-insert-command)))
  '(company-idle-delay t)
  '(company-major-modes (quote (css-mode emacs-lisp-mode nxml-mode lisp-interaction-mode org-mode log-edit-mode)))
@@ -46,12 +50,13 @@
  '(ecb-tip-of-the-day nil)
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
  '(edit-server-new-frame nil)
- '(emacs-lisp-mode-hook (quote (turn-on-eldoc-mode checkdoc-minor-mode semantic-default-elisp-setup set-elisp-mode-name)))
+ '(emacs-lisp-mode-hook (quote (flyspell-prog-mode paredit-mode turn-on-eldoc-mode semantic-default-elisp-setup set-elisp-mode-name)))
  '(erc-autoaway-mode t)
  '(erc-autojoin-channels-alist (quote (("freenode.net" "#emacs") ("quadium.net" "#betaspring"))))
  '(erc-autojoin-mode t)
  '(erc-email-userid "dan@haxney.org")
  '(erc-generate-log-file-name-function (quote erc-generate-log-file-name-date-and-name))
+ '(erc-interpret-controls-p (quote remove))
  '(erc-log-channels-directory "~/logs")
  '(erc-log-insert-log-on-open nil)
  '(erc-log-mode t)
@@ -87,7 +92,7 @@
  '(font-use-system-font t)
  '(geben-temporary-file-directory "~/.emacs.d/tmp/geben")
  '(git-append-signed-off-by t)
- '(global-company-mode t)
+ '(global-highline-mode t)
  '(global-linum-mode t)
  '(global-semantic-highlight-edits-mode t nil (semantic/util-modes))
  '(global-semantic-highlight-func-mode t nil (semantic/util-modes))
@@ -101,6 +106,7 @@
  '(highline-priority 1)
  '(hippie-expand-dabbrev-as-symbol nil)
  '(hippie-expand-try-functions-list (quote (try-complete-file-name-partially try-expand-all-abbrevs try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially)))
+ '(ido-auto-merge-work-directories-length -1)
  '(ido-enable-flex-matching t)
  '(ido-everywhere t)
  '(ido-ignore-files (quote ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "_whizzy_.*" ".*\\.raux" ".*\\.wdvi" "\\.git")))
@@ -114,6 +120,7 @@
  '(load-dirs t)
  '(load-home-init-file t t)
  '(magit-commit-signoff t)
+ '(magit-process-connection-type nil)
  '(menu-bar-mode nil)
  '(nxhtml-skip-welcome t)
  '(nxml-mode-hook (quote (nxml-enable-unicode-char-name-sets rng-nxml-mode-init turn-on-flyspell)))
@@ -122,13 +129,7 @@
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "%s_archive::* Archived Tasks")
  '(org-capture-templates (quote (("t" "Todo" entry (file+headline "~/org/root.org" "Task Inbox") "** TODO %?
-   %i") ("d" "Day Page" entry (function org-open-day-page) "* Slavit Reflection
-  :PROPERTIES:
-  :CHAOS:    %^{Chaos level|1|2|3|4|5}
-  :END:
-** Most Difficult
-** Most Approachable
-** Learned
+   %i") ("d" "Day Page" entry (function org-open-day-page) "
 * Sleep" :immediate-finish t :unnarrowed t))))
  '(org-default-notes-file "~/org/root.org")
  '(org-id-locations-file "~/.emacs.d/tmp/.org-id-locations")
@@ -158,11 +159,13 @@
  '(quack-pretty-lambda-p nil)
  '(quack-run-scheme-always-prompts-p nil)
  '(quack-smart-open-paren-p nil)
+ '(recentf-mode t)
  '(recentf-save-file "~/.emacs.d/tmp/recentf")
  '(safe-local-variable-values (quote ((eval add-hook (quote write-file-hooks) (quote time-stamp)) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby") (whitespace-line-column . 80) (lexical-binding . t))))
  '(save-completions-file-name "~/.emacs.d/tmp/completions")
  '(save-place-file "~/.emacs.d/tmp/places")
  '(scroll-bar-mode nil)
+ '(scss-compile-at-save nil)
  '(semantic-default-submodes (quote (global-semantic-highlight-func-mode global-semantic-decoration-mode global-semantic-stickyfunc-mode global-semantic-idle-scheduler-mode global-semanticdb-minor-mode global-semantic-idle-summary-mode global-semantic-mru-bookmark-mode)))
  '(semantic-mode t)
  '(semantic-python-dependency-system-include-path (quote ("/usr/local/lib/python2.6/dist-packages/Couchapp-0.3.32-py2.6.egg" "/usr/local/lib/python2.6/dist-packages/paisley-0.1-py2.6.egg" "/usr/local/lib/python2.6/dist-packages/feedparser-4.1-py2.6.egg" "/usr/local/lib/python2.6/dist-packages/python_twitter-0.6-py2.6.egg" "/usr/local/lib/python2.6/dist-packages/twython-0.9-py2.6.egg" "/usr/local/lib/python2.6/dist-packages/tweepy-1.3-py2.6.egg" "/usr/lib/python2.6" "/usr/lib/python2.6/plat-linux2" "/usr/lib/python2.6/lib-tk" "/usr/lib/python2.6/lib-old" "/usr/lib/python2.6/lib-dynload" "/usr/lib/python2.6/dist-packages" "/usr/lib/python2.6/dist-packages/PIL" "/usr/lib/python2.6/dist-packages/gst-0.10" "/usr/lib/pymodules/python2.6" "/usr/lib/python2.6/dist-packages/gtk-2.0" "/usr/lib/pymodules/python2.6/gtk-2.0" "/usr/lib/python2.6/dist-packages/wx-2.8-gtk2-unicode" "/usr/local/lib/python2.6/dist-packages" "/usr/lib/pymodules/python2.6/IPython/Extensions")))
@@ -199,10 +202,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bm-face ((((class color) (background light)) (:background "orange1"))) t)
- '(bm-fringe-face ((((class color) (background light)) (:background "orange1"))) t)
- '(bm-fringe-persistent-face ((((class color) (background light)) (:background "DarkBlue"))) t)
- '(bm-persistent-face ((((class color) (background light)) (:background "DarkBlue"))) t)
+ '(bm-face ((((class color) (background light)) (:background "orange1"))))
+ '(bm-fringe-face ((((class color) (background light)) (:background "orange1"))))
+ '(bm-fringe-persistent-face ((((class color) (background light)) (:background "DarkBlue"))))
+ '(bm-persistent-face ((((class color) (background light)) (:background "DarkBlue"))))
  '(diff-added ((t (:inherit diff-changed-face :background "Green"))))
  '(diff-added-face ((t (:inherit diff-changed-face :background "Green"))) t)
  '(diff-removed ((t (:inherit diff-changed-face :background "red"))))
