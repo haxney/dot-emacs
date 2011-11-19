@@ -62,11 +62,9 @@ by using nXML's indentation rules."
 
 (add-hook 'Info-mode-hook 'flyspell-mode-off)
 
-(defun load-undo-tree ()
-  (require 'undo-tree))
 
 (add-hook 'after-init-hook 'smex-initialize)
 (add-hook 'after-init-hook 'highline-mode-on)
-(add-hook 'after-init-hook 'load-undo-tree)
+(require 'undo-tree)  ; Doesn't provide autoloads :(
 
 ;;; init.el ends here
