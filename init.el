@@ -60,14 +60,6 @@ by using nXML's indentation rules."
 ;; Re-enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
 
-;; Allow "/sudo:host:/etc/stuff" to sudo on a remote host
-(eval-after-load 'tramp
-  '(progn
-     (add-to-list 'tramp-default-proxies-alist
-                  '(nil "\\`root\\'" "/ssh:%h:"))
-     (add-to-list 'tramp-default-proxies-alist
-                  '((regexp-quote (system-name)) nil nil))))
-
 (add-hook 'Info-mode-hook 'flyspell-mode-off)
 
 (defun load-undo-tree ()

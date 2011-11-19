@@ -105,4 +105,12 @@
   (setq mode-name "El"))
 (require 'semantic/bovine/el)
 
+;; Allow "/sudo:host:/etc/stuff" to sudo on a remote host
+(eval-after-load 'tramp
+  '(progn
+     (add-to-list 'tramp-default-proxies-alist
+                  '(nil "\\`root\\'" "/ssh:%h:"))
+     (add-to-list 'tramp-default-proxies-alist
+                  '((regexp-quote (system-name)) nil nil))))
+
 ;;; 50filetyptes.el ends here
