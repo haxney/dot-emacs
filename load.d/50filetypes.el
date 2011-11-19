@@ -71,8 +71,13 @@
 (add-to-list 'auto-mode-alist '("\\.dot$" . graphviz-dot-mode))
 
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Buildfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("config.ru$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rabl$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.json_builder$" . ruby-mode))
+
 (eval-after-load 'ruby
   '(progn
      (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
@@ -87,6 +92,11 @@
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 
 (add-to-list 'auto-mode-alist '("\\.json\\'" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
+(setq-mode-local coffee-mode tab-width 2)
+
+(add-to-list 'auto-mode-alist '("\\.handlebars$" . mustache-mode))
 
 ;; Live on the wild side.
 (setq write-region-inhibit-fsync t)
