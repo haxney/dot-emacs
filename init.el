@@ -16,7 +16,6 @@
       tmp-dir (file-name-directory (concat dotfiles-dir "tmp/")))
 
 (make-directory tmp-dir t)
-(add-to-list 'load-path dotfiles-dir)
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (load custom-file 'noerror)
 
