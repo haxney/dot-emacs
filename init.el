@@ -70,4 +70,6 @@ by using nXML's indentation rules."
 (add-hook 'after-init-hook 'highline-mode-on)
 (add-hook 'after-init-hook 'require-undo-tree)  ; Doesn't provide autoloads :(
 
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
 ;;; init.el ends here
