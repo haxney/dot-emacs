@@ -45,6 +45,19 @@
      (add-hook 'after-save-hook 'bm-buffer-save)
 
      ;; Restore bookmarks when buffer is reverted.
-     (add-hook 'after-revert-hook 'bm-buffer-restore)))
+     (add-hook 'after-revert-hook 'bm-buffer-restore)
+
+     (defun bm-all-bookmarks nil
+       "Show bookmarked lines in all buffers."
+       (interactive)
+       (let ((lines
+              (save-excursion
+                (mapconcat '(lambda (buffer)
+                              (set-buffer buffer)
+                              (bm-show-extract-bookmarks))
+                           (buffer-list) ""))))
+         lines))))
+
+
 
 ;;; 50bm.el ends here
