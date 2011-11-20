@@ -130,8 +130,6 @@ This function is a possible value for `erc-generate-log-file-name-function'."
 
 (eval-after-load 'erc
   '(progn
-     (setq erc-prompt 'erc-custom-prompt)
-
      (add-hook 'erc-text-matched-hook 'notify-erc)
      (add-hook 'erc-text-matched-hook 'erc-respond-once-if-away)
      (add-hook 'erc-mode-hook 'visual-line-mode)

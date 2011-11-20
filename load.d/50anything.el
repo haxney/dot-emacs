@@ -97,12 +97,6 @@ without being overly verbose.")
      (require 'anything-config)
      (anything-set-map anything-activate-map-commands)))
 
-;; More useful descbinds-anything
-(setq descbinds-anything-actions
-      '(("Execute" . descbinds-anything-action:execute)
-        ("Find Function" . descbinds-anything-action:find-func)
-        ("Describe Function" . descbinds-anything-action:describe)))
-
 ;; Redefined
 (defun descbinds-anything-sources (buffer &optional prefix menus)
   (mapcar

@@ -59,8 +59,6 @@ by using nXML's indentation rules."
 ;; Re-enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
 
-(add-hook 'Info-mode-hook 'flyspell-mode-off)
-
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (defun require-undo-tree ()
