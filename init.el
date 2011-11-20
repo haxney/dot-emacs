@@ -68,6 +68,11 @@ by using nXML's indentation rules."
 (add-hook 'after-init-hook 'highline-mode-on)
 (add-hook 'after-init-hook 'require-undo-tree)  ; Doesn't provide autoloads :(
 
+;; Company gets a little overzealous in the minibuffer.
+(defun company-mode-off ()
+  (company-mode -1))
+
+(add-hook 'minibuffer-setup-hook 'company-mode-off)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 ;;; init.el ends here
