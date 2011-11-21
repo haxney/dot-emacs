@@ -65,7 +65,6 @@ by using nXML's indentation rules."
   "Load `undo-tree'."
   (require 'undo-tree))
 (add-hook 'after-init-hook 'smex-initialize)
-(add-hook 'after-init-hook 'highline-mode-on)
 (add-hook 'after-init-hook 'require-undo-tree)  ; Doesn't provide autoloads :(
 
 ;; Company gets a little overzealous in the minibuffer.
