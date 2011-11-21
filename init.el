@@ -75,4 +75,6 @@ by using nXML's indentation rules."
 (add-hook 'minibuffer-setup-hook 'company-mode-off)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
+(load "~/Private/private")
+
 ;;; init.el ends here
