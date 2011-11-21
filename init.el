@@ -16,8 +16,11 @@
       tmp-dir (file-name-directory (concat dotfiles-dir "tmp/")))
 
 (make-directory tmp-dir t)
+
 (setq custom-file (concat dotfiles-dir "custom.el"))
-(load custom-file 'noerror)
+(defun load-custom-file ()
+  (load custom-file 'noerror))
+(load-custom-file)
 
 (defun my/message-startup-time ()
   "Display a message of how long Emacs took to start up, in milliseconds."
@@ -75,5 +78,10 @@ by using nXML's indentation rules."
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 (load "~/Private/private")
+
+;; Doing this seems to be important. Some stuff is not set up for customize to
+;; act until after packages and such are loaded, but customize needs to set up
+;; in order for those things to work. It's all very strange.
+(add-hook 'after-init-hook 'load-custom-file 'append)
 
 ;;; init.el ends here
