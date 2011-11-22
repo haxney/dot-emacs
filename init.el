@@ -16,11 +16,8 @@
       tmp-dir (file-name-directory (concat dotfiles-dir "tmp/")))
 
 (make-directory tmp-dir t)
-
-(setq custom-file (concat dotfiles-dir "custom.el"))
-(defun load-custom-file ()
-  (load custom-file 'noerror))
-(load-custom-file)
+(setq load-dirs t) ; Force `load-dir' package to load directories without having
+                   ; to wait for custom to finish loading.
 
 (defun my/message-startup-time ()
   "Display a message of how long Emacs took to start up, in milliseconds."
@@ -78,6 +75,10 @@ by using nXML's indentation rules."
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 (load "~/Private/private")
+
+(setq custom-file (concat dotfiles-dir "custom.el"))
+(defun load-custom-file ()
+  (load custom-file 'noerror))
 
 ;; Doing this seems to be important. Some stuff is not set up for customize to
 ;; act until after packages and such are loaded, but customize needs to set up
