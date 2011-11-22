@@ -94,7 +94,9 @@
 (add-to-list 'auto-mode-alist '("\\.json\\'" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
 (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
-(setq-mode-local coffee-mode tab-width 2)
+(eval-after-load 'coffee-mode
+  '(progn
+     (setq-mode-local coffee-mode tab-width 2)))
 
 (add-to-list 'auto-mode-alist '("\\.handlebars$" . mustache-mode))
 
