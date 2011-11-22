@@ -112,6 +112,7 @@
  '(global-semantic-stickyfunc-mode t nil (semantic/util-modes))
  '(global-semanticdb-minor-mode t)
  '(global-smart-tab-mode t)
+ '(global-subword-mode t)
  '(global-undo-tree-mode t)
  '(highline-priority 1)
  '(hippie-expand-dabbrev-as-symbol nil)
