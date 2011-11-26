@@ -100,6 +100,8 @@
 
 (add-to-list 'auto-mode-alist '("\\.handlebars$" . mustache-mode))
 
+(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
+
 ;; Live on the wild side.
 (setq write-region-inhibit-fsync t)
 
