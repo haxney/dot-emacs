@@ -90,7 +90,6 @@ by using nXML's indentation rules."
                           (sass-mode t)
                           (ruby-test-mode t)
                           (ruby-mode t)
-                          (ruby-end t)
                           (ruby-electric t)
                           (ruby-compilation t)
                           (ruby-block t)
@@ -105,8 +104,8 @@ by using nXML's indentation rules."
                           (magit t)
                           (load-dir t)
                           (keyfreq t)
-                          (jump t)
                           (inflections t)
+                          (jump t)
                           (inf-ruby t)
                           (htmlize t)
                           (haml-mode t)
@@ -123,6 +122,9 @@ by using nXML's indentation rules."
                           (anything-config "1.3.4")
                           (anything "1.3.4")
                           (keyfreq t)
+                          (full-ack t)
+                          (coffee-mode t)
+                          (mode-compile t)
                           ))
 
 ;;; init.el ends here
