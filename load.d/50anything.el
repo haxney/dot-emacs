@@ -124,16 +124,11 @@ will be the last recently used buffer that is not visible in the
 current frame."
   (save-window-excursion
     (anything-frame-or-window-configuration 'restore)
-    (let* ((visible (anything-get-visible-buffers))
-           (buffers (mapcar '(lambda (buf)
-                               (if (memq buf visible)
-                                   nil
-                                 buf))
-                            (buffer-list))))
+    (let ((visible (anything-get-visible-buffers))
+          (buffers (buffer-list)))
 
-      (setq buffers (delq nil buffers))
       (mapc '(lambda (buf) (setq buffers (delete buf buffers))) visible)
-      (mapcar 'buffer-name buffers))))
+      (mapcar #'buffer-name buffers))))
 
 (when (require 'descbinds-anything nil t)
   (descbinds-anything-install))
@@ -160,6 +155,8 @@ current frame."
   (global-set-key (kbd "M-.") 'anything-semantic-or-imenu)
   (define-key emacs-lisp-mode-map (kbd "M-.") 'anything-semantic-or-imenu)
   (global-set-key (kbd "C-h a") 'anything-apropos)
-  (global-set-key (kbd "C-x b") 'anything-buffers-list))
+  (global-set-key (kbd "C-x b") 'anything-buffers-list)
+  (setq anything-idle-delay nil
+        anything-input-idle-delay))
 
 ;;; 50anything.el ends here
