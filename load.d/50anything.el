@@ -58,7 +58,7 @@ Must be in the form:
 
 (defvar anything-activate-map-commands
   '((o anything-c-source-occur)
-    (b anything-c-source-buffers+
+    (b anything-c-source-buffers-list
        anything-c-source-buffer-not-found)
     (h anything-c-source-man-pages
        anything-c-source-info-pages
@@ -66,27 +66,22 @@ Must be in the form:
     (f anything-c-source-ffap-line
        anything-c-source-ffap-guesser
        anything-c-source-recentf
-       anything-c-source-buffers+
+       anything-c-source-buffers-list
        anything-c-source-bookmarks
        anything-c-source-file-cache
-       anything-c-source-files-in-current-dir+)
-    (p anything-c-source-eproject-files
-       anything-c-source-eproject-projects)
-    (m anything-c-source-bm
-       anything-c-source-bm-all
-       anything-c-source-bm-add))
+       anything-c-source-files-in-current-dir))
   "List of keys to map to anything sources.
 
 Is a list of (KEY SOURCE...), where KEY is the key in the keymap
 which activate the SOURCEs given. For example, the if the list
 contained the element
 
-    (b anything-c-source-buffers+
+    (b anything-c-source-buffers
        anything-c-source-buffer-not-found)
 
 pressing \"b\" from the keymap would run
 
-    (anything '(anything-c-source-buffers+
+    (anything '(anything-c-source-buffers
                 anything-c-source-buffer-not-found))
 
 This allows for simple definition of a large number of sources
@@ -96,38 +91,6 @@ without being overly verbose.")
   '(progn
      (require 'anything-config)
      (anything-set-map anything-activate-map-commands)))
-
-;; Redefined
-(defun descbinds-anything-sources (buffer &optional prefix menus)
-  (mapcar
-   (lambda (section)
-     (list
-      (cons 'name (car section))
-      (cons 'candidates (cdr section))
-      (cons 'candidate-transformer
-            (lambda (candidates)
-              (mapcar
-               (lambda (pair)
-                 (cons (funcall descbinds-anything-candidate-formatter
-                                (car pair) (cdr pair))
-                       (cons (car pair)
-                             (intern-soft (cdr pair)))))
-               candidates)))
-      (cons 'action descbinds-anything-actions)
-      (cons 'action-transformer
-            (lambda (actions candidate)
-              (and (commandp (cdr candidate))
-                   actions)))
-      (cons 'persistent-action
-            'descbinds-anything-action:describe)))
-   (descbinds-anything-all-sections buffer prefix menus)))
-
-(defun anything-for-buffers+ ()
-  "Preconfigured `anything' for buffer."
-  (interactive)
-  (anything-other-buffer
-   '(anything-c-source-buffers+ anything-c-source-buffer-not-found)
-   (get-buffer-create " *anything for buffers+*")))
 
 (defun anything-semantic-or-imenu ()
   "Run anything with semantic or imenu.
@@ -143,12 +106,6 @@ symbol at point by default."
     (push-mark)
     (anything :sources source
               :preselect (unless (string= tap "") tap))))
-
-(when (and (require 'anything nil t)
-           (require 'anything-complete nil t))
-  (global-set-key (kbd "M-.") 'anything-semantic-or-imenu)
-  (define-key emacs-lisp-mode-map (kbd "M-.") 'anything-semantic-or-imenu)
-  (global-set-key (kbd "C-h a") 'anything-apropos))
 
 (defun anything-get-visible-buffers (&optional minibuf all-frames)
   (let ((bufs (make-symbol "buffers")))
@@ -166,7 +123,7 @@ Boring buffer names are specified by
 will be the last recently used buffer that is not visible in the
 current frame."
   (save-window-excursion
-    (anything-frame/window-configuration 'restore)
+    (anything-frame-or-window-configuration 'restore)
     (let* ((visible (anything-get-visible-buffers))
            (buffers (mapcar '(lambda (buf)
                                (if (memq buf visible)
@@ -179,7 +136,6 @@ current frame."
       (mapcar 'buffer-name buffers))))
 
 (when (require 'descbinds-anything nil t)
-  (global-set-key (kbd "C-x b") 'anything-for-buffers+)
   (descbinds-anything-install))
 
 (setq anything-candidate-number-limit 500)
@@ -199,5 +155,11 @@ current frame."
 (defun anything-hide-frame ()
   (when (and anything-frame (frame-live-p anything-frame))
     (make-frame-invisible anything-frame)))
+
+(when (and (require 'anything nil t))
+  (global-set-key (kbd "M-.") 'anything-semantic-or-imenu)
+  (define-key emacs-lisp-mode-map (kbd "M-.") 'anything-semantic-or-imenu)
+  (global-set-key (kbd "C-h a") 'anything-apropos)
+  (global-set-key (kbd "C-x b") 'anything-buffers-list))
 
 ;;; 50anything.el ends here
