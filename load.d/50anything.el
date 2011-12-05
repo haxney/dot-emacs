@@ -107,33 +107,19 @@ symbol at point by default."
     (anything :sources source
               :preselect (unless (string= tap "") tap))))
 
-(defun anything-get-visible-buffers (&optional minibuf all-frames)
-  (let ((bufs (make-symbol "buffers")))
-    (set bufs nil)
-    (walk-windows '(lambda (wind)
-                     (add-to-list bufs (window-buffer wind)))
-                  minibuf
-                  all-frames)
-    (symbol-value bufs)))
-
-(defun anything-c-buffer-list ()
-  "Return the list of names of buffers with boring buffers filtered out.
-Boring buffer names are specified by
-`anything-c-boring-buffer-regexp'. The first buffer in the list
-will be the last recently used buffer that is not visible in the
-current frame."
-  (save-window-excursion
-    (anything-frame-or-window-configuration 'restore)
-    (let ((visible (anything-get-visible-buffers))
-          (buffers (buffer-list)))
-
-      (mapc '(lambda (buf) (setq buffers (delete buf buffers))) visible)
-      (mapcar #'buffer-name buffers))))
+(defadvice anything-c-skip-current-buffer (before skip-visible-buffers
+                                      (buffers)
+                                      activate)
+       "Skip all visible buffers, not just the current one."
+       (save-window-excursion
+         (anything-frame-or-window-configuration 'restore)
+         (walk-windows '(lambda (wind)
+                          (setq buffers (delete (buffer-name (window-buffer wind)) buffers))))))
 
 (when (require 'descbinds-anything nil t)
   (descbinds-anything-install))
 
-(setq anything-candidate-number-limit 500)
+(setq anything-candidate-number-limit 50)
 
 (defvar anything-frame nil)
 
@@ -151,10 +137,14 @@ current frame."
   (when (and anything-frame (frame-live-p anything-frame))
     (make-frame-invisible anything-frame)))
 
+;; Uncomment these to enable `anything' in a different frame.
+;; (add-hook 'anything-after-initialize-hook 'anything-initialize-frame)
+;; (add-hook 'anything-cleanup-hook 'anything-hide-frame)
+
 (when (and (require 'anything nil t))
   (global-set-key (kbd "M-.") 'anything-semantic-or-imenu)
   (define-key emacs-lisp-mode-map (kbd "M-.") 'anything-semantic-or-imenu)
-  (global-set-key (kbd "C-h a") 'anything-apropos)
+  (global-set-key (kbd "C-h a") 'anything-c-apropos)
   (global-set-key (kbd "C-x b") 'anything-buffers-list)
   (setq anything-idle-delay nil
         anything-input-idle-delay))
