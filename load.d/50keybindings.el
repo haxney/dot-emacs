@@ -9,9 +9,9 @@
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "C-x C-m") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c M-x") 'smex-update-and-run)
+
 ;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+(global-set-key (kbd "C-c M-x") 'execute-extended-command)
 
 ;; Set C-w to backward kill word and remap existing C-w to C-x C-k
 (global-set-key (kbd "C-w") 'backward-kill-word)
