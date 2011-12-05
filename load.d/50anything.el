@@ -99,13 +99,12 @@ If semantic is active in the current buffer, then use semantic
 for generating tags, otherwise fall back to imenu. Fill in the
 symbol at point by default."
   (interactive)
-  (let ((tap (substring-no-properties (or (thing-at-point 'symbol) "")))
-        (source (if (semantic-active-p)
+  (let ((source (if (semantic-active-p)
                     'anything-c-source-semantic
                   'anything-c-source-imenu)))
     (push-mark)
     (anything :sources source
-              :preselect (unless (string= tap "") tap))))
+              :preselect (thing-at-point 'symbol))))
 
 (defadvice anything-c-skip-current-buffer (before skip-visible-buffers
                                       (buffers)
