@@ -64,6 +64,12 @@ by using nXML's indentation rules."
 (defun require-undo-tree ()
   "Load `undo-tree'."
   (require 'undo-tree))
+
+(defun require-ess-site ()
+  "Load `ess-site', it can't do it on its own."
+  (require 'ess-site))
+
+(add-hook 'after-init-hook 'require-ess-site)
 (add-hook 'after-init-hook 'smex-initialize)
 (add-hook 'after-init-hook 'require-undo-tree)  ; Doesn't provide autoloads :(
 
@@ -125,6 +131,11 @@ by using nXML's indentation rules."
                           (full-ack t)
                           (coffee-mode t)
                           (mode-compile t)
+                          (less t)
+                          (ess t)
+                          (highline t)
                           ))
 
+;; Autoloads for ESS are whack, need to load this manually
+;;(require 'ess-site)
 ;;; init.el ends here
