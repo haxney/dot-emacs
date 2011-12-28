@@ -41,7 +41,10 @@
       (while (search-forward (char-to-string 160) nil t)
         (replace-match " "))))
    ((string-match "reddit\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
-    (longlines-mode))))
+    (longlines-mode))
+   ((string-match "/tmp/Rtmp.+" (buffer-file-name))
+    (R-mode))
+   ))
 
 (add-to-list 'auto-mode-alist '("\\.module$" . nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . nxhtml-mumamo-mode))
