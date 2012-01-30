@@ -133,9 +133,25 @@ by using nXML's indentation rules."
                           (mode-compile t)
                           (less t)
                           (ess t)
-                          (highline t)
                           ))
 
 ;; Autoloads for ESS are whack, need to load this manually
 ;;(require 'ess-site)
+
+(defvar hl-line-ignore-regexp "\*magit:.*")
+
+(defadvice global-hl-line-highlight (around unhighlight-some-buffers
+                                      ()
+                                      activate)
+       "Don't highlight in buffers which match a regexp."
+       (unless (string-match hl-line-ignore-regexp (buffer-name (window-buffer (selected-window))))
+         ad-do-it))
+
+(defadvice less-minor-mode (after disable-less-minor-mode-read-only
+                                      ()
+                                      activate)
+       "`less-minor-mode' makes the buffer read-only. This is silly"
+       (when less-minor-mode
+         (setq buffer-read-only nil)))
+
 ;;; init.el ends here

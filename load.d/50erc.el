@@ -128,6 +128,11 @@ This function is a possible value for `erc-generate-log-file-name-function'."
     (erc :server "localhost")
     (erc :server "irc.conversationmedia.org" :password conversationmedia-password)))
 
+(defun bitlbee ()
+  "Connect to local bitlbee server."
+  (interactive)
+  (erc :server "localhost"))
+
 (eval-after-load 'erc
   '(progn
      (add-hook 'erc-text-matched-hook 'notify-erc)
