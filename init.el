@@ -35,7 +35,7 @@
 
 (add-hook 'after-init-hook 'my/message-startup-time)
 
-(load-file (concat dotfiles-dir "/nxhtml/autostart.el"))
+(load (concat dotfiles-dir "nxhtml/autostart"))
 
 (defun pretty-print-xml (begin end)
   "Pretty format XML markup in region.
@@ -75,11 +75,12 @@ by using nXML's indentation rules."
 
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
-(load "~/Private/private")
+(when (file-exists-p "~/Private/private.el")
+  (load "~/Private/private"))
 
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (defun load-custom-file ()
-  (load custom-file 'noerror))
+  (load custom-file))
 
 ;; Doing this seems to be important. Some stuff is not set up for customize to
 ;; act until after packages and such are loaded, but customize needs to set up
