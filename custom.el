@@ -7,7 +7,7 @@
  '(Info-breadcrumbs-in-mode-line-mode nil)
  '(Info-mode-hook (quote (flyspell-mode-off scroll-lock-mode less-minor-mode)))
  '(LaTeX-command "latex -shell-escape")
- '(LaTeX-mode-hook (quote (LaTeX-preview-setup flymake-mode-off turn-on-flyspell)) t)
+ '(LaTeX-mode-hook (quote (LaTeX-preview-setup flymake-mode-off turn-on-flyspell)))
  '(TeX-master nil)
  '(ac-auto-show-menu t)
  '(ac-auto-start t)
@@ -147,10 +147,22 @@
  '(org-agenda-custom-commands (quote (("p" tags "PROJECT-MAYBE-DONE" nil))))
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "%s_archive::* Archived Tasks")
+ '(org-babel-load-languages (quote ((js . t) (dot . t) (latex . t) (ruby . t) (R . t) (python . t) (emacs-lisp . t))))
  '(org-capture-templates (quote (("t" "Todo" entry (file+headline "~/org/root.org" "Task Inbox") "** TODO %?
    %i") ("d" "Day Page" entry (function org-open-day-page) "
 * Sleep" :immediate-finish t :unnarrowed t))))
  '(org-default-notes-file "~/org/root.org")
+ '(org-export-latex-classes (quote (("article" "\\documentclass[11pt]{article}" ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}") ("\\paragraph{%s}" . "\\paragraph*{%s}") ("\\subparagraph{%s}" . "\\subparagraph*{%s}")) ("report" "\\documentclass[11pt]{report}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("book" "\\documentclass[11pt]{book}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("beamer" "\\documentclass{beamer}" org-beamer-sectioning) ("vita" "\\documentclass{vita}
+\\usepackage{hyperref}
+\\usepackage[left=2cm,top=1cm,right=2cm]{geometry}
+\\usepackage{savetrees}
+\\usepackage[compact]{titlesec}
+\\titlespacing{\\section}{0pt}{*0}{*0}
+\\titlespacing{\\subsection}{0pt}{*0}{*0}
+\\titlespacing{\\subsubsection}{0pt}{*0}{*0}
+\\usepackage{setspace}
+\\singlespacing
+\\setlength{\\topsep}{-0.6in}" ("\\section{%s \\hrulefill}" . "\\section*{%s \\hrulefill}") ("\\subsection{%s}" . "\\subsection*{%s}")))))
  '(org-id-locations-file "~/.emacs.d/tmp/.org-id-locations")
  '(org-log-done (quote time))
  '(org-modules (quote (org-bibtex org-info org-jsinfo org-habit org-irc org-protocol org-special-blocks)))
@@ -231,4 +243,5 @@
  '(flyspell-incorrect ((((class color)) (:foreground "magenta" :underline t :weight bold))))
  '(highline-face ((t (:background "pale turquoise"))))
  '(hl-line ((t (:background "pale turquoise"))))
+ '(magit-item-highlight ((t nil)))
  '(whizzy-point-face ((((class color)) nil)) t))
