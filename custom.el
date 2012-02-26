@@ -7,14 +7,15 @@
  '(Info-breadcrumbs-in-mode-line-mode nil)
  '(Info-mode-hook (quote (flyspell-mode-off scroll-lock-mode less-minor-mode)))
  '(LaTeX-command "latex -shell-escape")
- '(LaTeX-mode-hook (quote (LaTeX-preview-setup flymake-mode-off turn-on-flyspell)))
- '(TeX-master nil)
+ '(LaTeX-mode-hook (quote (LaTeX-preview-setup flymake-mode-off turn-on-flyspell)) t)
+ '(TeX-master (quote dwim))
  '(ac-auto-show-menu t)
  '(ac-auto-start t)
  '(ac-comphist-file "/home/haxney/.emacs.d/tmp/ac-comphist.dat")
  '(ac-dictionary-directories (quote (".emacs.d/elpa/auto-complete-1.4.20110207/dict")))
  '(after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))
  '(anything-c-adaptive-history-file "~/.emacs.d/tmp/anything-c-adaptive-history")
+ '(anything-c-adaptive-history-length 100)
  '(anything-c-enable-eval-defun-hack nil)
  '(anything-su-or-sudo "sudo")
  '(auto-save-list-file-prefix "~/.emacs.d/tmp/auto-save-list/.saves-")
@@ -57,6 +58,7 @@
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
  '(edit-server-new-frame nil)
  '(emacs-lisp-mode-hook (quote (turn-on-eldoc-mode flyspell-prog-mode paredit-mode set-elisp-mode-name)))
+ '(enable-recursive-minibuffers t)
  '(erc-autoaway-mode t)
  '(erc-autojoin-channels-alist (quote (("freenode.net" "#emacs") ("quadium.net" "#betaspring"))))
  '(erc-autojoin-mode t)
@@ -122,6 +124,7 @@
  '(global-undo-tree-mode t)
  '(hippie-expand-dabbrev-as-symbol t)
  '(hippie-expand-try-functions-list (quote (try-complete-lisp-symbol-partially try-complete-file-name-partially try-expand-all-abbrevs try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill)))
+ '(history-delete-duplicates t)
  '(ido-auto-merge-work-directories-length -1)
  '(ido-enable-flex-matching t)
  '(ido-everywhere t)
@@ -137,10 +140,12 @@
  '(keyfreq-file-lock "~/.emacs.d/tmp/keyfreq.lock")
  '(keyfreq-mode t)
  '(line-number-mode t)
+ '(load-dir-ignore-errors t)
  '(load-dirs t)
  '(load-home-init-file t t)
  '(magit-process-connection-type nil)
  '(menu-bar-mode nil)
+ '(minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
  '(nxhtml-skip-welcome t)
  '(nxml-mode-hook (quote (nxml-enable-unicode-char-name-sets rng-nxml-mode-init turn-on-flyspell)))
  '(nxml-slash-auto-complete-flag t)
@@ -152,17 +157,7 @@
    %i") ("d" "Day Page" entry (function org-open-day-page) "
 * Sleep" :immediate-finish t :unnarrowed t))))
  '(org-default-notes-file "~/org/root.org")
- '(org-export-latex-classes (quote (("article" "\\documentclass[11pt]{article}" ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}") ("\\paragraph{%s}" . "\\paragraph*{%s}") ("\\subparagraph{%s}" . "\\subparagraph*{%s}")) ("report" "\\documentclass[11pt]{report}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("book" "\\documentclass[11pt]{book}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("beamer" "\\documentclass{beamer}" org-beamer-sectioning) ("vita" "\\documentclass{vita}
-\\usepackage{hyperref}
-\\usepackage[left=2cm,top=1cm,right=2cm]{geometry}
-\\usepackage{savetrees}
-\\usepackage[compact]{titlesec}
-\\titlespacing{\\section}{0pt}{*0}{*0}
-\\titlespacing{\\subsection}{0pt}{*0}{*0}
-\\titlespacing{\\subsubsection}{0pt}{*0}{*0}
-\\usepackage{setspace}
-\\singlespacing
-\\setlength{\\topsep}{-0.6in}" ("\\section{%s \\hrulefill}" . "\\section*{%s \\hrulefill}") ("\\subsection{%s}" . "\\subsection*{%s}")))))
+ '(org-export-latex-classes (quote (("article" "\\documentclass[11pt]{article}" ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}") ("\\paragraph{%s}" . "\\paragraph*{%s}") ("\\subparagraph{%s}" . "\\subparagraph*{%s}")) ("report" "\\documentclass[11pt]{report}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("book" "\\documentclass[11pt]{book}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("beamer" "\\documentclass{beamer}" org-beamer-sectioning) ("vita" "\\documentclass{vita}" ("\\section{%s \\hrulefill}" . "\\section*{%s \\hrulefill}") ("\\subsection{%s}" . "\\subsection*{%s}")))) t)
  '(org-id-locations-file "~/.emacs.d/tmp/.org-id-locations")
  '(org-log-done (quote time))
  '(org-modules (quote (org-bibtex org-info org-jsinfo org-habit org-irc org-protocol org-special-blocks)))
@@ -195,6 +190,8 @@
  '(safe-local-variable-values (quote ((eval add-hook (quote write-file-hooks) (quote time-stamp)) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby") (whitespace-line-column . 80) (lexical-binding . t))))
  '(save-completions-file-name "~/.emacs.d/tmp/completions")
  '(save-place-file "~/.emacs.d/tmp/places")
+ '(savehist-file "~/.emacs.d/tmp/history")
+ '(savehist-mode t)
  '(scroll-bar-mode nil)
  '(scss-compile-at-save nil)
  '(semantic-default-submodes (quote (global-semantic-highlight-func-mode global-semantic-decoration-mode global-semantic-stickyfunc-mode global-semantic-idle-scheduler-mode global-semanticdb-minor-mode global-semantic-idle-summary-mode global-semantic-mru-bookmark-mode)))
@@ -206,6 +203,7 @@
  '(server-mode t)
  '(server-visit-hook (quote (server-edit-presets)))
  '(show-paren-mode t)
+ '(size-indication-mode t)
  '(smart-tab-using-hippie-expand t)
  '(smex-save-file "~/.emacs.d/tmp/smex.save")
  '(smiley-data-directory "~/.emacs.d/smileys")
@@ -224,6 +222,7 @@
  '(wdired-use-dired-vertical-movement (quote sometimes))
  '(weblogger-config-alist (quote (("haxney.org" "http://www.blogger.com/api" "dan@haxney.org" "" "7770370347473031286"))))
  '(windmove-wrap-around t)
+ '(woman-post-format-hook (quote (less-minor-mode scroll-lock-mode)))
  '(woman-use-own-frame nil)
  '(x-select-enable-primary t))
 (custom-set-faces
