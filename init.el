@@ -61,31 +61,29 @@ by using nXML's indentation rules."
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(defun require-undo-tree ()
-  "Load `undo-tree'."
-  (require 'undo-tree))
-
-(defun require-ess-site ()
-  "Load `ess-site', it can't do it on its own."
-  (require 'ess-site))
-
-(add-hook 'after-init-hook 'require-ess-site)
-(add-hook 'after-init-hook 'smex-initialize)
-(add-hook 'after-init-hook 'require-undo-tree)  ; Doesn't provide autoloads :(
-
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
-
-(when (file-exists-p "~/Private/private.el")
-  (load "~/Private/private"))
 
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (defun load-custom-file ()
   (load custom-file))
 
+(defun do-uncooperative-requires ()
+  "Manually load packages without `autoloads'."
+
+  (require 'undo-tree)
+  (require 'ess-site)
+  (require 'keyfreq))
+
+(add-hook 'after-init-hook 'do-uncooperative-requires)
+(add-hook 'after-init-hook 'smex-initialize)
+
+
 ;; Doing this seems to be important. Some stuff is not set up for customize to
 ;; act until after packages and such are loaded, but customize needs to set up
 ;; in order for those things to work. It's all very strange.
 (add-hook 'after-init-hook 'load-custom-file 'append)
+
+(when (file-exists-p "~/Private/private.el")
+  (load "~/Private/private"))
 
 ;; Explicitly list packages to be loaded and used.
 
@@ -125,10 +123,9 @@ by using nXML's indentation rules."
                           (diminish t)
                           (auctex t)
                           (descbinds-anything t)
-                          (anything-match-plugin "1.3.4")
-                          (anything-config "1.3.4")
-                          (anything "1.3.4")
-                          (keyfreq t)
+                          (anything-match-plugin "1.3.8")
+                          (anything-config "1.3.9")
+                          (anything "1.3.9")
                           (full-ack t)
                           (coffee-mode t)
                           (mode-compile t)
