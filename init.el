@@ -35,7 +35,8 @@
 
 (add-hook 'after-init-hook 'my/message-startup-time)
 
-(load (concat dotfiles-dir "nxhtml/autostart"))
+(when (file-exists-p (concat dotfiles-dir "nxhtml/autostart.el"))
+  (load (concat dotfiles-dir "nxhtml/autostart")))
 
 (defun pretty-print-xml (begin end)
   "Pretty format XML markup in region.
@@ -70,12 +71,11 @@ by using nXML's indentation rules."
   "Manually load packages without `autoloads'."
 
   (require 'undo-tree)
-  (require 'ess-site)
+  (require 'ess-site nil t)
   (require 'keyfreq))
 
 (add-hook 'after-init-hook 'do-uncooperative-requires)
 (add-hook 'after-init-hook 'smex-initialize)
-
 
 ;; Doing this seems to be important. Some stuff is not set up for customize to
 ;; act until after packages and such are loaded, but customize needs to set up
@@ -123,7 +123,7 @@ by using nXML's indentation rules."
                           (diminish t)
                           (auctex t)
                           (descbinds-anything t)
-                          (anything-match-plugin "1.3.8")
+                          (anything-match-plugin "1.3.9")
                           (anything-config "1.3.9")
                           (anything "1.3.9")
                           (full-ack t)
