@@ -108,7 +108,7 @@ Makes linking between `org-mode' files easier."
 
 (defvar org-export-latex-class-vita
   `("vita"
-    ,(concat "\\documentclass[ComputerScience,10pt]{vita}\n"
+    ,(concat "\\documentclass[ComputerScience]{vita}\n"
              "\\usepackage{hyperref}\n"
              "\\usepackage[left=2cm,top=1cm,right=2cm]{geometry}\n"
              "\\usepackage{multicol}\n"
