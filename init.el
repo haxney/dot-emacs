@@ -145,11 +145,14 @@ by using nXML's indentation rules."
        (unless (string-match hl-line-ignore-regexp (buffer-name (window-buffer (selected-window))))
          ad-do-it))
 
-(defadvice less-minor-mode (after disable-less-minor-mode-read-only
-                                      ()
-                                      activate)
-       "`less-minor-mode' makes the buffer read-only. This is silly"
-       (when less-minor-mode
-         (setq buffer-read-only nil)))
+(defadvice less-minor-mode (around less-minor-mode-respect-read-only
+                                   ()
+                                   activate)
+  "`less-minor-mode' overrides the read-only status of the buffer.
+
+That's not nice."
+  (let ((old-read-only buffer-read-only))
+    ad-do-it
+    (setq buffer-read-only old-read-only)))
 
 ;;; init.el ends here
