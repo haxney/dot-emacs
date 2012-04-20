@@ -120,4 +120,8 @@
      (add-to-list 'tramp-default-proxies-alist
                   '((regexp-quote (system-name)) nil nil))))
 
+(add-hook 'find-file-hooks 'auto-less-minor-mode)
+(add-hook 'woman-mode-hook 'less-minor-mode)
+(add-hook 'woman-mode-hook 'scroll-lock-mode)
+
 ;;; 50filetyptes.el ends here
