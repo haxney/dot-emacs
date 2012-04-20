@@ -1,6 +1,6 @@
 ;;; 50org-mode.el --- Set up `org-mode'.
 
-;; Copyright (C) 2009 Daniel Hackney
+;; Copyright (C) 2009, 2012 Daniel Hackney
 
 ;; Author: Daniel Hackney
 ;; Keywords: org local
@@ -21,12 +21,8 @@
 ;; This file is NOT part of GNU Emacs.
 
 ;;; Commentary:
-;;
-;;  Set up clock in/out functionality, as well as convenience keybindings.
 
-
-;;; History:
-;;
+;; Set up clock in/out functionality, as well as convenience keybindings.
 
 ;;; Code:
 
@@ -106,34 +102,6 @@ Makes linking between `org-mode' files easier."
                      (read-from-minibuffer "Desc: ")))
   (insert (org-make-link-string link desc)))
 
-(defvar org-export-latex-class-vita
-  `("vita"
-    ,(concat "\\documentclass[ComputerScience,10pt]{vita}\n"
-             "\\usepackage{hyperref}\n"
-             "\\usepackage[left=2cm,top=1cm,right=2cm]{geometry}\n"
-             "\\usepackage{multicol}\n"
-             "\\addtolength{\\columnsep}{-0.3in}\n"
-             "\\addtolength{\\multicolsep}{-0.1in}\n"
-             "\\usepackage{savetrees}\n"
-
-             "\\usepackage[compact]{titlesec}\n"
-             "\\titlespacing{\\section}{0pt}{*0}{*0}\n"
-             "\\titlespacing{\\subsection}{0pt}{*0}{*0}\n"
-             "\\titlespacing{\\subsubsection}{0pt}{*0}{*0}\n"
-
-             "\\usepackage{comment}\n"
-             "\\usepackage{setspace}\n"
-             "\\singlespacing\n"
-
-             "\\setlength{\\topsep}{-0.6in}\n"
-             )
-    ("\\section{%s \\hrulefill}" . "\\section*{%s \\hrulefill}")
-    ("\\subsection{%s}" . "\\subsection*{%s}")
-    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-    ("\\paragraph{%s}" . "\\paragraph*{%s}")
-    ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-  "A resume class for exporting org-mode files as LaTeX.")
-
 (eval-after-load 'org
   '(progn
      (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
@@ -144,12 +112,6 @@ Makes linking between `org-mode' files easier."
            '(("p" tags "PROJECT-MAYBE-DONE" nil)
              ("m" tags "PROJECT&MAYBE" nil)))
 
-     ;; (unless (boundp 'org-export-latex-classes)
-     ;;   (setq org-export-latex-classes nil))
-
-     (eval-after-load 'org-export-latex
-       '(progn
-         (add-to-list 'org-export-latex-classes org-export-latex-class-vita)))
      (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-lists)
      (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-tables)))
 
