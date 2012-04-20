@@ -162,10 +162,12 @@
  '(org-capture-templates (quote (("t" "Todo" entry (file+headline "~/org/root.org" "Task Inbox") "** TODO %?
    %i") ("d" "Day Page" entry (function org-open-day-page) "
 * Sleep" :immediate-finish t :unnarrowed t))))
+ '(org-clock-into-drawer t)
  '(org-default-notes-file "~/org/root.org")
  '(org-export-latex-classes (quote (("article" "\\documentclass[11pt]{article}" ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}") ("\\paragraph{%s}" . "\\paragraph*{%s}") ("\\subparagraph{%s}" . "\\subparagraph*{%s}")) ("report" "\\documentclass[11pt]{report}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("book" "\\documentclass[11pt]{book}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("beamer" "\\documentclass{beamer}" org-beamer-sectioning) ("vita" "\\documentclass{vita}" ("\\section{%s \\hrulefill}" . "\\section*{%s \\hrulefill}") ("\\subsection{%s}" . "\\subsection*{%s}")))) t)
  '(org-id-locations-file "~/.emacs.d/tmp/.org-id-locations")
  '(org-log-done (quote time))
+ '(org-mode-hook (quote (flyspell-mode)))
  '(org-modules (quote (org-bibtex org-info org-jsinfo org-habit org-irc org-protocol org-special-blocks)))
  '(org-registry-file "~/.emacs.d/tmp/org-registry.el")
  '(org-return-follows-link t)

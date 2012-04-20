@@ -136,34 +136,20 @@ Makes linking between `org-mode' files easier."
 
 (eval-after-load 'org
   '(progn
-     ;; Allow indentation without having to go to the arrow keys
-     (define-key org-mode-map (kbd "C-c C-x C-f") 'org-shiftmetaright)
-     (define-key org-mode-map (kbd "C-c C-x C-b") 'org-shiftmetaleft)
      (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
      (define-key org-mode-map (kbd "C-c M-l") 'dhackney/org-link-to-project)
-     (define-key org-mode-map (kbd "C-c C-x C-i") 'my/org-todo-starting)
-     (define-key org-mode-map (kbd "C-c C-x C-o") 'my/org-clock-out)
 
      ;; Custom agenda commands
      (setq org-agenda-custom-commands
            '(("p" tags "PROJECT-MAYBE-DONE" nil)
              ("m" tags "PROJECT&MAYBE" nil)))
 
-     ;; Org-registry
-     ;; Remember inbound links in org files.
-     ;; (require 'org-registry)
-     ;; (org-registry-initialize)
-     ;; (org-registry-insinuate)
-
-     (unless (boundp 'org-export-latex-classes)
-       (setq org-export-latex-classes nil))
+     ;; (unless (boundp 'org-export-latex-classes)
+     ;;   (setq org-export-latex-classes nil))
 
      (eval-after-load 'org-export-latex
        '(progn
          (add-to-list 'org-export-latex-classes org-export-latex-class-vita)))
-     (add-hook 'org-mode-hook 'turn-on-flyspell)
-     (add-hook 'org-after-todo-state-change-hook 'wicked/org-clock-in-if-starting)
-     (add-hook 'org-after-todo-state-change-hook 'wicked/org-clock-out-if-waiting)
      (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-lists)
      (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-tables)))
 
