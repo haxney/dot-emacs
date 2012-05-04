@@ -40,15 +40,8 @@
   '(progn
      (define-key dired-mode-map "e" 'wdired-change-to-wdired-mode)))
 
-(global-set-key (kbd "M-C-y") 'anything-show-kill-ring)
+(global-set-key (kbd "M-C-y") 'helm-show-kill-ring)
 
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
-(global-set-key (kbd "C-x f") 'esk-recentf-ido-find-file)
-
-(defun esk-recentf-ido-find-file ()
-  "Find a recent file using ido."
-  (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
+(global-set-key (kbd "C-x f") 'helm-recentf)
