@@ -160,4 +160,36 @@ That's not nice."
      (define-key Info-mode-map (kbd ";") 'Info-next-reference)
      (define-key Info-mode-map (kbd "'") 'Info-prev-reference)))
 
+;; Make data-debug much more useful: set `buffer-read-only' so that the nice
+;; structure of the buffer doesn't get clobbered and `inhibit-read-only' so that
+;; the collapse and expand commands can do their thing
+(add-hook 'data-debug-mode-hook '(lambda () (setq buffer-read-only t)))
+
+(mapc '(lambda (fun) (ad-add-advice fun
+                                    '(data-debug-inhibit-read-only
+                                      nil
+                                      t
+                                      (advice . (lambda () (let ((inhibit-read-only t))
+                                                             ad-do-it))))
+                                    'around
+                                    0)
+         (ad-activate fun))
+      '(data-debug-next
+        data-debug-prev
+        data-debug-next-expando
+        data-debug-prev-expando
+        data-debug-expand-or-contract
+        data-debug-expand-or-contract-mouse))
+
+;; hack for now
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/ess")
+
+(defgroup local-conf nil
+  "A group for all of my local configuration.
+
+It's not unreasonable to think that this may get split out into
+its own package someday."
+  :prefix "local-conf-"
+  :tag "Local configuration")
+
 ;;; init.el ends here
