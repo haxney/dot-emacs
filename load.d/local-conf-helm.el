@@ -29,7 +29,7 @@
 ;; Variables which aren't (yet) set through `defcustom'
 (setq helm-idle-delay 0.01
       helm-input-idle-delay 0.01
-      anything-candidate-number-limit 50)
+      helm-candidate-number-limit 50)
 
 (defgroup local-conf-helm nil
   "Local configuration for `helm'."
