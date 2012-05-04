@@ -1,7 +1,5 @@
 ;;; init.el --- Where all the magic begins
 ;;
-;; Part of the Emacs Starter Kit
-;;
 ;; This is the first thing to get loaded.
 ;;
 ;; "Emacs outshines all other editing software in approximately the
@@ -18,22 +16,6 @@
 (make-directory tmp-dir t)
 (setq load-dirs t) ; Force `load-dir' package to load directories without having
                    ; to wait for custom to finish loading.
-
-(defun my/message-startup-time ()
-  "Display a message of how long Emacs took to start up, in milliseconds."
-  (message "Emacs loaded in %dms"
-           (/ (-
-               (+
-                (third after-init-time)
-                (* 1000000
-                   (second after-init-time)))
-               (+
-                (third before-init-time)
-                (* 1000000
-                   (second before-init-time))))
-              1000)))
-
-(add-hook 'after-init-hook 'my/message-startup-time)
 
 (when (file-exists-p (concat dotfiles-dir "nxhtml/autostart.el"))
   (load (concat dotfiles-dir "nxhtml/autostart")))
@@ -59,9 +41,6 @@ by using nXML's indentation rules."
 
 ;; Re-enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
-
-(defalias 'yes-or-no-p 'y-or-n-p)
-
 
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (defun load-custom-file ()
@@ -132,9 +111,6 @@ by using nXML's indentation rules."
                           (helm-descbinds t)
                           (tidy t)
                           ))
-
-;; Autoloads for ESS are whack, need to load this manually
-;;(require 'ess-site)
 
 (defvar hl-line-ignore-regexp "\*magit:.*")
 
