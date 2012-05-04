@@ -26,12 +26,11 @@
 
 ;;; Code:
 
-(require 'org-install)
+(autoload 'org-read-date 'org)
 
 (defun org-open-day-page ()
   "Use `org-read-date' to prompt for a date, and open the day-page file matching that name."
   (interactive)
-  (require 'org)
   (find-file (expand-file-name
               (concat (file-name-as-directory org-directory)
                       (replace-regexp-in-string "-" "." (org-read-date nil))
