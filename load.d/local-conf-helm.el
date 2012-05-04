@@ -61,6 +61,18 @@ to set `local-conf-helm-descbinds-active' to `newval'."
     (global-unset-key [remap describe-bindings]))
   (set-default sym val))
 
+(defun helm-c-buffer-list ()
+  "Return a list of buffer names.
+The first buffer in the list will be the last recently used
+buffer that is not the current buffer unless
+`helm-allow-skipping-current-buffer' is nil."
+  (save-excursion
+    (save-window-excursion
+      (helm-frame-or-window-configuration 'restore)
+      (let ((ido-process-ignore-lists t)
+            ido-ignored-list)
+        (ido-make-buffer-list nil)))))
+
 (define-key esc-map [remap find-tag] 'helm-semantic-or-imenu)
 (global-set-key [remap find-tag] 'helm-semantic-or-imenu)
 
