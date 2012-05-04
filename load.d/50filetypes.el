@@ -120,7 +120,16 @@
      (add-to-list 'tramp-default-proxies-alist
                   '((regexp-quote (system-name)) nil nil))))
 
-(add-hook 'find-file-hooks 'auto-less-minor-mode)
+(defun dired-launch-command ()
+  "Open the file at point"
+  (interactive)
+  (org-open-file (dired-get-filename)))
+
+(eval-after-load 'dired
+  '(progn
+     (require 'org) ;; for `org-open-file'
+     (define-key dired-mode-map "r" 'dired-launch-command)))
+
 (add-hook 'woman-mode-hook 'less-minor-mode)
 (add-hook 'woman-mode-hook 'scroll-lock-mode)
 
