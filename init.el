@@ -155,4 +155,9 @@ That's not nice."
     ad-do-it
     (setq buffer-read-only old-read-only)))
 
+(eval-after-load 'info
+  '(progn
+     (define-key Info-mode-map (kbd ";") 'Info-next-reference)
+     (define-key Info-mode-map (kbd "'") 'Info-prev-reference)))
+
 ;;; init.el ends here
