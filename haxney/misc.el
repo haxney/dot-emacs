@@ -10,8 +10,5 @@
   (eval-after-load "paredit"
     '(diminish 'paredit-mode "Par")))
 
-(if (file-readable-p "~/Private/private.el")
-    (load-file "~/Private/private.el"))
-
 (eval-after-load "semantic"
   '(require 'semantic/bovine/el))
