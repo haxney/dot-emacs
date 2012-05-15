@@ -46,6 +46,21 @@ by using nXML's indentation rules."
 (defun load-custom-file ()
   (load custom-file))
 
+(defun really-activate-desktop ()
+  "Activate `desktop-read' after init.
+desktop.el insists on putting its `after-init-hook' lambda ahead
+of my custom loading, so `desktop-save-mode' is not set when it
+runs. By forcing the read to happen after loading the custom
+file, we can make sure that `desktop-read' is actually called
+when needed."
+  (let ((key "--no-desktop"))
+    (when (member key command-line-args)
+      (setq command-line-args (delete key command-line-args))
+      (setq desktop-save-mode nil)))
+  (when desktop-save-mode
+    (desktop-read)
+    (setq inhibit-startup-screen t)))
+
 (defun do-uncooperative-requires ()
   "Manually load packages without `autoloads'."
 
@@ -60,6 +75,7 @@ by using nXML's indentation rules."
 ;; act until after packages and such are loaded, but customize needs to set up
 ;; in order for those things to work. It's all very strange.
 (add-hook 'after-init-hook 'load-custom-file 'append)
+(add-hook 'after-init-hook 'really-activate-desktop 'append)
 
 (when (file-exists-p "~/Private/private.el")
   (load "~/Private/private"))
