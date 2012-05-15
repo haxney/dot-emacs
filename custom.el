@@ -47,6 +47,7 @@
  '(default-frame-alist (quote ((cursor-type bar . 2) (font . "Monospace-8"))))
  '(default-input-method "rfc1345")
  '(default-major-mode (quote text-mode) t)
+ '(desktop-file-name-format (quote tilde))
  '(desktop-path (quote ("~/.emacs.d/tmp/")))
  '(desktop-save-mode t)
  '(dired-listing-switches "-al --group-directories-first")
