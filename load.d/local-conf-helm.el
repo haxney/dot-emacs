@@ -31,6 +31,16 @@
       helm-input-idle-delay 0.01
       helm-candidate-number-limit 50)
 
+(defun local-conf-helm-descbinds-set (sym val)
+  "The function for the `defcustom' `:set' keyword."
+  (if val
+      (progn
+        (define-key help-map [remap describe-bindings] 'helm-descbinds)
+        (global-set-key [remap describe-bindings] 'helm-descbinds))
+    (define-key help-map [remap describe-bindings] nil)
+    (global-unset-key [remap describe-bindings]))
+  (set-default sym val))
+
 (defgroup local-conf-helm nil
   "Local configuration for `helm'."
   :group 'local-conf
@@ -51,27 +61,28 @@ to set `local-conf-helm-descbinds-active' to `newval'."
   :require 'helm-descbinds
   :set 'local-conf-helm-descbinds-set)
 
-(defun local-conf-helm-descbinds-set (sym val)
-  "The function for the `defcustom' `:set' keyword."
-  (if val
-      (progn
-        (define-key help-map [remap describe-bindings] 'helm-descbinds)
-        (global-set-key [remap describe-bindings] 'helm-descbinds))
-    (define-key help-map [remap describe-bindings] nil)
-    (global-unset-key [remap describe-bindings]))
-  (set-default sym val))
 
+(autoload 'helm-descbinds "helm-descbinds" nil t)
+
+(require 'helm-help)
 (defun helm-c-buffer-list ()
   "Return a list of buffer names.
 The first buffer in the list will be the last recently used
 buffer that is not the current buffer unless
 `helm-allow-skipping-current-buffer' is nil."
-  (save-excursion
-    (save-window-excursion
-      (helm-frame-or-window-configuration 'restore)
-      (let ((ido-process-ignore-lists t)
-            ido-ignored-list)
-        (ido-make-buffer-list nil)))))
+  (save-window-excursion
+    (helm-frame-or-window-configuration 'restore)
+    (let ((ido-process-ignore-lists t)
+          ido-ignored-list)
+      (ido-make-buffer-list nil))))
+
+(defun helm-bookmarks-and-set ()
+  "Preconfigured `helm' for bookmarks."
+  (interactive)
+  (helm-other-buffer
+   '(helm-c-source-bookmarks helm-c-source-bookmark-set)
+   "*helm bookmarks*"))
+
 
 (define-key esc-map [remap find-tag] 'helm-semantic-or-imenu)
 (global-set-key [remap find-tag] 'helm-semantic-or-imenu)
@@ -80,7 +91,7 @@ buffer that is not the current buffer unless
 (global-set-key [remap apropos-command] 'helm-c-apropos)
 
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
-(when ido-minor-mode-map-entry
+(when (boundp 'ido-minor-mode-map-entry)
   (define-key (cdr ido-minor-mode-map-entry)
     [remap ido-switch-buffer]
     'helm-buffers-list))
