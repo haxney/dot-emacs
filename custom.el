@@ -25,6 +25,7 @@
  '(bm-repository-file "~/.emacs.d/tmp/bm-repository")
  '(bm-restore-repository-on-load t t)
  '(bookmark-default-file "~/.emacs.d/tmp/bookmark")
+ '(bookmark-save-flag 2)
  '(browse-url-firefox-program "firefox-3.5")
  '(case-fold-search t)
  '(coffee-js-mode (quote javascript-mode))
