@@ -26,7 +26,8 @@
 
 ;;; Code:
 
-(autoload 'org-read-date 'org)
+(eval-when-compile (require 'cl))
+(autoload 'org-read-date "org")
 
 (defun org-open-day-page ()
   "Use `org-read-date' to prompt for a date, and open the day-page file matching that name."
@@ -101,7 +102,7 @@ Makes linking between `org-mode' files easier."
                      (read-from-minibuffer "Desc: ")))
   (insert (org-make-link-string link desc)))
 
-(eval-after-load 'org
+(eval-after-load "org"
   '(progn
      (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
      (define-key org-mode-map (kbd "C-c M-l") 'dhackney/org-link-to-project)
@@ -113,5 +114,15 @@ Makes linking between `org-mode' files easier."
 
      (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-lists)
      (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-tables)))
+
+(defun org-format-export-tel-link (path desc format)
+  "Format a tel: link for export"
+  (case format
+    (html
+     (format "<a href=\"%s\">%s</a>" path desc))
+    (latex
+     (format "\\href{tel:%s}{%s}" path desc))))
+
+(org-add-link-type "tel" nil 'org-format-export-tel-link)
 
 ;;; 50org-mode.el ends here
