@@ -111,6 +111,7 @@ Makes linking between `org-mode' files easier."
      (setq org-agenda-custom-commands
            '(("p" tags "PROJECT-MAYBE-DONE" nil)
              ("m" tags "PROJECT&MAYBE" nil)))
+     (org-add-link-type "tel" nil 'org-format-export-tel-link)
 
      (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-lists)
      (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-tables)))
@@ -121,8 +122,6 @@ Makes linking between `org-mode' files easier."
     (html
      (format "<a href=\"%s\">%s</a>" path desc))
     (latex
-     (format "\\href{tel:%s}{%s}" path desc))))
-
-(org-add-link-type "tel" nil 'org-format-export-tel-link)
+     (format "\\href{tel:%s}{\\texttt{%s}}" path desc))))
 
 ;;; 50org-mode.el ends here
