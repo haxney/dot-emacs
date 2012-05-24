@@ -61,10 +61,10 @@ when needed."
     (desktop-read)
     (setq inhibit-startup-screen t)))
 
+(run-at-time t (* 60 10) 'desktop-save-in-desktop-dir)
+
 (defun do-uncooperative-requires ()
   "Manually load packages without `autoloads'."
-
-  (require 'undo-tree)
   (require 'ess-site nil t)
   (require 'keyfreq))
 
@@ -126,6 +126,7 @@ when needed."
                           (helm t)
                           (helm-descbinds t)
                           (tidy t)
+                          (company t)
                           ))
 
 (defvar hl-line-ignore-regexp "\*magit:.*")
