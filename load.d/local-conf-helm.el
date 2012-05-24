@@ -63,6 +63,7 @@ to set `local-conf-helm-descbinds-active' to `newval'."
 
 
 (autoload 'helm-descbinds "helm-descbinds" nil t)
+(require 'helm-match-plugin)
 
 (require 'helm-help)
 (defun helm-c-buffer-list ()
