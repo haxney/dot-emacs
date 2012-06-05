@@ -133,4 +133,7 @@
 (add-hook 'woman-mode-hook 'less-minor-mode)
 (add-hook 'woman-mode-hook 'scroll-lock-mode)
 
+(add-hook 'woman-mode-hook 'less-minor-mode)
+(add-hook 'woman-mode-hook 'scroll-lock-mode)
+
 ;;; 50filetyptes.el ends here
