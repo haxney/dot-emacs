@@ -77,8 +77,8 @@ when needed."
 (add-hook 'after-init-hook 'load-custom-file 'append)
 (add-hook 'after-init-hook 'really-activate-desktop 'append)
 
-(when (file-exists-p "~/Private/private.el")
-  (load "~/Private/private"))
+(when (file-exists-p "~/Private/private.el.gz.gpg")
+  (load "~/Private/private.el.gz.gpg"))
 
 ;; Explicitly list packages to be loaded and used.
 
