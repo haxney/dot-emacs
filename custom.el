@@ -199,7 +199,7 @@
  '(quack-smart-open-paren-p nil)
  '(recentf-mode t)
  '(recentf-save-file "~/.emacs.d/tmp/recentf")
- '(safe-local-variable-values (quote ((whitespace-style face tabs spaces trailing lines space-before-tab::space newline indentation::space empty space-after-tab::space space-mark tab-mark newline-mark) (outline-minor-mode) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby") (lexical-binding . t))))
+ '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8-unix) (whitespace-style face tabs spaces trailing lines space-before-tab::space newline indentation::space empty space-after-tab::space space-mark tab-mark newline-mark) (outline-minor-mode) (ruby-compilation-executable . "ruby") (ruby-compilation-executable . "ruby1.8") (ruby-compilation-executable . "ruby1.9") (ruby-compilation-executable . "rbx") (ruby-compilation-executable . "jruby") (lexical-binding . t))))
  '(save-completions-file-name "~/.emacs.d/tmp/completions")
  '(save-place t nil (saveplace))
  '(save-place-file "~/.emacs.d/tmp/places")
