@@ -2,7 +2,7 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c M-d") 'org-open-day-page)
-(global-set-key (kbd "C-c C-x C-o") 'my/org-clock-out)
+(global-set-key (kbd "C-c C-x C-o") 'org-clock-out)
 (global-set-key (kbd "C-c r") 'org-capture)
 
 ;; Smex, a Super M-x

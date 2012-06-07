@@ -164,7 +164,11 @@
  '(org-capture-templates (quote (("t" "Todo" entry (file+headline "~/org/root.org" "Task Inbox") "** TODO %?
    %i") ("d" "Day Page" entry (function org-open-day-page) "
 * Sleep" :immediate-finish t :unnarrowed t))))
+ '(org-clock-in-resume t)
  '(org-clock-into-drawer t)
+ '(org-clock-out-remove-zero-time-clocks t)
+ '(org-clock-persist (quote clock))
+ '(org-clock-persist-file "~/.emacs.d/tmp/org-clock-save.el")
  '(org-default-notes-file "~/org/root.org")
  '(org-export-latex-classes (quote (("article" "\\documentclass[11pt]{article}" ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}") ("\\paragraph{%s}" . "\\paragraph*{%s}") ("\\subparagraph{%s}" . "\\subparagraph*{%s}")) ("report" "\\documentclass[11pt]{report}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("book" "\\documentclass[11pt]{book}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("beamer" "\\documentclass{beamer}" org-beamer-sectioning) ("vita" "\\documentclass{vita}" ("\\section{%s \\hrulefill}" . "\\section*{%s \\hrulefill}") ("\\subsection{%s}" . "\\subsection*{%s}")))))
  '(org-export-latex-default-packages-alist (quote (("" "xunicode" t) ("" "fontspec" t) ("" "xltxtra" t) ("" "fixltx2e" nil) ("" "graphicx" t) ("" "longtable" nil) ("" "float" nil) ("" "wrapfig" nil) ("" "soul" t) ("" "marvosym" t) ("" "wasysym" t) ("" "latexsym" t) ("dvipdfm, bookmarks, colorlinks, breaklinks, pdfusetitle" "hyperref" nil) "\\tolerance=1000")))

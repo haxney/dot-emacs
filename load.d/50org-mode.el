@@ -37,36 +37,6 @@
                       (replace-regexp-in-string "-" "." (org-read-date nil))
                       ".org"))))
 
-(defun my/org-clock-out ()
-  "Clock out of whatever task is currently STARTED."
-  (interactive)
-  (save-excursion
-    (set-buffer (marker-buffer org-clock-marker))
-    (goto-char org-clock-marker)
-    (org-todo "WAITING")))
-
-(defun my/org-todo-starting ()
-  "Mark the current task WAITING."
-  (interactive)
-  (org-todo "STARTED"))
-
-;; Add Sacha Chua's 'clock-in(out)-if-starting' functions
-(defun wicked/org-clock-in-if-starting ()
-  "Clock in when the task is marked STARTED."
-  (when (and (string= state "STARTED")
-             (not (string= last-state state)))
-    (org-clock-in)))
-
-(defun wicked/org-clock-out-if-waiting ()
-  "Clock out when the task is marked WAITING."
-  (when (and (string= state "WAITING")
-             (equal (marker-buffer org-clock-marker) (current-buffer))
-             (< (point) org-clock-marker)
-             (> (save-excursion (outline-next-heading) (point))
-                org-clock-marker)
-             (not (string= last-state state)))
-    (org-clock-out)))
-
 (defun org-preprocess-radio-lists ()
   "Preprocess radio lists before exporting."
   (save-excursion
