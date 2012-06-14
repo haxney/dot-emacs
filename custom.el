@@ -160,7 +160,8 @@
  '(nxml-slash-auto-complete-flag t)
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "::* Archived")
- '(org-babel-load-languages (quote ((js . t) (dot . t) (latex . t) (ruby . t) (R . t) (python . t) (emacs-lisp . t))))
+ '(org-babel-load-languages (quote ((js . t) (dot . t) (latex . t) (ruby . t) (R . t) (python . t) (emacs-lisp . t) (sh . t) (sql . t))))
+ '(org-babel-no-eval-on-ctrl-c-ctrl-c t)
  '(org-capture-templates (quote (("t" "Todo" entry (file+headline "~/org/root.org" "Task Inbox") "** TODO %?
    %i") ("d" "Day Page" entry (function org-open-day-page) "
 * Sleep" :immediate-finish t :unnarrowed t))))
