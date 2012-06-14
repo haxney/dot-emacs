@@ -83,7 +83,7 @@ when needed."
 ;; Explicitly list packages to be loaded and used.
 
 (setq package-load-list '(
-                          (apache-mode t)
+                          ;; (apache-mode t)
                           (auctex t)
                           (coffee-mode t)
                           (company t)
@@ -133,6 +133,9 @@ when needed."
                           (undo-tree t)
                           (yaml-mode t)
                           ))
+
+;; Needed by MELPA to avoid timeouts
+(setq url-http-attempt-keepalives nil)
 
 (defvar hl-line-ignore-regexp "\*magit:.*")
 

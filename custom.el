@@ -183,7 +183,7 @@
  '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "WAITING" "DONE"))))
  '(org-track-directory "~/.emacs.d/elisp/")
  '(org-track-remove-package t)
- '(package-archives (quote (("marmalade" . "http://marmalade-repo.org/packages/") ("elpa" . "http://tromey.com/elpa/") ("gnu" . "http://elpa.gnu.org/packages/"))))
+ '(package-archives (quote (("melpa" . "http://melpa.milkbox.net/packages/") ("elpa" . "http://tromey.com/elpa/") ("gnu" . "http://elpa.gnu.org/packages/"))))
  '(package-base "~/Projects/elpa/")
  '(persp-completing-func (quote ido-completing-read))
  '(pgg-cache-passphrase nil)
