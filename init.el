@@ -11,14 +11,14 @@
 
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name))
-      tmp-dir (file-name-directory (concat dotfiles-dir "tmp/")))
+      tmp-dir (file-name-directory (concat dotfiles-dir "tmp/"))
+      cedet-dir (file-name-directory (concat dotfiles-dir "cedet-1.1/")))
+
+(load (concat cedet-dir "common/cedet"))
 
 (make-directory tmp-dir t)
 (setq load-dirs t) ; Force `load-dir' package to load directories without having
                    ; to wait for custom to finish loading.
-
-(when (file-exists-p (concat dotfiles-dir "nxhtml/autostart.el"))
-  (load (concat dotfiles-dir "nxhtml/autostart")))
 
 (defun pretty-print-xml (begin end)
   "Pretty format XML markup in region.
@@ -41,6 +41,8 @@ by using nXML's indentation rules."
 
 ;; Re-enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (defun load-custom-file ()
@@ -68,8 +70,14 @@ when needed."
   (require 'ess-site nil t)
   (require 'keyfreq))
 
+(defun load-nxhtml ()
+  "Load nxhtml"
+  (when (file-exists-p (concat dotfiles-dir "nxhtml/autostart.el"))
+    (load (concat dotfiles-dir "nxhtml/autostart"))))
+
 (add-hook 'after-init-hook 'do-uncooperative-requires)
 (add-hook 'after-init-hook 'smex-initialize)
+(add-hook 'after-init-hook 'load-nxhtml)
 
 ;; Doing this seems to be important. Some stuff is not set up for customize to
 ;; act until after packages and such are loaded, but customize needs to set up
@@ -91,21 +99,23 @@ when needed."
                           (diminish t)              ;; marmalade
                           (ess t)                   ;; melpa
                           (feature-mode t)          ;; marmalade
+                          (fill-column-indicator t) ;; melpa
                           (findr t)                 ;; melpa
                           (full-ack t)              ;; melpa
                           (furl t)                  ;; marmalade
                           (geben t)                 ;; marmalade
+                          (geiser t)                ;; elpa-haxney
                           (gnuplot t)               ;; melpa
                           (haml-mode t)             ;; melpa
                           (helm t)                  ;; melpa
                           (helm-R t)                ;; melpa
-                          (helm-descbinds t)        ;; manual
+                          (helm-descbinds t)        ;; melpa
                           (helm-git t)              ;; melpa
-                          (highlight-parentheses t) ;; melpa
-                          (highline t)              ;; marmalade
+                          (hl-line+ t)              ;; marmalade
                           (htmlize t)               ;; marmalade
                           (inf-ruby t)              ;; melpa
                           (inflections t)           ;; melpa
+                          (info+ t)                 ;; melpa
                           (jump t)                  ;; melpa
                           (keyfreq t)               ;; marmalade
                           (keywiz t)                ;; marmalade
@@ -118,11 +128,12 @@ when needed."
                           (memory-usage t)          ;; gnu
                           (mmm-mode t)              ;; melpa
                           (mode-compile t)          ;; marmalade
-                          (org t)                   ;; gnu
+                          (nlinum t)                ;; gnu
                           (org-magit t)             ;; marmalade
                           (paredit t)               ;; melpa
                           (php+-mode t)             ;; melpa
                           (php-mode t)              ;; melpa
+                          (quack t)                 ;; elpa-haxney
                           (rinari t)                ;; melpa
                           (rspec-mode t)            ;; melpa
                           (ruby-block t)            ;; melpa
@@ -140,6 +151,9 @@ when needed."
                           (tidy t)                  ;; melpa
                           (unbound t)               ;; marmalade
                           (undo-tree t)             ;; gnu
+                          (vbnet-mode t)            ;; elpa-haxney
+                          (vimgolf t)               ;; melpa
+                          (vlf t)                   ;; gnu
                           (yaml-mode t)             ;; melpa
                           ))
 
