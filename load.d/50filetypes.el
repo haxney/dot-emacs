@@ -56,15 +56,21 @@
                (c-offsets-alist . ((arglist-close . c-lineup-close-paren)
                                    (case-label . +)
                                    (arglist-intro . +)
-                                   (arglist-cont-nonempty . c-lineup-math)))))
+                                   (arglist-cont-nonempty . c-lineup-arglist)))))
 
 (defun c-style-drupal ()
   "Set the style to \"drupal\"."
   (interactive)
   (c-set-style "drupal"))
 
+(add-to-list 'auto-mode-alist '("\\.inc\\'" . php+-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . php+-mode))
+(add-to-list 'auto-mode-alist '("\\.php[s345t]?\\'" . php+-mode))
+(autoload 'php+-mode "php+-mode" nil t)
+
 (add-to-list 'auto-mode-alist '("\\.ss$" . scheme-mode))
 (add-to-list 'auto-mode-alist '("\\.scm$" . scheme-mode))
+(add-hook 'scheme-mode-hook 'paredit-mode)
 
 (add-to-list 'auto-mode-alist '("\\.gri$" . gri-mode))
 
@@ -104,13 +110,14 @@
 (add-to-list 'auto-mode-alist '("\\.handlebars$" . mustache-mode))
 
 (add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
+(add-to-list 'auto-mode-alist '("\.cnf$" . conf-mode))
 
 ;; Live on the wild side.
 (setq write-region-inhibit-fsync t)
 
 (defun set-elisp-mode-name ()
   (setq mode-name "El"))
-(require 'semantic/bovine/el)
+;;(require 'semantic/bovine/el)
 
 ;; Allow "/sudo:host:/etc/stuff" to sudo on a remote host
 (eval-after-load 'tramp
@@ -130,10 +137,32 @@
      (require 'org) ;; for `org-open-file'
      (define-key dired-mode-map "r" 'dired-launch-command)))
 
+(defun linum-off ()
+  "Unconditionally turn `linum-mode' off"
+  (linum-mode -1))
+
 (add-hook 'woman-mode-hook 'less-minor-mode)
 (add-hook 'woman-mode-hook 'scroll-lock-mode)
+(add-hook 'woman-mode-hook 'linum-off)
 
 (add-hook 'Man-mode-hook 'less-minor-mode)
 (add-hook 'Man-mode-hook 'scroll-lock-mode)
+
+(add-hook 'doc-view-mode-hook 'less-minor-mode)
+
+(eval-after-load 'geben
+  '(defadvice geben-dbgp-redirect-stream (around
+                                          geben-output-inhibit-read-only
+                                          activate)
+     "Set `inhibit-read-only' during `geben-dbgp-redirect-stream'"
+     (let ((inhibit-read-only t)
+           (inhibit-modification-hooks t))
+       ad-do-it)
+     (set-buffer-modified-p nil)))
+
+(autoload 'vbnet-mode "vbnet-mode" nil t)
+(add-to-list 'auto-mode-alist '("\.bas$" . vbnet-mode))
+
+
 
 ;;; 50filetyptes.el ends here

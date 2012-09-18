@@ -45,3 +45,14 @@
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
 (global-set-key (kbd "C-x f") 'helm-recentf)
+
+(eval-after-load 'comint
+  '(defadvice comint-previous-input
+     (around restore-comint-input-with-zero-prefix activate)
+    "Make `comint-previous-input' restore the input with arg == 0"
+    (if (and
+         comint-input-ring-index
+         comint-stored-incomplete-input
+         (eq arg 0))
+        (comint-restore-input)
+      ad-do-it)))
