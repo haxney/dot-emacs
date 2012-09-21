@@ -84,8 +84,7 @@ Makes linking between `org-mode' files easier."
      (org-add-link-type "tel" nil 'org-format-export-tel-link)
 
      (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-lists)
-     (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-tables)
-     (add-hook 'org-mode-hook 'fci-mode)))
+     (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-tables)))
 
 (defun org-format-export-tel-link (path desc format)
   "Format a tel: link for export"
