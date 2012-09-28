@@ -99,7 +99,6 @@ when needed."
                           (diminish t)              ;; marmalade
                           (ess t)                   ;; melpa
                           (feature-mode t)          ;; marmalade
-                          (fill-column-indicator t) ;; melpa
                           (findr t)                 ;; melpa
                           (full-ack t)              ;; melpa
                           (furl t)                  ;; marmalade
