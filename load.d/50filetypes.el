@@ -150,6 +150,8 @@
 
 (add-hook 'doc-view-mode-hook 'less-minor-mode)
 
+(remove-hook 'find-file-hooks 'vc-find-file-hook)
+
 (eval-after-load 'geben
   '(defadvice geben-dbgp-redirect-stream (around
                                           geben-output-inhibit-read-only
