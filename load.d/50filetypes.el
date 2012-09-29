@@ -117,7 +117,7 @@
 
 (defun set-elisp-mode-name ()
   (setq mode-name "El"))
-;;(require 'semantic/bovine/el)
+(require 'semantic-el)
 
 ;; Allow "/sudo:host:/etc/stuff" to sudo on a remote host
 (eval-after-load 'tramp
@@ -151,6 +151,9 @@
 (add-hook 'doc-view-mode-hook 'less-minor-mode)
 
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
+
+(eval-after-load 'pcache
+  '(setq pcache-directory "~/.emacs.d/tmp/pcache"))
 
 (eval-after-load 'geben
   '(defadvice geben-dbgp-redirect-stream (around
