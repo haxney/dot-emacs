@@ -119,7 +119,7 @@
  '(geben-dbgp-redirect-buffer-init-hook (quote (view-mode)))
  '(geben-temporary-file-directory "~/.emacs.d/tmp/geben")
  '(geiser-default-implementation (quote racket))
- '(geiser-racket-extra-keywords (quote ("define-syntax-rule" "provide" "require" "unless" "when" "with-handlers" "define-type")))
+ '(geiser-racket-extra-keywords (quote ("define-type-alias" "define-syntax-rule" "provide" "require" "unless" "when" "with-handlers" "define-type")))
  '(git-append-signed-off-by t)
  '(global-hl-line-mode t)
  '(global-hl-line-sticky-flag t)
