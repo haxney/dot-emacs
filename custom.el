@@ -14,6 +14,7 @@
  '(ac-auto-start t)
  '(ac-comphist-file "~/.emacs.d/tmp/ac-comphist.dat")
  '(ac-dictionary-directories (quote (".emacs.d/elpa/auto-complete-1.4.20110207/dict")))
+ '(ac-use-menu-map t)
  '(after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))
  '(auto-save-list-file-prefix "~/.emacs.d/tmp/auto-save-list/.saves-")
  '(backup-directory-alist (quote (("." . "~/.emacs.d/tmp/baks/"))))
