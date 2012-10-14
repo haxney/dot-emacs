@@ -111,6 +111,7 @@
  '(ess-help-mode-hook (quote (less-minor-mode scroll-lock-mode)))
  '(ess-language "R")
  '(fill-column 80)
+ '(find-file-hook (quote (global-subword-mode-check-buffers global-undo-tree-mode-check-buffers recentf-track-opened-file undo-tree-load-history-hook rinari-launch mode-local-post-major-mode-change global-font-lock-mode-check-buffers epa-file-find-file-hook save-place-find-file-hook which-func-ff-hook)))
  '(flymake-allowed-file-name-masks (quote (("\\.c\\'" flymake-simple-make-init) ("\\.cpp\\'" flymake-simple-make-init) ("\\.xml\\'" flymake-xml-init) ("\\.cs\\'" flymake-simple-make-init) ("\\.p[ml]\\'" flymake-perl-init) ("\\.php[345]?\\'" flymake-php-init) ("\\.module\\'" flymake-php-init) ("\\.inc\\'" flymake-php-init) ("\\.install\\'" flymake-php-init) ("\\.h\\'" flymake-master-make-header-init flymake-master-cleanup) ("\\.java\\'" flymake-simple-make-java-init flymake-simple-java-cleanup) ("[0-9]+\\.tex\\'" flymake-master-tex-init flymake-master-cleanup) ("\\.tex\\'" flymake-simple-tex-init) ("\\.idl\\'" flymake-simple-make-init))))
  '(flymake-start-syntax-check-on-find-file nil)
  '(flyspell-use-meta-tab nil)
