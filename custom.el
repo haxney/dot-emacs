@@ -63,7 +63,7 @@
  '(ecb-tip-of-the-day nil)
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
  '(edit-server-new-frame nil)
- '(emacs-lisp-mode-hook (quote (turn-on-eldoc-mode ert--activate-font-lock-keywords flyspell-prog-mode paredit-mode set-elisp-mode-name)))
+ '(emacs-lisp-mode-hook (quote (turn-on-eldoc-mode flyspell-prog-mode paredit-mode set-elisp-mode-name)))
  '(enable-recursive-minibuffers t)
  '(erc-autoaway-mode t)
  '(erc-autojoin-channels-alist (quote (("freenode.net" "#emacs") ("quadium.net" "#betaspring"))))
