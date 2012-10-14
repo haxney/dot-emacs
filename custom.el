@@ -149,6 +149,7 @@
  '(inferior-ess-exit-command "q(save=\"no\")
 ")
  '(inhibit-startup-screen t)
+ '(ispell-program-name "/usr/bin/hunspell")
  '(js-indent-level 2)
  '(keyfreq-autosave-mode t)
  '(keyfreq-file "~/.emacs.d/tmp/keyfreq")
