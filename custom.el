@@ -201,6 +201,7 @@
  '(org-modules (quote (org-bibtex org-info org-jsinfo org-habit org-irc org-protocol org-special-blocks)))
  '(org-registry-file "~/.emacs.d/tmp/org-registry.el")
  '(org-return-follows-link t)
+ '(org-src-window-setup (quote other-window))
  '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "WAITING" "DONE"))))
  '(org-track-directory "~/.emacs.d/elisp/")
  '(org-track-remove-package t)
