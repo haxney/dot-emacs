@@ -44,4 +44,6 @@
 		    company-minimum-prefix-length))
 	    (stringp (or (car-safe prefix) prefix))))))
 
+;;(ac-company-define-source ac-source-company-geiser geiser-company-backend)
+
 ;;; 50company.el ends here

@@ -71,6 +71,7 @@
 (add-to-list 'auto-mode-alist '("\\.ss$" . scheme-mode))
 (add-to-list 'auto-mode-alist '("\\.scm$" . scheme-mode))
 (add-hook 'scheme-mode-hook 'paredit-mode)
+;;(add-to-list 'ac-sources 'ac-source-company-geiser)
 
 (add-to-list 'auto-mode-alist '("\\.gri$" . gri-mode))
 
