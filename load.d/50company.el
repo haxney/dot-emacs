@@ -36,6 +36,12 @@
 (eval-after-load "company"
   '(progn
      (define-key company-active-map (kbd "RET") 'company-complete-selection)
-     (define-key company-active-map (kbd "C-w") 'backward-kill-word)))
+     (define-key company-active-map (kbd "C-w") 'backward-kill-word)
+     (defun company--good-prefix-p (prefix)
+       (and (not (eq prefix 'stop))
+	    (or (company-explicit-action-p)
+		(>= (or (cdr-safe prefix) (length prefix))
+		    company-minimum-prefix-length))
+	    (stringp (or (car-safe prefix) prefix))))))
 
 ;;; 50company.el ends here
