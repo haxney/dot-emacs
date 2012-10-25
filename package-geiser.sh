@@ -4,22 +4,24 @@
 # Run from within the root directory of the extracted tarball
 
 GEISER_VERSION=0.2.1
-GEISER_PKG_BASE=/tmp/geiser-$GEISER_VERSION
+GEISER_TMP_INSTALL=/tmp/staging/install-tmp
+GEISER_PKG_BASE=/tmp/staging/geiser-$GEISER_VERSION
 read -r -d '' GEISER_PKG_DESC <<EOF
 (define-package "geiser" "$GEISER_VERSION"
     "GNU Emacs and Scheme talk to each other")
 EOF
 
 # 0. Clean out any old installation remnants
-rm -rf /tmp/pth $GEISER_PKG_BASE{,tar}
+rm -rf $GEISER_TMP_INSTALL $GEISER_PKG_BASE{,.tar}
 
 # 1. Build and install the package to a temporary directory
 
-./configure --prefix=/tmp/pth; make install
+./configure --prefix=$GEISER_TMP_INSTALL; make install
 
 # 2. Prepare package target
-cd /tmp/pth
 mkdir -p $GEISER_PKG_BASE/bin
+cp README $GEISER_PKG_BASE
+cd $GEISER_TMP_INSTALL
 
 # 3. Copy over the "geiser-racket" executable, making it use a relative path
 sed -e 's/top=.*/top="$(dirname $0)\/.."/' \
@@ -66,7 +68,7 @@ read -r -d '' EDIT_SCRIPT <<'EOF'
   (basic-save-buffer))
 EOF
 
-emacs -Q --batch $GEISER_PKG_BASE/geiser.el --eval "$EDIT_SCRIPT"
+emacs -Q --batch --file $GEISER_PKG_BASE/geiser.el --eval "$EDIT_SCRIPT"
 
 # 7. Create the geiser-pkg.el file
 echo $GEISER_PKG_DESC > $GEISER_PKG_BASE/geiser-pkg.el
