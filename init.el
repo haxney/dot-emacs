@@ -14,7 +14,9 @@
       tmp-dir (file-name-directory (concat dotfiles-dir "tmp/"))
       cedet-dir (file-name-directory (concat dotfiles-dir "cedet-1.1/")))
 
-(load (concat cedet-dir "common/cedet"))
+(when (and (string= emacs-version "24.2.1")
+           (file-exists-p (concat cedet-dir "common/cedet.el")))
+  (load (concat cedet-dir "common/cedet")))
 
 (make-directory tmp-dir t)
 (setq load-dirs t) ; Force `load-dir' package to load directories without having
