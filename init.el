@@ -79,7 +79,7 @@ when needed."
 
 (add-hook 'after-init-hook 'do-uncooperative-requires)
 (add-hook 'after-init-hook 'smex-initialize)
-(add-hook 'after-init-hook 'load-nxhtml)
+;;(add-hook 'after-init-hook 'load-nxhtml)
 
 ;; Doing this seems to be important. Some stuff is not set up for customize to
 ;; act until after packages and such are loaded, but customize needs to set up
