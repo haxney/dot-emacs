@@ -95,6 +95,7 @@ when needed."
 (setq package-load-list '(
                           (apache-mode t)      ;; marmalade
                           (auctex t)           ;; gnu
+                          (auto-complete t)    ;; melpa
                           (coffee-mode t)      ;; melpa
                           (company t)          ;; gnu
                           (csv-mode t)         ;; melpa
@@ -139,6 +140,8 @@ when needed."
                           (pcache t)           ;; melpa
                           (php+-mode t)        ;; melpa
                           (php-mode t)         ;; melpa
+                          (popup t)            ;; melpa
+                          (psl-mode t)         ;; elpa-haxney
                           (quack t)            ;; elpa-haxney
                           (rinari t)           ;; melpa
                           (rspec-mode t)       ;; melpa
