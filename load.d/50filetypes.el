@@ -117,7 +117,7 @@
 
 (defun set-elisp-mode-name ()
   (setq mode-name "El"))
-(require 'semantic-el)
+(require 'semantic-el nil t)
 
 ;; Allow "/sudo:host:/etc/stuff" to sudo on a remote host
 (eval-after-load 'tramp
