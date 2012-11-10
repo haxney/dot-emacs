@@ -46,6 +46,21 @@
 (global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
 (global-set-key (kbd "C-x f") 'helm-recentf)
 
+(define-key esc-map [remap find-tag] 'helm-semantic-or-imenu)
+(global-set-key [remap find-tag] 'helm-semantic-or-imenu)
+
+(define-key help-map [remap apropos-command] 'helm-c-apropos)
+(global-set-key [remap apropos-command] 'helm-c-apropos)
+
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(when (boundp 'ido-minor-mode-map-entry)
+  (define-key (cdr ido-minor-mode-map-entry)
+    [remap ido-switch-buffer]
+    'helm-buffers-list))
+
+(define-key help-map [remap describe-bindings] 'helm-descbinds)
+(global-set-key [remap describe-bindings] 'helm-descbinds)
+
 (eval-after-load 'comint
   '(defadvice comint-previous-input
      (around restore-comint-input-with-zero-prefix activate)

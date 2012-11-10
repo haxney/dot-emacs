@@ -19,8 +19,9 @@
   (load (concat cedet-dir "common/cedet")))
 
 (make-directory tmp-dir t)
-(setq load-dirs t) ; Force `load-dir' package to load directories without having
-                   ; to wait for custom to finish loading.
+(setq load-dirs t)
+;; Force `load-dir' package to load directories without having to wait for
+;; custom to finish loading.
 
 (defun pretty-print-xml (begin end)
   "Pretty format XML markup in region.
