@@ -46,10 +46,10 @@
     (R-mode))
    ))
 
-(add-to-list 'auto-mode-alist '("\\.module$" . nxhtml-mumamo-mode))
-(add-to-list 'auto-mode-alist '("\\.inc$" . nxhtml-mumamo-mode))
-(add-to-list 'auto-mode-alist '("\\.test$" . nxhtml-mumamo-mode))
-(add-to-list 'auto-mode-alist '("\\.install$" . nxhtml-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.module$" . php+-mode))
+(add-to-list 'auto-mode-alist '("\\.inc$" . php+-mode))
+(add-to-list 'auto-mode-alist '("\\.test$" . php+-mode))
+(add-to-list 'auto-mode-alist '("\\.install$" . php+-mode))
 
 (c-add-style "drupal"
              '((c-basic-offset . 2)
