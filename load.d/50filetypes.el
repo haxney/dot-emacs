@@ -168,6 +168,50 @@
 (autoload 'vbnet-mode "vbnet-mode" nil t)
 (add-to-list 'auto-mode-alist '("\.bas$" . vbnet-mode))
 
+(eval-after-load 'geiser-syntax
+  '(progn
+     (geiser-syntax--scheme-indent
+      (define 3)
+      (local 1)
+      ;; Hacks for desugar. `type-case' won't cascade its indentation to
+      ;; sub-forms
+      (BracketLHS 1)
+      (DotLHS 1)
+      (IdLHS 1)
+      (ObjectP 1)
+      (DotP 1)
+      (BracketP 1)
+      (DotMethodP 1)
+      (BrackMethodP 1)
 
+      (FuncP 1)
+      (AppP 1)
+      (DefvarP 1)
+      (DeffunP 1)
+      (IdP 1)
+
+      (WhileP 1)
+      (ForP 1)
+
+      (AssignP 1)
+
+      (SeqP 1)
+      (IfP 1)
+
+      (NumP 1)
+      (StrP 1)
+      (TrueP 1)
+      (FalseP 1)
+
+      (PrimP 1)
+
+      (PrimAssignP 1)
+
+      (PreIncP 1)
+      (PostIncP 1)
+      (PreDecP 1)
+      (PostDecP 1)
+
+      (interp-result 2))))
 
 ;;; 50filetyptes.el ends here
