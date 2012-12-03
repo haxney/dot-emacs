@@ -48,6 +48,11 @@
 
 (define-key esc-map [remap find-tag] 'helm-semantic-or-imenu)
 (global-set-key [remap find-tag] 'helm-semantic-or-imenu)
+;; Hopefully takes care of all those "Invalid face reference: helm-ff-directory"
+;; errors.
+(eval-after-load 'helm-buffers
+  '(progn
+     (require 'helm-files)))
 
 (define-key help-map [remap apropos-command] 'helm-c-apropos)
 (global-set-key [remap apropos-command] 'helm-c-apropos)
@@ -71,3 +76,7 @@
          (eq arg 0))
         (comint-restore-input)
       ad-do-it)))
+
+(eval-after-load 'geiser-mode
+  '(progn
+     (define-key geiser-mode-map [remap geiser-edit-symbol-at-point] 'helm-semantic-or-imenu)))
