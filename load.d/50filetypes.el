@@ -212,6 +212,6 @@
       (PreDecP 1)
       (PostDecP 1)
 
-      (interp-result 2))))
+      (interp-result 1))))
 
 ;;; 50filetyptes.el ends here
