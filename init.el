@@ -85,6 +85,9 @@ when needed."
 (add-hook 'after-init-hook 'smex-initialize)
 ;;(add-hook 'after-init-hook 'load-nxhtml)
 
+(autoload 'dired-tetails "dired-details")
+(add-hook 'after-init-hook 'dired-details-install)
+
 ;; Doing this seems to be important. Some stuff is not set up for customize to
 ;; act until after packages and such are loaded, but customize needs to set up
 ;; in order for those things to work. It's all very strange.
@@ -105,6 +108,7 @@ when needed."
         (company t)          ;; gnu
         (csv-mode t)         ;; melpa
         (diminish t)         ;; marmalade
+        (dired-details t)    ;; melpa
         (ess t)              ;; melpa
         (feature-mode t)     ;; marmalade
         (findr t)            ;; melpa
@@ -121,6 +125,7 @@ when needed."
         (helm-descbinds t)   ;; melpa
         (helm-git t)         ;; melpa
         (hl-line+ t)         ;; marmalade
+        (hl-sexp t)          ;; melpa
         (htmlize t)          ;; marmalade
         (iedit t)            ;; melpa
         (inf-ruby t)         ;; melpa
@@ -170,7 +175,6 @@ when needed."
         (vimgolf t)          ;; melpa
         (vlf t)              ;; gnu
         (yaml-mode t)        ;; melpa
-        (hl-sexp t)          ;; melpa
         ))
 
 ;; Needed by MELPA to avoid timeouts
