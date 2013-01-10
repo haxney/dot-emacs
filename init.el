@@ -85,7 +85,8 @@ when needed."
 (add-hook 'after-init-hook 'smex-initialize)
 ;;(add-hook 'after-init-hook 'load-nxhtml)
 
-(autoload 'dired-tetails "dired-details")
+(autoload 'dired-details "dired-details")
+(autoload 'dired-details-install "dired-details")
 (add-hook 'after-init-hook 'dired-details-install)
 
 ;; Doing this seems to be important. Some stuff is not set up for customize to
