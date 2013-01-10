@@ -46,11 +46,6 @@
     (R-mode))
    ))
 
-(add-to-list 'auto-mode-alist '("\\.module$" . php+-mode))
-(add-to-list 'auto-mode-alist '("\\.inc$" . php+-mode))
-(add-to-list 'auto-mode-alist '("\\.test$" . php+-mode))
-(add-to-list 'auto-mode-alist '("\\.install$" . php+-mode))
-
 (c-add-style "drupal"
              '((c-basic-offset . 2)
                (c-offsets-alist . ((arglist-close . c-lineup-close-paren)
@@ -62,11 +57,6 @@
   "Set the style to \"drupal\"."
   (interactive)
   (c-set-style "drupal"))
-
-(add-to-list 'auto-mode-alist '("\\.inc\\'" . php+-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . php+-mode))
-(add-to-list 'auto-mode-alist '("\\.php[s345t]?\\'" . php+-mode))
-(autoload 'php+-mode "php+-mode" nil t)
 
 (add-to-list 'auto-mode-alist '("\\.ss$" . scheme-mode))
 (add-to-list 'auto-mode-alist '("\\.scm$" . scheme-mode))

@@ -149,7 +149,6 @@ when needed."
         (org-magit t)        ;; marmalade
         (paredit t)          ;; melpa
         (pcache t)           ;; melpa
-        (php+-mode t)        ;; melpa
         (php-mode t)         ;; melpa
         (popup t)            ;; melpa
         (psl-mode t)         ;; elpa-haxney

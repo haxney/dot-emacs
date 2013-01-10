@@ -221,6 +221,8 @@
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
  '(php-basic-offset 2)
+ '(php-file-patterns (quote ("\\.php[s345t]?\\'" "\\.phtml\\'" "\\.inc\\'" "\\.install\\'" "\\.module\\'")))
+ '(php-mode-coding-style (quote drupal))
  '(php-mode-hook (quote (c-style-drupal)))
  '(pop-up-windows nil)
  '(popcmp-group-alternatives nil)
