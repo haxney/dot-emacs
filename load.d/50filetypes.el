@@ -204,4 +204,6 @@
 
       (interp-result 1))))
 
+(diminish 'abbrev-mode)
+
 ;;; 50filetyptes.el ends here
