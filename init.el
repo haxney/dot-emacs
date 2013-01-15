@@ -154,6 +154,7 @@ when needed."
         (popup t)            ;; melpa
         (psl-mode t)         ;; elpa-haxney
         (quack t)            ;; elpa-haxney
+        (restclient t)       ;; melpa
         (rinari t)           ;; melpa
         (rspec-mode t)       ;; melpa
         (ruby-block t)       ;; melpa
