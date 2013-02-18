@@ -143,8 +143,7 @@ when needed."
         (markdown-mode t)    ;; melpa
         (mediawiki t)        ;; melpa
         (memory-usage t)     ;; gnu
-        (mmm-mode t)         ;; melpa
-        (mocker t)           ;; marmalade
+        (mmm-mode t)         ;; Melba
         (mode-compile t)     ;; marmalade
         (nlinum t)           ;; gnu
         (org-magit t)        ;; marmalade
