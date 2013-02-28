@@ -1,4 +1,4 @@
-;;; 50macro.el --- Helper functions for emacs macros.
+;;; local-macro.el --- Helper functions for emacs macros.
 
 ;; Copyright (C) 2009 Daniel Hackney
 
@@ -41,5 +41,5 @@
 
 (global-set-key (kbd "C-x Q") 'simple-macro-query)
 
-(provide '50macro)
-;;; 50macro.el ends here
+(provide 'local-macro)
+;;; local-macro.el ends here

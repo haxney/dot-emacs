@@ -1,4 +1,4 @@
-;;; 50company.el --- Settings for company-mode
+;;; local-company.el --- Settings for company-mode
 
 ;; Copyright (C) 2009 Daniel Hackney
 
@@ -39,11 +39,11 @@
      (define-key company-active-map (kbd "C-w") 'backward-kill-word)
      (defun company--good-prefix-p (prefix)
        (and (not (eq prefix 'stop))
-	    (or (company-explicit-action-p)
-		(>= (or (cdr-safe prefix) (length prefix))
-		    company-minimum-prefix-length))
-	    (stringp (or (car-safe prefix) prefix))))))
+            (or (company-explicit-action-p)
+                (>= (or (cdr-safe prefix) (length prefix))
+                    company-minimum-prefix-length))
+            (stringp (or (car-safe prefix) prefix))))))
 
 ;;(ac-company-define-source ac-source-company-geiser geiser-company-backend)
 
-;;; 50company.el ends here
+;;; local-company.el ends here

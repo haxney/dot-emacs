@@ -1,4 +1,4 @@
-;;; 50org-mode.el --- Set up `org-mode'.
+;;; local-org-mode.el --- Set up `org-mode'.
 
 ;; Copyright (C) 2009, 2012 Daniel Hackney
 
@@ -94,4 +94,4 @@ Makes linking between `org-mode' files easier."
     (latex
      (format "\\href{tel:%s}{\\texttt{%s}}" path desc))))
 
-;;; 50org-mode.el ends here
+;;; local-org-mode.el ends here

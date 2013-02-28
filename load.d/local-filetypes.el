@@ -1,4 +1,4 @@
-;;; 50filetypes.el --- Various editing settings which have no home.
+;;; local-filetypes.el --- Various editing settings which have no home.
 
 ;; Copyright (C) 2009 Daniel Hackney
 
@@ -206,4 +206,4 @@
 
 (diminish 'abbrev-mode)
 
-;;; 50filetyptes.el ends here
+;;; local-filetyptes.el ends here

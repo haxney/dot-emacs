@@ -1,4 +1,4 @@
-;;; 50erc.el --- Set ERC options.
+;;; local-erc.el --- Set ERC options.
 
 ;; Copyright (C) 2009 Daniel Hackney
 
@@ -142,4 +142,4 @@ This function is a possible value for `erc-generate-log-file-name-function'."
      (ad-activate 'erc-process-away)
      (ad-activate 'erc-cmd-AWAY)))
 
-;;; 50erc.el ends here
+;;; local-erc.el ends here
