@@ -1,6 +1,6 @@
-;;; local-company.el --- Settings for company-mode
+;;; local-misc.el --- Miscellaneous functions
 
-;; Copyright (C) 2009 Daniel Hackney
+;; Copyright (C) 2013 Daniel Hackney
 
 ;; Author: Daniel Hackney
 ;; Keywords: convenience files local
@@ -20,18 +20,14 @@
 
 ;; This file is NOT part of GNU Emacs.
 
-;;; Commentary:
-;;
-;; Settings for company-mode
-
 ;;; Code:
 
 (autoload 'global-company-mode "company" nil t)
 
 (eval-after-load "company-semantic"
   '(progn
-    '(add-to-list 'company-semantic-modes 'python-mode)
-    '(add-to-list 'company-semantic-modes 'ruby-mode)))
+     '(add-to-list 'company-semantic-modes 'python-mode)
+     '(add-to-list 'company-semantic-modes 'ruby-mode)))
 
 (eval-after-load "company"
   '(progn
@@ -46,4 +42,17 @@
 
 ;;(ac-company-define-source ac-source-company-geiser geiser-company-backend)
 
-;;; local-company.el ends here
+;; From Emacs Wiki.
+(defun simple-macro-query (arg)
+  "Prompt for input using minibuffer during kbd macro execution.
+    With prefix argument, allows you to select what prompt string
+    to use. If the input is non-empty, it is inserted at point."
+  (interactive "P")
+  (let* ((prompt (if arg (read-from-minibuffer "PROMPT: ") "Input: "))
+         (input (minibuffer-with-setup-hook (lambda () (kbd-macro-query t))
+                  (read-from-minibuffer prompt))))
+    (unless (string= "" input) (insert input))))
+
+(global-set-key (kbd "C-x Q") 'simple-macro-query)
+
+;;; local-misc.el ends here
