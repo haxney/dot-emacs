@@ -99,6 +99,20 @@
 (eval-after-load 'magit
   '(define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))
 
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value.
+
+From https://github.com/magnars/.emacs.d"
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
+(global-set-key (kbd "C-x C-e") 'eval-and-replace)
+
 ;; Multiple-cursors
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
