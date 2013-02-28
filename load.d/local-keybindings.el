@@ -1,3 +1,5 @@
+;;; local-keybindings.el --- Keybindings for me.
+
 ;; Org-mode keys
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -119,3 +121,5 @@ From https://github.com/magnars/.emacs.d"
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "s-SPC") 'set-rectangular-region-anchor)
+
+;;; local-keybindings.el ends here
