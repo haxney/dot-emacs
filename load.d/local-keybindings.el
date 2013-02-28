@@ -53,8 +53,8 @@
   '(progn
      (require 'helm-files)))
 
-(define-key help-map [remap apropos-command] 'helm-c-apropos)
-(global-set-key [remap apropos-command] 'helm-c-apropos)
+(define-key help-map [remap apropos-command] 'helm-apropos)
+(global-set-key [remap apropos-command] 'helm-apropos)
 
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 (when (boundp 'ido-minor-mode-map-entry)
