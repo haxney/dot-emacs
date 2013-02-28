@@ -144,6 +144,7 @@ when needed."
         (mediawiki t)        ;; melpa
         (memory-usage t)     ;; gnu
         (mode-compile t)     ;; marmalade
+        (multiple-cursors t) ;; melpa
         (nlinum t)           ;; gnu
         (org-magit t)        ;; marmalade
         (paredit t)          ;; melpa
@@ -234,5 +235,8 @@ It's not unreasonable to think that this may get split out into
 its own package someday."
   :prefix "local-conf-"
   :tag "Local configuration")
+
+;; I wish it was a defcustom
+(setq mc/list-file "~/.emacs.d/tmp/.mc-lists.el")
 
 ;;; init.el ends here
