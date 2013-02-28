@@ -143,8 +143,6 @@ when needed."
         (markdown-mode t)    ;; melpa
         (mediawiki t)        ;; melpa
         (memory-usage t)     ;; gnu
-        (mmm-mode t)         ;; melpa
-        (mocker t)           ;; marmalade
         (mode-compile t)     ;; marmalade
         (nlinum t)           ;; gnu
         (org-magit t)        ;; marmalade
@@ -154,6 +152,7 @@ when needed."
         (popup t)            ;; melpa
         (psl-mode t)         ;; elpa-haxney
         (quack t)            ;; elpa-haxney
+        (restclient t)       ;; melpa
         (rinari t)           ;; melpa
         (rspec-mode t)       ;; melpa
         (ruby-block t)       ;; melpa
