@@ -132,6 +132,7 @@ when needed."
         (inf-ruby t)         ;; melpa
         (inflections t)      ;; melpa
         (info+ t)            ;; melpa
+        (jade-mode t)        ;; melpa
         (jump t)             ;; melpa
         (keyfreq t)          ;; marmalade
         (keywiz t)           ;; marmalade
@@ -168,6 +169,7 @@ when needed."
         (smex t)             ;; melpa
         (smooth-scrolling t) ;; melpa
         (ssh-config-mode t)  ;; melpa
+        (sws-mode t)         ;; melpa
         (tidy t)             ;; melpa
         (unbound t)          ;; marmalade
         (undo-tree t)        ;; gnu
