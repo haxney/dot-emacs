@@ -120,6 +120,7 @@ when needed."
         (gh t)               ;; melpa
         (gist t)             ;; melpa
         (gnuplot t)          ;; melpa
+        (groovy-mode t)      ;; melpa
         (haml-mode t)        ;; melpa
         (helm t)             ;; melpa
         (helm-R t)           ;; melpa
@@ -147,7 +148,6 @@ when needed."
         (mode-compile t)     ;; marmalade
         (multiple-cursors t) ;; melpa
         (nlinum t)           ;; gnu
-        (org-magit t)        ;; marmalade
         (paredit t)          ;; melpa
         (pcache t)           ;; melpa
         (php-mode t)         ;; melpa

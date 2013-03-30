@@ -7,7 +7,7 @@
  '(Info-breadcrumbs-in-mode-line-mode t)
  '(Info-mode-hook (quote (flyspell-mode-off scroll-lock-mode less-minor-mode linum-off)))
  '(LaTeX-command "latex -shell-escape")
- '(LaTeX-mode-hook (quote (LaTeX-preview-setup flymake-mode-off turn-on-flyspell)))
+ '(LaTeX-mode-hook (quote (LaTeX-preview-setup flymake-mode-off turn-on-flyspell)) t)
  '(TeX-master (quote dwim))
  '(abbrev-file-name "~/.emacs.d/tmp/abbrev_defs")
  '(ac-auto-show-menu t)
@@ -68,6 +68,7 @@
  '(ecb-options-version "2.32")
  '(ecb-tip-of-the-day nil)
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
+ '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(edit-server-new-frame nil)
  '(emacs-lisp-mode-hook (quote (turn-on-eldoc-mode flyspell-prog-mode paredit-mode set-elisp-mode-name)))
  '(enable-recursive-minibuffers t)
@@ -180,8 +181,6 @@
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "~/org/archive.org::* From %s")
  '(org-archive-mark-done t)
- '(org-babel-load-languages (quote ((js . t) (dot . t) (latex . t) (ruby . t) (R . t) (python . t) (emacs-lisp . t) (sh . t) (sql . t))))
- '(org-babel-no-eval-on-ctrl-c-ctrl-c t)
  '(org-capture-templates (quote (("t" "Todo" entry (file+headline "~/org/root.org" "Task Inbox") "** TODO %?
    %i") ("d" "Day Page" entry (function org-open-day-page) "
 * Sleep" :immediate-finish t :unnarrowed t))))
