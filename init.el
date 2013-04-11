@@ -134,6 +134,7 @@ when needed."
         (inflections t)      ;; melpa
         (info+ t)            ;; melpa
         (jade-mode t)        ;; melpa
+        (js2-mode t)         ;; gnu
         (jump t)             ;; melpa
         (keyfreq t)          ;; marmalade
         (keywiz t)           ;; marmalade
@@ -176,6 +177,7 @@ when needed."
         (vbnet-mode t)       ;; elpa-haxney
         (vimgolf t)          ;; melpa
         (vlf t)              ;; gnu
+        (websocket t)        ;; melpa
         (yaml-mode t)        ;; melpa
         ))
 

@@ -91,7 +91,9 @@
 (delete '("\\.haml$" . haml-mode) auto-mode-alist)
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
 (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
 (eval-after-load 'coffee-mode
