@@ -124,6 +124,7 @@ when needed."
         (haml-mode t)        ;; melpa
         (helm t)             ;; melpa
         (helm-R t)           ;; melpa
+        (helm-ack t)         ;; melpa
         (helm-descbinds t)   ;; melpa
         (helm-git t)         ;; melpa
         (hl-line+ t)         ;; marmalade
@@ -149,6 +150,8 @@ when needed."
         (mode-compile t)     ;; marmalade
         (multiple-cursors t) ;; melpa
         (nlinum t)           ;; gnu
+        (org t)              ;; gnu
+        (org-plus-contrib t) ;; org
         (paredit t)          ;; melpa
         (pcache t)           ;; melpa
         (php-mode t)         ;; melpa
