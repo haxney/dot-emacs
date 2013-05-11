@@ -102,6 +102,9 @@
 
 (add-to-list 'auto-mode-alist '("\\.handlebars$" . mustache-mode))
 
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
+
 (add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
 (add-to-list 'auto-mode-alist '("\.cnf$" . conf-mode))
 
