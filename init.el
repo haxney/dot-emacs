@@ -73,8 +73,7 @@ when needed."
 
 (defun do-uncooperative-requires ()
   "Manually load packages without `autoloads'."
-  (require 'ess-site nil t)
-  (require 'keyfreq))
+  (require 'ess-site nil t))
 
 (defun load-nxhtml ()
   "Load nxhtml"
