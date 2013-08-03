@@ -212,11 +212,6 @@ That's not nice."
     ad-do-it
     (setq buffer-read-only old-read-only)))
 
-(eval-after-load 'info
-  '(progn
-     (define-key Info-mode-map (kbd ";") 'Info-next-reference)
-     (define-key Info-mode-map (kbd "'") 'Info-prev-reference)))
-
 ;; Make data-debug much more useful: set `buffer-read-only' so that the nice
 ;; structure of the buffer doesn't get clobbered and `inhibit-read-only' so that
 ;; the collapse and expand commands can do their thing
