@@ -29,7 +29,7 @@
 ;; Paredit steals C-j from `eval-print-last-sexp'. Bring it back!
 (define-key lisp-interaction-mode-map (kbd "C-c C-e") 'eval-print-last-sexp)
 (global-set-key (kbd "C-x C-o") 'delete-blank-lines)
-(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-c g") 'magit-status)
 
 ;; Make paredit play nice with cua's rectangle editing.
 (eval-after-load "cua-rect"
