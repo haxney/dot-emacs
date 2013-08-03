@@ -94,6 +94,7 @@ when needed."
 ;; in order for those things to work. It's all very strange.
 (add-hook 'after-init-hook 'load-custom-file 'append)
 (add-hook 'after-init-hook 'really-activate-desktop 'append)
+(add-hook 'after-init-hook 'sml/setup 'append)
 
 (when (file-exists-p "~/Private/private.el.gz.gpg")
   (load "~/Private/private.el.gz.gpg"))
@@ -121,6 +122,7 @@ when needed."
         (gist t)             ;; melpa
         (gnuplot t)          ;; melpa
         (groovy-mode t)      ;; melpa
+        (guide-key t)        ;; melpa
         (haml-mode t)        ;; melpa
         (helm t)             ;; melpa
         (helm-R t)           ;; melpa
@@ -156,8 +158,10 @@ when needed."
         (pcache t)           ;; melpa
         (php-mode t)         ;; melpa
         (popup t)            ;; melpa
+        (popwin t)           ;; melpa
         (psl-mode t)         ;; elpa-haxney
         (quack t)            ;; elpa-haxney
+        (request t)          ;; melpa
         (restclient t)       ;; melpa
         (rinari t)           ;; melpa
         (rspec-mode t)       ;; melpa
@@ -170,11 +174,13 @@ when needed."
         (scala-mode t)       ;; melpa
         (scss-mode t)        ;; melpa
         (smart-mode-line t)  ;; melpa
+        (smart-mode-line t)  ;; melpa
         (smex t)             ;; melpa
         (smooth-scrolling t) ;; melpa
         (ssh-config-mode t)  ;; melpa
         (sws-mode t)         ;; melpa
         (tidy t)             ;; melpa
+        (typing t)           ;; melpa
         (unbound t)          ;; marmalade
         (undo-tree t)        ;; gnu
         (vbnet-mode t)       ;; elpa-haxney
