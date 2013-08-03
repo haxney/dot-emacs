@@ -85,7 +85,7 @@
 
 (eval-after-load 'inf-ruby
   '(progn
-     (setf (first inf-ruby-implementations) '("ruby" . "pry"))))
+     (setf (car inf-ruby-implementations) '("ruby" . "pry"))))
 
 ;; Make sure `haml-mode' has a higher priority than `nxhtml-mumamo-mode'.
 (delete '("\\.haml$" . haml-mode) auto-mode-alist)
