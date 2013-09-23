@@ -120,9 +120,10 @@ when needed."
         (geiser t)           ;; elpa-haxney
         (gh t)               ;; melpa
         (gist t)             ;; melpa
+        (git-commit-mode t)  ;; melpa
+        (git-rebase-mode t)  ;; melpa
         (gnuplot t)          ;; melpa
         (groovy-mode t)      ;; melpa
-        (guide-key t)        ;; melpa
         (haml-mode t)        ;; melpa
         (helm t)             ;; melpa
         (helm-R t)           ;; melpa
@@ -159,7 +160,6 @@ when needed."
         (php-mode t)         ;; melpa
         (popup t)            ;; melpa
         (popwin t)           ;; melpa
-        (psl-mode t)         ;; elpa-haxney
         (quack t)            ;; elpa-haxney
         (request t)          ;; melpa
         (restclient t)       ;; melpa
@@ -169,22 +169,19 @@ when needed."
         (ruby-compilation t) ;; melpa
         (ruby-mode t)        ;; melpa
         (ruby-test-mode t)   ;; marmalade
+        (rust-mode t)        ;; melpa
         (rvm t)              ;; melpa
         (sass-mode t)        ;; melpa
-        (scala-mode t)       ;; melpa
         (scss-mode t)        ;; melpa
-        (smart-mode-line t)  ;; melpa
         (smart-mode-line t)  ;; melpa
         (smex t)             ;; melpa
         (smooth-scrolling t) ;; melpa
         (ssh-config-mode t)  ;; melpa
         (sws-mode t)         ;; melpa
         (tidy t)             ;; melpa
-        (typing t)           ;; melpa
         (unbound t)          ;; marmalade
         (undo-tree t)        ;; gnu
         (vbnet-mode t)       ;; elpa-haxney
-        (vimgolf t)          ;; melpa
         (vlf t)              ;; gnu
         (websocket t)        ;; melpa
         (yaml-mode t)        ;; melpa
