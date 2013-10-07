@@ -120,4 +120,9 @@ From https://github.com/magnars/.emacs.d"
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "s-SPC") 'set-rectangular-region-anchor)
 
+(eval-after-load 'info
+  '(progn
+     (define-key Info-mode-map (kbd ";") 'Info-next-reference)
+     (define-key Info-mode-map (kbd "'") 'Info-prev-reference)))
+
 ;;; local-keybindings.el ends here
