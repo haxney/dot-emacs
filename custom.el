@@ -186,6 +186,7 @@
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "~/org/archive.org::* From %s")
  '(org-archive-mark-done t)
+ '(org-babel-load-languages (quote ((emacs-lisp . t) (R . t))))
  '(org-capture-templates (quote (("t" "Todo" entry (file+headline "~/org/root.org" "Task Inbox") "** TODO %?
    %i") ("d" "Day Page" entry (function org-open-day-page) "
 * Sleep" :immediate-finish t :unnarrowed t))))
@@ -194,6 +195,7 @@
  '(org-clock-out-remove-zero-time-clocks t)
  '(org-clock-persist (quote clock))
  '(org-clock-persist-file "~/.emacs.d/tmp/org-clock-save.el")
+ '(org-confirm-babel-evaluate nil)
  '(org-cycle-include-plain-lists nil)
  '(org-default-notes-file "~/org/root.org")
  '(org-description-max-indent 10)
