@@ -26,11 +26,7 @@
 
 ;;; Code:
 
-(put 'cl-defmacro 'lisp-indent-function 2)
-(put 'cl-dolist 'lisp-indent-function 1)
-(put 'cl-case 'lisp-indent-function 1)
 (put 'with-package-test 'lisp-indent-function 1)
-(put 'ert-deftest 'lisp-indent-function 2)
 (put 'package-with-cd 'lisp-indent-function 1)
 
 (defconst lisp-font-lock-keywords-1

@@ -1,6 +1,6 @@
 ;;; local-filetypes.el --- Various editing settings which have no home.
 
-;; Copyright (C) 2009 Daniel Hackney
+;; Copyright (C) 2009, 2013 Daniel Hackney
 
 ;; Author: Daniel Hackney
 ;; Keywords: convenience files local
@@ -64,12 +64,7 @@
 ;;(add-to-list 'ac-sources 'ac-source-company-geiser)
 
 (add-to-list 'auto-mode-alist '("\\.gri$" . gri-mode))
-
-(autoload 'yaml-mode "yaml-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
-
 (add-to-list 'auto-mode-alist '("\\.dot$" . graphviz-dot-mode))
-
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Buildfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("config.ru$" . ruby-mode))
@@ -87,29 +82,10 @@
   '(progn
      (setf (car inf-ruby-implementations) '("ruby" . "pry"))))
 
-;; Make sure `haml-mode' has a higher priority than `nxhtml-mumamo-mode'.
-(delete '("\\.haml$" . haml-mode) auto-mode-alist)
-(add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
-
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . javascript-mode))
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
-(eval-after-load 'coffee-mode
-  '(progn
-     (setq-mode-local coffee-mode tab-width 2)))
-
 (add-to-list 'auto-mode-alist '("\\.handlebars$" . mustache-mode))
-
-(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
-
-(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
 (add-to-list 'auto-mode-alist '("\.cnf$" . conf-mode))
-
-;; Live on the wild side.
-(setq write-region-inhibit-fsync t)
 
 (defun set-elisp-mode-name ()
   (setq mode-name "El"))
@@ -162,52 +138,6 @@
 
 (autoload 'vbnet-mode "vbnet-mode" nil t)
 (add-to-list 'auto-mode-alist '("\.bas$" . vbnet-mode))
-
-(eval-after-load 'geiser-syntax
-  '(progn
-     (geiser-syntax--scheme-indent
-      (define 3)
-      (local 1)
-      ;; Hacks for desugar. `type-case' won't cascade its indentation to
-      ;; sub-forms
-      (BracketLHS 1)
-      (DotLHS 1)
-      (IdLHS 1)
-      (ObjectP 1)
-      (DotP 1)
-      (BracketP 1)
-      (DotMethodP 1)
-      (BrackMethodP 1)
-
-      (FuncP 1)
-      (AppP 1)
-      (DefvarP 1)
-      (DeffunP 1)
-      (IdP 1)
-
-      (WhileP 1)
-      (ForP 1)
-
-      (AssignP 1)
-
-      (SeqP 1)
-      (IfP 1)
-
-      (NumP 1)
-      (StrP 1)
-      (TrueP 1)
-      (FalseP 1)
-
-      (PrimP 1)
-
-      (PrimAssignP 1)
-
-      (PreIncP 1)
-      (PostIncP 1)
-      (PreDecP 1)
-      (PostDecP 1)
-
-      (interp-result 1))))
 
 (diminish 'abbrev-mode)
 

@@ -37,10 +37,6 @@
      (define-key cua--rectangle-keymap [remap paredit-forward-delete] 'cua-delete-char-rectangle)
      (define-key cua--rectangle-keymap [remap paredit-backward-delete] 'cua-delete-char-rectangle)))
 
-(eval-after-load 'dired
-  '(progn
-     (define-key dired-mode-map "e" 'wdired-change-to-wdired-mode)))
-
 (global-set-key (kbd "M-C-y") 'helm-show-kill-ring)
 
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -63,9 +59,6 @@
   (define-key (cdr ido-minor-mode-map-entry)
     [remap ido-switch-buffer]
     'helm-buffers-list))
-
-(define-key help-map [remap describe-bindings] 'helm-descbinds)
-(global-set-key [remap describe-bindings] 'helm-descbinds)
 
 (eval-after-load 'comint
   '(defadvice comint-previous-input
@@ -115,8 +108,13 @@ From https://github.com/magnars/.emacs.d"
 
 (global-set-key (kbd "C-x C-e") 'eval-and-replace)
 
+(eval-after-load 'info
+  '(progn
+     (define-key Info-mode-map (kbd ";") 'Info-next-reference)
+     (define-key Info-mode-map (kbd "'") 'Info-prev-reference)))
+
 ;; Multiple-cursors
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)

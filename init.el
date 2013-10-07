@@ -11,15 +11,7 @@
 
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name))
-      tmp-dir (file-name-directory (concat dotfiles-dir "tmp/"))
-      cedet-dir (file-name-directory (concat dotfiles-dir "cedet-1.1/")))
-
-(if (and (string= emacs-version "24.2.1")
-         (file-exists-p (concat cedet-dir "common/cedet.el")))
-    (progn
-      (load (concat cedet-dir "common/cedet"))
-      (require 'semantic-el nil t))
-  (require 'semantic/bovine/el nil t))
+      tmp-dir (file-name-directory (concat dotfiles-dir "tmp/")))
 
 (make-directory tmp-dir t)
 (setq load-dirs t)
@@ -42,8 +34,7 @@ by using nXML's indentation rules."
       (goto-char begin)
       (while (search-forward-regexp "\>[ \\t]*\<" nil t)
         (backward-char) (insert "\n"))
-      (indent-region begin end)))
-  (message "Ah, much better!"))
+      (indent-region begin end))))
 
 ;; Re-enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
@@ -73,21 +64,15 @@ when needed."
 
 (defun do-uncooperative-requires ()
   "Manually load packages without `autoloads'."
-  (require 'ess-site nil t)
-  (require 'keyfreq))
-
-(defun load-nxhtml ()
-  "Load nxhtml"
-  (when (file-exists-p (concat dotfiles-dir "nxhtml/autostart.el"))
-    (load (concat dotfiles-dir "nxhtml/autostart"))))
+  (require 'ess-site nil t))
 
 (add-hook 'after-init-hook 'do-uncooperative-requires)
 (add-hook 'after-init-hook 'smex-initialize)
-;;(add-hook 'after-init-hook 'load-nxhtml)
 
-(autoload 'dired-details "dired-details")
 (autoload 'dired-details-install "dired-details")
 (add-hook 'after-init-hook 'dired-details-install)
+
+(require 'semantic/bovine/el nil t)
 
 ;; Doing this seems to be important. Some stuff is not set up for customize to
 ;; act until after packages and such are loaded, but customize needs to set up
@@ -103,92 +88,90 @@ when needed."
 
 (setq package-load-list
       '(
-        (apache-mode t)      ;; marmalade
-        (auctex t)           ;; gnu
-        (auto-complete t)    ;; melpa
-        (coffee-mode t)      ;; melpa
-        (company t)          ;; gnu
-        (csv-mode t)         ;; melpa
-        (diminish t)         ;; marmalade
-        (dired-details t)    ;; melpa
-        (ess t)              ;; melpa
-        (feature-mode t)     ;; marmalade
-        (findr t)            ;; melpa
-        (full-ack t)         ;; melpa
-        (furl t)             ;; marmalade
-        (geben t)            ;; marmalade
-        (geiser t)           ;; elpa-haxney
-        (gh t)               ;; melpa
-        (gist t)             ;; melpa
-        (git-commit-mode t)  ;; melpa
-        (git-rebase-mode t)  ;; melpa
-        (gnuplot t)          ;; melpa
-        (groovy-mode t)      ;; melpa
-        (haml-mode t)        ;; melpa
-        (helm t)             ;; melpa
-        (helm-R t)           ;; melpa
-        (helm-ack t)         ;; melpa
-        (helm-descbinds t)   ;; melpa
-        (helm-git t)         ;; melpa
-        (hl-line+ t)         ;; marmalade
-        (hl-sexp t)          ;; melpa
-        (htmlize t)          ;; marmalade
-        (iedit t)            ;; melpa
-        (inf-ruby t)         ;; melpa
-        (inflections t)      ;; melpa
-        (info+ t)            ;; melpa
-        (jade-mode t)        ;; melpa
-        (js2-mode t)         ;; gnu
-        (jump t)             ;; melpa
-        (keyfreq t)          ;; marmalade
-        (keywiz t)           ;; marmalade
-        (less t)             ;; elpa
-        (load-dir t)         ;; gnu
-        (logito t)           ;; melpa
-        (lua-mode t)         ;; melpa
-        (magit t)            ;; melpa
-        (markdown-mode t)    ;; melpa
-        (mediawiki t)        ;; melpa
-        (memory-usage t)     ;; gnu
-        (mode-compile t)     ;; marmalade
-        (multiple-cursors t) ;; melpa
-        (nlinum t)           ;; gnu
-        (org t)              ;; gnu
-        (org-plus-contrib t) ;; org
-        (paredit t)          ;; melpa
-        (pcache t)           ;; melpa
-        (php-mode t)         ;; melpa
-        (popup t)            ;; melpa
-        (popwin t)           ;; melpa
-        (quack t)            ;; elpa-haxney
-        (request t)          ;; melpa
-        (restclient t)       ;; melpa
-        (rinari t)           ;; melpa
-        (rspec-mode t)       ;; melpa
-        (ruby-block t)       ;; melpa
-        (ruby-compilation t) ;; melpa
-        (ruby-mode t)        ;; melpa
-        (ruby-test-mode t)   ;; marmalade
-        (rust-mode t)        ;; melpa
-        (rvm t)              ;; melpa
-        (sass-mode t)        ;; melpa
-        (scss-mode t)        ;; melpa
-        (smart-mode-line t)  ;; melpa
-        (smex t)             ;; melpa
-        (smooth-scrolling t) ;; melpa
-        (ssh-config-mode t)  ;; melpa
-        (sws-mode t)         ;; melpa
-        (tidy t)             ;; melpa
-        (unbound t)          ;; marmalade
-        (undo-tree t)        ;; gnu
-        (vbnet-mode t)       ;; elpa-haxney
-        (vlf t)              ;; gnu
-        (websocket t)        ;; melpa
-        (yaml-mode t)        ;; melpa
+        (apache-mode t)             ;; marmalade
+        (auctex t)                  ;; gnu
+        (auto-complete t)           ;; melpa
+        (coffee-mode t)             ;; melpa
+        (company t)                 ;; gnu
+        (csv-mode t)                ;; melpa
+        (diminish t)                ;; marmalade
+        (dired-details t)           ;; melpa
+        (ess t)                     ;; melpa
+        (feature-mode t)            ;; marmalade
+        (findr t)                   ;; melpa
+        (full-ack t)                ;; melpa
+        (furl t)                    ;; marmalade
+        (geben t)                   ;; marmalade
+        (geiser t)                  ;; melpa
+        (gh t)                      ;; melpa
+        (gist t)                    ;; melpa
+        (git-commit-mode t)         ;; melpa
+        (git-rebase-mode t)         ;; melpa
+        (gnuplot t)                 ;; melpa
+        (groovy-mode t)             ;; melpa
+        (haml-mode t)               ;; melpa
+        (helm t)                    ;; melpa
+        (helm-R t)                  ;; melpa
+        (helm-ack t)                ;; melpa
+        (helm-descbinds t)          ;; melpa
+        (helm-git t)                ;; melpa
+        (hl-line+ t)                ;; marmalade
+        (hl-sexp t)                 ;; melpa
+        (htmlize t)                 ;; marmalade
+        (iedit t)                   ;; melpa
+        (inf-ruby t)                ;; melpa
+        (inflections t)             ;; melpa
+        (info+ t)                   ;; melpa
+        (jade-mode t)               ;; melpa
+        (js2-mode t)                ;; gnu
+        (jump t)                    ;; melpa
+        (keyfreq t)                 ;; marmalade
+        (keywiz t)                  ;; marmalade
+        (less t)                    ;; elpa
+        (load-dir t)                ;; gnu
+        (logito t)                  ;; melpa
+        (lua-mode t)                ;; melpa
+        (magit t)                   ;; melpa
+        (markdown-mode t)           ;; melpa
+        (mediawiki t)               ;; melpa
+        (memory-usage t)            ;; gnu
+        (mode-compile t)            ;; marmalade
+        (multiple-cursors t)        ;; melpa
+        (nlinum t)                  ;; gnu
+        (org t)                     ;; gnu
+        (org-plus-contrib t)        ;; org
+        (paredit t)                 ;; melpa
+        (pcache t)                  ;; melpa
+        (php-mode t)                ;; melpa
+        (popup t)                   ;; melpa
+        (popwin t)                  ;; melpa
+        (quack t)                   ;; elpa-haxney
+        (request t)                 ;; melpa
+        (restclient t)              ;; melpa
+        (rinari t)                  ;; melpa
+        (rspec-mode t)              ;; melpa
+        (ruby-block t)              ;; melpa
+        (ruby-compilation t)        ;; melpa
+        (ruby-mode t)               ;; melpa
+        (ruby-test-mode t)          ;; marmalade
+        (rust-mode t)               ;; melpa
+        (rvm t)                     ;; melpa
+        (sass-mode t)               ;; melpa
+        (scss-mode t)               ;; melpa
+        (smart-mode-line t)         ;; melpa
+        (smex t)                    ;; melpa
+        (smooth-scrolling t)        ;; melpa
+        (ssh-config-mode t)         ;; melpa
+        (sws-mode t)                ;; melpa
+        (tidy t)                    ;; melpa
+        (unbound t)                 ;; marmalade
+        (undo-tree t)               ;; gnu
+        (vbnet-mode t)              ;; elpa-haxney
+        (vlf t)                     ;; gnu
+        (websocket t)               ;; melpa
+        (whitespace-cleanup-mode t) ;; melpa
+        (yaml-mode t)               ;; melpa
         ))
-
-;; Needed by MELPA to avoid timeouts
-(setq url-http-attempt-keepalives nil)
 
 (defvar hl-line-ignore-regexp "\*magit:.*")
 
@@ -198,45 +181,6 @@ when needed."
        "Don't highlight in buffers which match a regexp."
        (unless (string-match hl-line-ignore-regexp (buffer-name (window-buffer (selected-window))))
          ad-do-it))
-
-(defadvice less-minor-mode (around less-minor-mode-respect-read-only
-                                   ()
-                                   activate)
-  "`less-minor-mode' overrides the read-only status of the buffer.
-
-That's not nice."
-  (let ((old-read-only buffer-read-only))
-    ad-do-it
-    (setq buffer-read-only old-read-only)))
-
-(eval-after-load 'info
-  '(progn
-     (define-key Info-mode-map (kbd ";") 'Info-next-reference)
-     (define-key Info-mode-map (kbd "'") 'Info-prev-reference)))
-
-;; Make data-debug much more useful: set `buffer-read-only' so that the nice
-;; structure of the buffer doesn't get clobbered and `inhibit-read-only' so that
-;; the collapse and expand commands can do their thing
-(add-hook 'data-debug-mode-hook '(lambda () (setq buffer-read-only t)))
-
-(mapc '(lambda (fun) (ad-add-advice fun
-                                    '(data-debug-inhibit-read-only
-                                      nil
-                                      t
-                                      (advice . (lambda () (let ((inhibit-read-only t))
-                                                             ad-do-it))))
-                                    'around
-                                    0)
-         (ad-activate fun))
-      '(data-debug-next
-        data-debug-prev
-        data-debug-next-expando
-        data-debug-prev-expando
-        data-debug-expand-or-contract
-        data-debug-expand-or-contract-mouse))
-
-;; hack for now
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/ess")
 
 (defgroup local-conf nil
   "A group for all of my local configuration.

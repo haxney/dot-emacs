@@ -1,6 +1,6 @@
 ;;; local-org-mode.el --- Set up `org-mode'.
 
-;; Copyright (C) 2009, 2012 Daniel Hackney
+;; Copyright (C) 2009, 2012, 2013 Daniel Hackney
 
 ;; Author: Daniel Hackney
 ;; Keywords: org local
@@ -22,69 +22,16 @@
 
 ;;; Commentary:
 
-;; Set up clock in/out functionality, as well as convenience keybindings.
-
 ;;; Code:
-
-(eval-when-compile (require 'cl))
-(autoload 'org-read-date "org")
 
 (defun org-open-day-page ()
   "Use `org-read-date' to prompt for a date, and open the day-page file matching that name."
   (interactive)
+  (require 'org)
   (find-file (expand-file-name
-              (concat (file-name-as-directory org-directory)
-                      (replace-regexp-in-string "-" "." (org-read-date nil))
-                      ".org"))))
-
-(defun org-preprocess-radio-lists ()
-  "Preprocess radio lists before exporting."
-  (save-excursion
-    (save-match-data
-     (goto-char (point-min))
-     (while (re-search-forward "^[ \t]*#\\+ORGLST:?" nil t)
-       (forward-line 1)
-       (when (org-at-item-p)
-         (save-excursion
-           (org-list-send-list t)))))))
-
-(defun org-preprocess-radio-tables ()
-  "Preprocess radio tables before exporting."
-  (save-excursion
-    (save-match-data
-     (goto-char (point-min))
-     (while (search-forward "#+ORGTBL:" nil t)
-       (forward-line 1)
-       (when (org-at-table-p)
-         (orgtbl-send-table t))))))
-
-(defun dhackney/org-link-to-project (link desc)
-  "Prompt for a link between org files.
-
-Makes linking between `org-mode' files easier."
-  (interactive (list (concat
-                      "file:"
-                      (ido-completing-read
-                       "Org File: "
-                       (directory-files (file-name-directory (buffer-file-name))
-                                        nil
-                                        "^[^\.#].*\.org")))
-                     (read-from-minibuffer "Desc: ")))
-  (insert (org-make-link-string link desc)))
-
-(eval-after-load "org"
-  '(progn
-     (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
-     (define-key org-mode-map (kbd "C-c M-l") 'dhackney/org-link-to-project)
-
-     ;; Custom agenda commands
-     (setq org-agenda-custom-commands
-           '(("p" tags "PROJECT-MAYBE-DONE" nil)
-             ("m" tags "PROJECT&MAYBE" nil)))
-     (org-add-link-type "tel" nil 'org-format-export-tel-link)
-
-     (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-lists)
-     (add-hook 'org-export-preprocess-after-macros-hook 'org-preprocess-radio-tables)))
+              (concat (replace-regexp-in-string "-" "." (org-read-date nil))
+                      ".org")
+              org-directory)))
 
 (defun org-format-export-tel-link (path desc format)
   "Format a tel: link for export"
@@ -93,5 +40,10 @@ Makes linking between `org-mode' files easier."
      (format "<a href=\"%s\">%s</a>" path desc))
     (latex
      (format "\\href{tel:%s}{\\texttt{%s}}" path desc))))
+
+(eval-after-load "org"
+  '(progn
+     (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
+     (org-add-link-type "tel" nil 'org-format-export-tel-link)))
 
 ;;; local-org-mode.el ends here
