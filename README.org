@@ -7,44 +7,101 @@
 
   I use the following repositories (also defined in =init.el=):
 
-#+BEGIN_SRC emacs-lisp
-  '("elpa" . "http://tromey.com/elpa/")
-  '("technomancy" . "http://repo.technomancy.us/emacs/")
-  '("marmalade" . "http://marmalade-repo.org/packages/")
+   #+BEGIN_SRC emacs-lisp
+     '(("geiser" . "http://gnu.mirrors.pair.com/savannah/savannah/geiser/packages/")
+       ("elpa-haxney" . "http://dl.dropbox.com/u/19422084/elpa-haxney/")
+       ("marmalade" . "http://marmalade-repo.org/packages/")
+       ("melpa" . "http://melpa.milkbox.net/packages/")
+       ("gnu" . "http://elpa.gnu.org/packages/"))
+   #+END_SRC
 
-#+END_SRC
 
   I currently have the following packages installed:
 
-  - auctex           :: 11.86
-  - company          :: 0.5
-  - diminish         :: 0.44
-  - ensime           :: 0.4.1
-  - findr            :: 0.7
-  - furl             :: 0.0.0
-  - gist             :: 0.5
-  - highline         :: 4.2
-  - htmlize          :: 1.37
-  - idle-highlight   :: 1.0
-  - inf-ruby         :: 2.1
-  - inflections      :: 1.0
-  - json             :: 1.2
-  - jump             :: 2.0
-  - keywiz           :: 1.4
-  - magit            :: 0.8.1
-  - marmalade        :: 0.0.3
-  - mediawiki        :: 2.2.2
-  - notify           :: 2010.8.20
-  - org              :: 20101120
-  - paredit          :: 22
-  - rinari           :: 2.1
-  - ruby-compilation :: 0.7
-  - ruby-mode        :: 1.1
-  - scala-mode       :: 0.5.99.5
-  - scpaste          :: 0.3
-  - smex             :: 1.1.1
-  - starter-kit      :: 2.0
-  - starter-kit-lisp :: 2.0
-  - undo-tree        :: 0.1.6
-  - xml-rpc          :: 1.6.7
-  - yaml-mode        :: 0.0.5
+  #+BEGIN_SRC emacs-lisp :results list :exports results
+    (mapcar (lambda (i) (format "%s :: %s" (car i) (package-version-join (aref (cdr i) 0)))) package-alist)
+  #+END_SRC
+
+  #+RESULTS:
+  - yaml-mode :: 20130311.1301
+  - whitespace-cleanup-mode :: 20130925.1738
+  - websocket :: 20130921.2340
+  - vlf :: 20130826.1229
+  - vbnet-mode :: 1.6
+  - undo-tree :: 20130812.1224
+  - unbound :: 0.1
+  - tidy :: 20111222.1756
+  - sws-mode :: 20120730.2122
+  - ssh-config-mode :: 20120513.2233
+  - smooth-scrolling :: 20130602.1609
+  - smex :: 20130707.1255
+  - smart-mode-line :: 20130919.2142
+  - scss-mode :: 20121203.127
+  - sass-mode :: 20101019.30
+  - rvm :: 20130521.902
+  - rust-mode :: 20130907.38
+  - ruby-test-mode :: 20130924.1018
+  - ruby-mode :: 20121202.2143
+  - ruby-compilation :: 20130429.1411
+  - ruby-block :: 20130924.21
+  - rspec-mode :: 20130910.1956
+  - rinari :: 20130901.1830
+  - restclient :: 20130627.1342
+  - request :: 20130526.1915
+  - quack :: 0.45
+  - popwin :: 20130329.2035
+  - popup :: 20130708.2245
+  - php-mode :: 20130920.1850
+  - pcache :: 20120408.1206
+  - paredit :: 20130722.1324
+  - org-plus-contrib :: 20130422
+  - org :: 20130923
+  - nlinum :: 1.1
+  - multiple-cursors :: 20130913.1148
+  - mode-compile :: 2.29
+  - memory-usage :: 0.2
+  - mediawiki :: 20130223.1441
+  - markdown-mode :: 20130726.2142
+  - magit :: 20130926.659
+  - lua-mode :: 20130910.922
+  - logito :: 20120225.2155
+  - load-dir :: 0.0.3
+  - less :: 0.2
+  - keywiz :: 1.4
+  - keyfreq :: 20130822.1639
+  - jump :: 20130702.833
+  - js2-mode :: 20130920.429
+  - jade-mode :: 20130220.1245
+  - info+ :: 20130723.2335
+  - inflections :: 20121016.957
+  - inf-ruby :: 20130920.421
+  - iedit :: 20130629.1709
+  - htmlize :: 20130207.2102
+  - hl-sexp :: 20101130.1343
+  - hl-line+ :: 20130723.2210
+  - helm-git :: 20120629.1358
+  - helm-descbinds :: 20130612.1604
+  - helm-R :: 20120820.914
+  - helm :: 20130926.1118
+  - haml-mode :: 20130130.1622
+  - groovy-mode :: 201203310931
+  - gnuplot :: 20130207.101
+  - git-rebase-mode :: 20130912.1429
+  - git-commit-mode :: 20130919.341
+  - gist :: 20130315.2306
+  - gh :: 20130812.452
+  - geiser :: 20130925.510
+  - geben :: 20100330.543
+  - furl :: 20110112.1707
+  - full-ack :: 20130423.2204
+  - findr :: 20130127.2032
+  - feature-mode :: 20130714.2220
+  - ess :: 20130922.246
+  - dired-details :: 20130328.1119
+  - diminish :: 20091203.1912
+  - csv-mode :: 20130424.1528
+  - company :: 20130923.513
+  - coffee-mode :: 20130618.1418
+  - auto-complete :: 20130724.1750
+  - auctex :: 11.87
+  - apache-mode :: 20080905.553
