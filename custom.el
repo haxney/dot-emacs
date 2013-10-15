@@ -97,7 +97,6 @@
  '(erc-services-mode t)
  '(erc-spelling-mode t)
  '(erc-stamp-mode t)
- '(erc-text-matched-hook (quote (erc-log-matches erc-respond-once-if-away notify-erc)))
  '(erc-timestamp-format "[%R-%m/%d]")
  '(erc-track-exclude-server-buffer t)
  '(erc-track-exclude-types (quote ("JOIN" "NICK" "PART" "QUIT" "MODE" "333" "353")))
