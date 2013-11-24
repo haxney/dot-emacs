@@ -94,6 +94,7 @@ when needed."
         (coffee-mode t)             ;; melpa
         (company t)                 ;; gnu
         (csv-mode t)                ;; melpa
+        (dash t)                    ;; melpa
         (diminish t)                ;; marmalade
         (dired-details t)           ;; melpa
         (ess t)                     ;; melpa
@@ -108,6 +109,7 @@ when needed."
         (git-commit-mode t)         ;; melpa
         (git-rebase-mode t)         ;; melpa
         (gnuplot t)                 ;; melpa
+        (graphviz-dot-mode t)       ;; melpa
         (groovy-mode t)             ;; melpa
         (haml-mode t)               ;; melpa
         (helm t)                    ;; melpa
