@@ -76,7 +76,8 @@
 (eval-after-load 'ruby
   '(progn
      (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
-     (add-hook 'ruby-mode-hook 'ruby-electric-mode)))
+     (add-hook 'ruby-mode-hook 'ruby-electric-mode)
+     (add-hook 'ruby-mode-hook 'yard-mode)))
 
 (eval-after-load 'inf-ruby
   '(progn

@@ -130,6 +130,7 @@ when needed."
         (keyfreq t)                 ;; marmalade
         (keywiz t)                  ;; marmalade
         (less t)                    ;; elpa
+        (less-css-mode t)           ;; melpa
         (load-dir t)                ;; gnu
         (logito t)                  ;; melpa
         (lua-mode t)                ;; melpa
@@ -154,7 +155,6 @@ when needed."
         (rspec-mode t)              ;; melpa
         (ruby-block t)              ;; melpa
         (ruby-compilation t)        ;; melpa
-        (ruby-mode t)               ;; melpa
         (ruby-test-mode t)          ;; marmalade
         (rust-mode t)               ;; melpa
         (rvm t)                     ;; melpa
@@ -173,6 +173,7 @@ when needed."
         (websocket t)               ;; melpa
         (whitespace-cleanup-mode t) ;; melpa
         (yaml-mode t)               ;; melpa
+        (yard-mode t)               ;; melpa
         ))
 
 (defvar hl-line-ignore-regexp "\*magit:.*")
