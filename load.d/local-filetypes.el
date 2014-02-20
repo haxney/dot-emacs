@@ -73,10 +73,9 @@
 (add-to-list 'auto-mode-alist '("\\.rabl$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.json_builder$" . ruby-mode))
 
-(eval-after-load 'ruby
+(eval-after-load 'ruby-mode
   '(progn
      (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
-     (add-hook 'ruby-mode-hook 'ruby-electric-mode)
      (add-hook 'ruby-mode-hook 'yard-mode)))
 
 (eval-after-load 'inf-ruby
