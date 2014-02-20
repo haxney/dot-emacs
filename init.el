@@ -9,6 +9,8 @@
 
 ;; Load path etc.
 
+;;; Code:
+
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name))
       tmp-dir (file-name-directory (concat dotfiles-dir "tmp/")))
@@ -93,15 +95,25 @@ when needed."
         (auto-complete t)           ;; melpa
         (coffee-mode t)             ;; melpa
         (company t)                 ;; gnu
+        (concurrent t)              ;; melpa
         (csv-mode t)                ;; melpa
+        (ctable t)                  ;; melpa
         (dash t)                    ;; melpa
+        (deferred t)                ;; melpa
         (diminish t)                ;; marmalade
         (dired-details t)           ;; melpa
+        (elpy t)                    ;; melpa
+        (epc t)                     ;; melpa
+        (epl t)                     ;; melpa
         (ess t)                     ;; melpa
+        (f t)                       ;; melpa
         (feature-mode t)            ;; marmalade
+        (find-file-in-project t)    ;; melpa
         (findr t)                   ;; melpa
+        (flycheck t)                ;; melpa
         (full-ack t)                ;; melpa
         (furl t)                    ;; marmalade
+        (fuzzy t)                   ;; melpa
         (geben t)                   ;; marmalade
         (geiser t)                  ;; melpa
         (gh t)                      ;; melpa
@@ -117,14 +129,17 @@ when needed."
         (helm-ack t)                ;; melpa
         (helm-descbinds t)          ;; melpa
         (helm-git t)                ;; melpa
+        (highlight-indentation t)   ;; melpa
         (hl-line+ t)                ;; marmalade
         (hl-sexp t)                 ;; melpa
         (htmlize t)                 ;; marmalade
+        (idomenu t)                 ;; melpa
         (iedit t)                   ;; melpa
         (inf-ruby t)                ;; melpa
         (inflections t)             ;; melpa
         (info+ t)                   ;; melpa
         (jade-mode t)               ;; melpa
+        (jedi t)                    ;; melpa
         (js2-mode t)                ;; gnu
         (jump t)                    ;; melpa
         (keyfreq t)                 ;; marmalade
@@ -141,13 +156,16 @@ when needed."
         (mode-compile t)            ;; marmalade
         (multiple-cursors t)        ;; melpa
         (nlinum t)                  ;; gnu
+        (nose t)                    ;; melpa
         (org t)                     ;; gnu
         (org-plus-contrib t)        ;; org
         (paredit t)                 ;; melpa
         (pcache t)                  ;; melpa
         (php-mode t)                ;; melpa
+        (pkg-info t)                ;; melpa
         (popup t)                   ;; melpa
         (popwin t)                  ;; melpa
+        (pyvenv t)                  ;; melpa
         (quack t)                   ;; elpa-haxney
         (request t)                 ;; melpa
         (restclient t)              ;; melpa
@@ -158,6 +176,7 @@ when needed."
         (ruby-test-mode t)          ;; marmalade
         (rust-mode t)               ;; melpa
         (rvm t)                     ;; melpa
+        (s t)                       ;; melpa
         (sass-mode t)               ;; melpa
         (scss-mode t)               ;; melpa
         (smart-mode-line t)         ;; melpa
@@ -169,11 +188,13 @@ when needed."
         (unbound t)                 ;; marmalade
         (undo-tree t)               ;; gnu
         (vbnet-mode t)              ;; elpa-haxney
+        (virtualenv t)              ;; melpa
         (vlf t)                     ;; gnu
         (websocket t)               ;; melpa
         (whitespace-cleanup-mode t) ;; melpa
         (yaml-mode t)               ;; melpa
         (yard-mode t)               ;; melpa
+        (yasnippet t)               ;; melpa
         ))
 
 (defvar hl-line-ignore-regexp "\*magit:.*")

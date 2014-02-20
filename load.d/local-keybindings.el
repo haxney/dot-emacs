@@ -44,7 +44,11 @@
 (global-set-key (kbd "C-x f") 'helm-recentf)
 
 (define-key esc-map [remap find-tag] 'helm-semantic-or-imenu)
+(eval-after-load 'elpy
+  '(progn
+     (define-key elpy-mode-map [remap elpy-goto-definition] 'helm-semantic-or-imenu)))
 (global-set-key [remap find-tag] 'helm-semantic-or-imenu)
+
 ;; Hopefully takes care of all those "Invalid face reference: helm-ff-directory"
 ;; errors.
 (eval-after-load 'helm-buffers

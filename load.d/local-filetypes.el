@@ -142,4 +142,12 @@
 
 (diminish 'abbrev-mode)
 
+(add-hook 'after-init-hook 'elpy-enable)
+(eval-after-load 'elpy
+  '(progn
+     (elpy-use-ipython)))
+
+(add-to-list 'exec-path (expand-file-name "~/.local/bin"))
+
+(provide 'local-filetypes)
 ;;; local-filetyptes.el ends here
