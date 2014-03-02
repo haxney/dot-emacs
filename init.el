@@ -14,6 +14,9 @@
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name))
       tmp-dir (file-name-directory (concat dotfiles-dir "tmp/")))
+;; Load cask
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
 
 (make-directory tmp-dir t)
 (setq load-dirs t)
