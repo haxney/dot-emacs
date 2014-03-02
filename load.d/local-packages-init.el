@@ -26,54 +26,61 @@
 
 ;;; Code:
 
-(require 'req-package)
+(require 'use-package)
 
 ;; Simple package declarations which don't require config.
 
-(req-package apache-mode :ensure apache-mode)
-(req-package auctex :ensure auctex)
-(req-package auto-complete :ensure auto-complete)
-(req-package bind-key :ensure bind-key)
-(req-package coffee-mode :ensure coffee-mode)
-(req-package csv-mode :ensure csv-mode)
-(req-package diminish :ensure diminish)
-(req-package flycheck :ensure flycheck)
-(req-package helm-descbinds :ensure helm-descbinds)
-(req-package iedit :ensure iedit)
-(req-package inflections :ensure inflections)
-(req-package info+ :ensure info+)
-(req-package jade-mode :ensure jade-mode)
-(req-package keyfreq :ensure keyfreq)
-(req-package keywiz :ensure keywiz)
-;;(req-package less :ensure less)
-(req-package lua-mode :ensure lua-mode)
-(req-package markdown-mode :ensure markdown-mode)
-(req-package mediawiki :ensure mediawiki)
-(req-package php-mode :ensure php-mode)
-(req-package restclient :ensure restclient)
-(req-package rust-mode :ensure rust-mode)
-(req-package smooth-scrolling :ensure smooth-scrolling)
-(req-package ssh-config-mode :ensure ssh-config-mode)
-(req-package sws-mode :ensure sws-mode)
-(req-package tidy :ensure tidy)
-(req-package unbound :ensure unbound)
-(req-package undo-tree :ensure undo-tree)
-(req-package vlf :ensure vlf)
-(req-package websocket :ensure websocket)
-(req-package whitespace-cleanup-mode :ensure whitespace-cleanup-mode)
-(req-package yaml-mode :ensure yaml-mode)
-(req-package groovy-mode :ensure groovy-mode)
-(req-package auto-indent-mode :ensure auto-indent-mode)
+(use-package rinari :ensure rinari)
+(use-package haml-mode :ensure t)
+(use-package feature-mode :ensure t)
+(use-package rspec-mode :ensure t)
+(use-package sass-mode :ensure t)
+(use-package less-css-mode :ensure t)
+(use-package apache-mode :ensure apache-mode)
+;;(use-package auctex :ensure t :defer t)
+(use-package auto-complete :ensure auto-complete)
+(use-package bind-key :ensure bind-key)
+(use-package coffee-mode :ensure coffee-mode)
+(use-package csv-mode :ensure csv-mode)
+(use-package diminish :ensure diminish)
+(use-package flycheck :ensure flycheck)
+(use-package helm-descbinds :ensure helm-descbinds)
+(use-package iedit :ensure iedit)
+(use-package inflections :ensure inflections)
+(use-package info+ :ensure info+)
+(use-package jade-mode :ensure jade-mode)
+(use-package keyfreq :ensure keyfreq)
+(use-package keywiz :ensure keywiz)
+;;(use-package less :ensure less)
+(use-package lua-mode :ensure lua-mode)
+(use-package markdown-mode :ensure markdown-mode)
+(use-package mediawiki :ensure mediawiki)
+(use-package php-mode :ensure php-mode)
+(use-package restclient :ensure restclient)
+(use-package rust-mode :ensure rust-mode)
+(use-package smooth-scrolling :ensure smooth-scrolling)
+(use-package ssh-config-mode :ensure ssh-config-mode)
+(use-package sws-mode :ensure sws-mode)
+(use-package tidy :ensure tidy)
+(use-package unbound :ensure unbound)
+(use-package undo-tree :ensure undo-tree)
+(use-package vlf :ensure vlf)
+(use-package websocket :ensure websocket)
+(use-package whitespace-cleanup-mode :ensure whitespace-cleanup-mode)
+(use-package yaml-mode :ensure yaml-mode)
+(use-package groovy-mode :ensure groovy-mode)
+(use-package auto-indent-mode :ensure auto-indent-mode)
+(use-package jedi :ensure t)
+(use-package quack :ensure t)
 
 ;; Complex package declarations
 
-(req-package dired-details
+(use-package dired-details
   :ensure dired-details
   :init (autoload 'dired-details-install "dired-details")
   :config (add-hook 'after-init-hook 'dired-details-install))
 
-(req-package elpy
-  :require jedi
+(use-package elpy
   :ensure elpy
   :config
   (progn
@@ -81,7 +88,7 @@
     (elpy-use-ipython)
     (define-key elpy-mode-map [remap elpy-goto-definition] 'helm-semantic-or-imenu)))
 
-(req-package erc
+(use-package erc
   :config
   (progn
     (add-hook 'erc-mode-hook 'visual-line-mode)
@@ -89,49 +96,49 @@
     (ad-activate 'erc-process-away)
     (ad-activate 'erc-cmd-AWAY)))
 
-(req-package ess
+(use-package ess
   :ensure ess
   :config (require 'ess-site nil t))
 
-(req-package geben
+(use-package geben
   :ensure geben
   :config
   (defadvice geben-dbgp-redirect-stream (around
-                                         geben-output-inhibit-read-only
-                                         activate)
+					 geben-output-inhibit-read-only
+					 activate)
     "Set `inhibit-read-only' during `geben-dbgp-redirect-stream'"
     (let ((inhibit-read-only t)
-          (inhibit-modification-hooks t))
+	  (inhibit-modification-hooks t))
       ad-do-it)
     (set-buffer-modified-p nil)))
 
-(req-package geiser
-  :require quack
+(use-package geiser
   :ensure geiser
   :config
   (eval-after-load 'geiser-mode
     '(define-key geiser-mode-map [remap geiser-edit-symbol-at-point]
        'helm-semantic-or-imenu)))
 
-(req-package graphviz-dot-mode
+(use-package graphviz-dot-mode
   :ensure graphviz-dot-mode
   :mode "\\.dot$")
 
-(req-package helm
+(use-package helm
   :ensure helm
-  :bind (("M-C-y" . helm-show-kill-ring)
-         ("C-x f" . helm-recentf)
-         ("C-x b" . helm-buffers-list))
   :config
   (progn
+    (bind-key "M-C-y" 'helm-show-kill-ring)
+    (bind-key "C-x f" 'helm-recentf)
+    (bind-key "C-x b" 'helm-buffers-list)
     (define-key esc-map [remap find-tag] 'helm-semantic-or-imenu)
     (global-set-key [remap find-tag] 'helm-semantic-or-imenu)
     (define-key help-map [remap apropos-command] 'helm-apropos)
     (global-set-key [remap apropos-command] 'helm-apropos)
-    (when (boundp 'ido-minor-mode-map-entry)
+    (when (and (boundp 'ido-minor-mode-map-entry)
+	       ido-minor-mode-map-entry)
       (define-key (cdr ido-minor-mode-map-entry)
-        [remap ido-switch-buffer]
-        'helm-buffers-list))))
+	[remap ido-switch-buffer]
+	'helm-buffers-list))))
 
 ;; Hopefully takes care of all those "Invalid face reference: helm-ff-directory"
 ;; errors.
@@ -140,23 +147,23 @@
 ;;      (require 'helm-files)))
 
 
-(req-package hl-line+
+(use-package hl-line+
   :ensure hl-line+
   :config
   (progn
     (defvar hl-line-ignore-regexp "\*magit:.*")
     (defadvice global-hl-line-highlight (around unhighlight-some-buffers
-                                                ()
-                                                activate)
+						()
+						activate)
       "Don't highlight in buffers which match a regexp."
       (unless (string-match hl-line-ignore-regexp
-                            (buffer-name (window-buffer (selected-window))))
-        ad-do-it))))
+			    (buffer-name (window-buffer (selected-window))))
+	ad-do-it))))
 
-(req-package js2-mode
+(use-package js2-mode
   :ensure js2-mode
   :mode (("\\.js\\'" . js2-mode)
-         ("\\.json\\'" . javascript-mode)))
+	 ("\\.json\\'" . javascript-mode)))
 
 (defun magit-toggle-whitespace ()
   "Toggle whitespace."
@@ -177,98 +184,98 @@
   (setq magit-diff-options (remove "-w" magit-diff-options))
   (magit-refresh))
 
-(req-package magit
+(use-package magit
   :ensure magit
   :bind ("C-c g" . magit-status)
   :config
   (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))
 
-(req-package multiple-cursors
+(use-package multiple-cursors
   :ensure multiple-cursors
   :bind (("C-c C-S-c" . mc/edit-lines)
-         ("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this)
-         ("C-c C-<" . mc/mark-all-like-this)
-         ("s-SPC" . set-rectangular-region-anchor))
+	 ("C->" . mc/mark-next-like-this)
+	 ("C-<" . mc/mark-previous-like-this)
+	 ("C-c C-<" . mc/mark-all-like-this)
+	 ("s-SPC" . set-rectangular-region-anchor))
   :config (setq mc/list-file (concat tmp-dir ".mc-lists.el")))
 
-(req-package org
-  :require org-plus-contrib
+(use-package org
   :ensure org
   :bind (("C-c l" . org-store-link)
-         ("C-c a" . org-agenda)
-         ("C-c M-d" . org-open-day-page)
-         ("C-c C-x C-o" . org-clock-out)
-         ("C-c r" . org-capture))
+	 ("C-c a" . org-agenda)
+	 ("C-c M-d" . org-open-day-page)
+	 ("C-c C-x C-o" . org-clock-out)
+	 ("C-c r" . org-capture))
   :config
   (progn
     (defun org-open-day-page ()
       "Prompt for a date, and open associated day-page."
       (interactive)
       (find-file (expand-file-name
-                  (concat (replace-regexp-in-string "-" "." (org-read-date nil))
-                          ".org")
-                  org-directory)))
+		  (concat (replace-regexp-in-string "-" "." (org-read-date nil))
+			  ".org")
+		  org-directory)))
 
     (defun org-format-export-tel-link (path desc format)
       "Format a tel: link for export"
       (case format
-        (html
-         (format "<a href=\"%s\">%s</a>" path desc))
-        (latex
-         (format "\\href{tel:%s}{\\texttt{%s}}" path desc))))
+	(html
+	 (format "<a href=\"%s\">%s</a>" path desc))
+	(latex
+	 (format "\\href{tel:%s}{\\texttt{%s}}" path desc))))
 
     (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
     (org-add-link-type "tel" nil 'org-format-export-tel-link)))
+(use-package org-plus-contrib :ensure t)
 
-(req-package paredit
+(use-package paredit
   :ensure paredit
   :config
   (define-key lisp-interaction-mode-map (kbd "C-c C-e") 'eval-print-last-sexp))
 
-(req-package ruby-mode
-  :require (yard-mode ruby-block ruby-test-mode rvm)
+(use-package ruby-mode
   :mode (("Gemfile$" . ruby-mode)
-         ("Buildfile$" . ruby-mode)
-         ("config.ru$" . ruby-mode)
-         ("\\.rake$" . ruby-mode)
-         ("Rakefile$" . ruby-mode)
-         ("\\.rabl$" . ruby-mode)
-         ("\\.json_builder$" . ruby-mode))
+	 ("Buildfile$" . ruby-mode)
+	 ("config.ru$" . ruby-mode)
+	 ("\\.rake$" . ruby-mode)
+	 ("Rakefile$" . ruby-mode)
+	 ("\\.rabl$" . ruby-mode)
+	 ("\\.json_builder$" . ruby-mode))
   :config
   (progn
     (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
     (add-hook 'ruby-mode-hook 'yard-mode)))
 
-(req-package inf-ruby
+(use-package yard-mode :ensure t)
+(use-package ruby-block :ensure t)
+(use-package ruby-test-mode :ensure t)
+(use-package rvm :ensure t)
+
+(use-package inf-ruby
   :config (setf (car inf-ruby-implementations) '("ruby" . "pry")))
 
-(req-package rinari
-  :require (haml-mode feature-mode rspec-mode sass-mode less-css-mode)
-  :ensure rinari)
-
-(req-package scheme
+(use-package scheme
   :mode (("\\.ss\\'" . scheme-mode)
-         ("\\.scm$" . scheme-mode))
+	 ("\\.scm$" . scheme-mode))
   :config (add-hook 'scheme-mode-hook 'paredit-mode))
 
-(req-package smart-mode-line
+(use-package smart-mode-line
   :ensure smart-mode-line
   :init (sml/setup))
 
-(req-package smex
+(use-package smex
   :ensure smex
   :bind (("M-x" . smex)
-         ("M-X" . smex-major-mode-commands)
-         ;; This is your old M-x.
-         ("C-c M-x" . execute-extended-command))
+	 ("M-X" . smex-major-mode-commands)
+	 ;; This is your old M-x.
+	 ("C-c M-x" . execute-extended-command))
   :config (smex-initialize))
 
-(req-package pcache
+(use-package pcache
   :ensure pcache
   :config (setq pcache-directory (concat tmp-dir "pcache")))
 
-;; Pseudo-packages. Not actually elpa packages, but make use of `req-package'
+;; Pseudo-packages. Not actually elpa packages, but make use of `use-package'
 ;; for setup.
 
 (defun dired-launch-command ()
@@ -276,34 +283,34 @@
   (interactive)
   (org-open-file (dired-get-filename)))
 
-(req-package dired
+(use-package dired
   :config (progn
-            (require 'org) ;; for `org-open-file'
-            (define-key dired-mode-map "r" 'dired-launch-command)))
+	    (require 'org) ;; for `org-open-file'
+	    (define-key dired-mode-map "r" 'dired-launch-command)))
 
-(req-package woman
+(use-package woman
   :config
   (progn
     ;;(add-hook 'woman-mode-hook 'less-minor-mode)
     (add-hook 'woman-mode-hook 'scroll-lock-mode)))
 
-(req-package man
+(use-package man
   :config
   (progn
     ;;(add-hook 'Man-mode-hook 'less-minor-mode)
     (add-hook 'Man-mode-hook 'scroll-lock-mode)))
 
-(req-package conf-mode
+(use-package conf-mode
   :mode "\.cnf$")
 
-(req-package tramp
+(use-package tramp
   :config
   (progn
     ;; Allow "/sudo:host:/etc/stuff" to sudo on a remote host
     (add-to-list 'tramp-default-proxies-alist
-                 '(nil "\\`root\\'" "/ssh:%h:"))
+		 '(nil "\\`root\\'" "/ssh:%h:"))
     (add-to-list 'tramp-default-proxies-alist
-                 '((regexp-quote (system-name)) nil nil))))
+		 '((regexp-quote (system-name)) nil nil))))
 
 (use-package abbrev
   :diminish abbrev-mode)
@@ -324,10 +331,10 @@
      (around restore-comint-input-with-zero-prefix activate)
      "Make `comint-previous-input' restore the input with arg == 0"
      (if (and
-          comint-input-ring-index
-          comint-stored-incomplete-input
-          (eq arg 0))
-         (comint-restore-input)
+	  comint-input-ring-index
+	  comint-stored-incomplete-input
+	  (eq arg 0))
+	 (comint-restore-input)
        ad-do-it)))
 
 (use-package info
@@ -349,20 +356,20 @@ From https://github.com/magnars/.emacs.d"
   (backward-kill-sexp)
   (condition-case nil
       (prin1 (eval (read (current-kill 0)))
-             (current-buffer))
+	     (current-buffer))
     (error (message "Invalid expression")
-           (insert (current-kill 0)))))
+	   (insert (current-kill 0)))))
 
-(use-package misc-keys
+(use-package simple
   ;; Set C-w to backward kill word and remap existing C-w to C-x C-k
   :bind (("C-w" . backward-kill-word)
-         ("C-x C-k" . kill-region)
-         ;; Use C-c k for kmacro keys
-         ("C-c k" . kmacro-keymap)
-         ("C-x C-o" . delete-blank-lines)
-         ("M-/" . hippie-expand)
-         ("C-x O" . other-window-backwards)
-         ("C-x C-e" . eval-and-replace)))
+	 ("C-x C-k" . kill-region)
+	 ;; Use C-c k for kmacro keys
+	 ("C-c k" . kmacro-keymap)
+	 ("C-x C-o" . delete-blank-lines)
+	 ("M-/" . hippie-expand)
+	 ("C-x O" . other-window-backwards)
+	 ("C-x C-e" . eval-and-replace)))
 
 (provide 'local-packages-init)
 

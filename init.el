@@ -13,14 +13,9 @@
 
 ;;; Code:
 
-(setq debug-on-error t
-      ;; debug-on-signal t
-      debug-on-quit t)
 ;; Load cask
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
-
-(require 'req-package)
 
 (defvar tmp-dir (file-name-as-directory (concat user-emacs-directory "tmp"))
   "Directory for temporary Emacs files.")
@@ -29,17 +24,21 @@
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
+(require 'use-package)
+
 ;; Force `load-dir' package to load directories without having to wait for
 ;; custom to finish loading.
 (use-package load-dir
   :ensure load-dir
   :init (progn
-          (setq load-dirs t)
-          (load-dirs)))
+	  (setq load-dirs t)
+	  (load-dirs)))
 
-(req-package-finish)
+(defun load-custom-file ()
+  "Load the custom file."
+  (load custom-file))
 
-(load custom-file)
+(add-hook 'after-init-hook 'load-custom-file 'append)
 
 (when (file-exists-p "~/Private/private.el.gz.gpg")
   (load "~/Private/private.el.gz.gpg"))

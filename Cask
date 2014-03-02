@@ -4,4 +4,4 @@
 (source org)
 
 (depends-on "pallet")
-(depends-on "req-package")
+(depends-on "use-package")

@@ -219,7 +219,6 @@
  '(org-todo-keywords (quote ((sequence "TODO" "STARTED" "WAITING" "DONE"))))
  '(org-use-sub-superscripts (quote {}))
  '(package-archive-upload-base "~/Dropbox/Public/elpa-haxney")
- '(package-archives (quote (("geiser" . "http://gnu.mirrors.pair.com/savannah/savannah/geiser/packages/") ("elpa-haxney" . "http://dl.dropbox.com/u/19422084/elpa-haxney/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/") ("gnu" . "http://elpa.gnu.org/packages/"))))
  '(package-base "~/Projects/elpa/")
  '(persp-completing-func (quote ido-completing-read))
  '(pgg-cache-passphrase nil)
