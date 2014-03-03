@@ -22,7 +22,7 @@
 
 ;;; Commentary:
 ;;
-;; Loading and configuring packages using `req-package`
+;; Loading and configuring packages using `use-package`
 
 ;;; Code:
 
@@ -30,6 +30,7 @@
 
 ;; Simple package declarations which don't require config.
 
+(use-package gh :ensure t)
 (use-package rinari :ensure rinari)
 (use-package haml-mode :ensure t)
 (use-package feature-mode :ensure t)
@@ -89,6 +90,7 @@
     (define-key elpy-mode-map [remap elpy-goto-definition] 'helm-semantic-or-imenu)))
 
 (use-package erc
+  :defer t
   :config
   (progn
     (add-hook 'erc-mode-hook 'visual-line-mode)
@@ -98,10 +100,12 @@
 
 (use-package ess
   :ensure ess
+  :defer t
   :config (require 'ess-site nil t))
 
 (use-package geben
   :ensure geben
+  :defer t
   :config
   (defadvice geben-dbgp-redirect-stream (around
 					 geben-output-inhibit-read-only
@@ -138,14 +142,12 @@
 	       ido-minor-mode-map-entry)
       (define-key (cdr ido-minor-mode-map-entry)
 	[remap ido-switch-buffer]
-	'helm-buffers-list))))
-
-;; Hopefully takes care of all those "Invalid face reference: helm-ff-directory"
-;; errors.
-;; (eval-after-load 'helm-buffers
-;;   '(progn
-;;      (require 'helm-files)))
-
+	'helm-buffers-list))
+    ;; Hopefully takes care of all those "Invalid face reference:
+    ;; helm-ff-directory" errors.
+    (eval-after-load 'helm-buffers
+      '(progn
+	 (require 'helm-files)))))
 
 (use-package hl-line+
   :ensure hl-line+
@@ -199,6 +201,7 @@
 	 ("s-SPC" . set-rectangular-region-anchor))
   :config (setq mc/list-file (concat tmp-dir ".mc-lists.el")))
 
+(use-package org-plus-contrib :ensure t :defer t)
 (use-package org
   :ensure org
   :bind (("C-c l" . org-store-link)
@@ -226,7 +229,8 @@
 
     (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
     (org-add-link-type "tel" nil 'org-format-export-tel-link)))
-(use-package org-plus-contrib :ensure t)
+
+
 
 (use-package paredit
   :ensure paredit
@@ -247,7 +251,6 @@
     (add-hook 'ruby-mode-hook 'yard-mode)))
 
 (use-package yard-mode :ensure t)
-(use-package ruby-block :ensure t)
 (use-package ruby-test-mode :ensure t)
 (use-package rvm :ensure t)
 
@@ -360,16 +363,15 @@ From https://github.com/magnars/.emacs.d"
     (error (message "Invalid expression")
 	   (insert (current-kill 0)))))
 
-(use-package simple
-  ;; Set C-w to backward kill word and remap existing C-w to C-x C-k
-  :bind (("C-w" . backward-kill-word)
-	 ("C-x C-k" . kill-region)
-	 ;; Use C-c k for kmacro keys
-	 ("C-c k" . kmacro-keymap)
-	 ("C-x C-o" . delete-blank-lines)
-	 ("M-/" . hippie-expand)
-	 ("C-x O" . other-window-backwards)
-	 ("C-x C-e" . eval-and-replace)))
+;; Set C-w to backward kill word and remap existing C-w to C-x C-k
+(bind-key "C-w" 'backward-kill-word)
+(bind-key "C-x C-k" 'kill-region)
+;; Use C-c k for kmacro keys
+(bind-key "C-c k" 'kmacro-keymap)
+(bind-key "C-x C-o" 'delete-blank-lines)
+(bind-key "M-/" 'hippie-expand)
+(bind-key "C-x O" 'other-window-backwards)
+(bind-key "C-x C-e" 'eval-and-replace)
 
 (provide 'local-packages-init)
 

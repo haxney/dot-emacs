@@ -20,6 +20,10 @@
 
 ;; This file is NOT part of GNU Emacs.
 
+;;; Commentary:
+;;
+;; Does more other stuff.
+
 ;;; Code:
 
 (autoload 'global-company-mode "company" nil t)
@@ -85,28 +89,6 @@ by using nXML's indentation rules."
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
-(defun really-activate-desktop ()
-  "Activate `desktop-read' after init.
-desktop.el insists on putting its `after-init-hook' lambda ahead
-of my custom loading, so `desktop-save-mode' is not set when it
-runs. By forcing the read to happen after loading the custom
-file, we can make sure that `desktop-read' is actually called
-when needed."
-  (let ((key "--no-desktop"))
-    (when (member key command-line-args)
-      (setq command-line-args (delete key command-line-args))
-      (setq desktop-save-mode nil)))
-  (when desktop-save-mode
-    (desktop-read)
-    (setq inhibit-startup-screen t)))
-
-(run-at-time t (* 60 10) 'desktop-save-in-desktop-dir)
-
-;; Doing this seems to be important. Some stuff is not set up for customize to
-;; act until after packages and such are loaded, but customize needs to set up
-;; in order for those things to work. It's all very strange.
-(add-hook 'after-init-hook 'really-activate-desktop 'append)
-
 ;; Elisp support in semantic
 (require 'semantic/bovine/el nil t)
 
@@ -149,6 +131,32 @@ when needed."
 (add-hook 'doc-view-mode-hook 'less-minor-mode)
 
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
+
+(defun really-activate-desktop ()
+  "Activate `desktop-read' after init.
+desktop.el insists on putting its `after-init-hook' lambda ahead
+of my custom loading, so variable `desktop-save-mode' is not set
+when it runs. By forcing the read to happen after loading the
+custom file, we can make sure that `desktop-read' is actually
+called when needed."
+  (setq desktop-dirname tmp-dir)
+  (let ((key "--no-desktop"))
+    (when (member key command-line-args)
+      (setq command-line-args (delete key command-line-args))
+      (setq desktop-save-mode nil)))
+  (when desktop-save-mode
+    (desktop-read)
+    (setq inhibit-startup-screen t)))
+
+(run-at-time t (* 60 10) 'desktop-save-in-desktop-dir)
+
+;; Doing this seems to be important. Some stuff is not set up for customize to
+;; act until after packages and such are loaded, but customize needs to set up
+;; in order for those things to work. It's all very strange.
+(add-hook 'after-init-hook 'really-activate-desktop 'append)
+
+(when (file-exists-p "~/Private/private.el.gz.gpg")
+  (load "~/Private/private.el.gz.gpg"))
 
 (provide 'local-misc)
 
