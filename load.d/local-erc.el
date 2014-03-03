@@ -107,24 +107,11 @@ This function is a possible value for `erc-generate-log-file-name-function'."
                           "There are %s users (%s ops) on the current channel"
                           users ops))))
 
-(defun irc-maybe ()
-  "Connect to IRC."
-  (interactive)
-  (when (y-or-n-p "IRC? ")
-    (erc :server "irc.freenode.net")
-    (erc :server "localhost")
-    (erc :server "irc.conversationmedia.org" :password conversationmedia-password)))
-
 (defun bitlbee ()
   "Connect to local bitlbee server."
   (interactive)
   (erc :server "localhost"))
 
-(eval-after-load 'erc
-  '(progn
-     (add-hook 'erc-mode-hook 'visual-line-mode)
-
-     (ad-activate 'erc-process-away)
-     (ad-activate 'erc-cmd-AWAY)))
+(provide 'local-erc)
 
 ;;; local-erc.el ends here
