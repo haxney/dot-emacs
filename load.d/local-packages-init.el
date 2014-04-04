@@ -201,7 +201,6 @@
 	 ("s-SPC" . set-rectangular-region-anchor))
   :config (setq mc/list-file (concat tmp-dir ".mc-lists.el")))
 
-(use-package org-plus-contrib :ensure t :defer t)
 (use-package org
   :ensure org
   :bind (("C-c l" . org-store-link)
@@ -229,8 +228,6 @@
 
     (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
     (org-add-link-type "tel" nil 'org-format-export-tel-link)))
-
-
 
 (use-package paredit
   :ensure paredit

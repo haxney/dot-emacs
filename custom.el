@@ -7,7 +7,7 @@
  '(Info-breadcrumbs-in-mode-line-mode t)
  '(Info-mode-hook (quote (flyspell-mode-off scroll-lock-mode less-minor-mode)))
  '(LaTeX-command "latex -shell-escape")
- '(LaTeX-mode-hook (quote (LaTeX-preview-setup flymake-mode-off turn-on-flyspell)) t)
+ '(LaTeX-mode-hook (quote (LaTeX-preview-setup flymake-mode-off turn-on-flyspell)))
  '(TeX-master (quote dwim))
  '(abbrev-file-name "~/.emacs.d/tmp/abbrev_defs")
  '(ac-auto-show-menu t)
@@ -188,7 +188,7 @@
  '(org-agenda-files (quote ("~/org/root.org")))
  '(org-archive-location "~/org/archive.org::* From %s")
  '(org-archive-mark-done t)
- '(org-babel-load-languages (quote ((emacs-lisp . t) (R . t))))
+ '(org-babel-load-languages (quote ((emacs-lisp . t) (R . t) (dot . t) (calc . t))))
  '(org-capture-templates (quote (("t" "Todo" entry (file+headline "~/org/root.org" "Task Inbox") "** TODO %?
    %i") ("d" "Day Page" entry (function org-open-day-page) "
 * Sleep" :immediate-finish t :unnarrowed t))))
@@ -202,7 +202,6 @@
  '(org-default-notes-file "~/org/root.org")
  '(org-edit-src-persistent-message nil)
  '(org-export-with-smart-quotes t)
- '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . "evince %s"))))
  '(org-id-locations-file "~/.emacs.d/tmp/.org-id-locations")
  '(org-latex-classes (quote (("article" "\\documentclass[11pt]{article}" ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}") ("\\paragraph{%s}" . "\\paragraph*{%s}") ("\\subparagraph{%s}" . "\\subparagraph*{%s}")) ("report" "\\documentclass[11pt]{report}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("book" "\\documentclass[11pt]{book}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("paper" "\\documentclass[12pt]{article}
 \\usepackage{setspace}
@@ -299,6 +298,7 @@
  '(view-mode-hook (quote (less-minor-mode scroll-lock-mode)))
  '(wdired-use-dired-vertical-movement (quote sometimes))
  '(weblogger-config-alist (quote (("haxney.org" "http://www.blogger.com/api" "dan@haxney.org" "" "7770370347473031286"))))
+ '(whitespace-style (quote (face tabs spaces trailing lines space-before-tab::space newline indentation::space empty space-after-tab::space space-mark tab-mark newline-mark)))
  '(windmove-wrap-around t)
  '(woman-cache-filename "~/.emacs.d/tmp/woman-cache.el")
  '(woman-imenu t)

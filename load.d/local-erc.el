@@ -58,13 +58,13 @@ This function is a possible value for `erc-generate-log-file-name-function'."
     (convert-standard-filename file)))
 
 (defadvice erc-process-away (after erc-away-reason-clear (proc away-p))
-  "Clear things"
+  "Clear things."
   (unless away-p
     (setq erc-responded-once nil
           erc-away-reason nil)))
 
 (defadvice erc-cmd-AWAY (after erc-store-reason (line))
-  "store line"
+  "Store line."
   (when (string-match "^\\s-*\\(.*\\)$" line)
     (let ((reason (match-string 1 line)))
       (setq erc-away-reason reason))))
