@@ -56,11 +56,14 @@
 (use-package lua-mode :ensure lua-mode)
 (use-package markdown-mode :ensure markdown-mode)
 (use-package mediawiki :ensure mediawiki)
-(use-package php-mode :ensure php-mode)
+;(use-package php-mode :ensure php-mode)
 (use-package restclient :ensure restclient)
-(use-package rust-mode :ensure rust-mode)
+(use-package rust-mode :ensure rust-mode
+  :config
+  (progn
+    (add-hook 'rust-mode-hook '(lambda () (set-fill-column 100)))))
 (use-package smooth-scrolling :ensure smooth-scrolling)
-(use-package ssh-config-mode :ensure ssh-config-mode)
+;(use-package ssh-config-mode :ensure ssh-config-mode)
 (use-package sws-mode :ensure sws-mode)
 (use-package tidy :ensure tidy)
 (use-package unbound :ensure unbound)
@@ -69,12 +72,21 @@
 (use-package websocket :ensure websocket)
 (use-package whitespace-cleanup-mode :ensure whitespace-cleanup-mode)
 (use-package yaml-mode :ensure yaml-mode)
-(use-package groovy-mode :ensure groovy-mode)
+;(use-package groovy-mode :ensure groovy-mode)
 (use-package auto-indent-mode :ensure auto-indent-mode)
 (use-package jedi :ensure t)
 (use-package quack :ensure t)
+(use-package toml-mode :ensure t)
+(use-package racer :ensure t)
+(use-package rustfmt :ensure t)
+(use-package cargo :ensure t)
+;(use-package protobuf-mode :ensure t)
 
 ;; Complex package declarations
+
+(use-package ace-jump-mode
+  :ensure ace-jump-mode
+  :bind (("C-c j" . ace-jump-mode)))
 
 (use-package dired-details
   :ensure dired-details
@@ -108,11 +120,11 @@
   :defer t
   :config
   (defadvice geben-dbgp-redirect-stream (around
-					 geben-output-inhibit-read-only
-					 activate)
+                                         geben-output-inhibit-read-only
+                                         activate)
     "Set `inhibit-read-only' during `geben-dbgp-redirect-stream'"
     (let ((inhibit-read-only t)
-	  (inhibit-modification-hooks t))
+          (inhibit-modification-hooks t))
       ad-do-it)
     (set-buffer-modified-p nil)))
 
@@ -139,15 +151,15 @@
     (define-key help-map [remap apropos-command] 'helm-apropos)
     (global-set-key [remap apropos-command] 'helm-apropos)
     (when (and (boundp 'ido-minor-mode-map-entry)
-	       ido-minor-mode-map-entry)
+               ido-minor-mode-map-entry)
       (define-key (cdr ido-minor-mode-map-entry)
-	[remap ido-switch-buffer]
-	'helm-buffers-list))
+        [remap ido-switch-buffer]
+        'helm-buffers-list))
     ;; Hopefully takes care of all those "Invalid face reference:
     ;; helm-ff-directory" errors.
     (eval-after-load 'helm-buffers
       '(progn
-	 (require 'helm-files)))))
+         (require 'helm-files)))))
 
 (use-package hl-line+
   :ensure hl-line+
@@ -155,17 +167,17 @@
   (progn
     (defvar hl-line-ignore-regexp "\*magit:.*")
     (defadvice global-hl-line-highlight (around unhighlight-some-buffers
-						()
-						activate)
+                                                ()
+                                                activate)
       "Don't highlight in buffers which match a regexp."
       (unless (string-match hl-line-ignore-regexp
-			    (buffer-name (window-buffer (selected-window))))
-	ad-do-it))))
+                            (buffer-name (window-buffer (selected-window))))
+        ad-do-it))))
 
 (use-package js2-mode
   :ensure js2-mode
   :mode (("\\.js\\'" . js2-mode)
-	 ("\\.json\\'" . javascript-mode)))
+         ("\\.json\\'" . javascript-mode)))
 
 (defun magit-toggle-whitespace ()
   "Toggle whitespace."
@@ -195,36 +207,36 @@
 (use-package multiple-cursors
   :ensure multiple-cursors
   :bind (("C-c C-S-c" . mc/edit-lines)
-	 ("C->" . mc/mark-next-like-this)
-	 ("C-<" . mc/mark-previous-like-this)
-	 ("C-c C-<" . mc/mark-all-like-this)
-	 ("s-SPC" . set-rectangular-region-anchor))
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)
+         ("s-SPC" . set-rectangular-region-anchor))
   :config (setq mc/list-file (concat tmp-dir ".mc-lists.el")))
 
 (use-package org
   :ensure org
   :bind (("C-c l" . org-store-link)
-	 ("C-c a" . org-agenda)
-	 ("C-c M-d" . org-open-day-page)
-	 ("C-c C-x C-o" . org-clock-out)
-	 ("C-c r" . org-capture))
+         ("C-c a" . org-agenda)
+         ("C-c M-d" . org-open-day-page)
+         ("C-c C-x C-o" . org-clock-out)
+         ("C-c r" . org-capture))
   :config
   (progn
     (defun org-open-day-page ()
       "Prompt for a date, and open associated day-page."
       (interactive)
       (find-file (expand-file-name
-		  (concat (replace-regexp-in-string "-" "." (org-read-date nil))
-			  ".org")
-		  org-directory)))
+                  (concat (replace-regexp-in-string "-" "." (org-read-date nil))
+                          ".org")
+                  org-directory)))
 
     (defun org-format-export-tel-link (path desc format)
       "Format a tel: link for export"
       (case format
-	(html
-	 (format "<a href=\"%s\">%s</a>" path desc))
-	(latex
-	 (format "\\href{tel:%s}{\\texttt{%s}}" path desc))))
+        (html
+         (format "<a href=\"%s\">%s</a>" path desc))
+        (latex
+         (format "\\href{tel:%s}{\\texttt{%s}}" path desc))))
 
     (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
     (org-add-link-type "tel" nil 'org-format-export-tel-link)))
@@ -236,12 +248,12 @@
 
 (use-package ruby-mode
   :mode (("Gemfile$" . ruby-mode)
-	 ("Buildfile$" . ruby-mode)
-	 ("config.ru$" . ruby-mode)
-	 ("\\.rake$" . ruby-mode)
-	 ("Rakefile$" . ruby-mode)
-	 ("\\.rabl$" . ruby-mode)
-	 ("\\.json_builder$" . ruby-mode))
+         ("Buildfile$" . ruby-mode)
+         ("config.ru$" . ruby-mode)
+         ("\\.rake$" . ruby-mode)
+         ("Rakefile$" . ruby-mode)
+         ("\\.rabl$" . ruby-mode)
+         ("\\.json_builder$" . ruby-mode))
   :config
   (progn
     (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
@@ -256,7 +268,7 @@
 
 (use-package scheme
   :mode (("\\.ss\\'" . scheme-mode)
-	 ("\\.scm$" . scheme-mode))
+         ("\\.scm$" . scheme-mode))
   :config (add-hook 'scheme-mode-hook 'paredit-mode))
 
 (use-package smart-mode-line
@@ -266,9 +278,9 @@
 (use-package smex
   :ensure smex
   :bind (("M-x" . smex)
-	 ("M-X" . smex-major-mode-commands)
-	 ;; This is your old M-x.
-	 ("C-c M-x" . execute-extended-command))
+         ("M-X" . smex-major-mode-commands)
+         ;; This is your old M-x.
+         ("C-c M-x" . execute-extended-command))
   :config (smex-initialize))
 
 (use-package pcache
@@ -285,8 +297,8 @@
 
 (use-package dired
   :config (progn
-	    (require 'org) ;; for `org-open-file'
-	    (define-key dired-mode-map "r" 'dired-launch-command)))
+            (require 'org) ;; for `org-open-file'
+            (define-key dired-mode-map "r" 'dired-launch-command)))
 
 (use-package woman
   :config
@@ -308,9 +320,9 @@
   (progn
     ;; Allow "/sudo:host:/etc/stuff" to sudo on a remote host
     (add-to-list 'tramp-default-proxies-alist
-		 '(nil "\\`root\\'" "/ssh:%h:"))
+                 '(nil "\\`root\\'" "/ssh:%h:"))
     (add-to-list 'tramp-default-proxies-alist
-		 '((regexp-quote (system-name)) nil nil))))
+                 '((regexp-quote (system-name)) nil nil))))
 
 (use-package abbrev
   :diminish abbrev-mode)
@@ -331,10 +343,10 @@
      (around restore-comint-input-with-zero-prefix activate)
      "Make `comint-previous-input' restore the input with arg == 0"
      (if (and
-	  comint-input-ring-index
-	  comint-stored-incomplete-input
-	  (eq arg 0))
-	 (comint-restore-input)
+          comint-input-ring-index
+          comint-stored-incomplete-input
+          (eq arg 0))
+         (comint-restore-input)
        ad-do-it)))
 
 (use-package info
@@ -356,9 +368,9 @@ From https://github.com/magnars/.emacs.d"
   (backward-kill-sexp)
   (condition-case nil
       (prin1 (eval (read (current-kill 0)))
-	     (current-buffer))
+             (current-buffer))
     (error (message "Invalid expression")
-	   (insert (current-kill 0)))))
+           (insert (current-kill 0)))))
 
 ;; Set C-w to backward kill word and remap existing C-w to C-x C-k
 (bind-key "C-w" 'backward-kill-word)
