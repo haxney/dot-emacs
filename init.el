@@ -19,9 +19,8 @@
 
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("melpa" . "http://melpa.milkbox.net/packages/")
-			 ("org" . "http://orgmode.org/elpa/")))
+                         ("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("org" . "http://orgmode.org/elpa/")))
 
 (package-initialize)
 (require 'use-package)
@@ -31,8 +30,8 @@
 (use-package load-dir
   :ensure load-dir
   :init (progn
-	  (setq load-dirs t)
-	  (load-dirs)))
+          (setq load-dirs t)
+          (load-dirs)))
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
