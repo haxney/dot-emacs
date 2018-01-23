@@ -80,7 +80,6 @@
  '(desktop-save t)
  '(desktop-save-mode t)
  '(dired-details-hidden-string "[...]  ")
- '(dired-listing-switches "-alh --group-directories-first")
  '(dired-omit-files "^\\.?#\\|^\\..*$")
  '(doc-view-resolution 200)
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
@@ -255,6 +254,8 @@
    (quote
     (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
  '(mumamo-noweb2-mode-from-ext (quote (("php" . php+-mode) ("c" . c-mode))))
+ '(ns-alternate-modifier (quote super))
+ '(ns-command-modifier (quote meta))
  '(nxhtml-skip-welcome t)
  '(nxml-mode-hook
    (quote
