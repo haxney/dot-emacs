@@ -355,6 +355,11 @@
     (define-key Info-mode-map (kbd ";") 'Info-next-reference)
     (define-key Info-mode-map (kbd "'") 'Info-prev-reference)))
 
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
 (defun other-window-backwards ()
   "Move backwards one window."
   (interactive)
