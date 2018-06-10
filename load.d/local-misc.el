@@ -156,6 +156,25 @@ called when needed."
 (when (file-exists-p "~/Private/private.el.gz.gpg")
   (load "~/Private/private.el.gz.gpg"))
 
+(defvar my/org-display-inline-base64-buffer "*inline base64 display*"
+  "Buffer containing the image info.")
+
+(defun my/org-display-inline-base64 ()
+  "Decode an example block as a base64 image."
+  (interactive)
+  (if (not (org-in-block-p '("example")))
+      (user-error "Not in an example block")
+    (let* ((region-info (org-edit-src-find-region-and-lang))
+           (encoded-text (buffer-substring-no-properties (nth 0 region-info)
+                                                         (nth 1 region-info))))
+
+      (with-current-buffer (setq my/org-display-inline-base64-buffer
+                                 (pop-to-buffer my/org-display-inline-base64-buffer))
+        (let ((inhibit-read-only t))
+          (erase-buffer))
+        (insert (base64-decode-string encoded-text))
+        (image-mode)))))
+
 (provide 'local-misc)
 
 ;;; local-misc.el ends here
