@@ -313,12 +313,12 @@
       ("\\section{%s}" . "\\section*{%s}")
       ("\\subsection{%s}" . "\\subsection*{%s}")
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
-     ("paper" "\\documentclass[12pt]{article}
-\\usepackage{setspace}
-\\doublespacing"
-      ("%% %s" . "%% %s")
-      ("%% %s" . "%% %s")
-      ("%% %s" . "%% %s")))))
+     ("vita" "\\documentclass[ComputerScience,10pt]{vita}"
+      ("\\section{%s \\hrulefill}" . "\\section*{%s \\hrulefill}")
+      ("\\subsection{%s}" . "\\subsection*{%s}")
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+      ("\\paragraph{%s}" . "\\paragraph*{%s}")
+      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
  '(org-latex-listings (quote minted))
  '(org-latex-packages-alist
    (quote
