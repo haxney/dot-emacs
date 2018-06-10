@@ -303,13 +303,11 @@
 (use-package woman
   :config
   (progn
-    ;;(add-hook 'woman-mode-hook 'less-minor-mode)
     (add-hook 'woman-mode-hook 'scroll-lock-mode)))
 
 (use-package man
   :config
   (progn
-    ;;(add-hook 'Man-mode-hook 'less-minor-mode)
     (add-hook 'Man-mode-hook 'scroll-lock-mode)))
 
 (use-package conf-mode

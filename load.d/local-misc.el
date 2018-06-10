@@ -128,8 +128,6 @@ by using nXML's indentation rules."
 (defun set-elisp-mode-name ()
   (setq mode-name "El"))
 
-(add-hook 'doc-view-mode-hook 'less-minor-mode)
-
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
 (defun really-activate-desktop ()

@@ -7,7 +7,7 @@
  '(Info-breadcrumbs-in-mode-line-mode t)
  '(Info-mode-hook
    (quote
-    (flyspell-mode-off scroll-lock-mode less-minor-mode)))
+    (flyspell-mode-off scroll-lock-mode)))
  '(LaTeX-command "latex -shell-escape")
  '(LaTeX-mode-hook
    (quote
@@ -155,7 +155,7 @@
  '(espresso-js-tmpdir "~/.emacs.d/tmp/js")
  '(ess-S-assign "_")
  '(ess-default-style (quote RRR))
- '(ess-help-mode-hook (quote (less-minor-mode scroll-lock-mode)))
+ '(ess-help-mode-hook (quote (scroll-lock-mode)))
  '(ess-language "R" t)
  '(fill-column 80)
  '(find-file-hook
@@ -467,7 +467,7 @@
  '(url-cookie-file "~/.emacs.d/tmp/url/cookies")
  '(vc-display-status nil)
  '(vc-handled-backends nil)
- '(view-mode-hook (quote (less-minor-mode scroll-lock-mode)))
+ '(view-mode-hook (quote (scroll-lock-mode)) t)
  '(wdired-use-dired-vertical-movement (quote sometimes))
  '(weblogger-config-alist
    (quote
@@ -478,7 +478,7 @@
  '(windmove-wrap-around t)
  '(woman-cache-filename "~/.emacs.d/tmp/woman-cache.el")
  '(woman-imenu t)
- '(woman-post-format-hook (quote (less-minor-mode scroll-lock-mode)))
+ '(woman-post-format-hook (quote (scroll-lock-mode)))
  '(woman-use-own-frame nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
