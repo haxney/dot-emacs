@@ -7,7 +7,7 @@
  '(Info-breadcrumbs-in-mode-line-mode t)
  '(Info-mode-hook
    (quote
-    (flyspell-mode-off scroll-lock-mode)))
+    (flyspell-mode-off scroll-lock-mode less-minor-mode)))
  '(LaTeX-command "latex -shell-escape")
  '(LaTeX-mode-hook
    (quote
@@ -80,6 +80,7 @@
  '(desktop-save t)
  '(desktop-save-mode t)
  '(dired-details-hidden-string "[...]  ")
+ '(dired-listing-switches "-alh --group-directories-first")
  '(dired-omit-files "^\\.?#\\|^\\..*$")
  '(doc-view-resolution 200)
  '(ede-project-placeholder-cache-file "~/.emacs.d/tmp/projects.ede")
@@ -155,7 +156,7 @@
  '(espresso-js-tmpdir "~/.emacs.d/tmp/js")
  '(ess-S-assign "_")
  '(ess-default-style (quote RRR))
- '(ess-help-mode-hook (quote (scroll-lock-mode)))
+ '(ess-help-mode-hook (quote (less-minor-mode scroll-lock-mode)))
  '(ess-language "R" t)
  '(fill-column 80)
  '(find-file-hook
@@ -230,7 +231,7 @@
  '(image-dired-dir "~/.emacs.d/tmp/image-dired/")
  '(indent-tabs-mode nil)
  '(inferior-ess-exit-command "q(save=\"no\")
-")
+" t)
  '(inhibit-startup-screen t)
  '(ispell-program-name "aspell")
  '(js-indent-level 2)
@@ -254,8 +255,6 @@
    (quote
     (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
  '(mumamo-noweb2-mode-from-ext (quote (("php" . php+-mode) ("c" . c-mode))))
- '(ns-alternate-modifier (quote super))
- '(ns-command-modifier (quote meta))
  '(nxhtml-skip-welcome t)
  '(nxml-mode-hook
    (quote
@@ -291,6 +290,9 @@
  '(org-cycle-include-plain-lists nil)
  '(org-default-notes-file "~/org/root.org")
  '(org-edit-src-persistent-message nil)
+ '(org-entities-user
+   (quote
+    (("ominus" "\\ominus" t "&ominus;" "[circled minus]" "[circled minus]" "⊖"))))
  '(org-export-with-smart-quotes t)
  '(org-id-locations-file "~/.emacs.d/tmp/.org-id-locations")
  '(org-latex-classes
@@ -361,7 +363,7 @@
  '(package-base "~/Projects/elpa/")
  '(package-selected-packages
    (quote
-    (editorconfig use-package smart-mode-line ruby-test-mode yard-mode multiple-cursors geiser geben elpy protobuf-mode gradle-mode window-margin whitespace-cleanup-mode vimgolf vbnet-mode undo-tree unbound typing toml-mode tidy smex scss-mode rvm rustfmt ruby-block rspec-mode rinari request racer quack psl-mode php+-mode paredit org-table-comment org-magit nose nlinum mode-compile mocker memory-usage lua-mode load-dir list-utils less keywiz keyfreq jedi jade-mode idomenu htmlize hl-sexp hl-line+ helm-git helm-descbinds helm-ack helm-R guide-key groovy-mode graphviz-dot-mode gnuplot gist fuzzy furl full-ack erc-nick-notify dired-details csv-mode coffee-mode cargo auto-indent-mode auto-compile auctex apache-mode ace-jump-mode)))
+    (image+ use-package smart-mode-line ruby-test-mode yard-mode multiple-cursors geiser geben elpy protobuf-mode gradle-mode window-margin whitespace-cleanup-mode vimgolf vbnet-mode undo-tree unbound typing toml-mode tidy smex scss-mode rvm rustfmt ruby-block rspec-mode rinari request racer quack psl-mode php+-mode paredit org-table-comment org-magit nose nlinum mode-compile mocker memory-usage lua-mode load-dir list-utils less keywiz keyfreq jedi jade-mode idomenu htmlize hl-sexp hl-line+ helm-git helm-descbinds helm-ack helm-R guide-key groovy-mode graphviz-dot-mode gnuplot gist fuzzy furl full-ack erc-nick-notify dired-details csv-mode coffee-mode cargo auto-indent-mode auto-compile auctex apache-mode ace-jump-mode)))
  '(persp-completing-func (quote ido-completing-read))
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
@@ -467,7 +469,7 @@
  '(url-cookie-file "~/.emacs.d/tmp/url/cookies")
  '(vc-display-status nil)
  '(vc-handled-backends nil)
- '(view-mode-hook (quote (scroll-lock-mode)) t)
+ '(view-mode-hook (quote (less-minor-mode scroll-lock-mode)) t)
  '(wdired-use-dired-vertical-movement (quote sometimes))
  '(weblogger-config-alist
    (quote
@@ -478,7 +480,7 @@
  '(windmove-wrap-around t)
  '(woman-cache-filename "~/.emacs.d/tmp/woman-cache.el")
  '(woman-imenu t)
- '(woman-post-format-hook (quote (scroll-lock-mode)))
+ '(woman-post-format-hook (quote (less-minor-mode scroll-lock-mode)))
  '(woman-use-own-frame nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
