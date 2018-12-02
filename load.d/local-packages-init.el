@@ -38,7 +38,6 @@
 (use-package sass-mode :ensure t)
 (use-package less-css-mode :ensure t)
 (use-package apache-mode :ensure apache-mode)
-;;(use-package auctex :ensure t :defer t)
 (use-package auto-complete :ensure auto-complete)
 (use-package bind-key :ensure bind-key)
 (use-package coffee-mode :ensure coffee-mode)
@@ -48,22 +47,18 @@
 (use-package helm-descbinds :ensure helm-descbinds)
 (use-package iedit :ensure iedit)
 (use-package inflections :ensure inflections)
-(use-package info+ :ensure info+)
 (use-package jade-mode :ensure jade-mode)
 (use-package keyfreq :ensure keyfreq)
 (use-package keywiz :ensure keywiz)
-;;(use-package less :ensure less)
 (use-package lua-mode :ensure lua-mode)
 (use-package markdown-mode :ensure markdown-mode)
 (use-package mediawiki :ensure mediawiki)
-;(use-package php-mode :ensure php-mode)
 (use-package restclient :ensure restclient)
 (use-package rust-mode :ensure rust-mode
   :config
   (progn
     (add-hook 'rust-mode-hook '(lambda () (set-fill-column 100)))))
 (use-package smooth-scrolling :ensure smooth-scrolling)
-;(use-package ssh-config-mode :ensure ssh-config-mode)
 (use-package sws-mode :ensure sws-mode)
 (use-package tidy :ensure tidy)
 (use-package unbound :ensure unbound)
@@ -72,15 +67,13 @@
 (use-package websocket :ensure websocket)
 (use-package whitespace-cleanup-mode :ensure whitespace-cleanup-mode)
 (use-package yaml-mode :ensure yaml-mode)
-;(use-package groovy-mode :ensure groovy-mode)
 (use-package auto-indent-mode :ensure auto-indent-mode)
 (use-package jedi :ensure t)
 (use-package quack :ensure t)
 (use-package toml-mode :ensure t)
 (use-package racer :ensure t)
-(use-package rustfmt :ensure t)
 (use-package cargo :ensure t)
-;(use-package protobuf-mode :ensure t)
+
 
 ;; Complex package declarations
 
