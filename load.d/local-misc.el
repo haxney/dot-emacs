@@ -168,8 +168,7 @@ called when needed."
            (encoded-text (buffer-substring-no-properties (nth 0 region-info)
                                                          (nth 1 region-info))))
 
-      (with-current-buffer (setq my/org-display-inline-base64-buffer
-                                 (pop-to-buffer my/org-display-inline-base64-buffer))
+      (with-current-buffer (pop-to-buffer my/org-display-inline-base64-buffer)
         (let ((inhibit-read-only t))
           (erase-buffer))
         (insert (base64-decode-string encoded-text))
