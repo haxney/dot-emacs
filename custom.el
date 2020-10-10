@@ -67,7 +67,6 @@
  '(custom-safe-themes
    (quote
     ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" default)))
- '(debug-on-error nil)
  '(default-frame-alist
     (quote
      ((cursor-type bar . 2)
@@ -155,9 +154,9 @@
  '(espresso-indent-level 4 t)
  '(espresso-js-tmpdir "~/.emacs.d/tmp/js")
  '(ess-S-assign "_")
- '(ess-default-style (quote RRR))
  '(ess-help-mode-hook (quote (less-minor-mode scroll-lock-mode)))
  '(ess-language "R" t)
+ '(ess-style (quote RRR))
  '(fill-column 80)
  '(find-file-hook
    (quote
@@ -339,6 +338,7 @@
     (org-bibtex org-info org-jsinfo org-habit org-irc org-protocol org-special-blocks)))
  '(org-plantuml-jar-path "~/.emacs.d/tmp/plantuml.jar")
  '(org-registry-file "~/.emacs.d/tmp/org-registry.el")
+ '(org-roam-directory "~/org" t)
  '(org-special-ctrl-a/e t)
  '(org-src-fontify-natively t)
  '(org-src-lang-modes
@@ -363,7 +363,7 @@
  '(package-base "~/Projects/elpa/")
  '(package-selected-packages
    (quote
-    (image+ use-package smart-mode-line ruby-test-mode yard-mode multiple-cursors geiser geben elpy protobuf-mode gradle-mode window-margin whitespace-cleanup-mode vimgolf vbnet-mode undo-tree unbound typing toml-mode tidy smex scss-mode rvm rustfmt ruby-block rspec-mode rinari request racer quack psl-mode php+-mode paredit org-table-comment org-magit nose nlinum mode-compile mocker memory-usage lua-mode load-dir list-utils less keywiz keyfreq jedi jade-mode idomenu htmlize hl-sexp hl-line+ helm-git helm-descbinds helm-ack helm-R guide-key groovy-mode graphviz-dot-mode gnuplot gist fuzzy furl full-ack erc-nick-notify dired-details csv-mode coffee-mode cargo auto-indent-mode auto-compile auctex apache-mode ace-jump-mode)))
+    (ess magit image+ use-package smart-mode-line ruby-test-mode yard-mode multiple-cursors geiser geben elpy protobuf-mode gradle-mode window-margin whitespace-cleanup-mode vimgolf vbnet-mode undo-tree unbound typing toml-mode tidy smex scss-mode rvm rustfmt ruby-block rspec-mode rinari request racer quack psl-mode php+-mode org-table-comment org-magit nose nlinum mode-compile mocker memory-usage lua-mode load-dir list-utils less keywiz keyfreq jade-mode idomenu htmlize hl-sexp hl-line+ helm-git helm-descbinds helm-ack helm-R guide-key groovy-mode gnuplot gist fuzzy furl full-ack erc-nick-notify dired-details csv-mode coffee-mode cargo auto-indent-mode auto-compile auctex apache-mode ace-jump-mode)))
  '(persp-completing-func (quote ido-completing-read))
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
@@ -469,7 +469,7 @@
  '(url-cookie-file "~/.emacs.d/tmp/url/cookies")
  '(vc-display-status nil)
  '(vc-handled-backends nil)
- '(view-mode-hook (quote (less-minor-mode scroll-lock-mode)) t)
+ '(view-mode-hook (quote (less-minor-mode scroll-lock-mode)))
  '(wdired-use-dired-vertical-movement (quote sometimes))
  '(weblogger-config-alist
    (quote
