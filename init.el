@@ -17,10 +17,12 @@
   "Directory for temporary Emacs files.")
 (make-directory tmp-dir t)
 
+(setq custom-file (concat user-emacs-directory "custom.el"))
+
 (require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("org" . "http://orgmode.org/elpa/")))
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://stable.melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")))
 
 (package-initialize)
 (require 'use-package)
@@ -32,8 +34,6 @@
   :init (progn
           (setq load-dirs t)
           (load-dirs)))
-
-(setq custom-file (concat user-emacs-directory "custom.el"))
 
 (defun load-custom-file ()
   "Load the custom file."

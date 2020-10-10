@@ -91,7 +91,6 @@
   :config
   (progn
     (add-to-list 'exec-path (expand-file-name "~/.local/bin"))
-    (elpy-use-ipython)
     (define-key elpy-mode-map [remap elpy-goto-definition] 'helm-semantic-or-imenu)))
 
 (use-package erc
