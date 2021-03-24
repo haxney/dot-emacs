@@ -162,17 +162,17 @@ called when needed."
 (defun my/org-display-inline-base64 ()
   "Decode an example block as a base64 image."
   (interactive)
-  (if (not (org-in-block-p '("example")))
-      (user-error "Not in an example block")
-    (let* ((region-info (org-edit-src-find-region-and-lang))
-           (encoded-text (buffer-substring-no-properties (nth 0 region-info)
-                                                         (nth 1 region-info))))
+  (let* ((element (org-element-at-point))
+         (type (org-element-type element))
+         (encoded-text (org-element-property :value element)))
+    (unless (eq type 'example-block)
+      (user-error "Not in an example block"))
 
-      (with-current-buffer (pop-to-buffer my/org-display-inline-base64-buffer)
-        (let ((inhibit-read-only t))
-          (erase-buffer))
-        (insert (base64-decode-string encoded-text))
-        (image-mode)))))
+    (with-current-buffer (pop-to-buffer my/org-display-inline-base64-buffer)
+      (let ((inhibit-read-only t))
+        (erase-buffer))
+      (insert (base64-decode-string encoded-text))
+      (image-mode))))
 
 (provide 'local-misc)
 
