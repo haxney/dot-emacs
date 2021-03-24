@@ -230,7 +230,6 @@
         (latex
          (format "\\href{tel:%s}{\\texttt{%s}}" path desc))))
 
-    (define-key org-mode-map (kbd "C-M-m") 'org-insert-heading-after-current)
     (org-add-link-type "tel" nil 'org-format-export-tel-link)))
 
 (use-package org-roam
