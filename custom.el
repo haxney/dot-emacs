@@ -5,9 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(Info-breadcrumbs-in-header-flag nil)
  '(Info-breadcrumbs-in-mode-line-mode t)
- '(Info-mode-hook
-   (quote
-    (flyspell-mode-off scroll-lock-mode less-minor-mode)))
+ '(Info-mode-hook (quote (flyspell-mode-off scroll-lock-mode)))
  '(LaTeX-command "latex -shell-escape")
  '(LaTeX-mode-hook
    (quote
@@ -154,7 +152,7 @@
  '(espresso-indent-level 4 t)
  '(espresso-js-tmpdir "~/.emacs.d/tmp/js")
  '(ess-S-assign "_")
- '(ess-help-mode-hook (quote (less-minor-mode scroll-lock-mode)))
+ '(ess-help-mode-hook (quote (scroll-lock-mode)))
  '(ess-language "R" t)
  '(ess-style (quote RRR))
  '(fill-column 80)
@@ -248,6 +246,9 @@
  '(load-dirs t)
  '(load-home-init-file t t)
  '(ls-lisp-dirs-first t)
+ '(lsp-file-watch-ignored-directories
+   (quote
+    ("[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'" "[/\\\\].pio\\'")))
  '(magit-push-always-verify nil)
  '(menu-bar-mode nil)
  '(minibuffer-prompt-properties
@@ -294,6 +295,7 @@
     (("ominus" "\\ominus" t "&ominus;" "[circled minus]" "[circled minus]" "⊖"))))
  '(org-export-with-smart-quotes t)
  '(org-id-locations-file "~/.emacs.d/tmp/.org-id-locations")
+ '(org-insert-heading-respect-content t)
  '(org-latex-classes
    (quote
     (("article" "\\documentclass[11pt]{article}"
@@ -338,7 +340,7 @@
     (org-bibtex org-info org-jsinfo org-habit org-irc org-protocol org-special-blocks)))
  '(org-plantuml-jar-path "~/.emacs.d/tmp/plantuml.jar")
  '(org-registry-file "~/.emacs.d/tmp/org-registry.el")
- '(org-roam-directory "~/org" t)
+ '(org-roam-directory "~/org")
  '(org-special-ctrl-a/e t)
  '(org-src-fontify-natively t)
  '(org-src-lang-modes
@@ -363,7 +365,7 @@
  '(package-base "~/Projects/elpa/")
  '(package-selected-packages
    (quote
-    (ess magit image+ use-package smart-mode-line ruby-test-mode yard-mode multiple-cursors geiser geben elpy protobuf-mode gradle-mode window-margin whitespace-cleanup-mode vimgolf vbnet-mode undo-tree unbound typing toml-mode tidy smex scss-mode rvm rustfmt ruby-block rspec-mode rinari request racer quack psl-mode php+-mode org-table-comment org-magit nose nlinum mode-compile mocker memory-usage lua-mode load-dir list-utils less keywiz keyfreq jade-mode idomenu htmlize hl-sexp hl-line+ helm-git helm-descbinds helm-ack helm-R guide-key groovy-mode gnuplot gist fuzzy furl full-ack erc-nick-notify dired-details csv-mode coffee-mode cargo auto-indent-mode auto-compile auctex apache-mode ace-jump-mode)))
+    (company-lsp lsp-ui ccls platformio-mode ess magit image+ use-package smart-mode-line ruby-test-mode yard-mode multiple-cursors geiser geben elpy protobuf-mode gradle-mode window-margin whitespace-cleanup-mode vimgolf vbnet-mode undo-tree unbound typing toml-mode tidy smex scss-mode rvm rustfmt ruby-block rspec-mode rinari request racer quack psl-mode php+-mode org-table-comment org-magit nose nlinum mode-compile mocker memory-usage lua-mode load-dir list-utils less keywiz keyfreq jade-mode idomenu htmlize hl-sexp hl-line+ helm-git helm-descbinds helm-ack helm-R guide-key groovy-mode gnuplot gist fuzzy furl full-ack erc-nick-notify dired-details csv-mode coffee-mode cargo auto-indent-mode auto-compile auctex apache-mode ace-jump-mode)))
  '(persp-completing-func (quote ido-completing-read))
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
@@ -469,7 +471,7 @@
  '(url-cookie-file "~/.emacs.d/tmp/url/cookies")
  '(vc-display-status nil)
  '(vc-handled-backends nil)
- '(view-mode-hook (quote (less-minor-mode scroll-lock-mode)))
+ '(view-mode-hook (quote (scroll-lock-mode)) t)
  '(wdired-use-dired-vertical-movement (quote sometimes))
  '(weblogger-config-alist
    (quote
@@ -480,7 +482,6 @@
  '(windmove-wrap-around t)
  '(woman-cache-filename "~/.emacs.d/tmp/woman-cache.el")
  '(woman-imenu t)
- '(woman-post-format-hook (quote (less-minor-mode scroll-lock-mode)))
  '(woman-use-own-frame nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
