@@ -81,6 +81,12 @@
   :ensure ace-jump-mode
   :bind (("C-c j" . ace-jump-mode)))
 
+(use-package auto-indent-mode :ensure auto-indent-mode
+  :config
+  (progn
+    (advice-remove 'beginning-of-visual-line
+                   #'ad-Advice-move-beginning-of-line)))
+
 (use-package dired-details
   :ensure dired-details
   :init (autoload 'dired-details-install "dired-details")
