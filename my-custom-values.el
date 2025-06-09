@@ -338,7 +338,7 @@
  '(package-archive-upload-base "~/Dropbox/Public/elpa-haxney")
  '(package-base "~/Projects/elpa/")
  '(package-selected-packages
-   '(clang-format company-lsp lsp-ui ccls platformio-mode ess magit image+ use-package smart-mode-line ruby-test-mode yard-mode multiple-cursors geiser geben elpy protobuf-mode gradle-mode window-margin whitespace-cleanup-mode vimgolf vbnet-mode undo-tree unbound typing toml-mode tidy smex scss-mode rvm rustfmt ruby-block rspec-mode request racer quack psl-mode php+-mode org-table-comment org-magit nose nlinum mode-compile mocker memory-usage lua-mode load-dir list-utils less keywiz keyfreq jade-mode idomenu htmlize hl-sexp hl-line+ helm-git helm-descbinds helm-ack helm-R guide-key groovy-mode gnuplot gist fuzzy furl full-ack erc-nick-notify dired-details csv-mode coffee-mode cargo auto-indent-mode auto-compile auctex apache-mode ace-jump-mode))
+   '(comint newcomment abbrev dired clang-format company-lsp lsp-ui ccls platformio-mode ess magit image+ use-package smart-mode-line ruby-test-mode yard-mode multiple-cursors geiser geben elpy protobuf-mode gradle-mode window-margin whitespace-cleanup-mode vimgolf vbnet-mode undo-tree unbound typing toml-mode tidy smex scss-mode rvm rustfmt ruby-block rspec-mode request racer quack psl-mode php+-mode org-table-comment org-magit nose nlinum mode-compile mocker memory-usage lua-mode load-dir list-utils less keywiz keyfreq jade-mode idomenu htmlize hl-sexp hl-line+ helm-git helm-descbinds helm-ack helm-R guide-key groovy-mode gnuplot gist fuzzy furl full-ack erc-nick-notify dired-details csv-mode coffee-mode cargo auto-indent-mode auto-compile auctex apache-mode ace-jump-mode))
  '(persp-completing-func 'ido-completing-read)
  '(pgg-cache-passphrase nil)
  '(pgg-default-user-id "A016D1D6")
@@ -436,6 +436,7 @@
  '(url-automatic-caching t)
  '(url-cache-directory "~/.emacs.d/tmp/url-cache")
  '(url-cookie-file "~/.emacs.d/tmp/url/cookies")
+ '(use-package-always-defer t)
  '(use-package-always-ensure t)
  '(vc-display-status nil)
  '(vc-handled-backends nil)

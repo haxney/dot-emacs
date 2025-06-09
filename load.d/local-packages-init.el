@@ -26,89 +26,83 @@
 
 ;;; Code:
 
-(require 'use-package)
-
 ;; Simple package declarations which don't require config.
 
-(use-package gh :ensure t)
-(use-package haml-mode :ensure t)
-(use-package feature-mode :ensure t)
-(use-package rspec-mode :ensure t)
-(use-package sass-mode :ensure t)
-(use-package less-css-mode :ensure t)
-(use-package apache-mode :ensure apache-mode)
-(use-package auto-complete :ensure auto-complete)
-(use-package bind-key :ensure bind-key)
-(use-package coffee-mode :ensure coffee-mode)
-(use-package csv-mode :ensure csv-mode)
-(use-package diminish :ensure diminish)
-(use-package flycheck :ensure flycheck)
-(use-package helm-descbinds :ensure helm-descbinds)
-(use-package iedit :ensure iedit)
-(use-package inflections :ensure inflections)
-(use-package jade-mode :ensure jade-mode)
-(use-package keyfreq :ensure keyfreq)
-(use-package keywiz :ensure keywiz)
-(use-package lua-mode :ensure lua-mode)
-(use-package markdown-mode :ensure markdown-mode)
-(use-package mediawiki :ensure mediawiki)
-(use-package restclient :ensure restclient)
-(use-package rust-mode :ensure rust-mode
+(use-package gh)
+(use-package haml-mode)
+(use-package feature-mode)
+(use-package rspec-mode)
+(use-package sass-mode)
+(use-package less-css-mode)
+(use-package apache-mode)
+(use-package auto-complete)
+(use-package bind-key)
+(use-package coffee-mode)
+(use-package csv-mode)
+(use-package diminish)
+(use-package flycheck)
+(use-package helm-descbinds)
+(use-package iedit)
+(use-package inflections)
+(use-package jade-mode)
+(use-package keyfreq)
+(use-package keywiz)
+(use-package lua-mode)
+(use-package markdown-mode)
+(use-package mediawiki)
+(use-package restclient)
+(use-package rust-mode
   :config
   (progn
     (add-hook 'rust-mode-hook '(lambda () (set-fill-column 100)))))
-(use-package smooth-scrolling :ensure smooth-scrolling)
-(use-package sws-mode :ensure sws-mode)
-(use-package tidy :ensure tidy)
-(use-package unbound :ensure unbound)
-(use-package undo-tree :ensure undo-tree)
-(use-package vlf :ensure vlf)
-(use-package websocket :ensure websocket)
-(use-package whitespace-cleanup-mode :ensure whitespace-cleanup-mode)
-(use-package yaml-mode :ensure yaml-mode)
-(use-package jedi :ensure t)
-(use-package quack :ensure t)
-(use-package toml-mode :ensure t)
-(use-package racer :ensure t)
-(use-package cargo :ensure t)
-(use-package protobuf-mode :ensure t)
-(use-package clang-format :ensure t)
+(use-package smooth-scrolling)
+(use-package sws-mode)
+(use-package tidy)
+(use-package unbound)
+(use-package undo-tree)
+(use-package vlf)
+(use-package websocket)
+(use-package whitespace-cleanup-mode)
+(use-package yaml-mode)
+(use-package jedi)
+(use-package quack)
+(use-package toml-mode)
+(use-package racer)
+(use-package cargo)
+(use-package protobuf-mode)
+(use-package clang-format)
 
-(use-package ccls :ensure t
+(use-package ccls
   ;; :hook ((c-mode c++-mode objc-mode cuda-mode) .
   ;;        (lambda () (require 'ccls) (lsp)))
   )
-(use-package lsp-mode :commands lsp :ensure t)
-(use-package lsp-ui :commands lsp-ui-mode :ensure t)
-(use-package company-lsp :commands company-lsp :ensure t)
+(use-package lsp-mode :commands lsp)
+(use-package lsp-ui :commands lsp-ui-mode)
+(use-package company-lsp :commands company-lsp)
 
 
 ;; Complex package declarations
 
 (use-package ace-jump-mode
-  :ensure ace-jump-mode
   :bind (("C-c j" . ace-jump-mode)))
 
-(use-package auto-indent-mode :ensure auto-indent-mode
+(use-package auto-indent-mode
   :config
   (progn
     (advice-remove 'beginning-of-visual-line
                    #'ad-Advice-move-beginning-of-line)))
 
 (use-package dired-details
-  :ensure dired-details
   :init (autoload 'dired-details-install "dired-details")
   :config (add-hook 'after-init-hook 'dired-details-install))
 
 (use-package elpy
-  :ensure elpy
   :config
   (progn
     (add-to-list 'exec-path (expand-file-name "~/.local/bin"))
     (define-key elpy-mode-map [remap elpy-goto-definition] 'helm-semantic-or-imenu)))
 
 (use-package erc
-  :defer t
   :config
   (progn
     (add-hook 'erc-mode-hook 'visual-line-mode)
@@ -117,13 +111,9 @@
     (ad-activate 'erc-cmd-AWAY)))
 
 (use-package ess
-  :ensure ess
-  :defer t
   :config (require 'ess-site nil t))
 
 (use-package geben
-  :ensure geben
-  :defer t
   :config
   (defadvice geben-dbgp-redirect-stream (around
                                          geben-output-inhibit-read-only
@@ -135,18 +125,14 @@
     (set-buffer-modified-p nil)))
 
 (use-package geiser
-  :ensure geiser
   :config
   (eval-after-load 'geiser-mode
     '(define-key geiser-mode-map [remap geiser-edit-symbol-at-point]
        'helm-semantic-or-imenu)))
 
-(use-package graphviz-dot-mode
-  :ensure graphviz-dot-mode
-  :mode "\\.dot$")
+(use-package graphviz-dot-mode)
 
 (use-package helm
-  :ensure helm
   :config
   (progn
     (bind-key "M-C-y" 'helm-show-kill-ring)
@@ -168,7 +154,6 @@
          (require 'helm-files)))))
 
 (use-package hl-line+
-  :ensure hl-line+
   :config
   (progn
     (defvar hl-line-ignore-regexp "\*magit:.*")
@@ -181,7 +166,6 @@
         ad-do-it))))
 
 (use-package js2-mode
-  :ensure js2-mode
   :mode (("\\.js\\'" . js2-mode)
          ("\\.json\\'" . javascript-mode)))
 
@@ -205,13 +189,11 @@
   (magit-refresh))
 
 (use-package magit
-  :ensure magit
   :bind ("C-c g" . magit-status)
   :config
   (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))
 
 (use-package multiple-cursors
-  :ensure multiple-cursors
   :bind (("C-c C-S-c" . mc/edit-lines)
          ("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
@@ -220,12 +202,13 @@
   :config (setq mc/list-file (concat tmp-dir ".mc-lists.el")))
 
 (use-package org
-  :ensure org
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c M-d" . org-open-day-page)
          ("C-c C-x C-o" . org-clock-out)
-         ("C-c r" . org-capture))
+         ("C-c r" . org-capture)
+         :map dired-mode-map
+         ("r" . 'my/dired-launch-command))
   :config
   (progn
     (defun org-open-day-page ()
@@ -248,7 +231,6 @@
 
 
 (use-package paredit
-  :ensure paredit
   :bind (:map lisp-interaction-mode-map
               ("C-c C-e" . eval-print-last-sexp)
               :map paredit-mode-map
@@ -268,7 +250,7 @@
 
 
 
-(use-package platformio-mode :ensure t
+(use-package platformio-mode
   :config
   (progn
     (add-to-list 'exec-path (expand-file-name "~/.platformio/penv/bin") t)
@@ -298,9 +280,9 @@
     (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
     (add-hook 'ruby-mode-hook 'yard-mode)))
 
-(use-package yard-mode :ensure t)
-(use-package ruby-test-mode :ensure t)
-(use-package rvm :ensure t)
+(use-package yard-mode)
+(use-package ruby-test-mode)
+(use-package rvm)
 
 (use-package scheme
   :mode (("\\.ss\\'" . scheme-mode)
@@ -308,12 +290,10 @@
   :config (add-hook 'scheme-mode-hook 'paredit-mode))
 
 (use-package smart-mode-line
-  :ensure smart-mode-line
   :after (my-custom-values)
   :init (sml/setup))
 
 (use-package smex
-  :ensure smex
   :bind (("M-x" . smex)
          ("M-X" . smex-major-mode-commands)
          ;; This is your old M-x.
@@ -321,13 +301,12 @@
   :config (smex-initialize))
 
 (use-package pcache
-  :ensure pcache
   :config (setq pcache-directory (concat tmp-dir "pcache")))
 
 ;; Pseudo-packages. Not actually elpa packages, but make use of `use-package'
 ;; for setup.
 
-(defun dired-launch-command ()
+(defun my/dired-launch-command ()
   "Open the file at point."
   (interactive)
   (org-open-file (dired-get-filename)))
@@ -335,7 +314,7 @@
 (use-package dired
   :config (progn
             (require 'org) ;; for `org-open-file'
-            (define-key dired-mode-map "r" 'dired-launch-command)))
+            (define-key dired-mode-map "r" 'my/dired-launch-command)))
 
 (use-package woman
   :config
@@ -391,7 +370,6 @@
     (define-key Info-mode-map (kbd "'") 'Info-prev-reference)))
 
 (use-package editorconfig
-  :ensure t
   :config
   (editorconfig-mode 1))
 
