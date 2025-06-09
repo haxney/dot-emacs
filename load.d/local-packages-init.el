@@ -49,7 +49,6 @@
 (use-package inflections)
 (use-package jade-mode)
 (use-package keyfreq)
-(use-package keywiz)
 (use-package lua-mode)
 (use-package markdown-mode)
 (use-package mediawiki)
@@ -57,8 +56,6 @@
 (use-package rust-mode)
 (use-package smooth-scrolling)
 (use-package sws-mode)
-(use-package tidy)
-(use-package unbound)
 (use-package undo-tree)
 (use-package vlf)
 (use-package websocket)
@@ -74,7 +71,6 @@
 (use-package ccls)
 (use-package lsp-mode)
 (use-package lsp-ui)
-(use-package company-lsp)
 
 ;; Complex package declarations
 
@@ -139,18 +135,6 @@
     (eval-after-load 'helm-buffers
       '(progn
          (require 'helm-files)))))
-
-(use-package hl-line+
-  :config
-  (progn
-    (defvar hl-line-ignore-regexp "\*magit:.*")
-    (defadvice global-hl-line-highlight (around unhighlight-some-buffers
-                                                ()
-                                                activate)
-      "Don't highlight in buffers which match a regexp."
-      (unless (string-match hl-line-ignore-regexp
-                            (buffer-name (window-buffer (selected-window))))
-        ad-do-it))))
 
 (use-package js2-mode
   :mode (("\\.js\\'" . js2-mode)
