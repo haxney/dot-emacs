@@ -17,7 +17,7 @@
   "Directory for temporary Emacs files.")
 (make-directory tmp-dir t)
 
-(setq custom-file (concat user-emacs-directory "custom.el"))
+(setq custom-file (concat user-emacs-directory "my-custom-values.el"))
 
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
