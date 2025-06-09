@@ -106,10 +106,9 @@ by using nXML's indentation rules."
       (while (search-forward (char-to-string 160) nil t)
         (replace-match " "))))
    ((string-match "reddit\\.com\\.[0-9a-z]+\\.txt" (buffer-name))
-    (longlines-mode))
+    (visual-line-mode))
    ((string-match "/tmp/Rtmp.+" (buffer-file-name))
-    (R-mode))
-   ))
+    (R-mode))))
 
 (c-add-style "drupal"
              '((c-basic-offset . 2)
@@ -125,7 +124,7 @@ by using nXML's indentation rules."
 
 ;;(add-to-list 'ac-sources 'ac-source-company-geiser)
 
-(remove-hook 'find-file-hooks 'vc-find-file-hook)
+(remove-hook 'find-file-hook 'vc-find-file-hook)
 
 (when (file-exists-p "~/Private/private.el.gz.gpg")
   (load "~/Private/private.el.gz.gpg"))
