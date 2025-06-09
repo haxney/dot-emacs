@@ -1,4 +1,4 @@
-;;; local-packages-init.el --- Initialization of packages
+;;; local-packages-init.el --- Initialization of packages -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014 Daniel Hackney
 
@@ -28,6 +28,10 @@
 
 ;; Simple package declarations which don't require config.
 
+;; Load this first to allow `use-package' to use the `:delight' keyword.
+(use-package delight)
+
+(use-package editorconfig :delight)
 (use-package gh)
 (use-package haml-mode)
 (use-package feature-mode)
@@ -50,10 +54,7 @@
 (use-package markdown-mode)
 (use-package mediawiki)
 (use-package restclient)
-(use-package rust-mode
-  :config
-  (progn
-    (add-hook 'rust-mode-hook '(lambda () (set-fill-column 100)))))
+(use-package rust-mode)
 (use-package smooth-scrolling)
 (use-package sws-mode)
 (use-package tidy)
@@ -70,47 +71,33 @@
 (use-package cargo)
 (use-package protobuf-mode)
 (use-package clang-format)
-
-(use-package ccls
-  ;; :hook ((c-mode c++-mode objc-mode cuda-mode) .
-  ;;        (lambda () (require 'ccls) (lsp)))
-  )
-(use-package lsp-mode :commands lsp)
-(use-package lsp-ui :commands lsp-ui-mode)
-(use-package company-lsp :commands company-lsp)
-
+(use-package ccls)
+(use-package lsp-mode)
+(use-package lsp-ui)
+(use-package company-lsp)
 
 ;; Complex package declarations
 
-(use-package ace-jump-mode
-  :bind (("C-c j" . ace-jump-mode)))
-
-(use-package auto-indent-mode
-  :config
-  (progn
-    (advice-remove 'beginning-of-visual-line
-                   #'ad-Advice-move-beginning-of-line)))
-
-(use-package dired-details
-  :init (autoload 'dired-details-install "dired-details")
-  :config (add-hook 'after-init-hook 'dired-details-install))
+(use-package snap-indent
+  :hook (prog-mode . snap-indent-mode)
+  :custom ((snap-indent-format 'untabify)
+           (snap-indent-on-save t)))
 
 (use-package elpy
+  :bind (:map elpy-mode-map
+              ([remap elpy-goto-definition] . helm-semantic-or-imenu))
   :config
   (progn
-    (add-to-list 'exec-path (expand-file-name "~/.local/bin"))
-    (define-key elpy-mode-map [remap elpy-goto-definition] 'helm-semantic-or-imenu)))
+    (add-to-list 'exec-path (expand-file-name "~/.local/bin"))))
 
 (use-package erc
+  :hook ((erc-mode . visual-line-mode))
   :config
   (progn
-    (add-hook 'erc-mode-hook 'visual-line-mode)
-
     (ad-activate 'erc-process-away)
     (ad-activate 'erc-cmd-AWAY)))
 
-(use-package ess
-  :config (require 'ess-site nil t))
+(use-package ess)
 
 (use-package geben
   :config
@@ -124,23 +111,24 @@
     (set-buffer-modified-p nil)))
 
 (use-package geiser
-  :config
-  (eval-after-load 'geiser-mode
-    '(define-key geiser-mode-map [remap geiser-edit-symbol-at-point]
-       'helm-semantic-or-imenu)))
+  :defines geiser-mode-map
+  :bind (:map geiser-mode-map
+              ([remap geiser-edit-symbol-at-point] . helm-semantic-or-imenu)))
 
 (use-package graphviz-dot-mode)
 
 (use-package helm
+  :bind (("M-C-y" . helm-show-kill-ring)
+         ("C-x f" . helm-recentf)
+         ("C-x b" . helm-buffers-list)
+         ([remap find-tag] . helm-semantic-or-imenu)
+         ([remap apropos-command] . helm-apropos)
+         :map esc-map
+         ([remap find-tag] . helm-semantic-or-imenu)
+         :map help-map
+         ([remap apropos-command] . helm-apropos))
   :config
   (progn
-    (bind-key "M-C-y" 'helm-show-kill-ring)
-    (bind-key "C-x f" 'helm-recentf)
-    (bind-key "C-x b" 'helm-buffers-list)
-    (define-key esc-map [remap find-tag] 'helm-semantic-or-imenu)
-    (global-set-key [remap find-tag] 'helm-semantic-or-imenu)
-    (define-key help-map [remap apropos-command] 'helm-apropos)
-    (global-set-key [remap apropos-command] 'helm-apropos)
     (when (and (boundp 'ido-minor-mode-map-entry)
                ido-minor-mode-map-entry)
       (define-key (cdr ido-minor-mode-map-entry)
@@ -168,29 +156,31 @@
   :mode (("\\.js\\'" . js2-mode)
          ("\\.json\\'" . javascript-mode)))
 
-(defun magit-toggle-whitespace ()
-  "Toggle whitespace."
-  (interactive)
-  (if (member "-w" magit-diff-options)
-      (magit-dont-ignore-whitespace)
-    (magit-ignore-whitespace)))
-
-(defun magit-ignore-whitespace ()
-  "Ignore whitespace."
-  (interactive)
-  (add-to-list 'magit-diff-options "-w")
-  (magit-refresh))
-
-(defun magit-dont-ignore-whitespace ()
-  "Don't ignore whitespace."
-  (interactive)
-  (setq magit-diff-options (remove "-w" magit-diff-options))
-  (magit-refresh))
-
 (use-package magit
-  :bind ("C-c g" . magit-status)
+  :bind (("C-c g" . magit-status)
+         :map magit-status-mode-map
+         ("W" . magit-toggle-whitespace))
+  :defines (magit-diff-options)
+  :commands (magit-refresh magit-ignore-whitespace magit-dont-ignore-whitespace)
   :config
-  (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))
+  (defun magit-ignore-whitespace ()
+    "Ignore whitespace."
+    (interactive)
+    (add-to-list 'magit-diff-options "-w")
+    (magit-refresh))
+
+  (defun magit-dont-ignore-whitespace ()
+    "Don't ignore whitespace."
+    (interactive)
+    (setq magit-diff-options (remove "-w" magit-diff-options))
+    (magit-refresh))
+
+  (defun magit-toggle-whitespace ()
+    "Toggle whitespace."
+    (interactive)
+    (if (member "-w" magit-diff-options)
+        (magit-dont-ignore-whitespace)
+      (magit-ignore-whitespace))))
 
 (use-package multiple-cursors
   :bind (("C-c C-S-c" . mc/edit-lines)
@@ -200,6 +190,9 @@
          ("s-SPC" . set-rectangular-region-anchor)))
 
 (use-package org
+  :autoload (org-link-set-parameters org-read-date)
+  :functions (dired-get-filename)
+  :commands (my/dired-launch-command)
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c M-d" . org-open-day-page)
@@ -219,13 +212,18 @@
 
     (defun org-format-export-tel-link (path desc format)
       "Format a tel: link for export"
-      (case format
+      (cl-case format
         (html
          (format "<a href=\"%s\">%s</a>" path desc))
         (latex
          (format "\\href{tel:%s}{\\texttt{%s}}" path desc))))
 
-    (org-add-link-type "tel" nil 'org-format-export-tel-link)))
+    (org-link-set-parameters "tel" :export 'org-format-export-tel-link)
+
+    (defun my/dired-launch-command ()
+      "Open the file at point."
+      (interactive)
+      (org-open-file (dired-get-filename)))))
 
 
 (use-package paredit
@@ -233,6 +231,8 @@
               ("C-c C-e" . eval-print-last-sexp)
               :map paredit-mode-map
               ("<return>" . my/paredit-RET))
+  :functions (ielm-return)
+  :commands (paredit-RET)
   :config
   (defun my/paredit-RET ()
     "Wraps `paredit-RET' to provide a sensible minibuffer experience."
@@ -246,50 +246,38 @@
      (t
       (paredit-RET)))))
 
-
-
 (use-package platformio-mode
+  :hook ((c++-mode . platformio-conditionally-enable)
+         (compilation-filter . endless/colorize-compilation))
+  :functions (ansi-color-apply-on-region)
   :config
   (progn
     (add-to-list 'exec-path (expand-file-name "~/.platformio/penv/bin") t)
     (setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/.platformio/penv/bin")))
-    (add-hook 'c++-mode-hook 'platformio-conditionally-enable)
 
     (require 'ansi-color)
     (defun endless/colorize-compilation ()
       "Colorize from `compilation-filter-start' to `point'."
       (let ((inhibit-read-only t))
         (ansi-color-apply-on-region
-         compilation-filter-start (point))))
-
-    (add-hook 'compilation-filter-hook
-              #'endless/colorize-compilation)))
+         compilation-filter-start (point))))))
 
 (use-package ruby-mode
-  :mode (("Gemfile$" . ruby-mode)
-         ("Buildfile$" . ruby-mode)
-         ("config.ru$" . ruby-mode)
-         ("\\.rake$" . ruby-mode)
-         ("Rakefile$" . ruby-mode)
-         ("\\.rabl$" . ruby-mode)
-         ("\\.json_builder$" . ruby-mode))
-  :config
-  (progn
-    (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
-    (add-hook 'ruby-mode-hook 'yard-mode)))
+  :hook ((ruby-mode . flyspell-prog-mode)
+         (ruby-mode . yard-mode))
+  :mode ("\\.json_builder\\'"))
 
 (use-package yard-mode)
 (use-package ruby-test-mode)
 (use-package rvm)
 
 (use-package scheme
+  :hook (scheme-mode . paredit-mode)
   :mode (("\\.ss\\'" . scheme-mode)
-         ("\\.scm$" . scheme-mode))
-  :config (add-hook 'scheme-mode-hook 'paredit-mode))
+         ("\\.scm\\'" . scheme-mode)))
 
 (use-package smart-mode-line
-  :after (my-custom-values)
-  :init (sml/setup))
+  :config (sml/setup))
 
 (use-package smex
   :bind (("M-x" . smex)
@@ -300,26 +288,14 @@
 
 (use-package pcache)
 
-;; Pseudo-packages. Not actually elpa packages, but make use of `use-package'
-;; for setup.
-
-(defun my/dired-launch-command ()
-  "Open the file at point."
-  (interactive)
-  (org-open-file (dired-get-filename)))
-
 (use-package woman
-  :config
-  (progn
-    (add-hook 'woman-mode-hook 'scroll-lock-mode)))
+  :hook (woman-mode . scroll-lock-mode))
 
 (use-package man
-  :config
-  (progn
-    (add-hook 'Man-mode-hook 'scroll-lock-mode)))
+  :hook (Man-mode . scroll-lock-mode))
 
 (use-package conf-mode
-  :mode "\.cnf$")
+  :mode "\\.cnf\\'")
 
 (use-package tramp
   :config
@@ -331,21 +307,15 @@
                  '((regexp-quote (system-name)) nil nil))))
 
 (use-package cua-base
-  :config
-  (progn
-    ;; Make paredit play nice with cua's rectangle editing.
-    (define-key cua--rectangle-keymap [remap paredit-forward-delete] 'cua-delete-char-rectangle)
-    (define-key cua--rectangle-keymap [remap paredit-backward-delete] 'cua-delete-char-rectangle)))
+  ;; Make paredit play nice with cua's rectangle editing.
+  :bind (:map cua--rectangle-keymap
+    ([remap paredit-forward-delete] . cua-delete-char-rectangle)
+    ([remap paredit-backward-delete] . cua-delete-char-rectangle)))
 
 (use-package info
-  :config
-  (progn
-    (define-key Info-mode-map (kbd ";") 'Info-next-reference)
-    (define-key Info-mode-map (kbd "'") 'Info-prev-reference)))
-
-(use-package editorconfig
-  :config
-  (editorconfig-mode 1))
+  :bind (:map Info-mode-map
+              (";" . Info-next-reference)
+              ("'" . Info-prev-reference)))
 
 (defun other-window-backwards ()
   "Move backwards one window."
