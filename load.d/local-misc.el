@@ -174,6 +174,20 @@ called when needed."
       (insert (base64-decode-string encoded-text))
       (image-mode))))
 
+
+(bind-key "C-M-;" 'comment-dwim)
+
+(eval-after-load 'comint
+  '(defadvice comint-previous-input
+     (around restore-comint-input-with-zero-prefix activate)
+     "Make `comint-previous-input' restore the input with arg == 0"
+     (if (and
+          comint-input-ring-index
+          comint-stored-incomplete-input
+          (eq arg 0))
+         (comint-restore-input)
+       ad-do-it)))
+
 (provide 'local-misc)
 
 ;;; local-misc.el ends here

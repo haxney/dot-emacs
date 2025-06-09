@@ -39,7 +39,6 @@
 (use-package bind-key)
 (use-package coffee-mode)
 (use-package csv-mode)
-(use-package diminish)
 (use-package flycheck)
 (use-package helm-descbinds)
 (use-package iedit)
@@ -309,11 +308,6 @@
   (interactive)
   (org-open-file (dired-get-filename)))
 
-(use-package dired
-  :config (progn
-            (require 'org) ;; for `org-open-file'
-            (define-key dired-mode-map "r" 'my/dired-launch-command)))
-
 (use-package woman
   :config
   (progn
@@ -336,30 +330,12 @@
     (add-to-list 'tramp-default-proxies-alist
                  '((regexp-quote (system-name)) nil nil))))
 
-(use-package abbrev
-  :diminish abbrev-mode)
-
-(use-package newcomment
-  :bind ("C-M-;" . comment-dwim))
-
 (use-package cua-base
   :config
   (progn
     ;; Make paredit play nice with cua's rectangle editing.
     (define-key cua--rectangle-keymap [remap paredit-forward-delete] 'cua-delete-char-rectangle)
     (define-key cua--rectangle-keymap [remap paredit-backward-delete] 'cua-delete-char-rectangle)))
-
-(use-package comint
-  :config
-  '(defadvice comint-previous-input
-     (around restore-comint-input-with-zero-prefix activate)
-     "Make `comint-previous-input' restore the input with arg == 0"
-     (if (and
-          comint-input-ring-index
-          comint-stored-incomplete-input
-          (eq arg 0))
-         (comint-restore-input)
-       ad-do-it)))
 
 (use-package info
   :config

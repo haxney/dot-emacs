@@ -65,8 +65,7 @@
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(edit-server-new-frame nil)
  '(elpy-default-minor-modes '(eldoc-mode flycheck-mode auto-complete-mode))
- '(emacs-lisp-mode-hook
-   '(turn-on-eldoc-mode flyspell-prog-mode paredit-mode set-elisp-mode-name))
+ '(emacs-lisp-mode-hook '(turn-on-eldoc-mode flyspell-prog-mode paredit-mode))
  '(enable-recursive-minibuffers t)
  '(erc-autoaway-mode t)
  '(erc-autojoin-channels-alist '(("freenode.net" "#emacs") ("quadium.net" "#betaspring")))
@@ -117,7 +116,7 @@
  '(erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE" "333" "353"))
  '(erc-track-minor-mode t)
  '(erc-track-mode t)
- '(erc-track-position-in-mode-line t)
+ '(erc-track-position-in-mode-line t t)
  '(erc-track-remove-disconnected-buffers t)
  '(erc-truncate-buffer-on-save t)
  '(erc-truncate-mode t)
