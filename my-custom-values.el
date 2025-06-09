@@ -436,6 +436,7 @@
  '(url-automatic-caching t)
  '(url-cache-directory "~/.emacs.d/tmp/url-cache")
  '(url-cookie-file "~/.emacs.d/tmp/url/cookies")
+ '(use-package-always-ensure t)
  '(vc-display-status nil)
  '(vc-handled-backends nil)
  '(view-mode-hook '(scroll-lock-mode) t)
@@ -471,3 +472,6 @@
  '(hl-sexp-face ((t (:background "white smoke"))) t)
  '(magit-item-highlight ((t nil)))
  '(whizzy-point-face ((((class color)) nil)) t))
+
+(provide 'my-custom-values)
+;;; my-custom-values.el ends here

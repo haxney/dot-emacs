@@ -25,7 +25,6 @@
                          ("org" . "https://orgmode.org/elpa/")))
 
 (package-initialize)
-(require 'use-package)
 
 ;; Force `load-dir' package to load directories without having to wait for
 ;; custom to finish loading.
