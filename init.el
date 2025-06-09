@@ -26,25 +26,16 @@
 
 (package-initialize)
 
-;; Force `load-dir' package to load directories without having to wait for
-;; custom to finish loading.
-(use-package load-dir
-  :ensure load-dir
-  :init (progn
-          (setq load-dirs t)
-          (load-dirs)))
+(load custom-file)
 
-(defun load-custom-file ()
-  "Load the custom file."
-  (load custom-file))
-
-(add-hook 'after-init-hook 'load-custom-file)
+(use-package load-dir)
 
 (defgroup local-conf nil
   "A group for all of my local configuration.
 
 It's not unreasonable to think that this may get split out into
 its own package someday."
+  :group 'local
   :prefix "local-conf-"
   :tag "Local configuration")
 
