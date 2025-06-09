@@ -277,6 +277,7 @@
          ("\\.scm\\'" . scheme-mode)))
 
 (use-package smart-mode-line
+  :demand t
   :config (sml/setup))
 
 (use-package smex
