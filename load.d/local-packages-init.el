@@ -31,7 +31,6 @@
 ;; Simple package declarations which don't require config.
 
 (use-package gh :ensure t)
-(use-package rinari :ensure rinari)
 (use-package haml-mode :ensure t)
 (use-package feature-mode :ensure t)
 (use-package rspec-mode :ensure t)
@@ -67,12 +66,21 @@
 (use-package websocket :ensure websocket)
 (use-package whitespace-cleanup-mode :ensure whitespace-cleanup-mode)
 (use-package yaml-mode :ensure yaml-mode)
-(use-package auto-indent-mode :ensure auto-indent-mode)
 (use-package jedi :ensure t)
 (use-package quack :ensure t)
 (use-package toml-mode :ensure t)
 (use-package racer :ensure t)
 (use-package cargo :ensure t)
+(use-package protobuf-mode :ensure t)
+(use-package clang-format :ensure t)
+
+(use-package ccls :ensure t
+  ;; :hook ((c-mode c++-mode objc-mode cuda-mode) .
+  ;;        (lambda () (require 'ccls) (lsp)))
+  )
+(use-package lsp-mode :commands lsp :ensure t)
+(use-package lsp-ui :commands lsp-ui-mode :ensure t)
+(use-package company-lsp :commands company-lsp :ensure t)
 
 
 ;; Complex package declarations
@@ -238,24 +246,44 @@
 
     (org-add-link-type "tel" nil 'org-format-export-tel-link)))
 
-(use-package org-roam
-      :ensure t
-      :hook
-      (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory "~/org/")
-      :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n g" . org-roam-graph-show))
-              :map org-mode-map
-              (("C-c n i" . org-roam-insert))
-              (("C-c n I" . org-roam-insert-immediate))))
 
 (use-package paredit
   :ensure paredit
+  :bind (:map lisp-interaction-mode-map
+              ("C-c C-e" . eval-print-last-sexp)
+              :map paredit-mode-map
+              ("<return>" . my/paredit-RET))
   :config
-  (define-key lisp-interaction-mode-map (kbd "C-c C-e") 'eval-print-last-sexp))
+  (defun my/paredit-RET ()
+    "Wraps `paredit-RET' to provide a sensible minibuffer experience."
+    (interactive)
+    (cond
+     ((minibufferp)
+      (read--expression-try-read))
+     ((and (eq major-mode 'inferior-emacs-lisp-mode)
+           (string-prefix-p "*ielm*" (buffer-name)))
+      (ielm-return))
+     (t
+      (paredit-RET)))))
+
+
+
+(use-package platformio-mode :ensure t
+  :config
+  (progn
+    (add-to-list 'exec-path (expand-file-name "~/.platformio/penv/bin") t)
+    (setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/.platformio/penv/bin")))
+    (add-hook 'c++-mode-hook 'platformio-conditionally-enable)
+
+    (require 'ansi-color)
+    (defun endless/colorize-compilation ()
+      "Colorize from `compilation-filter-start' to `point'."
+      (let ((inhibit-read-only t))
+        (ansi-color-apply-on-region
+         compilation-filter-start (point))))
+
+    (add-hook 'compilation-filter-hook
+              #'endless/colorize-compilation)))
 
 (use-package ruby-mode
   :mode (("Gemfile$" . ruby-mode)
@@ -274,9 +302,6 @@
 (use-package ruby-test-mode :ensure t)
 (use-package rvm :ensure t)
 
-(use-package inf-ruby
-  :config (setf (car inf-ruby-implementations) '("ruby" . "pry")))
-
 (use-package scheme
   :mode (("\\.ss\\'" . scheme-mode)
          ("\\.scm$" . scheme-mode))
@@ -284,6 +309,7 @@
 
 (use-package smart-mode-line
   :ensure smart-mode-line
+  :after (my-custom-values)
   :init (sml/setup))
 
 (use-package smex
