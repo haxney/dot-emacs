@@ -198,8 +198,7 @@
          ("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C-<" . mc/mark-all-like-this)
-         ("s-SPC" . set-rectangular-region-anchor))
-  :config (setq mc/list-file (concat tmp-dir ".mc-lists.el")))
+         ("s-SPC" . set-rectangular-region-anchor)))
 
 (use-package org
   :bind (("C-c l" . org-store-link)
@@ -300,8 +299,7 @@
          ("C-c M-x" . execute-extended-command))
   :config (smex-initialize))
 
-(use-package pcache
-  :config (setq pcache-directory (concat tmp-dir "pcache")))
+(use-package pcache)
 
 ;; Pseudo-packages. Not actually elpa packages, but make use of `use-package'
 ;; for setup.

@@ -13,12 +13,6 @@
 
 ;;; Code:
 
-(defvar tmp-dir (file-name-as-directory (concat user-emacs-directory "tmp"))
-  "Directory for temporary Emacs files.")
-(make-directory tmp-dir t)
-
-(setq custom-file (concat user-emacs-directory "my-custom-values.el"))
-
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
@@ -26,6 +20,14 @@
 
 (package-initialize)
 
+;; Force loading this immediately. It overwrites package-specific paths to keep
+;; ~/.emacs.d tidy.
+(use-package no-littering
+  :ensure t
+  :demand t
+  :config (no-littering-theme-backups))
+
+(setq custom-file (concat user-emacs-directory "my-custom-values.el"))
 (load custom-file)
 
 (use-package load-dir)
